@@ -5,7 +5,7 @@ WORKDIR /app
 
 # Install dependencies based on the preferred package manager
 COPY package.json package-lock.json* ./
-RUN npm ci
+RUN npm install --legacy-peer-deps
 
 # Rebuild the source code only when needed
 FROM node:18-alpine AS builder
@@ -17,7 +17,7 @@ COPY . .
 RUN npx prisma generate
 
 # Disable telemetry during build
-ENV NEXT_TELEMETRY_DISABLED 1
+ENV NEXT_TELEMETRY_DISABLED=1
 
 RUN npm run build
 
@@ -28,8 +28,8 @@ WORKDIR /app
 # Install prisma and tsx globally to ensure they are available for the entrypoint
 RUN npm install -g prisma tsx
 
-ENV NODE_ENV production
-ENV NEXT_TELEMETRY_DISABLED 1
+ENV NODE_ENV=production
+ENV NEXT_TELEMETRY_DISABLED=1
 
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
@@ -56,7 +56,7 @@ USER nextjs
 
 EXPOSE 3000
 
-ENV PORT 3000
-ENV HOSTNAME "0.0.0.0"
+ENV PORT=3000
+ENV HOSTNAME="0.0.0.0"
 
 ENTRYPOINT ["/app/scripts/entrypoint.sh"]
