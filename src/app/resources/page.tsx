@@ -1,6 +1,8 @@
 
 import { PrismaClient } from '@prisma/client';
 
+export const dynamic = 'force-dynamic';
+
 import Footer from '@/components/Footer';
 import ResourceCard from '@/components/ResourceCard';
 import ArticleCard from '@/components/ArticleCard';

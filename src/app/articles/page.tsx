@@ -1,5 +1,8 @@
 
 import { PrismaClient } from '@prisma/client';
+
+export const dynamic = 'force-dynamic';
+
 import Link from 'next/link';
 
 import Footer from '@/components/Footer';

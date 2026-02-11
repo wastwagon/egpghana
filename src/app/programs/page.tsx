@@ -2,6 +2,8 @@
 import Footer from '@/components/Footer';
 import Link from 'next/link';
 import { prisma } from '@/lib/prisma';
+
+export const dynamic = 'force-dynamic';
 import * as Icons from 'lucide-react';
 
 export const revalidate = 0;
