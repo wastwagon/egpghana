@@ -1,5 +1,7 @@
 import { prisma } from '@/lib/prisma';
 
+export const dynamic = 'force-dynamic';
+
 import Footer from '@/components/Footer';
 import StatCard from '@/components/StatCard';
 import ProgramTimelineChart from '@/components/charts/ProgramTimelineChart';

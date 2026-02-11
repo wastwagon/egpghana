@@ -1,5 +1,7 @@
 import Link from 'next/link';
 
+export const dynamic = 'force-dynamic';
+
 import Footer from '@/components/Footer';
 import ArticleCard from '@/components/ArticleCard';
 import EventCard from '@/components/EventCard';

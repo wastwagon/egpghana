@@ -1,5 +1,7 @@
 import { PrismaClient } from '@prisma/client';
 
+export const dynamic = 'force-dynamic';
+
 import Footer from '@/components/Footer';
 import StatCard from '@/components/StatCard';
 import DebtOverviewChart from '@/components/charts/DebtOverviewChart';
