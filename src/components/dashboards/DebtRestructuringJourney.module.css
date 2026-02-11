@@ -1,0 +1,539 @@
+/* Main Container Styles */
+.debtRestructuringDashboard {
+    font-family: 'Poppins', sans-serif;
+    color: #333;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+/* Section Styling */
+.section {
+    margin-bottom: 50px;
+    padding: 30px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+}
+
+.sectionHeader {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.sectionHeader h2 {
+    font-size: 36px;
+    color: #006B3F;
+    /* Ghana green */
+    margin-bottom: 15px;
+    position: relative;
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+.subtitle {
+    font-size: 22px;
+    color: #555;
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.5;
+}
+
+/* Stats Cards */
+.statsCards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.statCard {
+    background: white;
+    border-radius: 10px;
+    padding: 15px;
+    min-width: 200px;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    border-left: 6px solid #006B3F;
+    /* Ghana green */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease;
+}
+
+.statCard:hover {
+    transform: translateY(-5px);
+}
+
+.statCard:nth-child(2) {
+    border-left-color: #FCD116;
+    /* Ghana gold */
+}
+
+.statCard:nth-child(3) {
+    border-left-color: #CE1126;
+    /* Ghana red */
+}
+
+.statCard:nth-child(4) {
+    border-left-color: #00458b;
+    /* Blue */
+}
+
+.statInfo h3 {
+    font-size: 24px;
+    margin-bottom: 4px;
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+.statInfo p {
+    margin: 0;
+    color: #000000;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+/* Timeline Styles */
+.timelineFilter {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 35px 0;
+    flex-wrap: wrap;
+}
+
+.filterBtn {
+    background: #f5f5f5;
+    border: 2px solid #e0e0e0;
+    border-radius: 30px;
+    padding: 12px 25px;
+    font-size: 20px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Poppins', sans-serif;
+}
+
+.filterBtn:hover {
+    background: #e9e9e9;
+}
+
+.filterBtnActive {
+    background: #006B3F;
+    color: white;
+    border-color: #006B3F;
+}
+
+.timeline {
+    position: relative;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px 0;
+}
+
+/* Updated timeline style with the line centered between date and dot */
+.timeline:before {
+    content: '';
+    position: absolute;
+    height: 100%;
+    width: 5px;
+    background: #e0e0e0;
+    left: 140px;
+    /* Adjusted - moved to between date and dot */
+    top: 0;
+}
+
+.timelineItem {
+    padding: 15px 0;
+    position: relative;
+    width: 100%;
+    display: flex;
+    margin-bottom: 35px;
+    align-items: flex-start;
+}
+
+/* Changed order - dot is now between date and content */
+.timelineDate {
+    min-width: 120px;
+    padding-right: 40px;
+    /* Increased - more space between date and dot */
+    text-align: right;
+    flex-shrink: 0;
+}
+
+.timelineDot {
+    width: 24px;
+    height: 24px;
+    background: #006B3F;
+    border-radius: 50%;
+    margin: 10px 20px 0;
+    /* Added horizontal margins */
+    border: 4px solid white;
+    z-index: 1;
+    flex-shrink: 0;
+}
+
+.timelineContent {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
+    flex: 1;
+    position: relative;
+    border-left: 5px solid #006B3F;
+    font-size: 18px;
+}
+
+.month {
+    font-weight: 600;
+    color: #006B3F;
+    font-size: 20px;
+    line-height: 1.5;
+}
+
+.year {
+    color: #555;
+    font-size: 18px;
+}
+
+.timelineContent h3 {
+    margin-top: 0;
+    font-size: 19px;
+    color: #333;
+    font-weight: 600;
+    line-height: 1.4;
+    margin-bottom: 12px;
+}
+
+.timelineContent p {
+    color: #444;
+    margin-bottom: 15px;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+.timelineTag {
+    display: inline-block;
+    padding: 6px 16px;
+    border-radius: 30px;
+    font-size: 13px;
+    font-weight: 500;
+    background: #e8f5e9;
+    color: #006B3F;
+}
+
+/* Year-specific coloring */
+.timelineItem[data-year="2022"] .timelineDot {
+    background: #CE1126;
+}
+
+.timelineItem[data-year="2022"] .month {
+    color: #CE1126;
+}
+
+.timelineItem[data-year="2022"] .timelineContent {
+    border-left-color: #CE1126;
+}
+
+.timelineItem[data-year="2023"] .timelineDot {
+    background: #FCD116;
+}
+
+.timelineItem[data-year="2023"] .month {
+    color: #b39000;
+}
+
+.timelineItem[data-year="2023"] .timelineContent {
+    border-left-color: #FCD116;
+}
+
+.timelineItem[data-year="2024"] .timelineDot {
+    background: #006B3F;
+}
+
+.timelineItem[data-year="2024"] .month {
+    color: #006B3F;
+}
+
+.timelineItem[data-year="2024"] .timelineContent {
+    border-left-color: #006B3F;
+}
+
+.timelineItem[data-year="2025"] .timelineDot {
+    background: #00458b;
+}
+
+.timelineItem[data-year="2025"] .month {
+    color: #00458b;
+}
+
+.timelineItem[data-year="2025"] .timelineContent {
+    border-left-color: #00458b;
+}
+
+/* Info Cards */
+.infoCards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+    gap: 30px;
+    margin-top: 35px;
+}
+
+.infoCard {
+    background: white;
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    border-top: 6px solid #006B3F;
+    font-size: 18px;
+}
+
+.infoCard:nth-child(2) {
+    border-top-color: #FCD116;
+}
+
+.infoCard:nth-child(3) {
+    border-top-color: #CE1126;
+}
+
+.infoCard:nth-child(4) {
+    border-top-color: #00458b;
+}
+
+.infoCard:nth-child(5) {
+    border-top-color: #8D6E24;
+}
+
+.infoCard:nth-child(6) {
+    border-top-color: #9C27B0;
+}
+
+.infoCard:hover {
+    transform: translateY(-5px);
+}
+
+.infoIcon {
+    margin: 0 auto 20px;
+    color: #006B3F;
+    transition: transform 0.3s ease;
+}
+
+.infoCard:nth-child(2) .infoIcon {
+    color: #FCD116;
+}
+
+.infoCard:nth-child(3) .infoIcon {
+    color: #CE1126;
+}
+
+.infoCard:nth-child(4) .infoIcon {
+    color: #00458b;
+}
+
+.infoCard:nth-child(5) .infoIcon {
+    color: #8D6E24;
+}
+
+.infoCard:nth-child(6) .infoIcon {
+    color: #9C27B0;
+}
+
+.infoCard:hover .infoIcon {
+    transform: scale(1.1);
+}
+
+.infoCard h3 {
+    font-size: 19px;
+    margin-bottom: 20px;
+    color: #333;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+.infoCard p {
+    color: #444;
+    font-size: 15px;
+    line-height: 1.7;
+}
+
+/* Conclusion Section */
+.conclusionContent {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 35px;
+    margin-top: 25px;
+}
+
+.conclusionText p {
+    margin-bottom: 25px;
+    color: #000000;
+    line-height: 1.8;
+    font-size: 15px;
+}
+
+.nextSteps {
+    background: #f9f9f9;
+    padding: 30px;
+    border-radius: 10px;
+    border-left: 5px solid #006B3F;
+}
+
+.nextSteps h3 {
+    color: #006B3F;
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.nextSteps ul {
+    padding-left: 25px;
+}
+
+.nextSteps li {
+    margin-bottom: 15px;
+    color: #000000;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+/* Responsive Styles */
+@media (max-width: 900px) {
+    .conclusionContent {
+        grid-template-columns: 1fr;
+    }
+
+    .timeline:before {
+        left: 110px;
+    }
+
+    .timelineDate {
+        min-width: 90px;
+        padding-right: 30px;
+    }
+
+    .sectionHeader h2 {
+        font-size: 32px;
+    }
+
+    .subtitle {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .debtRestructuringDashboard {
+        padding: 15px;
+    }
+
+    .section {
+        padding: 25px 20px;
+    }
+
+    .statCard {
+        min-width: 100%;
+    }
+
+    .statInfo h3 {
+        font-size: 28px;
+    }
+
+    .filterBtn {
+        font-size: 18px;
+        padding: 10px 20px;
+    }
+
+    .timelineFilter {
+        flex-wrap: wrap;
+    }
+
+    .timeline:before {
+        left: 85px;
+    }
+
+    .timelineDate {
+        min-width: 70px;
+        padding-right: 25px;
+    }
+
+    .timelineDot {
+        margin: 10px 15px 0;
+    }
+
+    .timelineContent {
+        padding: 20px;
+    }
+
+    .timelineContent h3 {
+        font-size: 22px;
+    }
+
+    .timelineTag {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 600px) {
+    .debtRestructuringDashboard {
+        font-size: 18px;
+    }
+
+    .sectionHeader h2 {
+        font-size: 28px;
+    }
+
+    .subtitle {
+        font-size: 18px;
+    }
+
+    .timeline {
+        margin-left: -15px;
+        margin-right: -15px;
+    }
+
+    .timeline:before {
+        left: 70px;
+    }
+
+    .timelineDate {
+        min-width: 60px;
+        padding-right: 20px;
+    }
+
+    .month {
+        font-size: 18px;
+    }
+
+    .year {
+        font-size: 18px;
+    }
+
+    .timelineDot {
+        width: 20px;
+        height: 20px;
+        margin: 10px 10px 0;
+    }
+
+    .statIcon {
+        display: none;
+    }
+
+    .infoCard h3 {
+        font-size: 18px;
+    }
+
+    .nextSteps {
+        padding: 20px;
+    }
+}
