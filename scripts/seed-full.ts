@@ -277,7 +277,6 @@ async function seedFull() {
 
         // 6. Staff
         console.log('🌱 Seeding staff...');
-        await prisma.staff.deleteMany(); // Reset staff order
         const staff = [
             {
                 name: "Beauty Emefa Narteh",
@@ -298,7 +297,15 @@ async function seedFull() {
                 order: 3,
             }
         ];
-        await prisma.staff.createMany({ data: staff });
+
+        for (const s of staff) {
+            const existing = await prisma.staff.findFirst({ where: { name: s.name } });
+            if (existing) {
+                await prisma.staff.update({ where: { id: existing.id }, data: s });
+            } else {
+                await prisma.staff.create({ data: s });
+            }
+        }
 
         console.log('🎉 Full data seed completed!');
     } catch (e) {
