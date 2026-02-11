@@ -25,6 +25,9 @@ RUN npm run build
 FROM node:18-alpine AS runner
 WORKDIR /app
 
+# Install prisma and tsx globally to ensure they are available for the entrypoint
+RUN npm install -g prisma tsx
+
 ENV NODE_ENV production
 ENV NEXT_TELEMETRY_DISABLED 1
 
@@ -41,8 +44,8 @@ COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/prisma ./prisma
 COPY --from=builder /app/package.json ./package.json
 
-# Copy entrypoint
-COPY --from=builder /app/scripts/entrypoint.sh ./scripts/entrypoint.sh
+# Copy all scripts (including seed scripts and entrypoint)
+COPY --from=builder /app/scripts ./scripts
 
 # Set the correct permission
 RUN mkdir -p .next
