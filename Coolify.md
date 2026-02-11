@@ -43,6 +43,13 @@ Go to the **Environment Variables** tab of your application in Coolify and add:
 1.  In the **Domains** tab, set it to `https://egpghana.org`.
 2.  Coolify will automatically handle SSL (Let's Encrypt) via its built-in Traefik/Caddy proxy.
 
+### Step E: Persistent Storage (Important)
+Since the app allows file uploads, you must ensure they aren't lost when you redeploy:
+1. Go to your application -> **Storage** tab.
+2. Add a new **Persistent Storage** (Volume):
+   - **Source**: `egp-uploads`
+   - **Destination**: `/app/public/uploads`
+
 ## 4. Why this setup is "Best Practice"
 - **Standalone Mode**: The `Dockerfile` uses Next.js `standalone` output, which makes the image ~1GB smaller and much faster to start.
 - **Auto-Migrations**: The `scripts/entrypoint.sh` automatically runs `prisma migrate deploy` whenever the container starts, so your database is always in sync with your code.
