@@ -25,31 +25,32 @@ RUN npm run build
 FROM node:18-alpine AS runner
 WORKDIR /app
 
-# Install prisma and tsx globally to ensure they are available for the entrypoint
-RUN npm install -g prisma tsx
-
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
 
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
+# Set the correct permission for prerender cache
+RUN mkdir -p .next
+RUN chown nextjs:nodejs .next
+
+# Copy necessary files for the application
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/.next/static ./.next/static
 
-# Copy standalone output
+# Automatically leverage output traces to reduce image size
 COPY --from=builder /app/.next/standalone ./
 
-# Copy prisma for migrations
+# Copy prisma and scripts for migrations/seeding
+# We need node_modules for the prisma CLI to work in the entrypoint
+COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/prisma ./prisma
+COPY --from=builder /app/scripts ./scripts
 COPY --from=builder /app/package.json ./package.json
 
-# Copy all scripts (including seed scripts and entrypoint)
-COPY --from=builder /app/scripts ./scripts
-
-# Set the correct permission
-RUN mkdir -p .next
-RUN chown -R nextjs:nodejs .next prisma scripts
+# Fix permissions
+RUN chown -R nextjs:nodejs .next prisma scripts node_modules
 RUN chmod +x scripts/entrypoint.sh
 
 USER nextjs
