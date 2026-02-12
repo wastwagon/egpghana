@@ -48,7 +48,7 @@ Instructions:
 `;
 
     const result = await streamText({
-        model: openai('gpt-3.5-turbo'),
+        model: openai('gpt-4o-mini'), // Switched to gpt-4o-mini for much better tool handling and clean text
         messages,
         system: systemPrompt,
         tools: {
@@ -58,26 +58,41 @@ Instructions:
                     query: z.string().describe('The search query to find information about'),
                 }),
                 execute: async ({ query }: { query: string }) => {
-                    console.log('Using search tool for:', query);
+                    console.log('--- LIVE SEARCH TRIGGERED ---');
+                    console.log('Query:', query);
+
+                    if (!process.env.SERPER_API_KEY) {
+                        console.error('❌ Missing SERPER_API_KEY in environment!');
+                        return 'Local environment error: Live search is currently unavailable (missing API key).';
+                    }
+
                     try {
                         const res = await fetch('https://google.serper.dev/search', {
                             method: 'POST',
                             headers: {
-                                'X-API-KEY': process.env.SERPER_API_KEY || '',
+                                'X-API-KEY': process.env.SERPER_API_KEY,
                                 'Content-Type': 'application/json'
                             },
                             body: JSON.stringify({ q: query })
                         });
+
+                        if (!res.ok) {
+                            throw new Error(`Serper API error: ${res.status}`);
+                        }
+
                         const json = await res.json();
-                        const results = json.organic?.slice(0, 4) || [];
+                        const results = json.organic?.slice(0, 5) || [];
+
+                        console.log(`✅ Search found ${results.length} results.`);
+
                         return JSON.stringify(results.map((r: any) => ({
                             title: r.title,
                             link: r.link,
                             snippet: r.snippet
                         })));
                     } catch (error) {
-                        console.error('Search tool error:', error);
-                        return 'Failed to search the web.';
+                        console.error('❌ Search tool error:', error);
+                        return 'Failed to search the web for real-time information.';
                     }
                 },
             }),

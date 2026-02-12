@@ -2,9 +2,10 @@
 const fs = require('fs');
 const path = require('path');
 
-// Load .env manually
+// Load .env manually if it exists (for local dev)
 const envPath = path.join(__dirname, '../../.env');
 if (fs.existsSync(envPath)) {
+    console.log('📝 Loading local .env file...');
     const envConfig = fs.readFileSync(envPath, 'utf8');
     envConfig.split('\n').forEach((line: string) => {
         const match = line.match(/^([^=]+)=(.*)$/);
@@ -14,6 +15,13 @@ if (fs.existsSync(envPath)) {
             process.env[key] = value;
         }
     });
+} else {
+    console.log('ℹ️ No .env file found, using system environment variables.');
+}
+
+if (!process.env.OPENAI_API_KEY) {
+    console.error('❌ FATAL: OPENAI_API_KEY is not defined!');
+    process.exit(1);
 }
 
 import { PrismaClient } from '@prisma/client';
