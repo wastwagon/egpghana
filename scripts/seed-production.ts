@@ -318,12 +318,76 @@ async function main() {
         console.log('📅 Seeding events...');
         const events = [
             {
+                title: "2026 EGP Members Strategic Meeting",
+                slug: "2026-egp-members-strategic-meeting",
+                description: "A high-level gathering of Economic Governance Platform members to define the strategic roadmap for 2026. Key agenda items include strengthening advocacy, expanding partnerships, and enhancing data-driven policy engagement.",
+                location: "Accra, Ghana",
+                startDate: new Date('2026-02-21T09:00:00'),
+                featured: true,
+            },
+            {
+                title: "National Forum on the Governance Diagnostics Report",
+                slug: "governance-diagnostics-report-forum",
+                description: "An expert-led forum dissecting the findings of the latest Governance Diagnostics Report. Stakeholders from government, civil society, and development partners will discuss implications for public financial management reforms.",
+                location: "Accra International Conference Centre",
+                startDate: new Date('2026-02-26T10:00:00'),
+                featured: true,
+            },
+            {
+                title: "Press Conference: The State of Public Financial Management",
+                slug: "press-conference-public-financial-management",
+                description: "EGP holds a major press briefing to assess the government's progress on Public Financial Management (PFM) reforms. We will present evidence-based findings on budget execution, debt sustainability, and fiscal transparency.",
+                location: "EGP Office, Accra",
+                startDate: new Date('2026-03-05T10:00:00'),
+                featured: true,
+            },
+            {
                 title: "Launch of Public Debt Tracker and IMF Dashboard",
                 slug: "launch-of-public-debt-tracker-and-imf-dashboard",
                 description: "We unveiled our digital tools that allow citizens and stakeholders to monitor Ghana's public debt.",
                 location: "Accra, Ghana",
                 startDate: new Date('2025-02-13T09:00:00'),
-                featured: true,
+                featured: false,
+            },
+            {
+                title: "2025 EGP Member Strategic Meeting",
+                slug: "2025-egp-member-strategic-meeting",
+                description: "Annual strategic planning meeting for EGP members to review 2024 achievements and set priorities for 2025.",
+                location: "Accra, Ghana",
+                startDate: new Date('2025-02-12T09:00:00'),
+                featured: false,
+            },
+            {
+                title: "2025 Budget Input Gathering with CSOs Budget Forum",
+                slug: "2025-budget-input-gathering-with-csos-budget-forum",
+                description: "Collaborative session with civil society organizations to gather inputs for the 2025 national budget advocacy strategy.",
+                location: "Accra, Ghana",
+                startDate: new Date('2025-03-04T10:00:00'),
+                featured: false,
+            },
+            {
+                title: "Post Budget Press Briefing",
+                slug: "post-budget-press-briefing",
+                description: "Our team of fiscal policy experts will provide analysis and insights on the recently announced national budget, highlighting key issues related to debt management.",
+                location: "EGP Office, Accra",
+                startDate: new Date('2025-05-15T10:00:00'),
+                featured: false,
+            },
+            {
+                title: "Launch of Sustainable Debt Management Report in Accra",
+                slug: "launch-of-sustainable-debt-management-report-in-accra",
+                description: "Join us for the official launch of our comprehensive report on sustainable debt management practices, featuring policy recommendations and stakeholder dialogue.",
+                location: "Accra, Ghana",
+                startDate: new Date('2025-06-07T09:00:00'),
+                featured: false,
+            },
+            {
+                title: "Launch of Sustainability Debt Management Report in Kumasi and Tamale",
+                slug: "launch-of-sustainability-debt-management-report-in-kumasi-and-tamale",
+                description: "Our regional outreach continues with the launch of our Sustainable Debt Management Report in Kumasi and Tamale across Ghana.",
+                location: "Kumasi and Tamale, Ghana",
+                startDate: new Date('2025-06-21T09:00:00'),
+                featured: false,
             }
         ];
         for (const evt of events) {
