@@ -166,17 +166,17 @@ export default function ChatWidget() {
                                             {m.role === 'user' ? (
                                                 <span className="text-white">{m.content}</span>
                                             ) : (
-                                                <div className="prose prose-slate max-w-none">
+                                                <div className="prose prose-slate prose-sm max-w-none">
                                                     <ReactMarkdown
                                                         remarkPlugins={[remarkGfm]}
                                                         components={{
-                                                            p: ({ children }) => <p className="mb-1.5 last:mb-0">{children}</p>,
+                                                            p: ({ children }) => <p className="mb-2 last:mb-0 leading-normal">{children}</p>,
                                                             a: ({ node, ...props }) => <a {...props} className="text-primary-600 font-bold hover:underline" target="_blank" rel="noopener noreferrer" />,
-                                                            ul: ({ children }) => <ul className="list-disc pl-4 mb-2">{children}</ul>,
-                                                            ol: ({ children }) => <ol className="list-decimal pl-4 mb-2">{children}</ol>,
-                                                            li: ({ children }) => <li className="mb-0.5">{children}</li>,
-                                                            table: ({ children }) => <div className="overflow-x-auto my-2"><table className="border-collapse border border-slate-200 text-xs w-full">{children}</table></div>,
-                                                            th: ({ children }) => <th className="border border-slate-200 px-2 py-1 bg-slate-50">{children}</th>,
+                                                            ul: ({ children }) => <ul className="list-disc pl-5 my-0.5 space-y-1 marker:text-primary-600 font-medium">{children}</ul>,
+                                                            ol: ({ children }) => <ol className="list-decimal pl-5 my-0.5 space-y-1 marker:text-primary-600 font-medium">{children}</ol>,
+                                                            li: ({ children }) => <li className="pl-1 mb-0">{children}</li>,
+                                                            table: ({ children }) => <div className="overflow-x-auto my-2 text-xs"><table className="border-collapse border border-slate-200 w-full">{children}</table></div>,
+                                                            th: ({ children }) => <th className="border border-slate-200 px-2 py-1 bg-slate-50 font-bold">{children}</th>,
                                                             td: ({ children }) => <td className="border border-slate-200 px-2 py-1">{children}</td>,
                                                         }}
                                                     >
