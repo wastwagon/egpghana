@@ -6,8 +6,9 @@ const prisma = new PrismaClient();
 async function exportData() {
     console.log('📤 Exporting local database data...');
 
-    // Get all articles
+    // Get all articles with their category slug
     const articles = await prisma.article.findMany({
+        include: { category: true },
         orderBy: { publishedAt: 'desc' }
     });
 
@@ -30,7 +31,7 @@ async function exportData() {
             content: a.content,
             imageUrl: a.imageUrl,
             author: a.author,
-            categoryId: a.categoryId,
+            categorySlug: a.category?.slug || 'news', // Using slug instead of ID
             tags: a.tags,
             publishedAt: a.publishedAt,
             featured: a.featured

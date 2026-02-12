@@ -199,10 +199,24 @@ async function main() {
 
             // Import articles
             console.log(`📰 Importing ${exportedData.articles.length} articles...`);
+
+            // Get categories to map slugs to IDs
+            const categories = await prisma.category.findMany();
+            const categoryMap = new Map(categories.map(c => [c.slug, c.id]));
+
             for (const article of exportedData.articles) {
+                const { categorySlug, ...articleData } = article;
+                const categoryId = categoryMap.get(categorySlug) || categoryMap.get('news');
+
+                if (!categoryId) {
+                    console.warn(`⚠️ skipping article "${article.title}" - category slug "${categorySlug}" not found on server`);
+                    continue;
+                }
+
                 await prisma.article.create({
                     data: {
-                        ...article,
+                        ...articleData,
+                        categoryId,
                         publishedAt: new Date(article.publishedAt)
                     }
                 });
