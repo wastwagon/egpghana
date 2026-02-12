@@ -6,7 +6,7 @@ const prisma = new PrismaClient();
 async function importData() {
     console.log('📥 Importing data to production...');
 
-    const data = JSON.parse(fs.readFileSync('/tmp/local_data_export.json', 'utf-8'));
+    const data = JSON.parse(fs.readFileSync('./scripts/local_data_export.json', 'utf-8'));
 
     // Clear existing data
     console.log('🗑️ Clearing old data...');
