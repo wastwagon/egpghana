@@ -28,7 +28,7 @@ export async function findRelevantContent(query: string) {
     const articles = await prisma.$queryRaw`
     SELECT id, title, slug, content, 1 - (embedding <=> ${vectorQuery}::vector) as similarity
     FROM articles
-    WHERE 1 - (embedding <=> ${vectorQuery}::vector) > 0.1
+    WHERE 1 - (embedding <=> ${vectorQuery}::vector) > 0.3
     ORDER BY similarity DESC
     LIMIT 3;
   ` as any[];
@@ -37,7 +37,7 @@ export async function findRelevantContent(query: string) {
     const resources = await prisma.$queryRaw`
     SELECT id, title, description as content, "fileName" as slug, 1 - (embedding <=> ${vectorQuery}::vector) as similarity
     FROM resources
-    WHERE 1 - (embedding <=> ${vectorQuery}::vector) > 0.1
+    WHERE 1 - (embedding <=> ${vectorQuery}::vector) > 0.3
     ORDER BY similarity DESC
     LIMIT 2;
   ` as any[];
