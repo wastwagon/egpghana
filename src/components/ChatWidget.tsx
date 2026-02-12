@@ -162,25 +162,27 @@ export default function ChatWidget() {
                                             : 'bg-white border border-slate-100 text-slate-700 rounded-tl-sm shadow-sm'
                                             }`}
                                     >
-                                        <div className="whitespace-pre-wrap break-words prose prose-slate max-w-none">
+                                        <div className="whitespace-pre-wrap break-words">
                                             {m.role === 'user' ? (
-                                                m.content
+                                                <span className="text-white">{m.content}</span>
                                             ) : (
-                                                <ReactMarkdown
-                                                    remarkPlugins={[remarkGfm]}
-                                                    components={{
-                                                        p: ({ children }) => <p className="mb-1.5 last:mb-0">{children}</p>,
-                                                        a: ({ node, ...props }) => <a {...props} className="text-primary-600 font-bold hover:underline" target="_blank" rel="noopener noreferrer" />,
-                                                        ul: ({ children }) => <ul className="list-disc pl-4 mb-2">{children}</ul>,
-                                                        ol: ({ children }) => <ol className="list-decimal pl-4 mb-2">{children}</ol>,
-                                                        li: ({ children }) => <li className="mb-0.5">{children}</li>,
-                                                        table: ({ children }) => <div className="overflow-x-auto my-2"><table className="border-collapse border border-slate-200 text-xs w-full">{children}</table></div>,
-                                                        th: ({ children }) => <th className="border border-slate-200 px-2 py-1 bg-slate-50">{children}</th>,
-                                                        td: ({ children }) => <td className="border border-slate-200 px-2 py-1">{children}</td>,
-                                                    }}
-                                                >
-                                                    {m.content}
-                                                </ReactMarkdown>
+                                                <div className="prose prose-slate max-w-none">
+                                                    <ReactMarkdown
+                                                        remarkPlugins={[remarkGfm]}
+                                                        components={{
+                                                            p: ({ children }) => <p className="mb-1.5 last:mb-0">{children}</p>,
+                                                            a: ({ node, ...props }) => <a {...props} className="text-primary-600 font-bold hover:underline" target="_blank" rel="noopener noreferrer" />,
+                                                            ul: ({ children }) => <ul className="list-disc pl-4 mb-2">{children}</ul>,
+                                                            ol: ({ children }) => <ol className="list-decimal pl-4 mb-2">{children}</ol>,
+                                                            li: ({ children }) => <li className="mb-0.5">{children}</li>,
+                                                            table: ({ children }) => <div className="overflow-x-auto my-2"><table className="border-collapse border border-slate-200 text-xs w-full">{children}</table></div>,
+                                                            th: ({ children }) => <th className="border border-slate-200 px-2 py-1 bg-slate-50">{children}</th>,
+                                                            td: ({ children }) => <td className="border border-slate-200 px-2 py-1">{children}</td>,
+                                                        }}
+                                                    >
+                                                        {m.content}
+                                                    </ReactMarkdown>
+                                                </div>
                                             )}
                                         </div>
                                     </div>
