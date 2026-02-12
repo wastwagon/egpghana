@@ -6,7 +6,7 @@ import * as path from 'path';
 const prisma = new PrismaClient();
 
 // Check if exported data file exists
-const dataFilePath = path.join(__dirname, 'local_data_export.json');
+const dataFilePath = '/app/scripts/local_data_export.json';
 const hasExportedData = fs.existsSync(dataFilePath);
 
 // Data sets
