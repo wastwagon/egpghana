@@ -1,8 +1,13 @@
-
 import { PrismaClient } from '@prisma/client';
 import bcrypt from 'bcryptjs';
+import * as fs from 'fs';
+import * as path from 'path';
 
 const prisma = new PrismaClient();
+
+// Check if exported data file exists
+const dataFilePath = path.join(__dirname, 'local_data_export.json');
+const hasExportedData = fs.existsSync(dataFilePath);
 
 // Data sets
 const programsData = [
@@ -126,7 +131,7 @@ const categoriesData = [
 ];
 
 async function main() {
-    console.log('🚀 Starting ULTIMATE Production Seed...');
+    console.log('🚀 Starting Production Seed...');
 
     try {
         // 1. Users
@@ -154,61 +159,8 @@ async function main() {
                 create: { ...cat },
             });
         }
-        const categories = await prisma.category.findMany();
-        const catMap = categories.reduce((acc, cat) => {
-            acc[cat.slug] = cat.id;
-            return acc;
-        }, {} as Record<string, string>);
 
-        // 3. Articles (Key starting articles)
-        console.log('📰 Seeding articles...');
-        const articles = [
-            {
-                title: "Analyzing the President’s Five Pillars for Ghana’s Economic and Social Transformation",
-                slug: "analyzing-presidents-five-pillars",
-                imageUrl: "/assets/images/publications/presidents-five-pillars.jpeg",
-                content: `This assessment examines the President’s Five Pillars as a strategic framework...`,
-                excerpt: "An empirical assessment of the feasibility and impact of the new strategic framework for Ghana's transformation.",
-                categoryId: catMap['policy'] || categories[0].id,
-                author: "EGP Research Team",
-                publishedAt: new Date('2026-01-08'),
-                featured: true,
-                tags: ['Policy', 'Economy', 'Development', 'Analysis'],
-            },
-            {
-                title: "IMF Approves Fifth Review of Ghana Programme, Set to Release US$385 Million",
-                slug: "imf-approves-fifth-review-stabilisation-gains",
-                imageUrl: "/assets/images/publications/imf-review-approval.jpeg",
-                content: `The Executive Board of the International Monetary Fund (IMF) has completed the fifth review...`,
-                excerpt: "IMF Board completes fifth review, unlocking $385m disbursement as macroeconomic stabilization takes hold.",
-                categoryId: catMap['imf'] || categories[0].id,
-                author: "Abdulkarim Mohammed",
-                publishedAt: new Date('2025-12-19'),
-                featured: true,
-                tags: ['IMF', 'Economy', 'Fiscal Policy', 'News'],
-            },
-            {
-                title: "Bank of Ghana’s 350bps Rate Cut: What It Means for Ghana’s Economy",
-                slug: "bog-350bps-rate-cut-implications",
-                imageUrl: "/assets/images/publications/bog-rate-cut.jpg",
-                content: `The Monetary Policy Committee (MPC) of the Bank of Ghana has concluded its 127th meeting...`,
-                excerpt: "The MPC's bold 350bps rate cut signals a turning point for Ghana’s recovery.",
-                categoryId: catMap['economy'] || categories[0].id,
-                author: "EGP Research Team",
-                publishedAt: new Date('2025-11-28'),
-                featured: true,
-                tags: ['Monetary Policy', 'BoG', 'Interest Rates', 'News'],
-            }
-        ];
-        for (const article of articles) {
-            await prisma.article.upsert({
-                where: { slug: article.slug },
-                update: article,
-                create: article,
-            });
-        }
-
-        // 4. Programs
+        // 3. Programs
         console.log('🛠 Seeding programs...');
         for (const prog of programsData) {
             await prisma.program.upsert({
@@ -218,7 +170,7 @@ async function main() {
             });
         }
 
-        // 5. Staff
+        // 4. Staff
         console.log('👥 Seeding staff...');
         const staffData = [
             { name: "Beauty Emefa Narteh", position: "Executive Secretary", order: 1 },
@@ -234,171 +186,58 @@ async function main() {
             }
         }
 
-        // 6. DASHBOARDS DATA (Clear & Re-create for fresh dashboards)
-        console.log('📊 Seeding Dashboard Data (Debt, IMF, Economy)...');
+        // 5. Import data from exported JSON if available
+        if (hasExportedData) {
+            console.log('📥 Importing data from local export...');
+            const exportedData = JSON.parse(fs.readFileSync(dataFilePath, 'utf-8'));
 
-        // Wipe existing dashboard indicators to avoid primary key conflicts
-        await prisma.economicData.deleteMany({});
+            // Clear existing data
+            console.log('🗑️ Clearing old articles, events, and economic data...');
+            await prisma.economicData.deleteMany({});
+            await prisma.article.deleteMany({});
+            await prisma.event.deleteMany({});
 
-        // --- DEBT DATA ---
-        const debtData = [];
-        const startDate = new Date('2019-01-01');
-        let baseDebt = 200000000000;
-        for (let i = 0; i < 84; i++) {
-            const date = new Date(startDate);
-            date.setMonth(startDate.getMonth() + i);
-            const year = date.getFullYear();
-
-            let growthRate = year >= 2022 ? 0.025 : 0.015;
-            baseDebt *= (1 + growthRate);
-
-            debtData.push({
-                indicator: 'TOTAL_DEBT',
-                value: baseDebt,
-                date: date,
-                source: 'Ministry of Finance / IMF',
-                unit: 'GHS',
-                metadata: { domestic: baseDebt * 0.48, external: baseDebt * 0.52 }
-            });
-
-            debtData.push({
-                indicator: 'DEBT_TO_GDP_RATIO',
-                value: year === 2025 ? 45.5 : (70 + Math.random() * 20),
-                date: date,
-                source: 'Bank of Ghana',
-                unit: '%',
-            });
-        }
-        await prisma.economicData.createMany({ data: debtData });
-
-        // --- IMF DATA ---
-        const imfOverview = {
-            indicator: 'IMF_PROGRAM_TOTAL',
-            value: 3000000000,
-            date: new Date('2023-05-17'),
-            source: 'IMF',
-            unit: 'SDR',
-            metadata: { programType: 'Extended Credit Facility', duration: '36 months', endDate: '2026-05-17' }
-        };
-        await prisma.economicData.create({ data: imfOverview });
-
-        const disbursements = [
-            { date: '2023-06-01', actual: 600000000, status: 'Completed' },
-            { date: '2023-09-01', actual: 360000000, status: 'Completed' },
-            { date: '2024-01-19', actual: 600000000, status: 'Completed' },
-            { date: '2024-07-02', actual: 600000000, status: 'Completed' },
-            { date: '2025-01-15', actual: 360000000, status: 'Completed' },
-        ];
-        for (const d of disbursements) {
-            await prisma.economicData.create({
-                data: {
-                    indicator: 'IMF_DISBURSEMENT',
-                    value: d.actual,
-                    date: new Date(d.date),
-                    source: 'IMF',
-                    unit: 'SDR',
-                    metadata: { status: d.status }
-                }
-            });
-        }
-
-        // --- ECONOMY DATA ---
-        await prisma.economicData.createMany({
-            data: [
-                { indicator: 'GDP_GROWTH', value: 5.7, date: new Date('2024-12-31'), source: 'GSS', unit: '%' },
-                { indicator: 'INFLATION_RATE', value: 15.1, date: new Date('2025-01-31'), source: 'GSS', unit: '%' },
-                { indicator: 'EXCHANGE_RATE_USD', value: 16.2, date: new Date('2025-02-11'), source: 'BoG', unit: 'GHS' },
-                { indicator: 'UNEMPLOYMENT_RATE', value: 14.7, date: new Date('2024-12-31'), source: 'GSS', unit: '%' }
-            ]
-        });
-
-        console.log('✅ Dashboard data seeded');
-
-        // 7. Events
-        console.log('📅 Seeding events...');
-        const events = [
-            {
-                title: "2026 EGP Members Strategic Meeting",
-                slug: "2026-egp-members-strategic-meeting",
-                description: "A high-level gathering of Economic Governance Platform members to define the strategic roadmap for 2026. Key agenda items include strengthening advocacy, expanding partnerships, and enhancing data-driven policy engagement.",
-                location: "Accra, Ghana",
-                startDate: new Date('2026-02-21T09:00:00'),
-                featured: true,
-            },
-            {
-                title: "National Forum on the Governance Diagnostics Report",
-                slug: "governance-diagnostics-report-forum",
-                description: "An expert-led forum dissecting the findings of the latest Governance Diagnostics Report. Stakeholders from government, civil society, and development partners will discuss implications for public financial management reforms.",
-                location: "Accra International Conference Centre",
-                startDate: new Date('2026-02-26T10:00:00'),
-                featured: true,
-            },
-            {
-                title: "Press Conference: The State of Public Financial Management",
-                slug: "press-conference-public-financial-management",
-                description: "EGP holds a major press briefing to assess the government's progress on Public Financial Management (PFM) reforms. We will present evidence-based findings on budget execution, debt sustainability, and fiscal transparency.",
-                location: "EGP Office, Accra",
-                startDate: new Date('2026-03-05T10:00:00'),
-                featured: true,
-            },
-            {
-                title: "Launch of Public Debt Tracker and IMF Dashboard",
-                slug: "launch-of-public-debt-tracker-and-imf-dashboard",
-                description: "We unveiled our digital tools that allow citizens and stakeholders to monitor Ghana's public debt.",
-                location: "Accra, Ghana",
-                startDate: new Date('2025-02-13T09:00:00'),
-                featured: false,
-            },
-            {
-                title: "2025 EGP Member Strategic Meeting",
-                slug: "2025-egp-member-strategic-meeting",
-                description: "Annual strategic planning meeting for EGP members to review 2024 achievements and set priorities for 2025.",
-                location: "Accra, Ghana",
-                startDate: new Date('2025-02-12T09:00:00'),
-                featured: false,
-            },
-            {
-                title: "2025 Budget Input Gathering with CSOs Budget Forum",
-                slug: "2025-budget-input-gathering-with-csos-budget-forum",
-                description: "Collaborative session with civil society organizations to gather inputs for the 2025 national budget advocacy strategy.",
-                location: "Accra, Ghana",
-                startDate: new Date('2025-03-04T10:00:00'),
-                featured: false,
-            },
-            {
-                title: "Post Budget Press Briefing",
-                slug: "post-budget-press-briefing",
-                description: "Our team of fiscal policy experts will provide analysis and insights on the recently announced national budget, highlighting key issues related to debt management.",
-                location: "EGP Office, Accra",
-                startDate: new Date('2025-05-15T10:00:00'),
-                featured: false,
-            },
-            {
-                title: "Launch of Sustainable Debt Management Report in Accra",
-                slug: "launch-of-sustainable-debt-management-report-in-accra",
-                description: "Join us for the official launch of our comprehensive report on sustainable debt management practices, featuring policy recommendations and stakeholder dialogue.",
-                location: "Accra, Ghana",
-                startDate: new Date('2025-06-07T09:00:00'),
-                featured: false,
-            },
-            {
-                title: "Launch of Sustainability Debt Management Report in Kumasi and Tamale",
-                slug: "launch-of-sustainability-debt-management-report-in-kumasi-and-tamale",
-                description: "Our regional outreach continues with the launch of our Sustainable Debt Management Report in Kumasi and Tamale across Ghana.",
-                location: "Kumasi and Tamale, Ghana",
-                startDate: new Date('2025-06-21T09:00:00'),
-                featured: false,
+            // Import articles
+            console.log(`📰 Importing ${exportedData.articles.length} articles...`);
+            for (const article of exportedData.articles) {
+                await prisma.article.create({
+                    data: {
+                        ...article,
+                        publishedAt: new Date(article.publishedAt)
+                    }
+                });
             }
-        ];
-        for (const evt of events) {
-            await prisma.event.upsert({
-                where: { slug: evt.slug },
-                update: evt,
-                create: evt,
-            });
+
+            // Import events
+            console.log(`📅 Importing ${exportedData.events.length} events...`);
+            for (const event of exportedData.events) {
+                await prisma.event.create({
+                    data: {
+                        ...event,
+                        startDate: new Date(event.startDate),
+                        endDate: event.endDate ? new Date(event.endDate) : null
+                    }
+                });
+            }
+
+            // Import economic data
+            console.log(`💹 Importing ${exportedData.economicData.length} economic data points...`);
+            for (const econ of exportedData.economicData) {
+                await prisma.economicData.create({
+                    data: {
+                        ...econ,
+                        date: new Date(econ.date)
+                    }
+                });
+            }
+
+            console.log('✅ Imported data from local export successfully!');
+        } else {
+            console.log('⚠️ No exported data file found. Skipping articles, events, and economic data import.');
+            console.log('💡 Run "npm run export:data" locally and commit the generated file to include data.');
         }
 
-        console.log('✨ ALL PRODUCTION CONTENT READY!');
+        console.log('✨ PRODUCTION SEED COMPLETED!');
     } catch (e) {
         console.error('❌ SEED ERROR:', e);
         process.exit(1);

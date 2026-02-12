@@ -18,7 +18,8 @@
     "docker:down": "docker-compose down",
     "docker:logs": "docker-compose logs -f",
     "ai:embed": "tsx scripts/ai/generate-embeddings.ts",
-    "sync:data": "tsx scripts/api/sync-data.ts"
+    "sync:data": "tsx scripts/api/sync-data.ts",
+    "export:data": "tsx scripts/export-local-data.ts"
   },
   "dependencies": {
     "prisma": "^5.20.0",
