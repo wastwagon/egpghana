@@ -33,18 +33,26 @@ export async function POST(req: Request) {
         .map((item: any) => `Title: ${item.title}\nContent: ${item.content || item.description}\nSource: ${item.slug || item.fileName}\n`)
         .join('\n---\n');
 
+    const currentDate = new Date().toLocaleDateString('en-US', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    });
+
     const systemPrompt = `
 You are the EGP Ghana Economic Assistant. Your role is to help citizens understand Ghana's economic situation.
+
+CURRENT DATE: ${currentDate} (The current year is 2026).
 
 Context from EGP Database:
 ${contextString}
 
 Instructions:
-- FIRST, check the "Context from EGP Database" above. If it contains the answer, use it and cite the sources.
-- IF the database does not contain the answer (e.g., current exchange rates, breaking news, recent events), USE THE searchWeb TOOL to find the information.
-- ALWAYS use the searchWeb tool for questions about "today", "current", or "latest" data if not in the context.
-- Be concise, professional, and helpful.
-- Format your response in Markdown.
+- ALWAYS check the "CURRENT DATE" first. If the user asks for "current", "latest", or "today's" data, and the context only has data from previous years (like 2023 or 2024), YOU MUST USE THE searchWeb TOOL to find 2026 data.
+- NEVER present 2023 data as "current" if it is now 2026.
+- If the database query returns old data, acknowledge it as historical and search for the latest figures.
+- Be concise, professional, and helpful. Format your response in Markdown.
 `;
 
     const result = await streamText({
