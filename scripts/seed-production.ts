@@ -186,7 +186,7 @@ async function main() {
                 name: "Abdulkarim Mohammed",
                 position: "Coordinator",
                 bio: "With more than eighteen (18) active years of hands-on experience and knowledge in managing governance programs through various lead roles (from coordinator through country manager to regional advisory) on donor funded initiatives involving high level institutional support and collaboration on diverse sectorial themes: active citizens participation in governance, public finance management, parliamentary oversight, civil society advocacy, extractives governance, environment and climate change, local governance, human rights and justice administration.\n\nTrained as a Development Economist with a background in Agriculture and Natural Resource Policy & Management, he is well versed in contemporary development dynamics with his core competencies in Policy Formulation & Analysis; Project Design, Planning and Implementation; Campaign & Advocacy; Training & Facilitation; Monitoring & Evaluation; Human Capacity & Institutional Reform; Development Planning and Management; as well as Community Development Interventions.",
-                imageUrl: "/assets/images/staff/Adulkarim.jpeg",
+                imageUrl: "/assets/images/staff/Adulkarim.png",
                 order: 2
             },
             {
