@@ -29,7 +29,7 @@ FROM node:18-alpine AS runner
 WORKDIR /app
 
 # Final stage also needs openssl to run
-RUN apk add --no-cache openssl
+RUN apk add --no-cache openssl curl
 
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
@@ -38,24 +38,24 @@ RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
 # Set the correct permission for prerender cache
-RUN mkdir -p .next
-RUN chown nextjs:nodejs .next
+RUN mkdir -p .next && chown nextjs:nodejs .next
 
-# Copy necessary files for the application
-COPY --from=builder /app/public ./public
-COPY --from=builder /app/.next/static ./.next/static
+# Copy necessary files for the application with correct permissions
+# Use --chown to avoid slow recursive chown later
+COPY --from=builder --chown=nextjs:nodejs /app/public ./public
+COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
 # Automatically leverage output traces to reduce image size
-COPY --from=builder /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 
 # Copy prisma and scripts for migrations/seeding
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/prisma ./prisma
-COPY --from=builder /app/scripts ./scripts
-COPY --from=builder /app/package.json ./package.json
+# We only copy the full node_modules if we really need tsx/prisma at runtime
+COPY --from=builder --chown=nextjs:nodejs /app/node_modules ./node_modules
+COPY --from=builder --chown=nextjs:nodejs /app/prisma ./prisma
+COPY --from=builder --chown=nextjs:nodejs /app/scripts ./scripts
+COPY --from=builder --chown=nextjs:nodejs /app/package.json ./package.json
 
-# Fix permissions
-RUN chown -R nextjs:nodejs .next prisma scripts node_modules
+# Ensure entrypoint is executable
 RUN chmod +x scripts/entrypoint.sh
 
 USER nextjs
@@ -64,5 +64,9 @@ EXPOSE 3000
 
 ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"
+
+# Basic healthcheck to help Traefik/Coolify
+HEALTHCHECK --interval=30s --timeout=10s --start-period=30s --retries=3 \
+  CMD curl -f http://localhost:3000/api/auth/session || exit 1
 
 ENTRYPOINT ["/app/scripts/entrypoint.sh"]
