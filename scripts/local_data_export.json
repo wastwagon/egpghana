@@ -1,6 +1,39 @@
 {
   "articles": [
     {
+      "title": "Budget 2026 – An EGP analysis: Consolidating gains, but vigilance required",
+      "slug": "budget-2026-egp-analysis-consolidating-gains",
+      "excerpt": "EGP's analysis of the 2026 Budget: A balance between fiscal consolidation and the need for social protection.",
+      "content": "The 2026 Budget Statement, presented under the theme 'Consolidating Stability for Shared Growth,' reflects a government attempting to balance the books while stimulating an economy still recovering from deep scars. At the Economic Governance Platform (EGP), our preliminary analysis suggests a budget that is directionally correct but operationally ambitious.\n\nKey Highlights & EGP Observations:\n\n1. Revenue Measures: The reliance on widening the tax net rather than introducing new taxes is a welcome shift. The digitalization of property rates and the streamline of VAT invoicing are long-overdue reforms. However, EGP cautions that administrative efficiency takes time to yield results. If these measures underperform, the government may be forced to cut expenditure or borrow more — neither of which is desirable.\n\n2. Expenditure Control: The budget proposes a decline in the deficit to 3.5% of GDP. This signal of fiscal discipline is crucial for investor confidence. Yet, the wage bill and interest payments continue to consume over 60% of domestic revenue. EGP advocates for a more aggressive rationalization of non-essential recurrent expenditure to free up fiscal space.\n\n3. Social Protection: We note the increased allocation to LEAP and the School Feeding Programme. In a time of rising cost of living, protecting the vulnerable is non-negotiable. EGP will be monitoring the timely release of these funds, as allocation does not always equal disbursement.\n\n4. Debt Sustainability: The budget hinges on the successful completion of external debt restructuring. EGP urges the government to be transparent about the terms of these agreements and their long-term implications for Ghana’s creditworthiness.\n\nConclusion:\nThe 2026 Budget offers a pathway to stability, but it is paved with implementation risks. EGP calls on Parliament to exercise rigorous oversight and on citizens to demand value for every cedi spent. We are not out of the woods yet, but with discipline and vigilance, recovery is within reach.",
+      "imageUrl": "/assets/images/publications/budget-2026-analysis.jpeg",
+      "author": "EGP Research Team",
+      "categorySlug": "economy",
+      "tags": [
+        "Budget 2026",
+        "Fiscal Policy",
+        "Analysis"
+      ],
+      "publishedAt": "2026-02-10T00:00:00.000Z",
+      "featured": true
+    },
+    {
+      "title": "Ghanaian CSOs bid farewell to outgoing IMF boss",
+      "slug": "ghanaian-csos-bid-farewell-imf-boss",
+      "excerpt": "Civil Society groups reflect on engagement with the IMF as the Resident Representative concludes their tenure.",
+      "content": "A coalition of Ghanaian Civil Society Organisations (CSOs), including the Economic Governance Platform (EGP), held a farewell meeting with the outgoing Resident Representative of the International Monetary Fund (IMF) to Ghana. The meeting served as an opportunity to reflect on the IMF’s engagement with civil society during a turbulent period in Ghana’s economic history.\n\nThe CSOs acknowledged the Resident Representative’s openness to dialogue and willingness to engage with non - state actors, a departure from the more opaque relationships of the past.They highlighted how regular briefings and access to data had empowered CSOs to monitor the IMF programme more effectively and hold the government accountable.\n\n            However, the groups also raised lingering concerns.They pointed to the social impact of the rigorous fiscal adjustments required by the programme and urged the IMF to place a stronger emphasis on social impact assessments in future reviews.EGP specifically raised the issue of debt transparency and the need for the Fund to be more vocal about the governance reforms that are structural benchmarks of the programme.\n\n<img src=\"/assets/images/publications/imf-boss-farewell-2.jpg\" alt=\"Farewell Meeting\" className=\"w-full h-auto rounded-xl my-6 shadow-md\" />\n\nIn response, the outgoing Resident Representative thanked the CSOs for their constructive criticism and partnership.He emphasized that the IMF views civil society as a critical partner in ensuring programme ownership and sustainability.He urged the CSOs to maintain their vigilance and continue to demand accountability from national leaders.\n\nAs Ghana continues its journey under the Extended Credit Facility, the relationship between the IMF and renewed civil society will remain a critical accountability mechanism.\n\n\n\n<img src=\"/assets/images/publications/imf-boss-farewell.jpg\" alt=\"Group Photo\" className=\"w-full h-auto rounded-xl my-6 shadow-md\" />",
+      "imageUrl": "/assets/images/publications/imf-boss-farewell-1.jpg",
+      "author": "EGP Communications",
+      "categorySlug": "imf",
+      "tags": [
+        "IMF",
+        "Civil Society",
+        "Diplomacy",
+        "News"
+      ],
+      "publishedAt": "2026-02-05T00:00:00.000Z",
+      "featured": false
+    },
+    {
       "title": "Analyzing the President’s Five Pillars for Ghana’s Economic and Social Transformation",
       "slug": "analyzing-presidents-five-pillars",
       "excerpt": "An empirical assessment of the feasibility and impact of the new strategic framework for Ghana's transformation.",
@@ -52,23 +85,6 @@
       "featured": true
     },
     {
-      "title": "Ghanaian CSOs bid farewell to outgoing IMF boss",
-      "slug": "ghanaian-csos-bid-farewell-imf-boss",
-      "excerpt": "Civil Society groups reflect on engagement with the IMF as the Resident Representative concludes their tenure.",
-      "content": "A coalition of Ghanaian Civil Society Organisations (CSOs), including the Economic Governance Platform (EGP), held a farewell meeting with the outgoing Resident Representative of the International Monetary Fund (IMF) to Ghana. The meeting served as an opportunity to reflect on the IMF’s engagement with civil society during a turbulent period in Ghana’s economic history.\n\nThe CSOs acknowledged the Resident Representative’s openness to dialogue and willingness to engage with non - state actors, a departure from the more opaque relationships of the past.They highlighted how regular briefings and access to data had empowered CSOs to monitor the IMF programme more effectively and hold the government accountable.\n\n            However, the groups also raised lingering concerns.They pointed to the social impact of the rigorous fiscal adjustments required by the programme and urged the IMF to place a stronger emphasis on social impact assessments in future reviews.EGP specifically raised the issue of debt transparency and the need for the Fund to be more vocal about the governance reforms that are structural benchmarks of the programme.\n\n<img src=\"/assets/images/publications/imf-boss-farewell-2.jpg\" alt=\"Farewell Meeting\" className=\"w-full h-auto rounded-xl my-6 shadow-md\" />\n\nIn response, the outgoing Resident Representative thanked the CSOs for their constructive criticism and partnership.He emphasized that the IMF views civil society as a critical partner in ensuring programme ownership and sustainability.He urged the CSOs to maintain their vigilance and continue to demand accountability from national leaders.\n\nAs Ghana continues its journey under the Extended Credit Facility, the relationship between the IMF and renewed civil society will remain a critical accountability mechanism.\n\n\n\n<img src=\"/assets/images/publications/imf-boss-farewell.jpg\" alt=\"Group Photo\" className=\"w-full h-auto rounded-xl my-6 shadow-md\" />",
-      "imageUrl": "/assets/images/publications/imf-boss-farewell-1.jpg",
-      "author": "EGP Communications",
-      "categorySlug": "imf",
-      "tags": [
-        "IMF",
-        "Civil Society",
-        "Diplomacy",
-        "News"
-      ],
-      "publishedAt": "2025-11-25T00:00:00.000Z",
-      "featured": false
-    },
-    {
       "title": "Fitch Projects MPR Drop to 16.5% by 2026; What It Means for Ghana",
       "slug": "fitch-projects-mpr-drop-16-5-2026",
       "excerpt": "Fitch Solutions forecasts further easing of Ghana's policy rate to 16.5% by 2026, contingent on sustained disinflation.",
@@ -102,22 +118,6 @@
       ],
       "publishedAt": "2025-11-18T00:00:00.000Z",
       "featured": false
-    },
-    {
-      "title": "Budget 2026 – An EGP analysis: Consolidating gains, but vigilance required",
-      "slug": "budget-2026-egp-analysis-consolidating-gains",
-      "excerpt": "EGP's analysis of the 2026 Budget: A balance between fiscal consolidation and the need for social protection.",
-      "content": "The 2026 Budget Statement, presented under the theme 'Consolidating Stability for Shared Growth,' reflects a government attempting to balance the books while stimulating an economy still recovering from deep scars. At the Economic Governance Platform (EGP), our preliminary analysis suggests a budget that is directionally correct but operationally ambitious.\n\nKey Highlights & EGP Observations:\n\n1. Revenue Measures: The reliance on widening the tax net rather than introducing new taxes is a welcome shift. The digitalization of property rates and the streamline of VAT invoicing are long-overdue reforms. However, EGP cautions that administrative efficiency takes time to yield results. If these measures underperform, the government may be forced to cut expenditure or borrow more — neither of which is desirable.\n\n2. Expenditure Control: The budget proposes a decline in the deficit to 3.5% of GDP. This signal of fiscal discipline is crucial for investor confidence. Yet, the wage bill and interest payments continue to consume over 60% of domestic revenue. EGP advocates for a more aggressive rationalization of non-essential recurrent expenditure to free up fiscal space.\n\n3. Social Protection: We note the increased allocation to LEAP and the School Feeding Programme. In a time of rising cost of living, protecting the vulnerable is non-negotiable. EGP will be monitoring the timely release of these funds, as allocation does not always equal disbursement.\n\n4. Debt Sustainability: The budget hinges on the successful completion of external debt restructuring. EGP urges the government to be transparent about the terms of these agreements and their long-term implications for Ghana’s creditworthiness.\n\nConclusion:\nThe 2026 Budget offers a pathway to stability, but it is paved with implementation risks. EGP calls on Parliament to exercise rigorous oversight and on citizens to demand value for every cedi spent. We are not out of the woods yet, but with discipline and vigilance, recovery is within reach.",
-      "imageUrl": "/assets/images/publications/budget-2026-analysis.jpeg",
-      "author": "EGP Research Team",
-      "categorySlug": "economy",
-      "tags": [
-        "Budget 2026",
-        "Fiscal Policy",
-        "Analysis"
-      ],
-      "publishedAt": "2025-11-16T00:00:00.000Z",
-      "featured": true
     },
     {
       "title": "How Ghana’s debt crisis caused nightmares and injuries on Bolgatanga-Bawku road",
@@ -160,8 +160,8 @@
       "slug": "launch-of-sustainability-debt-management-report-in-kumasi-and-tamale",
       "description": "Our regional outreach continues with the launch of our Sustainable Debt Management Report in Kumasi and Tamale across Ghana.",
       "location": "Kumasi and Tamale",
-      "startDate": "2025-06-21T09:00:00.000Z",
-      "endDate": "2025-06-21T17:00:00.000Z",
+      "startDate": "2026-06-21T09:00:00.000Z",
+      "endDate": "2026-06-21T17:00:00.000Z",
       "featured": false
     },
     {
@@ -169,26 +169,35 @@
       "slug": "launch-of-sustainable-debt-management-report-in-accra",
       "description": "Join us for the official launch of our comprehensive report on sustainable debt management practices, featuring policy recommendations.",
       "location": "Accra, Ghana",
-      "startDate": "2025-06-07T09:00:00.000Z",
-      "endDate": "2025-06-07T13:00:00.000Z",
+      "startDate": "2026-06-07T09:00:00.000Z",
+      "endDate": "2026-06-07T13:00:00.000Z",
       "featured": false
     },
     {
-      "title": "Post Budget Press Briefing",
+      "title": "Post Budget Press Briefing 2026",
       "slug": "post-budget-press-briefing",
       "description": "Our team of fiscal policy experts will provide analysis and insights on the recently announced national budget, highlighting key issues related to debt management.",
       "location": "EGP Head Office",
-      "startDate": "2025-05-15T10:00:00.000Z",
-      "endDate": "2025-05-15T12:00:00.000Z",
+      "startDate": "2026-05-15T10:00:00.000Z",
+      "endDate": "2026-05-15T12:00:00.000Z",
       "featured": false
     },
     {
-      "title": "2025 Budget Input Gathering with CSOs Budget Forum",
+      "title": "2026 Budget Input Gathering with CSOs Budget Forum",
       "slug": "2025-budget-input-gathering-with-csos-budget-forum",
-      "description": "We facilitated a collaborative session with Civil Society Organizations to gather inputs for the 2025 national budget.",
+      "description": "We facilitated a collaborative session with Civil Society Organizations to gather inputs for the 2026 national budget.",
       "location": "Accra International Conference Centre",
-      "startDate": "2025-03-04T10:00:00.000Z",
-      "endDate": "2025-03-04T15:00:00.000Z",
+      "startDate": "2026-03-24T10:00:00.000Z",
+      "endDate": "2026-03-24T15:00:00.000Z",
+      "featured": false
+    },
+    {
+      "title": "2026 EGP Member Strategic Meeting",
+      "slug": "2025-egp-member-strategic-meeting",
+      "description": "Our members gathered to set the strategic direction for 2026, focusing on strengthening fiscal transparency initiatives and advocacy work.",
+      "location": "EGP Conference Room",
+      "startDate": "2026-03-12T09:00:00.000Z",
+      "endDate": "2026-03-12T17:00:00.000Z",
       "featured": false
     },
     {
@@ -196,18 +205,9 @@
       "slug": "launch-of-public-debt-tracker-and-imf-dashboard",
       "description": "We unveiled our digital tools that allow citizens and stakeholders to monitor Ghana's public debt and IMF program implementation.",
       "location": "Accra, Ghana",
-      "startDate": "2025-02-13T09:00:00.000Z",
-      "endDate": "2025-02-13T12:00:00.000Z",
+      "startDate": "2026-02-20T09:00:00.000Z",
+      "endDate": "2026-02-20T12:00:00.000Z",
       "featured": true
-    },
-    {
-      "title": "2025 EGP Member Strategic Meeting",
-      "slug": "2025-egp-member-strategic-meeting",
-      "description": "Our members gathered to set the strategic direction for 2025, focusing on strengthening fiscal transparency initiatives and advocacy work.",
-      "location": "EGP Conference Room",
-      "startDate": "2025-02-12T09:00:00.000Z",
-      "endDate": "2025-02-12T17:00:00.000Z",
-      "featured": false
     }
   ],
   "economicData": [
@@ -236,6 +236,57 @@
         "status": "Pending",
         "planned": 200000000,
         "quarter": "Q1 2026"
+      }
+    },
+    {
+      "indicator": "TOTAL_DEBT",
+      "value": 651062114999.9998,
+      "date": "2026-02-01T00:00:00.000Z",
+      "source": "Ministry of Finance / IMF",
+      "unit": "GHS",
+      "metadata": {
+        "currency": "GHS",
+        "domestic": 319020436349.9999,
+        "external": 332041678649.9999,
+        "domestic_share": 49,
+        "external_share": 51
+      }
+    },
+    {
+      "indicator": "EXCHANGE_RATE_USD",
+      "value": 19.7,
+      "date": "2026-01-31T00:00:00.000Z",
+      "source": "Bank of Ghana",
+      "unit": "GHS per USD",
+      "metadata": {
+        "month": "Jan 26"
+      }
+    },
+    {
+      "indicator": "INFLATION_RATE",
+      "value": 18.5,
+      "date": "2026-01-31T00:00:00.000Z",
+      "source": "Ghana Statistical Service",
+      "unit": "%",
+      "metadata": {
+        "month": "Jan 26",
+        "targetLow": 6,
+        "policyRate": 25,
+        "targetHigh": 10
+      }
+    },
+    {
+      "indicator": "TOTAL_DEBT",
+      "value": 647822999999.9999,
+      "date": "2026-01-01T00:00:00.000Z",
+      "source": "Ministry of Finance / IMF",
+      "unit": "GHS",
+      "metadata": {
+        "currency": "GHS",
+        "domestic": 317433269999.9999,
+        "external": 330389729999.9999,
+        "domestic_share": 49,
+        "external_share": 51
       }
     },
     {
@@ -312,6 +363,42 @@
       "metadata": {}
     },
     {
+      "indicator": "EXCHANGE_RATE_USD",
+      "value": 19.45,
+      "date": "2025-12-31T00:00:00.000Z",
+      "source": "Bank of Ghana",
+      "unit": "GHS per USD",
+      "metadata": {
+        "month": "Dec 25"
+      }
+    },
+    {
+      "indicator": "GDP_GROWTH",
+      "value": 5.8,
+      "date": "2025-12-31T00:00:00.000Z",
+      "source": "Ghana Statistical Service",
+      "unit": "%",
+      "metadata": {
+        "quarter": "2025 Q4",
+        "industry": 5.4,
+        "services": 5.6,
+        "agriculture": 6.2
+      }
+    },
+    {
+      "indicator": "INFLATION_RATE",
+      "value": 19.8,
+      "date": "2025-12-31T00:00:00.000Z",
+      "source": "Ghana Statistical Service",
+      "unit": "%",
+      "metadata": {
+        "month": "Dec 25",
+        "targetLow": 6,
+        "policyRate": 25,
+        "targetHigh": 10
+      }
+    },
+    {
       "indicator": "IMF_MILESTONE",
       "value": 1,
       "date": "2025-12-15T00:00:00.000Z",
@@ -351,6 +438,29 @@
         "external": 330200000000,
         "domestic_share": 48.8,
         "external_share": 51.2
+      }
+    },
+    {
+      "indicator": "INFLATION_RATE",
+      "value": 21,
+      "date": "2025-11-30T00:00:00.000Z",
+      "source": "Ghana Statistical Service",
+      "unit": "%",
+      "metadata": {
+        "month": "Nov 25",
+        "targetLow": 6,
+        "policyRate": 25,
+        "targetHigh": 10
+      }
+    },
+    {
+      "indicator": "EXCHANGE_RATE_USD",
+      "value": 19.1,
+      "date": "2025-11-30T00:00:00.000Z",
+      "source": "Bank of Ghana",
+      "unit": "GHS per USD",
+      "metadata": {
+        "month": "Nov 25"
       }
     },
     {
@@ -442,6 +552,17 @@
       }
     },
     {
+      "indicator": "TOTAL_DEBT",
+      "value": 776684344599.2795,
+      "date": "2025-11-01T00:00:00.000Z",
+      "source": "Ministry of Finance / IMF",
+      "unit": "GHS",
+      "metadata": {
+        "domestic": 376653250314.821,
+        "external": 400031094284.4586
+      }
+    },
+    {
       "indicator": "DEBT_BY_CREDITOR",
       "value": 130000000000,
       "date": "2025-11-01T00:00:00.000Z",
@@ -453,14 +574,26 @@
       }
     },
     {
-      "indicator": "TOTAL_DEBT",
-      "value": 777008563043.1886,
-      "date": "2025-11-01T00:00:00.000Z",
-      "source": "Ministry of Finance / IMF",
-      "unit": "GHS",
+      "indicator": "EXCHANGE_RATE_USD",
+      "value": 18.8,
+      "date": "2025-10-31T00:00:00.000Z",
+      "source": "Bank of Ghana",
+      "unit": "GHS per USD",
       "metadata": {
-        "domestic": 380151236738.2079,
-        "external": 396857326304.9807
+        "month": "Oct 25"
+      }
+    },
+    {
+      "indicator": "INFLATION_RATE",
+      "value": 22.1,
+      "date": "2025-10-31T00:00:00.000Z",
+      "source": "Ghana Statistical Service",
+      "unit": "%",
+      "metadata": {
+        "month": "Oct 25",
+        "targetLow": 6,
+        "policyRate": 26,
+        "targetHigh": 10
       }
     },
     {
@@ -473,13 +606,49 @@
     },
     {
       "indicator": "TOTAL_DEBT",
-      "value": 760315480480.1392,
+      "value": 759990026055.8026,
       "date": "2025-10-01T00:00:00.000Z",
       "source": "Ministry of Finance / IMF",
       "unit": "GHS",
       "metadata": {
-        "domestic": 374981608677.8036,
-        "external": 385333871802.3355
+        "domestic": 371280076311.7666,
+        "external": 388709949744.036
+      }
+    },
+    {
+      "indicator": "INFLATION_RATE",
+      "value": 21.5,
+      "date": "2025-09-30T00:00:00.000Z",
+      "source": "Ghana Statistical Service",
+      "unit": "%",
+      "metadata": {
+        "month": "Sep 25",
+        "targetLow": 6,
+        "policyRate": 26,
+        "targetHigh": 10
+      }
+    },
+    {
+      "indicator": "GDP_GROWTH",
+      "value": 6.1,
+      "date": "2025-09-30T00:00:00.000Z",
+      "source": "Ghana Statistical Service",
+      "unit": "%",
+      "metadata": {
+        "quarter": "2025 Q3",
+        "industry": 5.8,
+        "services": 6,
+        "agriculture": 6.5
+      }
+    },
+    {
+      "indicator": "EXCHANGE_RATE_USD",
+      "value": 18.5,
+      "date": "2025-09-30T00:00:00.000Z",
+      "source": "Bank of Ghana",
+      "unit": "GHS per USD",
+      "metadata": {
+        "month": "Sep 25"
       }
     },
     {
@@ -510,14 +679,71 @@
       }
     },
     {
+      "indicator": "EXCHANGE_RATE_USD",
+      "value": 18.2,
+      "date": "2025-08-31T00:00:00.000Z",
+      "source": "Bank of Ghana",
+      "unit": "GHS per USD",
+      "metadata": {
+        "month": "Aug 25"
+      }
+    },
+    {
+      "indicator": "INFLATION_RATE",
+      "value": 20.4,
+      "date": "2025-08-31T00:00:00.000Z",
+      "source": "Ghana Statistical Service",
+      "unit": "%",
+      "metadata": {
+        "month": "Aug 25",
+        "targetLow": 6,
+        "policyRate": 26,
+        "targetHigh": 10
+      }
+    },
+    {
       "indicator": "TOTAL_DEBT",
-      "value": 856099418731.7781,
+      "value": 846561231279.3529,
       "date": "2025-08-01T00:00:00.000Z",
       "source": "Ministry of Finance / IMF",
       "unit": "GHS",
       "metadata": {
-        "domestic": 419332239279.3687,
-        "external": 436767179452.4094
+        "domestic": 413055693025.7015,
+        "external": 433505538253.6514
+      }
+    },
+    {
+      "indicator": "INFLATION_RATE",
+      "value": 20.9,
+      "date": "2025-07-31T00:00:00.000Z",
+      "source": "Ghana Statistical Service",
+      "unit": "%",
+      "metadata": {
+        "month": "Jul 25",
+        "targetLow": 6,
+        "policyRate": 26,
+        "targetHigh": 10
+      }
+    },
+    {
+      "indicator": "EXCHANGE_RATE_USD",
+      "value": 17.85,
+      "date": "2025-07-31T00:00:00.000Z",
+      "source": "Bank of Ghana",
+      "unit": "GHS per USD",
+      "metadata": {
+        "month": "Jul 25"
+      }
+    },
+    {
+      "indicator": "TOTAL_DEBT",
+      "value": 827545877913.3785,
+      "date": "2025-07-01T00:00:00.000Z",
+      "source": "Ministry of Finance / IMF",
+      "unit": "GHS",
+      "metadata": {
+        "domestic": 400025451087.9839,
+        "external": 427520426825.3947
       }
     },
     {
@@ -527,17 +753,6 @@
       "source": "Bank of Ghana / IMF",
       "unit": "%",
       "metadata": {}
-    },
-    {
-      "indicator": "TOTAL_DEBT",
-      "value": 843088587721.6387,
-      "date": "2025-07-01T00:00:00.000Z",
-      "source": "Ministry of Finance / IMF",
-      "unit": "GHS",
-      "metadata": {
-        "domestic": 418104761379.616,
-        "external": 424983826342.0226
-      }
     },
     {
       "indicator": "IMF_CONDITIONALITY",
@@ -565,6 +780,42 @@
         "category": "Structural",
         "deadline": "2025-06-30",
         "description": "Improve governance and reduce fiscal risks from SOEs"
+      }
+    },
+    {
+      "indicator": "INFLATION_RATE",
+      "value": 22.8,
+      "date": "2025-06-30T00:00:00.000Z",
+      "source": "Ghana Statistical Service",
+      "unit": "%",
+      "metadata": {
+        "month": "Jun 25",
+        "targetLow": 6,
+        "policyRate": 26,
+        "targetHigh": 10
+      }
+    },
+    {
+      "indicator": "EXCHANGE_RATE_USD",
+      "value": 17.5,
+      "date": "2025-06-30T00:00:00.000Z",
+      "source": "Bank of Ghana",
+      "unit": "GHS per USD",
+      "metadata": {
+        "month": "Jun 25"
+      }
+    },
+    {
+      "indicator": "GDP_GROWTH",
+      "value": 5.2,
+      "date": "2025-06-30T00:00:00.000Z",
+      "source": "Ghana Statistical Service",
+      "unit": "%",
+      "metadata": {
+        "quarter": "2025 Q2",
+        "industry": 4.9,
+        "services": 5.1,
+        "agriculture": 5.8
       }
     },
     {
@@ -596,24 +847,81 @@
     },
     {
       "indicator": "TOTAL_DEBT",
-      "value": 824376939444.261,
+      "value": 813716751403.8878,
       "date": "2025-06-01T00:00:00.000Z",
       "source": "Ministry of Finance / IMF",
       "unit": "GHS",
       "metadata": {
-        "domestic": 396336170261.7721,
-        "external": 428040769182.4889
+        "domestic": 406853819354.7852,
+        "external": 406862932049.1026
+      }
+    },
+    {
+      "indicator": "EXCHANGE_RATE_USD",
+      "value": 17.2,
+      "date": "2025-05-31T00:00:00.000Z",
+      "source": "Bank of Ghana",
+      "unit": "GHS per USD",
+      "metadata": {
+        "month": "May 25"
+      }
+    },
+    {
+      "indicator": "INFLATION_RATE",
+      "value": 23.1,
+      "date": "2025-05-31T00:00:00.000Z",
+      "source": "Ghana Statistical Service",
+      "unit": "%",
+      "metadata": {
+        "month": "May 25",
+        "targetLow": 6,
+        "policyRate": 26,
+        "targetHigh": 10
       }
     },
     {
       "indicator": "TOTAL_DEBT",
-      "value": 810240286758.8999,
+      "value": 795951622372.0076,
       "date": "2025-05-01T00:00:00.000Z",
       "source": "Ministry of Finance / IMF",
       "unit": "GHS",
       "metadata": {
-        "domestic": 398393779762.2889,
-        "external": 411846506996.611
+        "domestic": 390056742371.1398,
+        "external": 405894880000.8678
+      }
+    },
+    {
+      "indicator": "INFLATION_RATE",
+      "value": 25,
+      "date": "2025-04-30T00:00:00.000Z",
+      "source": "Ghana Statistical Service",
+      "unit": "%",
+      "metadata": {
+        "month": "Apr 25",
+        "targetLow": 6,
+        "policyRate": 26,
+        "targetHigh": 10
+      }
+    },
+    {
+      "indicator": "EXCHANGE_RATE_USD",
+      "value": 16.8,
+      "date": "2025-04-30T00:00:00.000Z",
+      "source": "Bank of Ghana",
+      "unit": "GHS per USD",
+      "metadata": {
+        "month": "Apr 25"
+      }
+    },
+    {
+      "indicator": "TOTAL_DEBT",
+      "value": 782040026465.3639,
+      "date": "2025-04-01T00:00:00.000Z",
+      "source": "Ministry of Finance / IMF",
+      "unit": "GHS",
+      "metadata": {
+        "domestic": 390463286983.8265,
+        "external": 391576739481.5374
       }
     },
     {
@@ -625,14 +933,26 @@
       "metadata": {}
     },
     {
-      "indicator": "TOTAL_DEBT",
-      "value": 798363083986.2986,
-      "date": "2025-04-01T00:00:00.000Z",
-      "source": "Ministry of Finance / IMF",
-      "unit": "GHS",
+      "indicator": "UNEMPLOYMENT_RATE",
+      "value": 12.8,
+      "date": "2025-03-31T00:00:00.000Z",
+      "source": "Ghana Statistical Service",
+      "unit": "%",
       "metadata": {
-        "domestic": 394851962685.7711,
-        "external": 403511121300.5275
+        "quarter": "2025 Q1"
+      }
+    },
+    {
+      "indicator": "INFLATION_RATE",
+      "value": 25.8,
+      "date": "2025-03-31T00:00:00.000Z",
+      "source": "Ghana Statistical Service",
+      "unit": "%",
+      "metadata": {
+        "month": "Mar 25",
+        "targetLow": 6,
+        "policyRate": 26,
+        "targetHigh": 10
       }
     },
     {
@@ -649,13 +969,13 @@
       }
     },
     {
-      "indicator": "UNEMPLOYMENT_RATE",
-      "value": 12.8,
+      "indicator": "EXCHANGE_RATE_USD",
+      "value": 16.45,
       "date": "2025-03-31T00:00:00.000Z",
-      "source": "Ghana Statistical Service",
-      "unit": "%",
+      "source": "Bank of Ghana",
+      "unit": "GHS per USD",
       "metadata": {
-        "quarter": "2025 Q1"
+        "month": "Mar 25"
       }
     },
     {
@@ -666,6 +986,17 @@
       "unit": "Billion USD",
       "metadata": {
         "quarter": "2025 Q1"
+      }
+    },
+    {
+      "indicator": "TOTAL_DEBT",
+      "value": 768005171888.091,
+      "date": "2025-03-01T00:00:00.000Z",
+      "source": "Ministry of Finance / IMF",
+      "unit": "GHS",
+      "metadata": {
+        "domestic": 374303449382.8407,
+        "external": 393701722505.2502
       }
     },
     {
@@ -682,30 +1013,42 @@
       }
     },
     {
-      "indicator": "TOTAL_DEBT",
-      "value": 781015857172.991,
-      "date": "2025-03-01T00:00:00.000Z",
-      "source": "Ministry of Finance / IMF",
-      "unit": "GHS",
+      "indicator": "INFLATION_RATE",
+      "value": 23.2,
+      "date": "2025-02-28T00:00:00.000Z",
+      "source": "Ghana Statistical Service",
+      "unit": "%",
       "metadata": {
-        "domestic": 389663208561.5689,
-        "external": 391352648611.4221
+        "month": "Feb 25",
+        "targetLow": 6,
+        "policyRate": 26,
+        "targetHigh": 10
+      }
+    },
+    {
+      "indicator": "EXCHANGE_RATE_USD",
+      "value": 16.1,
+      "date": "2025-02-28T00:00:00.000Z",
+      "source": "Bank of Ghana",
+      "unit": "GHS per USD",
+      "metadata": {
+        "month": "Feb 25"
       }
     },
     {
       "indicator": "TOTAL_DEBT",
-      "value": 768870694457.69,
+      "value": 757450565270.4604,
       "date": "2025-02-01T00:00:00.000Z",
       "source": "Ministry of Finance / IMF",
       "unit": "GHS",
       "metadata": {
-        "domestic": 371276648816.7097,
-        "external": 397594045640.9802
+        "domestic": 368649240727.7029,
+        "external": 388801324542.7576
       }
     },
     {
       "indicator": "INFLATION_RATE",
-      "value": 18.4,
+      "value": 23.5,
       "date": "2025-01-31T00:00:00.000Z",
       "source": "Ghana Statistical Service",
       "unit": "%",
@@ -727,23 +1070,23 @@
       }
     },
     {
+      "indicator": "TOTAL_DEBT",
+      "value": 747020644361.9027,
+      "date": "2025-01-01T00:00:00.000Z",
+      "source": "Ministry of Finance / IMF",
+      "unit": "GHS",
+      "metadata": {
+        "domestic": 366692077072.3238,
+        "external": 380328567289.5789
+      }
+    },
+    {
       "indicator": "DEBT_TO_GDP_RATIO",
       "value": 45.5,
       "date": "2025-01-01T00:00:00.000Z",
       "source": "Bank of Ghana / IMF",
       "unit": "%",
       "metadata": {}
-    },
-    {
-      "indicator": "TOTAL_DEBT",
-      "value": 751868023945.2266,
-      "date": "2025-01-01T00:00:00.000Z",
-      "source": "Ministry of Finance / IMF",
-      "unit": "GHS",
-      "metadata": {
-        "domestic": 366900915575.0262,
-        "external": 384967108370.2004
-      }
     },
     {
       "indicator": "IMF_CONDITIONALITY",
@@ -819,6 +1162,16 @@
       }
     },
     {
+      "indicator": "UNEMPLOYMENT_RATE",
+      "value": 13.1,
+      "date": "2024-12-31T00:00:00.000Z",
+      "source": "Ghana Statistical Service",
+      "unit": "%",
+      "metadata": {
+        "quarter": "2024 Q4"
+      }
+    },
+    {
       "indicator": "DEBT_SERVICE_TO_REVENUE",
       "value": 45,
       "date": "2024-12-31T00:00:00.000Z",
@@ -827,16 +1180,13 @@
       "metadata": {}
     },
     {
-      "indicator": "GDP_GROWTH",
-      "value": 5,
+      "indicator": "EXCHANGE_RATE_USD",
+      "value": 16.2,
       "date": "2024-12-31T00:00:00.000Z",
-      "source": "Ghana Statistical Service",
-      "unit": "%",
+      "source": "Bank of Ghana",
+      "unit": "GHS per USD",
       "metadata": {
-        "quarter": "2024 Q4",
-        "industry": 4.8,
-        "services": 4.9,
-        "agriculture": 5.5
+        "month": "Dec 24"
       }
     },
     {
@@ -853,21 +1203,11 @@
       }
     },
     {
-      "indicator": "EXCHANGE_RATE_USD",
-      "value": 16.2,
+      "indicator": "FOREX_RESERVES",
+      "value": 7.2,
       "date": "2024-12-31T00:00:00.000Z",
       "source": "Bank of Ghana",
-      "unit": "GHS per USD",
-      "metadata": {
-        "month": "Dec 24"
-      }
-    },
-    {
-      "indicator": "UNEMPLOYMENT_RATE",
-      "value": 13.1,
-      "date": "2024-12-31T00:00:00.000Z",
-      "source": "Ghana Statistical Service",
-      "unit": "%",
+      "unit": "Billion USD",
       "metadata": {
         "quarter": "2024 Q4"
       }
@@ -883,13 +1223,16 @@
       }
     },
     {
-      "indicator": "FOREX_RESERVES",
-      "value": 7.2,
+      "indicator": "GDP_GROWTH",
+      "value": 5,
       "date": "2024-12-31T00:00:00.000Z",
-      "source": "Bank of Ghana",
-      "unit": "Billion USD",
+      "source": "Ghana Statistical Service",
+      "unit": "%",
       "metadata": {
-        "quarter": "2024 Q4"
+        "quarter": "2024 Q4",
+        "industry": 4.8,
+        "services": 4.9,
+        "agriculture": 5.5
       }
     },
     {
@@ -921,13 +1264,33 @@
     },
     {
       "indicator": "TOTAL_DEBT",
-      "value": 741260577681.6536,
+      "value": 734634193757.9861,
       "date": "2024-12-01T00:00:00.000Z",
       "source": "Ministry of Finance / IMF",
       "unit": "GHS",
       "metadata": {
-        "domestic": 340150768850.6975,
-        "external": 401109808830.9561
+        "domestic": 327697245221.6094,
+        "external": 406936948536.3767
+      }
+    },
+    {
+      "indicator": "TRADE_BALANCE",
+      "value": 2.1,
+      "date": "2024-11-30T00:00:00.000Z",
+      "source": "Ghana Statistical Service",
+      "unit": "Billion USD",
+      "metadata": {
+        "month": "Nov 24"
+      }
+    },
+    {
+      "indicator": "EXCHANGE_RATE_USD",
+      "value": 16.35,
+      "date": "2024-11-30T00:00:00.000Z",
+      "source": "Bank of Ghana",
+      "unit": "GHS per USD",
+      "metadata": {
+        "month": "Nov 24"
       }
     },
     {
@@ -944,34 +1307,34 @@
       }
     },
     {
-      "indicator": "EXCHANGE_RATE_USD",
-      "value": 16.35,
-      "date": "2024-11-30T00:00:00.000Z",
-      "source": "Bank of Ghana",
-      "unit": "GHS per USD",
-      "metadata": {
-        "month": "Nov 24"
-      }
-    },
-    {
-      "indicator": "TRADE_BALANCE",
-      "value": 2.1,
-      "date": "2024-11-30T00:00:00.000Z",
-      "source": "Ghana Statistical Service",
-      "unit": "Billion USD",
-      "metadata": {
-        "month": "Nov 24"
-      }
-    },
-    {
       "indicator": "TOTAL_DEBT",
-      "value": 730535032177.7703,
+      "value": 720901546628.0055,
       "date": "2024-11-01T00:00:00.000Z",
       "source": "Ministry of Finance / IMF",
       "unit": "GHS",
       "metadata": {
-        "domestic": 335330107218.7308,
-        "external": 395204924959.0394
+        "domestic": 325873023429.5494,
+        "external": 395028523198.4561
+      }
+    },
+    {
+      "indicator": "TRADE_BALANCE",
+      "value": 2,
+      "date": "2024-10-31T00:00:00.000Z",
+      "source": "Ghana Statistical Service",
+      "unit": "Billion USD",
+      "metadata": {
+        "month": "Oct 24"
+      }
+    },
+    {
+      "indicator": "EXCHANGE_RATE_USD",
+      "value": 16.1,
+      "date": "2024-10-31T00:00:00.000Z",
+      "source": "Bank of Ghana",
+      "unit": "GHS per USD",
+      "metadata": {
+        "month": "Oct 24"
       }
     },
     {
@@ -988,28 +1351,8 @@
       }
     },
     {
-      "indicator": "EXCHANGE_RATE_USD",
-      "value": 16.1,
-      "date": "2024-10-31T00:00:00.000Z",
-      "source": "Bank of Ghana",
-      "unit": "GHS per USD",
-      "metadata": {
-        "month": "Oct 24"
-      }
-    },
-    {
-      "indicator": "TRADE_BALANCE",
-      "value": 2,
-      "date": "2024-10-31T00:00:00.000Z",
-      "source": "Ghana Statistical Service",
-      "unit": "Billion USD",
-      "metadata": {
-        "month": "Oct 24"
-      }
-    },
-    {
       "indicator": "DEBT_TO_GDP_RATIO",
-      "value": 59.8,
+      "value": 59.1,
       "date": "2024-10-01T00:00:00.000Z",
       "source": "Bank of Ghana / IMF",
       "unit": "%",
@@ -1017,26 +1360,33 @@
     },
     {
       "indicator": "TOTAL_DEBT",
-      "value": 714538603882.8528,
+      "value": 706221054625.9755,
       "date": "2024-10-01T00:00:00.000Z",
       "source": "Ministry of Finance / IMF",
       "unit": "GHS",
       "metadata": {
-        "domestic": 322667571732.8693,
-        "external": 391871032149.9835
+        "domestic": 319270698045.3096,
+        "external": 386950356580.6659
       }
     },
     {
-      "indicator": "GDP_GROWTH",
-      "value": 6.9,
+      "indicator": "UNEMPLOYMENT_RATE",
+      "value": 12.8,
       "date": "2024-09-30T00:00:00.000Z",
       "source": "Ghana Statistical Service",
       "unit": "%",
       "metadata": {
-        "quarter": "2024 Q3",
-        "industry": 6.5,
-        "services": 6.8,
-        "agriculture": 7.5
+        "quarter": "2024 Q3"
+      }
+    },
+    {
+      "indicator": "TRADE_BALANCE",
+      "value": 1.8,
+      "date": "2024-09-30T00:00:00.000Z",
+      "source": "Ghana Statistical Service",
+      "unit": "Billion USD",
+      "metadata": {
+        "month": "Sep 24"
       }
     },
     {
@@ -1063,26 +1413,6 @@
       }
     },
     {
-      "indicator": "UNEMPLOYMENT_RATE",
-      "value": 12.8,
-      "date": "2024-09-30T00:00:00.000Z",
-      "source": "Ghana Statistical Service",
-      "unit": "%",
-      "metadata": {
-        "quarter": "2024 Q3"
-      }
-    },
-    {
-      "indicator": "TRADE_BALANCE",
-      "value": 1.8,
-      "date": "2024-09-30T00:00:00.000Z",
-      "source": "Ghana Statistical Service",
-      "unit": "Billion USD",
-      "metadata": {
-        "month": "Sep 24"
-      }
-    },
-    {
       "indicator": "FOREX_RESERVES",
       "value": 7.5,
       "date": "2024-09-30T00:00:00.000Z",
@@ -1090,6 +1420,19 @@
       "unit": "Billion USD",
       "metadata": {
         "quarter": "2024 Q3"
+      }
+    },
+    {
+      "indicator": "GDP_GROWTH",
+      "value": 6.9,
+      "date": "2024-09-30T00:00:00.000Z",
+      "source": "Ghana Statistical Service",
+      "unit": "%",
+      "metadata": {
+        "quarter": "2024 Q3",
+        "industry": 6.5,
+        "services": 6.8,
+        "agriculture": 7.5
       }
     },
     {
@@ -1107,13 +1450,23 @@
     },
     {
       "indicator": "TOTAL_DEBT",
-      "value": 701463866032.1831,
+      "value": 697087644174.1775,
       "date": "2024-09-01T00:00:00.000Z",
       "source": "Ministry of Finance / IMF",
       "unit": "GHS",
       "metadata": {
-        "domestic": 315866862194.0706,
-        "external": 385597003838.1125
+        "domestic": 319049564660.2827,
+        "external": 378038079513.8948
+      }
+    },
+    {
+      "indicator": "EXCHANGE_RATE_USD",
+      "value": 15.5,
+      "date": "2024-08-31T00:00:00.000Z",
+      "source": "Bank of Ghana",
+      "unit": "GHS per USD",
+      "metadata": {
+        "month": "Aug 24"
       }
     },
     {
@@ -1130,16 +1483,6 @@
       }
     },
     {
-      "indicator": "EXCHANGE_RATE_USD",
-      "value": 15.5,
-      "date": "2024-08-31T00:00:00.000Z",
-      "source": "Bank of Ghana",
-      "unit": "GHS per USD",
-      "metadata": {
-        "month": "Aug 24"
-      }
-    },
-    {
       "indicator": "TRADE_BALANCE",
       "value": 1.6,
       "date": "2024-08-31T00:00:00.000Z",
@@ -1151,13 +1494,23 @@
     },
     {
       "indicator": "TOTAL_DEBT",
-      "value": 690864570693.4315,
+      "value": 686511334452.3636,
       "date": "2024-08-01T00:00:00.000Z",
       "source": "Ministry of Finance / IMF",
       "unit": "GHS",
       "metadata": {
-        "domestic": 312783125187.8679,
-        "external": 378081445505.5637
+        "domestic": 306461456062.0698,
+        "external": 380049878390.2939
+      }
+    },
+    {
+      "indicator": "TRADE_BALANCE",
+      "value": 1.4,
+      "date": "2024-07-31T00:00:00.000Z",
+      "source": "Ghana Statistical Service",
+      "unit": "Billion USD",
+      "metadata": {
+        "month": "Jul 24"
       }
     },
     {
@@ -1184,33 +1537,23 @@
       }
     },
     {
-      "indicator": "TRADE_BALANCE",
-      "value": 1.4,
-      "date": "2024-07-31T00:00:00.000Z",
-      "source": "Ghana Statistical Service",
-      "unit": "Billion USD",
-      "metadata": {
-        "month": "Jul 24"
-      }
-    },
-    {
-      "indicator": "DEBT_TO_GDP_RATIO",
-      "value": 60.3,
-      "date": "2024-07-01T00:00:00.000Z",
-      "source": "Bank of Ghana / IMF",
-      "unit": "%",
-      "metadata": {}
-    },
-    {
       "indicator": "TOTAL_DEBT",
-      "value": 679070264753.622,
+      "value": 677640861192.6848,
       "date": "2024-07-01T00:00:00.000Z",
       "source": "Ministry of Finance / IMF",
       "unit": "GHS",
       "metadata": {
-        "domestic": 312138596404.4554,
-        "external": 366931668349.1666
+        "domestic": 307145795145.154,
+        "external": 370495066047.5308
       }
+    },
+    {
+      "indicator": "DEBT_TO_GDP_RATIO",
+      "value": 59.3,
+      "date": "2024-07-01T00:00:00.000Z",
+      "source": "Bank of Ghana / IMF",
+      "unit": "%",
+      "metadata": {}
     },
     {
       "indicator": "IMF_CONDITIONALITY",
@@ -1241,6 +1584,16 @@
       }
     },
     {
+      "indicator": "EXCHANGE_RATE_USD",
+      "value": 14.85,
+      "date": "2024-06-30T00:00:00.000Z",
+      "source": "Bank of Ghana",
+      "unit": "GHS per USD",
+      "metadata": {
+        "month": "Jun 24"
+      }
+    },
+    {
       "indicator": "GDP_GROWTH",
       "value": 6.2,
       "date": "2024-06-30T00:00:00.000Z",
@@ -1264,16 +1617,6 @@
         "targetLow": 6,
         "policyRate": 29,
         "targetHigh": 10
-      }
-    },
-    {
-      "indicator": "EXCHANGE_RATE_USD",
-      "value": 14.85,
-      "date": "2024-06-30T00:00:00.000Z",
-      "source": "Bank of Ghana",
-      "unit": "GHS per USD",
-      "metadata": {
-        "month": "Jun 24"
       }
     },
     {
@@ -1335,26 +1678,13 @@
     },
     {
       "indicator": "TOTAL_DEBT",
-      "value": 665542614461.8431,
+      "value": 663955449810.4408,
       "date": "2024-06-01T00:00:00.000Z",
       "source": "Ministry of Finance / IMF",
       "unit": "GHS",
       "metadata": {
-        "domestic": 294768273175.95,
-        "external": 370774341285.8931
-      }
-    },
-    {
-      "indicator": "INFLATION_RATE",
-      "value": 23.1,
-      "date": "2024-05-31T00:00:00.000Z",
-      "source": "Ghana Statistical Service",
-      "unit": "%",
-      "metadata": {
-        "month": "May 24",
-        "targetLow": 6,
-        "policyRate": 29,
-        "targetHigh": 10
+        "domestic": 298356046051.0119,
+        "external": 365599403759.4289
       }
     },
     {
@@ -1378,14 +1708,27 @@
       }
     },
     {
+      "indicator": "INFLATION_RATE",
+      "value": 23.1,
+      "date": "2024-05-31T00:00:00.000Z",
+      "source": "Ghana Statistical Service",
+      "unit": "%",
+      "metadata": {
+        "month": "May 24",
+        "targetLow": 6,
+        "policyRate": 29,
+        "targetHigh": 10
+      }
+    },
+    {
       "indicator": "TOTAL_DEBT",
-      "value": 655583374429.5614,
+      "value": 650625554903.15,
       "date": "2024-05-01T00:00:00.000Z",
       "source": "Ministry of Finance / IMF",
       "unit": "GHS",
       "metadata": {
-        "domestic": 300618971007.8962,
-        "external": 354964403421.6652
+        "domestic": 287437056832.597,
+        "external": 363188498070.553
       }
     },
     {
@@ -1422,48 +1765,32 @@
       }
     },
     {
+      "indicator": "TOTAL_DEBT",
+      "value": 640499367423.4745,
+      "date": "2024-04-01T00:00:00.000Z",
+      "source": "Ministry of Finance / IMF",
+      "unit": "GHS",
+      "metadata": {
+        "domestic": 291967852098.1984,
+        "external": 348531515325.2761
+      }
+    },
+    {
       "indicator": "DEBT_TO_GDP_RATIO",
-      "value": 60.5,
+      "value": 60.3,
       "date": "2024-04-01T00:00:00.000Z",
       "source": "Bank of Ghana / IMF",
       "unit": "%",
       "metadata": {}
     },
     {
-      "indicator": "TOTAL_DEBT",
-      "value": 644188429392.8828,
-      "date": "2024-04-01T00:00:00.000Z",
-      "source": "Ministry of Finance / IMF",
-      "unit": "GHS",
-      "metadata": {
-        "domestic": 289956792645.887,
-        "external": 354231636746.9958
-      }
-    },
-    {
-      "indicator": "GDP_GROWTH",
-      "value": 4.7,
+      "indicator": "FOREX_RESERVES",
+      "value": 6.2,
       "date": "2024-03-31T00:00:00.000Z",
-      "source": "Ghana Statistical Service",
-      "unit": "%",
+      "source": "Bank of Ghana",
+      "unit": "Billion USD",
       "metadata": {
-        "quarter": "2024 Q1",
-        "industry": 4.5,
-        "services": 4.6,
-        "agriculture": 5.2
-      }
-    },
-    {
-      "indicator": "INFLATION_RATE",
-      "value": 25,
-      "date": "2024-03-31T00:00:00.000Z",
-      "source": "Ghana Statistical Service",
-      "unit": "%",
-      "metadata": {
-        "month": "Mar 24",
-        "targetLow": 6,
-        "policyRate": 29,
-        "targetHigh": 10
+        "quarter": "2024 Q1"
       }
     },
     {
@@ -1487,6 +1814,19 @@
       }
     },
     {
+      "indicator": "GDP_GROWTH",
+      "value": 4.7,
+      "date": "2024-03-31T00:00:00.000Z",
+      "source": "Ghana Statistical Service",
+      "unit": "%",
+      "metadata": {
+        "quarter": "2024 Q1",
+        "industry": 4.5,
+        "services": 4.6,
+        "agriculture": 5.2
+      }
+    },
+    {
       "indicator": "TRADE_BALANCE",
       "value": 0.8,
       "date": "2024-03-31T00:00:00.000Z",
@@ -1497,13 +1837,16 @@
       }
     },
     {
-      "indicator": "FOREX_RESERVES",
-      "value": 6.2,
+      "indicator": "INFLATION_RATE",
+      "value": 25,
       "date": "2024-03-31T00:00:00.000Z",
-      "source": "Bank of Ghana",
-      "unit": "Billion USD",
+      "source": "Ghana Statistical Service",
+      "unit": "%",
       "metadata": {
-        "quarter": "2024 Q1"
+        "month": "Mar 24",
+        "targetLow": 6,
+        "policyRate": 29,
+        "targetHigh": 10
       }
     },
     {
@@ -1521,26 +1864,13 @@
     },
     {
       "indicator": "TOTAL_DEBT",
-      "value": 631982390342.927,
+      "value": 628728889682.7168,
       "date": "2024-03-01T00:00:00.000Z",
       "source": "Ministry of Finance / IMF",
       "unit": "GHS",
       "metadata": {
-        "domestic": 282887826852.1387,
-        "external": 349094563490.7883
-      }
-    },
-    {
-      "indicator": "INFLATION_RATE",
-      "value": 25.8,
-      "date": "2024-02-29T00:00:00.000Z",
-      "source": "Ghana Statistical Service",
-      "unit": "%",
-      "metadata": {
-        "month": "Feb 24",
-        "targetLow": 6,
-        "policyRate": 29,
-        "targetHigh": 10
+        "domestic": 278904281907.4844,
+        "external": 349824607775.2324
       }
     },
     {
@@ -1564,27 +1894,27 @@
       }
     },
     {
+      "indicator": "INFLATION_RATE",
+      "value": 25.8,
+      "date": "2024-02-29T00:00:00.000Z",
+      "source": "Ghana Statistical Service",
+      "unit": "%",
+      "metadata": {
+        "month": "Feb 24",
+        "targetLow": 6,
+        "policyRate": 29,
+        "targetHigh": 10
+      }
+    },
+    {
       "indicator": "TOTAL_DEBT",
-      "value": 620623551304.4669,
+      "value": 615499446762.2986,
       "date": "2024-02-01T00:00:00.000Z",
       "source": "Ministry of Finance / IMF",
       "unit": "GHS",
       "metadata": {
-        "domestic": 285313898119.262,
-        "external": 335309653185.2049
-      }
-    },
-    {
-      "indicator": "INFLATION_RATE",
-      "value": 23.5,
-      "date": "2024-01-31T00:00:00.000Z",
-      "source": "Ghana Statistical Service",
-      "unit": "%",
-      "metadata": {
-        "month": "Jan 24",
-        "targetLow": 6,
-        "policyRate": 29,
-        "targetHigh": 10
+        "domestic": 272875689127.7008,
+        "external": 342623757634.5977
       }
     },
     {
@@ -1608,8 +1938,21 @@
       }
     },
     {
+      "indicator": "INFLATION_RATE",
+      "value": 23.5,
+      "date": "2024-01-31T00:00:00.000Z",
+      "source": "Ghana Statistical Service",
+      "unit": "%",
+      "metadata": {
+        "month": "Jan 24",
+        "targetLow": 6,
+        "policyRate": 29,
+        "targetHigh": 10
+      }
+    },
+    {
       "indicator": "DEBT_TO_GDP_RATIO",
-      "value": 59.3,
+      "value": 60.2,
       "date": "2024-01-01T00:00:00.000Z",
       "source": "Bank of Ghana / IMF",
       "unit": "%",
@@ -1617,13 +1960,13 @@
     },
     {
       "indicator": "TOTAL_DEBT",
-      "value": 606865951509.3079,
+      "value": 605701826966.0549,
       "date": "2024-01-01T00:00:00.000Z",
       "source": "Ministry of Finance / IMF",
       "unit": "GHS",
       "metadata": {
-        "domestic": 271573847258.286,
-        "external": 335292104251.0219
+        "domestic": 267481831427.7044,
+        "external": 338219995538.3505
       }
     },
     {
@@ -1672,20 +2015,16 @@
       }
     },
     {
-      "indicator": "IMF_CONDITIONALITY",
-      "value": 1,
+      "indicator": "INFLATION_RATE",
+      "value": 23.2,
       "date": "2023-12-31T00:00:00.000Z",
-      "source": "IMF",
-      "unit": "status",
+      "source": "Ghana Statistical Service",
+      "unit": "%",
       "metadata": {
-        "unit": "% of GDP",
-        "title": "Reduce fiscal deficit to 7.7% of GDP",
-        "actual": 7.5,
-        "status": "Met",
-        "target": 7.7,
-        "category": "Fiscal",
-        "deadline": "2023-12-31",
-        "description": "Achieve primary fiscal deficit target through revenue mobilization and expenditure rationalization"
+        "month": "Dec 23",
+        "targetLow": 6,
+        "policyRate": 30,
+        "targetHigh": 10
       }
     },
     {
@@ -1695,6 +2034,16 @@
       "source": "Ministry of Finance",
       "unit": "%",
       "metadata": {}
+    },
+    {
+      "indicator": "EXCHANGE_RATE_USD",
+      "value": 12,
+      "date": "2023-12-31T00:00:00.000Z",
+      "source": "Bank of Ghana",
+      "unit": "GHS per USD",
+      "metadata": {
+        "month": "Dec 23"
+      }
     },
     {
       "indicator": "GDP_GROWTH",
@@ -1710,26 +2059,20 @@
       }
     },
     {
-      "indicator": "INFLATION_RATE",
-      "value": 23.2,
+      "indicator": "IMF_CONDITIONALITY",
+      "value": 1,
       "date": "2023-12-31T00:00:00.000Z",
-      "source": "Ghana Statistical Service",
-      "unit": "%",
+      "source": "IMF",
+      "unit": "status",
       "metadata": {
-        "month": "Dec 23",
-        "targetLow": 6,
-        "policyRate": 30,
-        "targetHigh": 10
-      }
-    },
-    {
-      "indicator": "EXCHANGE_RATE_USD",
-      "value": 12,
-      "date": "2023-12-31T00:00:00.000Z",
-      "source": "Bank of Ghana",
-      "unit": "GHS per USD",
-      "metadata": {
-        "month": "Dec 23"
+        "unit": "% of GDP",
+        "title": "Reduce fiscal deficit to 7.7% of GDP",
+        "actual": 7.5,
+        "status": "Met",
+        "target": 7.7,
+        "category": "Fiscal",
+        "deadline": "2023-12-31",
+        "description": "Achieve primary fiscal deficit target through revenue mobilization and expenditure rationalization"
       }
     },
     {
@@ -1771,13 +2114,13 @@
     },
     {
       "indicator": "TOTAL_DEBT",
-      "value": 595652157560.0005,
+      "value": 596140138719.6758,
       "date": "2023-12-01T00:00:00.000Z",
       "source": "Ministry of Finance / IMF",
       "unit": "GHS",
       "metadata": {
-        "domestic": 273948589427.7622,
-        "external": 321703568132.2383
+        "domestic": 272492218234.001,
+        "external": 323647920485.6747
       }
     },
     {
@@ -1805,13 +2148,23 @@
     },
     {
       "indicator": "TOTAL_DEBT",
-      "value": 586921943377.9446,
+      "value": 587493575274.4644,
       "date": "2023-11-01T00:00:00.000Z",
       "source": "Ministry of Finance / IMF",
       "unit": "GHS",
       "metadata": {
-        "domestic": 265489087085.7744,
-        "external": 321432856292.1702
+        "domestic": 267319049304.4646,
+        "external": 320174525969.9997
+      }
+    },
+    {
+      "indicator": "EXCHANGE_RATE_USD",
+      "value": 11.6,
+      "date": "2023-10-31T00:00:00.000Z",
+      "source": "Bank of Ghana",
+      "unit": "GHS per USD",
+      "metadata": {
+        "month": "Oct 23"
       }
     },
     {
@@ -1828,33 +2181,23 @@
       }
     },
     {
-      "indicator": "EXCHANGE_RATE_USD",
-      "value": 11.6,
-      "date": "2023-10-31T00:00:00.000Z",
-      "source": "Bank of Ghana",
-      "unit": "GHS per USD",
-      "metadata": {
-        "month": "Oct 23"
-      }
-    },
-    {
-      "indicator": "DEBT_TO_GDP_RATIO",
-      "value": 61,
-      "date": "2023-10-01T00:00:00.000Z",
-      "source": "Bank of Ghana / IMF",
-      "unit": "%",
-      "metadata": {}
-    },
-    {
       "indicator": "TOTAL_DEBT",
-      "value": 578856092164.6089,
+      "value": 584351998448.3828,
       "date": "2023-10-01T00:00:00.000Z",
       "source": "Ministry of Finance / IMF",
       "unit": "GHS",
       "metadata": {
-        "domestic": 256878665197.7635,
-        "external": 321977426966.8454
+        "domestic": 268261292774.5575,
+        "external": 316090705673.8253
       }
+    },
+    {
+      "indicator": "DEBT_TO_GDP_RATIO",
+      "value": 59.4,
+      "date": "2023-10-01T00:00:00.000Z",
+      "source": "Bank of Ghana / IMF",
+      "unit": "%",
+      "metadata": {}
     },
     {
       "indicator": "GDP_GROWTH",
@@ -1870,16 +2213,13 @@
       }
     },
     {
-      "indicator": "INFLATION_RATE",
-      "value": 38,
+      "indicator": "FOREX_RESERVES",
+      "value": 5,
       "date": "2023-09-30T00:00:00.000Z",
-      "source": "Ghana Statistical Service",
-      "unit": "%",
+      "source": "Bank of Ghana",
+      "unit": "Billion USD",
       "metadata": {
-        "month": "Sep 23",
-        "targetLow": 6,
-        "policyRate": 30,
-        "targetHigh": 10
+        "quarter": "2023 Q3"
       }
     },
     {
@@ -1893,13 +2233,16 @@
       }
     },
     {
-      "indicator": "FOREX_RESERVES",
-      "value": 5,
+      "indicator": "INFLATION_RATE",
+      "value": 38,
       "date": "2023-09-30T00:00:00.000Z",
-      "source": "Bank of Ghana",
-      "unit": "Billion USD",
+      "source": "Ghana Statistical Service",
+      "unit": "%",
       "metadata": {
-        "quarter": "2023 Q3"
+        "month": "Sep 23",
+        "targetLow": 6,
+        "policyRate": 30,
+        "targetHigh": 10
       }
     },
     {
@@ -1917,13 +2260,23 @@
     },
     {
       "indicator": "TOTAL_DEBT",
-      "value": 573956990282.3716,
+      "value": 576198701271.2421,
       "date": "2023-09-01T00:00:00.000Z",
       "source": "Ministry of Finance / IMF",
       "unit": "GHS",
       "metadata": {
-        "domestic": 259952808067.3208,
-        "external": 314004182215.0508
+        "domestic": 260166234751.2245,
+        "external": 316032466520.0176
+      }
+    },
+    {
+      "indicator": "EXCHANGE_RATE_USD",
+      "value": 11.35,
+      "date": "2023-08-31T00:00:00.000Z",
+      "source": "Bank of Ghana",
+      "unit": "GHS per USD",
+      "metadata": {
+        "month": "Aug 23"
       }
     },
     {
@@ -1940,24 +2293,14 @@
       }
     },
     {
-      "indicator": "EXCHANGE_RATE_USD",
-      "value": 11.35,
-      "date": "2023-08-31T00:00:00.000Z",
-      "source": "Bank of Ghana",
-      "unit": "GHS per USD",
-      "metadata": {
-        "month": "Aug 23"
-      }
-    },
-    {
       "indicator": "TOTAL_DEBT",
-      "value": 566545415322.8345,
+      "value": 571346417200.6997,
       "date": "2023-08-01T00:00:00.000Z",
       "source": "Ministry of Finance / IMF",
       "unit": "GHS",
       "metadata": {
-        "domestic": 250766344889.6293,
-        "external": 315779070433.2051
+        "domestic": 253985418036.2672,
+        "external": 317360999164.4325
       }
     },
     {
@@ -1984,23 +2327,23 @@
       }
     },
     {
-      "indicator": "DEBT_TO_GDP_RATIO",
-      "value": 59.7,
-      "date": "2023-07-01T00:00:00.000Z",
-      "source": "Bank of Ghana / IMF",
-      "unit": "%",
-      "metadata": {}
-    },
-    {
       "indicator": "TOTAL_DEBT",
-      "value": 562959365489.6256,
+      "value": 563996438240.1735,
       "date": "2023-07-01T00:00:00.000Z",
       "source": "Ministry of Finance / IMF",
       "unit": "GHS",
       "metadata": {
-        "domestic": 258334998367.9057,
-        "external": 304624367121.7198
+        "domestic": 258064489404.2194,
+        "external": 305931948835.954
       }
+    },
+    {
+      "indicator": "DEBT_TO_GDP_RATIO",
+      "value": 59.9,
+      "date": "2023-07-01T00:00:00.000Z",
+      "source": "Bank of Ghana / IMF",
+      "unit": "%",
+      "metadata": {}
     },
     {
       "indicator": "IMF_CONDITIONALITY",
@@ -2043,16 +2386,6 @@
       }
     },
     {
-      "indicator": "EXCHANGE_RATE_USD",
-      "value": 11.8,
-      "date": "2023-06-30T00:00:00.000Z",
-      "source": "Bank of Ghana",
-      "unit": "GHS per USD",
-      "metadata": {
-        "month": "Jun 23"
-      }
-    },
-    {
       "indicator": "FOREX_RESERVES",
       "value": 5.1,
       "date": "2023-06-30T00:00:00.000Z",
@@ -2063,17 +2396,13 @@
       }
     },
     {
-      "indicator": "IMF_MILESTONE",
-      "value": 1,
-      "date": "2023-06-01T00:00:00.000Z",
-      "source": "IMF",
-      "unit": "milestone",
+      "indicator": "EXCHANGE_RATE_USD",
+      "value": 11.8,
+      "date": "2023-06-30T00:00:00.000Z",
+      "source": "Bank of Ghana",
+      "unit": "GHS per USD",
       "metadata": {
-        "date": "2023-06-01",
-        "type": "disbursement",
-        "title": "First Disbursement",
-        "status": "completed",
-        "description": "Initial disbursement of SDR 600 million"
+        "month": "Jun 23"
       }
     },
     {
@@ -2091,13 +2420,37 @@
     },
     {
       "indicator": "TOTAL_DEBT",
-      "value": 557397139166.7537,
+      "value": 557753208742.7036,
       "date": "2023-06-01T00:00:00.000Z",
       "source": "Ministry of Finance / IMF",
       "unit": "GHS",
       "metadata": {
-        "domestic": 254748419080.0772,
-        "external": 302648720086.6765
+        "domestic": 248252105729.6203,
+        "external": 309501103013.0833
+      }
+    },
+    {
+      "indicator": "IMF_MILESTONE",
+      "value": 1,
+      "date": "2023-06-01T00:00:00.000Z",
+      "source": "IMF",
+      "unit": "milestone",
+      "metadata": {
+        "date": "2023-06-01",
+        "type": "disbursement",
+        "title": "First Disbursement",
+        "status": "completed",
+        "description": "Initial disbursement of SDR 600 million"
+      }
+    },
+    {
+      "indicator": "EXCHANGE_RATE_USD",
+      "value": 11.95,
+      "date": "2023-05-31T00:00:00.000Z",
+      "source": "Bank of Ghana",
+      "unit": "GHS per USD",
+      "metadata": {
+        "month": "May 23"
       }
     },
     {
@@ -2111,16 +2464,6 @@
         "targetLow": 6,
         "policyRate": 30,
         "targetHigh": 10
-      }
-    },
-    {
-      "indicator": "EXCHANGE_RATE_USD",
-      "value": 11.95,
-      "date": "2023-05-31T00:00:00.000Z",
-      "source": "Bank of Ghana",
-      "unit": "GHS per USD",
-      "metadata": {
-        "month": "May 23"
       }
     },
     {
@@ -2151,13 +2494,23 @@
     },
     {
       "indicator": "TOTAL_DEBT",
-      "value": 551975142927.7959,
+      "value": 549511892763.4419,
       "date": "2023-05-01T00:00:00.000Z",
       "source": "Ministry of Finance / IMF",
       "unit": "GHS",
       "metadata": {
-        "domestic": 245692884560.868,
-        "external": 306282258366.9279
+        "domestic": 252560069826.862,
+        "external": 296951822936.5799
+      }
+    },
+    {
+      "indicator": "EXCHANGE_RATE_USD",
+      "value": 12.1,
+      "date": "2023-04-30T00:00:00.000Z",
+      "source": "Bank of Ghana",
+      "unit": "GHS per USD",
+      "metadata": {
+        "month": "Apr 23"
       }
     },
     {
@@ -2174,33 +2527,23 @@
       }
     },
     {
-      "indicator": "EXCHANGE_RATE_USD",
-      "value": 12.1,
-      "date": "2023-04-30T00:00:00.000Z",
-      "source": "Bank of Ghana",
-      "unit": "GHS per USD",
-      "metadata": {
-        "month": "Apr 23"
-      }
-    },
-    {
-      "indicator": "DEBT_TO_GDP_RATIO",
-      "value": 60.2,
-      "date": "2023-04-01T00:00:00.000Z",
-      "source": "Bank of Ghana / IMF",
-      "unit": "%",
-      "metadata": {}
-    },
-    {
       "indicator": "TOTAL_DEBT",
-      "value": 544445157578.7455,
+      "value": 542530707849.6357,
       "date": "2023-04-01T00:00:00.000Z",
       "source": "Ministry of Finance / IMF",
       "unit": "GHS",
       "metadata": {
-        "domestic": 249087862799.2798,
-        "external": 295357294779.4657
+        "domestic": 244663633391.7096,
+        "external": 297867074457.9261
       }
+    },
+    {
+      "indicator": "DEBT_TO_GDP_RATIO",
+      "value": 60.5,
+      "date": "2023-04-01T00:00:00.000Z",
+      "source": "Bank of Ghana / IMF",
+      "unit": "%",
+      "metadata": {}
     },
     {
       "indicator": "GDP_GROWTH",
@@ -2213,6 +2556,16 @@
         "industry": 2.1,
         "services": 2.4,
         "agriculture": 3.2
+      }
+    },
+    {
+      "indicator": "FOREX_RESERVES",
+      "value": 5.2,
+      "date": "2023-03-31T00:00:00.000Z",
+      "source": "Bank of Ghana",
+      "unit": "Billion USD",
+      "metadata": {
+        "quarter": "2023 Q1"
       }
     },
     {
@@ -2239,24 +2592,24 @@
       }
     },
     {
-      "indicator": "FOREX_RESERVES",
-      "value": 5.2,
-      "date": "2023-03-31T00:00:00.000Z",
-      "source": "Bank of Ghana",
-      "unit": "Billion USD",
-      "metadata": {
-        "quarter": "2023 Q1"
-      }
-    },
-    {
       "indicator": "TOTAL_DEBT",
-      "value": 539986102577.8782,
+      "value": 537483658411.7111,
       "date": "2023-03-01T00:00:00.000Z",
       "source": "Ministry of Finance / IMF",
       "unit": "GHS",
       "metadata": {
-        "domestic": 241559510011.4822,
-        "external": 298426592566.3959
+        "domestic": 239356595285.1244,
+        "external": 298127063126.5867
+      }
+    },
+    {
+      "indicator": "EXCHANGE_RATE_USD",
+      "value": 12.2,
+      "date": "2023-02-28T00:00:00.000Z",
+      "source": "Bank of Ghana",
+      "unit": "GHS per USD",
+      "metadata": {
+        "month": "Feb 23"
       }
     },
     {
@@ -2273,24 +2626,24 @@
       }
     },
     {
-      "indicator": "EXCHANGE_RATE_USD",
-      "value": 12.2,
-      "date": "2023-02-28T00:00:00.000Z",
-      "source": "Bank of Ghana",
-      "unit": "GHS per USD",
-      "metadata": {
-        "month": "Feb 23"
-      }
-    },
-    {
       "indicator": "TOTAL_DEBT",
-      "value": 532434276455.4794,
+      "value": 531102983872.5253,
       "date": "2023-02-01T00:00:00.000Z",
       "source": "Ministry of Finance / IMF",
       "unit": "GHS",
       "metadata": {
-        "domestic": 238567864029.4733,
-        "external": 293866412426.0061
+        "domestic": 242560366799.1984,
+        "external": 288542617073.3269
+      }
+    },
+    {
+      "indicator": "EXCHANGE_RATE_USD",
+      "value": 11.85,
+      "date": "2023-01-31T00:00:00.000Z",
+      "source": "Bank of Ghana",
+      "unit": "GHS per USD",
+      "metadata": {
+        "month": "Jan 23"
       }
     },
     {
@@ -2307,18 +2660,8 @@
       }
     },
     {
-      "indicator": "EXCHANGE_RATE_USD",
-      "value": 11.85,
-      "date": "2023-01-31T00:00:00.000Z",
-      "source": "Bank of Ghana",
-      "unit": "GHS per USD",
-      "metadata": {
-        "month": "Jan 23"
-      }
-    },
-    {
       "indicator": "DEBT_TO_GDP_RATIO",
-      "value": 60.3,
+      "value": 59.8,
       "date": "2023-01-01T00:00:00.000Z",
       "source": "Bank of Ghana / IMF",
       "unit": "%",
@@ -2326,22 +2669,14 @@
     },
     {
       "indicator": "TOTAL_DEBT",
-      "value": 528834950417.386,
+      "value": 527129792183.02,
       "date": "2023-01-01T00:00:00.000Z",
       "source": "Ministry of Finance / IMF",
       "unit": "GHS",
       "metadata": {
-        "domestic": 239298648129.1092,
-        "external": 289536302288.2768
+        "domestic": 236649503591.982,
+        "external": 290480288591.038
       }
-    },
-    {
-      "indicator": "DEBT_SERVICE_TO_REVENUE",
-      "value": 110,
-      "date": "2022-12-31T00:00:00.000Z",
-      "source": "Ministry of Finance",
-      "unit": "%",
-      "metadata": {}
     },
     {
       "indicator": "GDP_GROWTH",
@@ -2357,45 +2692,53 @@
       }
     },
     {
-      "indicator": "TOTAL_DEBT",
-      "value": 524432630352.975,
-      "date": "2022-12-01T00:00:00.000Z",
-      "source": "Ministry of Finance / IMF",
-      "unit": "GHS",
-      "metadata": {
-        "domestic": 264256273416.6354,
-        "external": 260176356936.3397
-      }
-    },
-    {
-      "indicator": "TOTAL_DEBT",
-      "value": 506272784377.0994,
-      "date": "2022-11-01T00:00:00.000Z",
-      "source": "Ministry of Finance / IMF",
-      "unit": "GHS",
-      "metadata": {
-        "domestic": 251756925798.7023,
-        "external": 254515858578.397
-      }
-    },
-    {
-      "indicator": "DEBT_TO_GDP_RATIO",
-      "value": 60.8,
-      "date": "2022-10-01T00:00:00.000Z",
-      "source": "Bank of Ghana / IMF",
+      "indicator": "DEBT_SERVICE_TO_REVENUE",
+      "value": 110,
+      "date": "2022-12-31T00:00:00.000Z",
+      "source": "Ministry of Finance",
       "unit": "%",
       "metadata": {}
     },
     {
       "indicator": "TOTAL_DEBT",
-      "value": 487041661872.5624,
+      "value": 520268260880.0339,
+      "date": "2022-12-01T00:00:00.000Z",
+      "source": "Ministry of Finance / IMF",
+      "unit": "GHS",
+      "metadata": {
+        "domestic": 259950321649.685,
+        "external": 260317939230.3489
+      }
+    },
+    {
+      "indicator": "TOTAL_DEBT",
+      "value": 500338750754.0487,
+      "date": "2022-11-01T00:00:00.000Z",
+      "source": "Ministry of Finance / IMF",
+      "unit": "GHS",
+      "metadata": {
+        "domestic": 251752255562.273,
+        "external": 248586495191.7757
+      }
+    },
+    {
+      "indicator": "TOTAL_DEBT",
+      "value": 484406968669.8417,
       "date": "2022-10-01T00:00:00.000Z",
       "source": "Ministry of Finance / IMF",
       "unit": "GHS",
       "metadata": {
-        "domestic": 238831618671.9317,
-        "external": 248210043200.6307
+        "domestic": 239482360344.2629,
+        "external": 244924608325.5788
       }
+    },
+    {
+      "indicator": "DEBT_TO_GDP_RATIO",
+      "value": 59.4,
+      "date": "2022-10-01T00:00:00.000Z",
+      "source": "Bank of Ghana / IMF",
+      "unit": "%",
+      "metadata": {}
     },
     {
       "indicator": "GDP_GROWTH",
@@ -2412,29 +2755,29 @@
     },
     {
       "indicator": "TOTAL_DEBT",
-      "value": 471940052603.8532,
+      "value": 468393084415.6136,
       "date": "2022-09-01T00:00:00.000Z",
       "source": "Ministry of Finance / IMF",
       "unit": "GHS",
       "metadata": {
-        "domestic": 234039115732.6677,
-        "external": 237900936871.1855
+        "domestic": 231810394083.5754,
+        "external": 236582690332.0381
       }
     },
     {
       "indicator": "TOTAL_DEBT",
-      "value": 456493735623.717,
+      "value": 453948053130.7067,
       "date": "2022-08-01T00:00:00.000Z",
       "source": "Ministry of Finance / IMF",
       "unit": "GHS",
       "metadata": {
-        "domestic": 231059601403.449,
-        "external": 225434134220.268
+        "domestic": 224258627527.5215,
+        "external": 229689425603.1852
       }
     },
     {
       "indicator": "DEBT_TO_GDP_RATIO",
-      "value": 59.8,
+      "value": 60.3,
       "date": "2022-07-01T00:00:00.000Z",
       "source": "Bank of Ghana / IMF",
       "unit": "%",
@@ -2442,13 +2785,13 @@
     },
     {
       "indicator": "TOTAL_DEBT",
-      "value": 440709990136.4088,
+      "value": 439588411810.355,
       "date": "2022-07-01T00:00:00.000Z",
       "source": "Ministry of Finance / IMF",
       "unit": "GHS",
       "metadata": {
-        "domestic": 219068236075.524,
-        "external": 221641754060.8848
+        "domestic": 216297506537.6804,
+        "external": 223290905272.6746
       }
     },
     {
@@ -2466,44 +2809,614 @@
     },
     {
       "indicator": "TOTAL_DEBT",
-      "value": 427614953841.9658,
+      "value": 424559629410.2089,
       "date": "2022-06-01T00:00:00.000Z",
       "source": "Ministry of Finance / IMF",
       "unit": "GHS",
       "metadata": {
-        "domestic": 212173201482.4585,
-        "external": 215441752359.5073
+        "domestic": 210840398745.9677,
+        "external": 213719230664.2412
       }
     },
     {
       "indicator": "TOTAL_DEBT",
-      "value": 411667004055.089,
+      "value": 409547374530.8354,
       "date": "2022-05-01T00:00:00.000Z",
       "source": "Ministry of Finance / IMF",
       "unit": "GHS",
       "metadata": {
-        "domestic": 209568994812.2409,
-        "external": 202098009242.8481
+        "domestic": 201097968401.3523,
+        "external": 208449406129.4832
+      }
+    },
+    {
+      "indicator": "TOTAL_DEBT",
+      "value": 393882045080.3497,
+      "date": "2022-04-01T00:00:00.000Z",
+      "source": "Ministry of Finance / IMF",
+      "unit": "GHS",
+      "metadata": {
+        "domestic": 194545483947.8262,
+        "external": 199336561132.5235
       }
     },
     {
       "indicator": "DEBT_TO_GDP_RATIO",
-      "value": 59.2,
+      "value": 60.7,
       "date": "2022-04-01T00:00:00.000Z",
       "source": "Bank of Ghana / IMF",
       "unit": "%",
       "metadata": {}
     },
     {
+      "indicator": "GDP_GROWTH",
+      "value": 3.2,
+      "date": "2022-03-31T00:00:00.000Z",
+      "source": "Ghana Statistical Service",
+      "unit": "%",
+      "metadata": {
+        "quarter": "2022 Q1",
+        "industry": 2.8,
+        "services": 3,
+        "agriculture": 4.1
+      }
+    },
+    {
       "indicator": "TOTAL_DEBT",
-      "value": 397614574098.2461,
-      "date": "2022-04-01T00:00:00.000Z",
+      "value": 382128811077.5295,
+      "date": "2022-03-01T00:00:00.000Z",
       "source": "Ministry of Finance / IMF",
       "unit": "GHS",
       "metadata": {
-        "domestic": 201456795553.8896,
-        "external": 196157778544.3565
+        "domestic": 190617962312.3232,
+        "external": 191510848765.2063
       }
+    },
+    {
+      "indicator": "TOTAL_DEBT",
+      "value": 369180744705.1688,
+      "date": "2022-02-01T00:00:00.000Z",
+      "source": "Ministry of Finance / IMF",
+      "unit": "GHS",
+      "metadata": {
+        "domestic": 181397872165.203,
+        "external": 187782872539.9658
+      }
+    },
+    {
+      "indicator": "DEBT_TO_GDP_RATIO",
+      "value": 59.3,
+      "date": "2022-01-01T00:00:00.000Z",
+      "source": "Bank of Ghana / IMF",
+      "unit": "%",
+      "metadata": {}
+    },
+    {
+      "indicator": "TOTAL_DEBT",
+      "value": 356659864992.8628,
+      "date": "2022-01-01T00:00:00.000Z",
+      "source": "Ministry of Finance / IMF",
+      "unit": "GHS",
+      "metadata": {
+        "domestic": 181596797210.1414,
+        "external": 175063067782.7214
+      }
+    },
+    {
+      "indicator": "DEBT_SERVICE_TO_REVENUE",
+      "value": 73,
+      "date": "2021-12-31T00:00:00.000Z",
+      "source": "Ministry of Finance",
+      "unit": "%",
+      "metadata": {}
+    },
+    {
+      "indicator": "TOTAL_DEBT",
+      "value": 345850445816.0646,
+      "date": "2021-12-01T00:00:00.000Z",
+      "source": "Ministry of Finance / IMF",
+      "unit": "GHS",
+      "metadata": {
+        "domestic": 170068938386.618,
+        "external": 175781507429.4466
+      }
+    },
+    {
+      "indicator": "TOTAL_DEBT",
+      "value": 339107465437.7706,
+      "date": "2021-11-01T00:00:00.000Z",
+      "source": "Ministry of Finance / IMF",
+      "unit": "GHS",
+      "metadata": {
+        "domestic": 170590619803.4395,
+        "external": 168516845634.3311
+      }
+    },
+    {
+      "indicator": "DEBT_TO_GDP_RATIO",
+      "value": 59.5,
+      "date": "2021-10-01T00:00:00.000Z",
+      "source": "Bank of Ghana / IMF",
+      "unit": "%",
+      "metadata": {}
+    },
+    {
+      "indicator": "TOTAL_DEBT",
+      "value": 335126296149.1104,
+      "date": "2021-10-01T00:00:00.000Z",
+      "source": "Ministry of Finance / IMF",
+      "unit": "GHS",
+      "metadata": {
+        "domestic": 167546766553.3937,
+        "external": 167579529595.7167
+      }
+    },
+    {
+      "indicator": "TOTAL_DEBT",
+      "value": 329568301427.6339,
+      "date": "2021-09-01T00:00:00.000Z",
+      "source": "Ministry of Finance / IMF",
+      "unit": "GHS",
+      "metadata": {
+        "domestic": 165644283056.7737,
+        "external": 163924018370.8601
+      }
+    },
+    {
+      "indicator": "TOTAL_DEBT",
+      "value": 325629079269.9099,
+      "date": "2021-08-01T00:00:00.000Z",
+      "source": "Ministry of Finance / IMF",
+      "unit": "GHS",
+      "metadata": {
+        "domestic": 166021805749.9157,
+        "external": 159607273519.9942
+      }
+    },
+    {
+      "indicator": "DEBT_TO_GDP_RATIO",
+      "value": 59.7,
+      "date": "2021-07-01T00:00:00.000Z",
+      "source": "Bank of Ghana / IMF",
+      "unit": "%",
+      "metadata": {}
+    },
+    {
+      "indicator": "TOTAL_DEBT",
+      "value": 321361889377.7057,
+      "date": "2021-07-01T00:00:00.000Z",
+      "source": "Ministry of Finance / IMF",
+      "unit": "GHS",
+      "metadata": {
+        "domestic": 160595538832.7505,
+        "external": 160766350544.9552
+      }
+    },
+    {
+      "indicator": "TOTAL_DEBT",
+      "value": 316948047650.0557,
+      "date": "2021-06-01T00:00:00.000Z",
+      "source": "Ministry of Finance / IMF",
+      "unit": "GHS",
+      "metadata": {
+        "domestic": 160738166156.0951,
+        "external": 156209881493.9606
+      }
+    },
+    {
+      "indicator": "TOTAL_DEBT",
+      "value": 311660810355.7462,
+      "date": "2021-05-01T00:00:00.000Z",
+      "source": "Ministry of Finance / IMF",
+      "unit": "GHS",
+      "metadata": {
+        "domestic": 154766033053.7269,
+        "external": 156894777302.0193
+      }
+    },
+    {
+      "indicator": "DEBT_TO_GDP_RATIO",
+      "value": 59.7,
+      "date": "2021-04-01T00:00:00.000Z",
+      "source": "Bank of Ghana / IMF",
+      "unit": "%",
+      "metadata": {}
+    },
+    {
+      "indicator": "TOTAL_DEBT",
+      "value": 306481293544.8868,
+      "date": "2021-04-01T00:00:00.000Z",
+      "source": "Ministry of Finance / IMF",
+      "unit": "GHS",
+      "metadata": {
+        "domestic": 152392051319.8871,
+        "external": 154089242224.9997
+      }
+    },
+    {
+      "indicator": "TOTAL_DEBT",
+      "value": 301100211650.7375,
+      "date": "2021-03-01T00:00:00.000Z",
+      "source": "Ministry of Finance / IMF",
+      "unit": "GHS",
+      "metadata": {
+        "domestic": 148695683251.3087,
+        "external": 152404528399.4288
+      }
+    },
+    {
+      "indicator": "TOTAL_DEBT",
+      "value": 296075229073.4776,
+      "date": "2021-02-01T00:00:00.000Z",
+      "source": "Ministry of Finance / IMF",
+      "unit": "GHS",
+      "metadata": {
+        "domestic": 148861151280.3559,
+        "external": 147214077793.1217
+      }
+    },
+    {
+      "indicator": "DEBT_TO_GDP_RATIO",
+      "value": 59.3,
+      "date": "2021-01-01T00:00:00.000Z",
+      "source": "Bank of Ghana / IMF",
+      "unit": "%",
+      "metadata": {}
+    },
+    {
+      "indicator": "TOTAL_DEBT",
+      "value": 293043290842.8671,
+      "date": "2021-01-01T00:00:00.000Z",
+      "source": "Ministry of Finance / IMF",
+      "unit": "GHS",
+      "metadata": {
+        "domestic": 148348802926.4907,
+        "external": 144694487916.3763
+      }
+    },
+    {
+      "indicator": "DEBT_SERVICE_TO_REVENUE",
+      "value": 70,
+      "date": "2020-12-31T00:00:00.000Z",
+      "source": "Ministry of Finance",
+      "unit": "%",
+      "metadata": {}
+    },
+    {
+      "indicator": "TOTAL_DEBT",
+      "value": 289190068538.34,
+      "date": "2020-12-01T00:00:00.000Z",
+      "source": "Ministry of Finance / IMF",
+      "unit": "GHS",
+      "metadata": {
+        "domestic": 143385416586.3249,
+        "external": 145804651952.0152
+      }
+    },
+    {
+      "indicator": "TOTAL_DEBT",
+      "value": 284714658970.4909,
+      "date": "2020-11-01T00:00:00.000Z",
+      "source": "Ministry of Finance / IMF",
+      "unit": "GHS",
+      "metadata": {
+        "domestic": 140388561981.9891,
+        "external": 144326096988.5018
+      }
+    },
+    {
+      "indicator": "DEBT_TO_GDP_RATIO",
+      "value": 59.3,
+      "date": "2020-10-01T00:00:00.000Z",
+      "source": "Bank of Ghana / IMF",
+      "unit": "%",
+      "metadata": {}
+    },
+    {
+      "indicator": "TOTAL_DEBT",
+      "value": 279668151448.7612,
+      "date": "2020-10-01T00:00:00.000Z",
+      "source": "Ministry of Finance / IMF",
+      "unit": "GHS",
+      "metadata": {
+        "domestic": 139774303797.1765,
+        "external": 139893847651.5846
+      }
+    },
+    {
+      "indicator": "TOTAL_DEBT",
+      "value": 276396262537.6372,
+      "date": "2020-09-01T00:00:00.000Z",
+      "source": "Ministry of Finance / IMF",
+      "unit": "GHS",
+      "metadata": {
+        "domestic": 140107363251.6509,
+        "external": 136288899285.9863
+      }
+    },
+    {
+      "indicator": "TOTAL_DEBT",
+      "value": 271414033888.1357,
+      "date": "2020-08-01T00:00:00.000Z",
+      "source": "Ministry of Finance / IMF",
+      "unit": "GHS",
+      "metadata": {
+        "domestic": 138008783474.6931,
+        "external": 133405250413.4426
+      }
+    },
+    {
+      "indicator": "DEBT_TO_GDP_RATIO",
+      "value": 59.1,
+      "date": "2020-07-01T00:00:00.000Z",
+      "source": "Bank of Ghana / IMF",
+      "unit": "%",
+      "metadata": {}
+    },
+    {
+      "indicator": "TOTAL_DEBT",
+      "value": 267810392956.0302,
+      "date": "2020-07-01T00:00:00.000Z",
+      "source": "Ministry of Finance / IMF",
+      "unit": "GHS",
+      "metadata": {
+        "domestic": 132618817538.2619,
+        "external": 135191575417.7682
+      }
+    },
+    {
+      "indicator": "TOTAL_DEBT",
+      "value": 264259557366.4776,
+      "date": "2020-06-01T00:00:00.000Z",
+      "source": "Ministry of Finance / IMF",
+      "unit": "GHS",
+      "metadata": {
+        "domestic": 131377282048.029,
+        "external": 132882275318.4486
+      }
+    },
+    {
+      "indicator": "TOTAL_DEBT",
+      "value": 261297186368.0039,
+      "date": "2020-05-01T00:00:00.000Z",
+      "source": "Ministry of Finance / IMF",
+      "unit": "GHS",
+      "metadata": {
+        "domestic": 130980193251.6413,
+        "external": 130316993116.3627
+      }
+    },
+    {
+      "indicator": "DEBT_TO_GDP_RATIO",
+      "value": 59.7,
+      "date": "2020-04-01T00:00:00.000Z",
+      "source": "Bank of Ghana / IMF",
+      "unit": "%",
+      "metadata": {}
+    },
+    {
+      "indicator": "TOTAL_DEBT",
+      "value": 256233042076.3675,
+      "date": "2020-04-01T00:00:00.000Z",
+      "source": "Ministry of Finance / IMF",
+      "unit": "GHS",
+      "metadata": {
+        "domestic": 126098659412.6475,
+        "external": 130134382663.72
+      }
+    },
+    {
+      "indicator": "TOTAL_DEBT",
+      "value": 252078953945.7194,
+      "date": "2020-03-01T00:00:00.000Z",
+      "source": "Ministry of Finance / IMF",
+      "unit": "GHS",
+      "metadata": {
+        "domestic": 124064638969.7846,
+        "external": 128014314975.9348
+      }
+    },
+    {
+      "indicator": "TOTAL_DEBT",
+      "value": 248543461486.1377,
+      "date": "2020-02-01T00:00:00.000Z",
+      "source": "Ministry of Finance / IMF",
+      "unit": "GHS",
+      "metadata": {
+        "domestic": 122402222516.4034,
+        "external": 126141238969.7343
+      }
+    },
+    {
+      "indicator": "DEBT_TO_GDP_RATIO",
+      "value": 60.4,
+      "date": "2020-01-01T00:00:00.000Z",
+      "source": "Bank of Ghana / IMF",
+      "unit": "%",
+      "metadata": {}
+    },
+    {
+      "indicator": "TOTAL_DEBT",
+      "value": 245758187314.928,
+      "date": "2020-01-01T00:00:00.000Z",
+      "source": "Ministry of Finance / IMF",
+      "unit": "GHS",
+      "metadata": {
+        "domestic": 120434790150.3378,
+        "external": 125323397164.5902
+      }
+    },
+    {
+      "indicator": "DEBT_SERVICE_TO_REVENUE",
+      "value": 45,
+      "date": "2019-12-31T00:00:00.000Z",
+      "source": "Ministry of Finance",
+      "unit": "%",
+      "metadata": {}
+    },
+    {
+      "indicator": "TOTAL_DEBT",
+      "value": 241920264290.353,
+      "date": "2019-12-01T00:00:00.000Z",
+      "source": "Ministry of Finance / IMF",
+      "unit": "GHS",
+      "metadata": {
+        "domestic": 120960292140.5467,
+        "external": 120959972149.8063
+      }
+    },
+    {
+      "indicator": "TOTAL_DEBT",
+      "value": 237819612553.0883,
+      "date": "2019-11-01T00:00:00.000Z",
+      "source": "Ministry of Finance / IMF",
+      "unit": "GHS",
+      "metadata": {
+        "domestic": 119543677346.2865,
+        "external": 118275935206.8018
+      }
+    },
+    {
+      "indicator": "DEBT_TO_GDP_RATIO",
+      "value": 59.3,
+      "date": "2019-10-01T00:00:00.000Z",
+      "source": "Bank of Ghana / IMF",
+      "unit": "%",
+      "metadata": {}
+    },
+    {
+      "indicator": "TOTAL_DEBT",
+      "value": 233789605176.0309,
+      "date": "2019-10-01T00:00:00.000Z",
+      "source": "Ministry of Finance / IMF",
+      "unit": "GHS",
+      "metadata": {
+        "domestic": 117733874913.4544,
+        "external": 116055730262.5766
+      }
+    },
+    {
+      "indicator": "TOTAL_DEBT",
+      "value": 231248652603.9883,
+      "date": "2019-09-01T00:00:00.000Z",
+      "source": "Ministry of Finance / IMF",
+      "unit": "GHS",
+      "metadata": {
+        "domestic": 113560431738.7104,
+        "external": 117688220865.2779
+      }
+    },
+    {
+      "indicator": "TOTAL_DEBT",
+      "value": 228438039476.1804,
+      "date": "2019-08-01T00:00:00.000Z",
+      "source": "Ministry of Finance / IMF",
+      "unit": "GHS",
+      "metadata": {
+        "domestic": 115789582915.9452,
+        "external": 112648456560.2352
+      }
+    },
+    {
+      "indicator": "DEBT_TO_GDP_RATIO",
+      "value": 59.6,
+      "date": "2019-07-01T00:00:00.000Z",
+      "source": "Bank of Ghana / IMF",
+      "unit": "%",
+      "metadata": {}
+    },
+    {
+      "indicator": "TOTAL_DEBT",
+      "value": 225341521137.9997,
+      "date": "2019-07-01T00:00:00.000Z",
+      "source": "Ministry of Finance / IMF",
+      "unit": "GHS",
+      "metadata": {
+        "domestic": 113239697996.5083,
+        "external": 112101823141.4913
+      }
+    },
+    {
+      "indicator": "TOTAL_DEBT",
+      "value": 222312777180.2772,
+      "date": "2019-06-01T00:00:00.000Z",
+      "source": "Ministry of Finance / IMF",
+      "unit": "GHS",
+      "metadata": {
+        "domestic": 112692999475.7786,
+        "external": 109619777704.4986
+      }
+    },
+    {
+      "indicator": "TOTAL_DEBT",
+      "value": 218068895157.5991,
+      "date": "2019-05-01T00:00:00.000Z",
+      "source": "Ministry of Finance / IMF",
+      "unit": "GHS",
+      "metadata": {
+        "domestic": 108027554912.8278,
+        "external": 110041340244.7713
+      }
+    },
+    {
+      "indicator": "DEBT_TO_GDP_RATIO",
+      "value": 60.2,
+      "date": "2019-04-01T00:00:00.000Z",
+      "source": "Bank of Ghana / IMF",
+      "unit": "%",
+      "metadata": {}
+    },
+    {
+      "indicator": "TOTAL_DEBT",
+      "value": 215610235191.7751,
+      "date": "2019-04-01T00:00:00.000Z",
+      "source": "Ministry of Finance / IMF",
+      "unit": "GHS",
+      "metadata": {
+        "domestic": 107426293805.0827,
+        "external": 108183941386.6924
+      }
+    },
+    {
+      "indicator": "TOTAL_DEBT",
+      "value": 211532274329.3018,
+      "date": "2019-03-01T00:00:00.000Z",
+      "source": "Ministry of Finance / IMF",
+      "unit": "GHS",
+      "metadata": {
+        "domestic": 104064741966.6602,
+        "external": 107467532362.6416
+      }
+    },
+    {
+      "indicator": "TOTAL_DEBT",
+      "value": 207867797670.1401,
+      "date": "2019-02-01T00:00:00.000Z",
+      "source": "Ministry of Finance / IMF",
+      "unit": "GHS",
+      "metadata": {
+        "domestic": 105511293017.5164,
+        "external": 102356504652.6237
+      }
+    },
+    {
+      "indicator": "TOTAL_DEBT",
+      "value": 203913528758.7173,
+      "date": "2019-01-01T00:00:00.000Z",
+      "source": "Ministry of Finance / IMF",
+      "unit": "GHS",
+      "metadata": {
+        "domestic": 103441220740.2695,
+        "external": 100472308018.4479
+      }
+    },
+    {
+      "indicator": "DEBT_TO_GDP_RATIO",
+      "value": 59.3,
+      "date": "2019-01-01T00:00:00.000Z",
+      "source": "Bank of Ghana / IMF",
+      "unit": "%",
+      "metadata": {}
     }
   ],
   "staff": [
@@ -2530,6 +3443,92 @@
       "imageUrl": "/assets/images/staff/Eben.jpg",
       "email": null,
       "order": 3
+    }
+  ],
+  "programs": [
+    {
+      "title": "Budget Analysis",
+      "slug": "budget-analysis",
+      "description": "In-depth analysis of Ghana's national budget, revenue projections, and expenditure allocations.",
+      "fullContent": "\n            <p class=\"mb-4\">Our Budget Analysis program dissects the national budget to reveal how public funds are allocated and spent. We look beyond the headline numbers to analyze sectoral allocations, revenue mobilization strategies, and the efficiency of public expenditure.</p>\n            <p class=\"mb-4\">Through simple visualizations and plain-language reports, we help citizens understand how the budget affects their daily lives and the delivery of public services.</p>\n        ",
+      "features": [
+        "Budget breakdown by sector",
+        "Revenue vs. expenditure analysis",
+        "Historical budget comparisons",
+        "Policy recommendations"
+      ],
+      "color": "accent-green",
+      "icon": "PieChart"
+    },
+    {
+      "title": "Capacity Building",
+      "slug": "capacity-building",
+      "description": "Training and workshops for CSOs, journalists, and citizens on economic governance and data literacy.",
+      "fullContent": "\n            <p class=\"mb-4\">To effectively demand accountability, citizens and civil society actors need the right skills. Our Capacity Building program offers training in economic literacy, budget tracking, and data journalism.</p>\n        ",
+      "features": [
+        "Training workshops",
+        "Data literacy programs",
+        "Mentorship opportunities",
+        "Resource materials"
+      ],
+      "color": "primary-400",
+      "icon": "Users"
+    },
+    {
+      "title": "Fiscal Policy Research",
+      "slug": "fiscal-policy",
+      "description": "Research and policy analysis on Ghana's fiscal policy framework, tax reforms, and revenue mobilization.",
+      "fullContent": "\n            <p class=\"mb-4\">The Fiscal Policy Research unit conducts high-quality research into Ghana's tax system, fiscal rules, and public financial management legal framework. We advocate for progressive tax reforms that promote equity and economic growth.</p>\n        ",
+      "features": [
+        "Policy briefs and papers",
+        "Tax policy analysis",
+        "Revenue forecasting",
+        "Stakeholder engagement"
+      ],
+      "color": "primary-500",
+      "icon": "FileText"
+    },
+    {
+      "title": "IMF Bailout Monitor",
+      "slug": "imf-monitor",
+      "description": "Comprehensive tracking of Ghana's IMF program implementation, conditionalities, and disbursements.",
+      "fullContent": "\n            <p class=\"mb-4\">The IMF Bailout Monitor tracks the progress of Ghana's Extended Credit Facility (ECF) program with the International Monetary Fund. This tool is essential for understanding the conditions attached to the bailout and monitoring the government's compliance.</p>\n            <p class=\"mb-4\">We provide detailed breakdowns of disbursement schedules, structural benchmarks, and quantitative performance criteria to ensure that the public stays informed about the country's economic recovery path.</p>\n        ",
+      "features": [
+        "Program timeline and milestones",
+        "Conditionality tracking",
+        "Disbursement schedule",
+        "Impact assessments"
+      ],
+      "color": "accent-yellow",
+      "icon": "Activity"
+    },
+    {
+      "title": "Public Debt Tracker",
+      "slug": "debt-tracker",
+      "description": "Real-time monitoring and analysis of Ghana's public debt portfolio, including domestic and external debt obligations.",
+      "fullContent": "\n            <p class=\"mb-4\">The Public Debt Tracker is a flagship initiative of the Economic Governance Platform, designed to provide citizens, media, and policymakers with accessible, up-to-date data on Ghana's public debt situation.</p>\n            <p class=\"mb-4\">Our interactive dashboard allows users to explore historical debt trends, analyze the composition of debt (domestic vs. external), and understand the implications of debt servicing costs on the national budget.</p>\n            <h3 class=\"text-xl font-bold text-slate-800 mt-6 mb-3\">Objectives</h3>\n            <ul class=\"list-disc list-inside space-y-2 mb-6 text-slate-600\">\n                <li>Promote transparency in public debt management.</li>\n                <li>Empower citizens to hold government accountable for borrowing decisions.</li>\n                <li>Provide evidence-based analysis for policy advocacy.</li>\n            </ul>\n        ",
+      "features": [
+        "Interactive debt dashboard",
+        "Historical debt trends",
+        "Debt-to-GDP ratio analysis",
+        "Quarterly debt reports"
+      ],
+      "color": "accent-red",
+      "icon": "BarChart3"
+    },
+    {
+      "title": "Transparency & Accountability",
+      "slug": "transparency",
+      "description": "Promoting transparency in public financial management and holding government accountable for fiscal decisions.",
+      "fullContent": "\n            <p class=\"mb-4\">We believe that transparency is the bedrock of good governance. Our initiatives focus on opening up government data, tracking public procurement, and creating platforms for citizen-government dialogue.</p>\n        ",
+      "features": [
+        "Open data initiatives",
+        "Citizen engagement forums",
+        "Advocacy campaigns",
+        "Accountability reports"
+      ],
+      "color": "accent-gold",
+      "icon": "Eye"
     }
   ]
 }

@@ -17,15 +17,19 @@ async function exportData() {
         orderBy: { startDate: 'desc' }
     });
 
-    // Get latest economic data (last 12 months of each indicator)
+    // Get ALL economic data
     const economicData = await prisma.economicData.findMany({
-        orderBy: { date: 'desc' },
-        take: 200 // Get enough data
+        orderBy: { date: 'desc' }
     });
 
     // Get all staff
     const staff = await prisma.staff.findMany({
         orderBy: { order: 'asc' }
+    });
+
+    // Get all programs
+    const programs = await prisma.program.findMany({
+        orderBy: { title: 'asc' }
     });
 
     const exportData = {
@@ -65,6 +69,15 @@ async function exportData() {
             imageUrl: s.imageUrl,
             email: s.email,
             order: s.order
+        })),
+        programs: programs.map(p => ({
+            title: p.title,
+            slug: p.slug,
+            description: p.description,
+            fullContent: p.fullContent,
+            features: p.features,
+            color: p.color,
+            icon: p.icon
         }))
     };
 
@@ -78,6 +91,7 @@ async function exportData() {
     console.log(`📅 Events: ${events.length}`);
     console.log(`💹 Economic Data: ${economicData.length}`);
     console.log(`👥 Staff: ${staff.length}`);
+    console.log(`🛠 Programs: ${programs.length}`);
 
     await prisma.$disconnect();
 }

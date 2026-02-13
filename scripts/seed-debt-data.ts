@@ -16,16 +16,12 @@ async function seedDebtData() {
         });
         console.log('✅ Cleared existing debt data');
 
-        // Generate monthly debt data (2019-2026, 84 months)
+        // Generate monthly debt data (2019-2026, 86 months)
         const monthlyDebtData = [];
         const startDate = new Date('2019-01-01');
         let baseDebt = 200000000000; // Starting at GH₵ 200B in 2019
 
-        // Target: ~685B by Nov 2025
-        // 83 months from Jan 2019 to Nov 2025
-        // CAGR approx 1.85% monthly
-
-        for (let i = 0; i < 84; i++) {
+        for (let i = 0; i < 86; i++) {
             const date = new Date(startDate);
             date.setMonth(startDate.getMonth() + i);
             const currentDate = date;
@@ -42,7 +38,7 @@ async function seedDebtData() {
                     indicator: 'TOTAL_DEBT',
                     value: baseDebt,
                     date: currentDate,
-                    source: 'Ministry of Finance / IMF', // Added source and unit to match existing structure
+                    source: 'Ministry of Finance / IMF',
                     unit: 'GHS',
                     metadata: {
                         currency: 'GHS',
@@ -53,16 +49,35 @@ async function seedDebtData() {
                         source: 'Ministry of Finance'
                     }
                 });
+            } else if (i > 83) {
+                // 2026 projections
+                baseDebt *= 1.005; // 0.5% monthly growth
+                const domestic = baseDebt * 0.49;
+                const external = baseDebt * 0.51;
+
+                monthlyDebtData.push({
+                    indicator: 'TOTAL_DEBT',
+                    value: baseDebt,
+                    date: currentDate,
+                    source: 'Ministry of Finance / IMF',
+                    unit: 'GHS',
+                    metadata: {
+                        currency: 'GHS',
+                        domestic: domestic,
+                        external: external,
+                        domestic_share: 49.0,
+                        external_share: 51.0,
+                    }
+                });
             }
-            // Aug 2025 (3 months prior) - set to support the specific trend calculation
-            // Trend: Domestic +15.4% (was ~290B), External -23.1% (was ~455B)
+            // Aug 2025 (3 months prior)
             else if (i === 80) {
                 baseDebt = 290000000000 + 455000000000;
                 monthlyDebtData.push({
                     indicator: 'TOTAL_DEBT',
                     value: baseDebt,
                     date: currentDate,
-                    source: 'Ministry of Finance / IMF', // Added source and unit to match existing structure
+                    source: 'Ministry of Finance / IMF',
                     unit: 'GHS',
                     metadata: {
                         currency: 'GHS',

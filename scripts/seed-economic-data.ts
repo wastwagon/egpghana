@@ -27,6 +27,9 @@ async function seedEconomicData() {
         { quarter: '2024 Q4', date: new Date('2024-12-31'), growth: 5.0, agriculture: 5.5, industry: 4.8, services: 4.9 },
         // 2025
         { quarter: '2025 Q1', date: new Date('2025-03-31'), growth: 4.5, agriculture: 5.0, industry: 4.2, services: 4.4 },
+        { quarter: '2025 Q2', date: new Date('2025-06-30'), growth: 5.2, agriculture: 5.8, industry: 4.9, services: 5.1 },
+        { quarter: '2025 Q3', date: new Date('2025-09-30'), growth: 6.1, agriculture: 6.5, industry: 5.8, services: 6.0 },
+        { quarter: '2025 Q4', date: new Date('2025-12-31'), growth: 5.8, agriculture: 6.2, industry: 5.4, services: 5.6 },
     ];
 
     for (const data of gdpData) {
@@ -76,7 +79,20 @@ async function seedEconomicData() {
         { month: 'Nov 24', date: new Date('2024-11-30'), inflation: 23.8, policyRate: 27.0 },
         { month: 'Dec 24', date: new Date('2024-12-31'), inflation: 23.8, policyRate: 27.0 },
         // 2025
-        { month: 'Jan 25', date: new Date('2025-01-31'), inflation: 18.4, policyRate: 26.0 },
+        { month: 'Jan 25', date: new Date('2025-01-31'), inflation: 23.5, policyRate: 26.0 },
+        { month: 'Feb 25', date: new Date('2025-02-28'), inflation: 23.2, policyRate: 26.0 },
+        { month: 'Mar 25', date: new Date('2025-03-31'), inflation: 25.8, policyRate: 26.0 },
+        { month: 'Apr 25', date: new Date('2025-04-30'), inflation: 25.0, policyRate: 26.0 },
+        { month: 'May 25', date: new Date('2025-05-31'), inflation: 23.1, policyRate: 26.0 },
+        { month: 'Jun 25', date: new Date('2025-06-30'), inflation: 22.8, policyRate: 26.0 },
+        { month: 'Jul 25', date: new Date('2025-07-31'), inflation: 20.9, policyRate: 26.0 },
+        { month: 'Aug 25', date: new Date('2025-08-31'), inflation: 20.4, policyRate: 26.0 },
+        { month: 'Sep 25', date: new Date('2025-09-30'), inflation: 21.5, policyRate: 26.0 },
+        { month: 'Oct 25', date: new Date('2025-10-31'), inflation: 22.1, policyRate: 26.0 },
+        { month: 'Nov 25', date: new Date('2025-11-30'), inflation: 21.0, policyRate: 25.0 },
+        { month: 'Dec 25', date: new Date('2025-12-31'), inflation: 19.8, policyRate: 25.0 },
+        // 2026
+        { month: 'Jan 26', date: new Date('2026-01-31'), inflation: 18.5, policyRate: 25.0 },
     ];
 
     for (const data of inflationData) {
@@ -127,6 +143,19 @@ async function seedEconomicData() {
         { month: 'Dec 24', date: new Date('2024-12-31'), rate: 16.20 },
         // 2025
         { month: 'Jan 25', date: new Date('2025-01-31'), rate: 15.85 },
+        { month: 'Feb 25', date: new Date('2025-02-28'), rate: 16.10 },
+        { month: 'Mar 25', date: new Date('2025-03-31'), rate: 16.45 },
+        { month: 'Apr 25', date: new Date('2025-04-30'), rate: 16.80 },
+        { month: 'May 25', date: new Date('2025-05-31'), rate: 17.20 },
+        { month: 'Jun 25', date: new Date('2025-06-30'), rate: 17.50 },
+        { month: 'Jul 25', date: new Date('2025-07-31'), rate: 17.85 },
+        { month: 'Aug 25', date: new Date('2025-08-31'), rate: 18.20 },
+        { month: 'Sep 25', date: new Date('2025-09-30'), rate: 18.50 },
+        { month: 'Oct 25', date: new Date('2025-10-31'), rate: 18.80 },
+        { month: 'Nov 25', date: new Date('2025-11-30'), rate: 19.10 },
+        { month: 'Dec 25', date: new Date('2025-12-31'), rate: 19.45 },
+        // 2026
+        { month: 'Jan 26', date: new Date('2026-01-31'), rate: 19.70 },
     ];
 
     for (const data of exchangeRateData) {
