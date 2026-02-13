@@ -73,7 +73,9 @@ async function getDashboardData() {
     });
 
     const totalIMF = 3000; // $3B total facility in millions
-    const disbursedIMF = imfDisbursements.reduce((sum, record) => sum + record.value, 0);
+    const disbursedIMF = imfDisbursements
+        .filter(r => (r.metadata as any)?.status === 'Completed')
+        .reduce((sum, record) => sum + record.value, 0);
     const imfProgress = (disbursedIMF / totalIMF) * 100;
 
     // Calculate debt composition
