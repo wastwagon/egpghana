@@ -72,7 +72,7 @@ async function getDashboardData() {
         where: { indicator: 'IMF_DISBURSEMENT' },
     });
 
-    const totalIMF = 3000000000; // $3B total facility in units of 1
+    const totalIMF = 3000; // $3B total facility in millions
     const disbursedIMF = imfDisbursements.reduce((sum, record) => sum + record.value, 0);
     const imfProgress = (disbursedIMF / totalIMF) * 100;
 
@@ -354,7 +354,7 @@ export default async function HomePage() {
                                 <div className="flex flex-col space-y-1">
                                     <p className="text-teal-600 text-xs font-medium flex items-center">
                                         <span className="w-2 h-2 rounded-full bg-teal-500 mr-2"></span>
-                                        ${(stats.imfDisbursed / 1e9).toFixed(2)}B of ${(stats.imfTotal / 1e9).toFixed(1)}B
+                                        ${(stats.imfDisbursed / 1000).toFixed(2)}B of ${(stats.imfTotal / 1000).toFixed(1)}B
                                     </p>
                                     <p className="text-[10px] text-slate-400 font-normal">
                                         Updated: {formatDate(new Date('2026-02-13'))}

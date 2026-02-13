@@ -117,7 +117,7 @@ export default async function IMFDashboardPage() {
         return `SDR ${(value / 1000000000).toFixed(1)}B`;
     };
 
-    const formatGHS = (value: number, exchangeRate: number = 15.5) => {
+    const formatGHS = (value: number, exchangeRate: number = 10.99) => {
         const ghs = value * exchangeRate;
         return `GH₵ ${(ghs / 1000000000).toFixed(1)}B`;
     };
@@ -204,11 +204,11 @@ export default async function IMFDashboardPage() {
                             metrics={[
                                 {
                                     label: 'GDP Growth (2026 Proj)',
-                                    value: `${(disbursementDataRaw.length > 0 ? 4.8 : 0)}%`, // Simplified or fetch latest GDP if needed
-                                    change: '+0.2%',
+                                    value: '5.5%',
+                                    change: '+0.7%',
                                     trend: 'up',
                                     trendColor: 'green',
-                                    period: 'IMF WEO'
+                                    period: 'Projected 2026'
                                 },
                                 {
                                     label: 'Inflation (Jan 26)',
@@ -219,28 +219,28 @@ export default async function IMFDashboardPage() {
                                     period: 'Lowest since 2021'
                                 },
                                 {
-                                    label: 'Debt-to-GDP (2026)',
-                                    value: '56.1%',
-                                    change: '-3.0%',
+                                    label: 'Debt-to-GDP (Latest)',
+                                    value: '45.5%',
+                                    change: '-16.3%',
                                     trend: 'down',
                                     trendColor: 'green',
-                                    period: 'Fiscal Monitor'
+                                    period: 'Nov 2025'
                                 },
                                 {
                                     label: 'Policy Rate',
-                                    value: '22.0%',
-                                    change: '-300 bps',
+                                    value: '15.5%',
+                                    change: '-1450 bps',
                                     trend: 'down',
                                     trendColor: 'green',
                                     period: 'Monetary Easing'
                                 },
                                 {
                                     label: 'Gross Reserves',
-                                    value: '$6.2B',
-                                    change: '3.1 mos',
+                                    value: '$6.7B',
+                                    change: '+0.5B',
                                     trend: 'up',
                                     trendColor: 'green',
-                                    period: 'Import Cover'
+                                    period: 'Feb 2026'
                                 },
                             ]}
                             lastUpdated="Feb 13, 2026"
