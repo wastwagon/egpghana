@@ -13,6 +13,7 @@ async function importData() {
     await prisma.economicData.deleteMany({});
     await prisma.article.deleteMany({});
     await prisma.event.deleteMany({});
+    await prisma.staff.deleteMany({});
 
     // Import articles
     console.log(`📰 Importing ${data.articles.length} articles...`);
@@ -60,6 +61,19 @@ async function importData() {
                 date: new Date(econ.date)
             }
         });
+    }
+
+    // Import staff
+    if (data.staff) {
+        console.log(`👥 Importing ${data.staff.length} staff members...`);
+        for (const s of data.staff) {
+            await prisma.staff.create({
+                data: {
+                    ...s,
+                    active: true
+                }
+            });
+        }
     }
 
     console.log('✅ ALL DATA IMPORTED SUCCESSFULLY!');

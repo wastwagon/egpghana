@@ -173,9 +173,27 @@ async function main() {
         // 4. Staff
         console.log('👥 Seeding staff...');
         const staffData = [
-            { name: "Beauty Emefa Narteh", position: "Executive Secretary", order: 1 },
-            { name: "Abdulkarim Mohammed", position: "Coordinator", order: 2 },
-            { name: "Ebenezer Otu Okley", position: "Programmes Officer", order: 3 }
+            {
+                name: "Beauty Emefa Narteh",
+                position: "Executive Secretary",
+                bio: "Beauty Emefa Narteh is the Executive Secretary of GACC. Prior to this, Beauty served as the Acting Executive Secretary and Communications Officer of GACC.\n\nBeauty mobilises support through increased awareness raising and continued sensitization of citizens on the basic anti-corruption laws especially the Whistblower Act 2006(Act 720). This is expected to promote increased transparency as empowered citizens hold duty bearers to account. Beauty also coordinated the World Bank funded West Africa Contract Monitoring Network in Ghana, Nigeria, Sierra Leone and Liberia. The project supported the multi-stakeholder networks to monitor contracts and to advocate for improved governance in priority sectors.\n\nBeauty holds a Master’s degree in International Affairs with a concentration in Communication and Development and a graduate Certificate in Women’s Studies from Ohio University, United States. Beauty also has a certificate in Executive Communications and Governance Reform from the World Bank and the Annenberg School in the United States, and a BA from the University of Ghana. Beauty is a Ford Fellow and an Accredited Member of the Institute of Public Relations Ghana. Beauty has over twelve (12) years’ experience in communications, advocacy, public relations and development work.",
+                imageUrl: "/assets/images/staff/beauty-2.jpg",
+                order: 1
+            },
+            {
+                name: "Abdulkarim Mohammed",
+                position: "Coordinator",
+                bio: "With more than eighteen (18) active years of hands-on experience and knowledge in managing governance programs through various lead roles (from coordinator through country manager to regional advisory) on donor funded initiatives involving high level institutional support and collaboration on diverse sectorial themes: active citizens participation in governance, public finance management, parliamentary oversight, civil society advocacy, extractives governance, environment and climate change, local governance, human rights and justice administration.\n\nTrained as a Development Economist with a background in Agriculture and Natural Resource Policy & Management, he is well versed in contemporary development dynamics with his core competencies in Policy Formulation & Analysis; Project Design, Planning and Implementation; Campaign & Advocacy; Training & Facilitation; Monitoring & Evaluation; Human Capacity & Institutional Reform; Development Planning and Management; as well as Community Development Interventions.",
+                imageUrl: "/assets/images/staff/Adulkarim.jpeg",
+                order: 2
+            },
+            {
+                name: "Ebenezer Otu Okley",
+                position: "Programmes Officer",
+                bio: "Ebenezer Otu Okley is a Programmes Officer at the Economic Governance Platform (EGP). In this role, he supports the implementation of projects that advance transparent, accountable, and people-centered economic governance in Ghana. He currently works on the Citizen Action for Sustainable Debt Management Project, which aims to strengthen public oversight and citizen engagement in debt-related policymaking.\n\nPrior to joining EGP, Ebenezer served as a Teaching and Research Assistant at the University of Ghana Business School, where he supported instruction in microeconomics, macroeconomics, finance, and managerial economics. His academic and professional work reflects a strong passion for economics and finance education, having delivered several public sessions on personal finance, corporate finance management, and basic economic literacy.\n\nEbenezer has contributed to a number of strategic engagements and policy-focused seminars, including insight meetings with the IMF during Ghana’s bailout negotiations and public finance and revenue strategy forums that promote inclusive economic dialogue.\n\nHe holds a Bachelor’s degree in Accounting and Sociology and an MPhil in Finance from the University of Ghana. His MPhil thesis explored multidimensional poverty and tax policy in Sub-Saharan Africa. Ebenezer is committed to using his expertise to bridge economic knowledge gaps and foster citizen-responsive economic reforms.",
+                imageUrl: "/assets/images/staff/Eben.jpg",
+                order: 3
+            }
         ];
         for (const s of staffData) {
             const existing = await prisma.staff.findFirst({ where: { name: s.name } });

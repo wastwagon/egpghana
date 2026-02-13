@@ -42,20 +42,6 @@ export default async function TeamPage() {
                     </div>
                 </section>
 
-                {/* Join Us CTA */}
-                <section className="section bg-white border-t border-slate-100">
-                    <div className="container">
-                        <div className="max-w-3xl mx-auto text-center glass-card bg-slate-50 border border-slate-200 shadow-sm">
-                            <h2 className="heading-2 mb-4 text-slate-900">Join Our Team</h2>
-                            <p className="text-slate-600 mb-8">
-                                We're always looking for passionate individuals to join our mission of promoting economic transparency and good governance in Ghana.
-                            </p>
-                            <a href="/careers" className="btn-primary inline-block">
-                                View Open Positions
-                            </a>
-                        </div>
-                    </div>
-                </section>
             </main>
             <Footer />
         </>

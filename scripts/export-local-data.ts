@@ -23,6 +23,11 @@ async function exportData() {
         take: 200 // Get enough data
     });
 
+    // Get all staff
+    const staff = await prisma.staff.findMany({
+        orderBy: { order: 'asc' }
+    });
+
     const exportData = {
         articles: articles.map(a => ({
             title: a.title,
@@ -52,18 +57,27 @@ async function exportData() {
             source: d.source,
             unit: d.unit,
             metadata: d.metadata
+        })),
+        staff: staff.map(s => ({
+            name: s.name,
+            position: s.position,
+            bio: s.bio,
+            imageUrl: s.imageUrl,
+            email: s.email,
+            order: s.order
         }))
     };
 
     fs.writeFileSync(
-        '/tmp/local_data_export.json',
+        './scripts/local_data_export.json',
         JSON.stringify(exportData, null, 2)
     );
 
-    console.log('✅ Data exported to /tmp/local_data_export.json');
+    console.log('✅ Data exported to ./scripts/local_data_export.json');
     console.log(`📊 Articles: ${articles.length}`);
     console.log(`📅 Events: ${events.length}`);
     console.log(`💹 Economic Data: ${economicData.length}`);
+    console.log(`👥 Staff: ${staff.length}`);
 
     await prisma.$disconnect();
 }
