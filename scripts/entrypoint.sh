@@ -14,11 +14,15 @@ if [ -n "$DATABASE_URL" ]; then
     echo "✅ Migrations applied successfully."
     
     echo "🌱 Running data seeding (npx prisma db seed)..."
-    # We don't want a seed failure to block the whole app if migrations passed
-    if npx prisma db seed; then
+    # Capture output for debugging if it fails
+    SEED_OUTPUT=$(npx prisma db seed 2>&1)
+    if [ $? -eq 0 ]; then
       echo "✅ Seeding completed."
+      echo "$SEED_OUTPUT"
     else
-      echo "⚠️ SEEDING RETURNED AN ERROR. Continuing to start app anyway..."
+      echo "⚠️ SEEDING RETURNED AN ERROR:"
+      echo "$SEED_OUTPUT"
+      echo "Continuing to start app anyway..."
     fi
   else
     echo "❌ MIGRATION FAILED!"
