@@ -167,6 +167,8 @@ async function seedDebtData() {
             if (year === 2025) {
                 // 2025 drop to 45.5% specific target
                 baseRatio = 45.5;
+            } else if (year === 2026) {
+                baseRatio = 43.5;
             } else {
                 baseRatio = 60.0 + (Math.random() * 2 - 1);
             }

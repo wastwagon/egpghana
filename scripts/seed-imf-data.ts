@@ -53,14 +53,15 @@ async function seedIMFData() {
             await prisma.economicData.create({
                 data: {
                     indicator: 'IMF_DISBURSEMENT',
-                    value: disb.actual || disb.planned,
+                    value: (disb.actual || disb.planned) / 1000000, // Seed in Millions
                     date: new Date(disb.date),
                     source: 'IMF',
                     unit: 'SDR',
                     metadata: {
                         quarter: disb.quarter,
-                        planned: disb.planned,
-                        actual: disb.actual,
+                        planned: disb.planned / 1000000,
+                        actual: disb.actual / 1000000,
+                        sdr: (disb.actual || disb.planned) / 1000000,
                         status: disb.status,
                     },
                 },

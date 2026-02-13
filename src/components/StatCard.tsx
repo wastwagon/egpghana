@@ -47,14 +47,18 @@ export default function StatCard({
                 </div>
             )}
 
-            {description && (
-                <p className="text-slate-500 text-xs leading-relaxed border-t border-slate-100 pt-3 mt-1">
-                    {description}
-                </p>
-            )}
-            {date && (
-                <div className="absolute top-4 right-4 text-[10px] uppercase font-bold text-slate-300 tracking-wider">
-                    {date}
+            {(description || date) && (
+                <div className="border-t border-slate-100 pt-3 mt-1 space-y-1">
+                    {description && (
+                        <p className="text-slate-500 text-xs leading-relaxed">
+                            {description}
+                        </p>
+                    )}
+                    {date && (
+                        <p className="text-[10px] uppercase font-bold text-slate-300 tracking-wider">
+                            Updated: {date}
+                        </p>
+                    )}
                 </div>
             )}
         </div>

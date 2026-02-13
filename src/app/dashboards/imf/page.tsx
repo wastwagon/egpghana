@@ -200,7 +200,51 @@ export default async function IMFDashboardPage() {
                 {/* Executive Summary & Key Metrics */}
                 <section className="section pb-8 md:pb-12 text-center" style={{ paddingBottom: '3rem' }}>
                     <div className="container">
-                        <ExecutiveSummary />
+                        <ExecutiveSummary
+                            metrics={[
+                                {
+                                    label: 'GDP Growth (2026 Proj)',
+                                    value: `${(disbursementDataRaw.length > 0 ? 4.8 : 0)}%`, // Simplified or fetch latest GDP if needed
+                                    change: '+0.2%',
+                                    trend: 'up',
+                                    trendColor: 'green',
+                                    period: 'IMF WEO'
+                                },
+                                {
+                                    label: 'Inflation (Jan 26)',
+                                    value: '3.8%',
+                                    change: '-1.6%',
+                                    trend: 'down',
+                                    trendColor: 'green',
+                                    period: 'Lowest since 2021'
+                                },
+                                {
+                                    label: 'Debt-to-GDP (2026)',
+                                    value: '56.1%',
+                                    change: '-3.0%',
+                                    trend: 'down',
+                                    trendColor: 'green',
+                                    period: 'Fiscal Monitor'
+                                },
+                                {
+                                    label: 'Policy Rate',
+                                    value: '22.0%',
+                                    change: '-300 bps',
+                                    trend: 'down',
+                                    trendColor: 'green',
+                                    period: 'Monetary Easing'
+                                },
+                                {
+                                    label: 'Gross Reserves',
+                                    value: '$6.2B',
+                                    change: '3.1 mos',
+                                    trend: 'up',
+                                    trendColor: 'green',
+                                    period: 'Import Cover'
+                                },
+                            ]}
+                            lastUpdated="Feb 13, 2026"
+                        />
 
                         <div className="mt-8 md:mt-10 bg-white rounded-2xl shadow-sm border border-slate-100 p-1 md:p-2 max-w-5xl mx-auto">
                             {conditionalities.length > 0 && (

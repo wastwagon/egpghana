@@ -108,26 +108,25 @@ export default async function ResourcesPage({
             take: 50,
         });
 
-        // 2. Fetch Articles (if no specific category or if we want to show all)
-        // If it's "All Resources" (no category filter), we definitely want to see Articles too.
-        // If there is a category filter (e.g. Budget), we want to see Articles with that category tag or name?
-        // Current logic for Analysis/News is handled above. For other categories, we might want to fetch relevant articles.
-
-        if (!categoryFilter) {
-            articles = await prisma.article.findMany({
-                where: {
-                    ...(searchQuery ? {
-                        OR: [
-                            { title: { contains: searchQuery, mode: 'insensitive' } },
-                            { content: { contains: searchQuery, mode: 'insensitive' } },
-                        ]
-                    } : {})
-                },
-                include: { category: true },
-                orderBy: { publishedAt: 'desc' },
-                take: 50,
-            });
-        }
+        // 2. Fetch Articles
+        articles = await prisma.article.findMany({
+            where: {
+                ...(categoryFilter ? {
+                    category: {
+                        name: { equals: categoryFilter, mode: 'insensitive' }
+                    }
+                } : {}),
+                ...(searchQuery ? {
+                    OR: [
+                        { title: { contains: searchQuery, mode: 'insensitive' } },
+                        { content: { contains: searchQuery, mode: 'insensitive' } },
+                    ]
+                } : {})
+            },
+            include: { category: true },
+            orderBy: { publishedAt: 'desc' },
+            take: 50,
+        });
     }
 
     // Get dynamic categories for sidebar

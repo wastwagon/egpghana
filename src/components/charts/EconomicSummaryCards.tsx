@@ -7,6 +7,7 @@ interface EconomicIndicator {
     changeType: 'positive' | 'negative' | 'neutral';
     unit: string;
     icon: React.ReactNode;
+    date?: Date;
 }
 
 interface EconomicSummaryCardsProps {
@@ -14,6 +15,15 @@ interface EconomicSummaryCardsProps {
 }
 
 export default function EconomicSummaryCards({ indicators }: EconomicSummaryCardsProps) {
+    const formatDate = (date: Date | undefined) => {
+        if (!date) return null;
+        return new Intl.DateTimeFormat('en-GB', {
+            day: 'numeric',
+            month: 'short',
+            year: 'numeric'
+        }).format(date);
+    };
+
     const getChangeColor = (type: string) => {
         switch (type) {
             case 'positive':
@@ -58,9 +68,16 @@ export default function EconomicSummaryCards({ indicators }: EconomicSummaryCard
                             {indicator.icon}
                         </div>
                     </div>
-                    <div className={`flex items-center space-x-1 text-sm font-medium ${getChangeColor(indicator.changeType)}`}>
-                        {getChangeIcon(indicator.changeType)}
-                        <span>{indicator.change}</span>
+                    <div className="flex flex-col space-y-2">
+                        <div className={`flex items-center space-x-1 text-sm font-medium ${getChangeColor(indicator.changeType)}`}>
+                            {getChangeIcon(indicator.changeType)}
+                            <span>{indicator.change}</span>
+                        </div>
+                        {indicator.date && (
+                            <div className="text-[10px] text-slate-400 font-medium uppercase tracking-wider">
+                                Last Updated: {formatDate(indicator.date)}
+                            </div>
+                        )}
                     </div>
                 </div>
             ))}

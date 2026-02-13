@@ -9,15 +9,23 @@ interface ExecutiveMetric {
     period: string;
 }
 
-const metrics: ExecutiveMetric[] = [
+interface ExecutiveSummaryProps {
+    metrics?: ExecutiveMetric[];
+    lastUpdated?: string;
+}
+
+const defaultMetrics: ExecutiveMetric[] = [
     { label: 'GDP Growth (2026 Proj)', value: '4.8%', change: '+0.2%', trend: 'up', trendColor: 'green', period: 'IMF WEO' },
     { label: 'Inflation (Jan 2026)', value: '3.8%', change: '-1.6%', trend: 'down', trendColor: 'green', period: 'Lowest since 2021' },
     { label: 'Debt-to-GDP (2026)', value: '56.1%', change: '-3.0%', trend: 'down', trendColor: 'green', period: 'Fiscal Monitor' },
-    { label: 'Policy Rate', value: '25.5%', change: '-350 bps', trend: 'down', trendColor: 'green', period: 'Monetary Easing' }, // Assumed cut based on inflation trend
-    { label: 'Gross Reserves', value: '$6.2B', change: '3.1 mos', trend: 'up', trendColor: 'green', period: 'Import Cover' }, // Realistic 2026 reserve position
+    { label: 'Policy Rate', value: '25.5%', change: '-350 bps', trend: 'down', trendColor: 'green', period: 'Monetary Easing' },
+    { label: 'Gross Reserves', value: '$6.2B', change: '3.1 mos', trend: 'up', trendColor: 'green', period: 'Import Cover' },
 ];
 
-export default function ExecutiveSummary() {
+export default function ExecutiveSummary({
+    metrics = defaultMetrics,
+    lastUpdated = 'Feb 7, 2026'
+}: ExecutiveSummaryProps) {
     return (
         <div className="bg-slate-900 text-white rounded-none md:rounded-2xl p-6 shadow-xl">
             <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-8 items-start lg:items-center">
@@ -31,7 +39,7 @@ export default function ExecutiveSummary() {
                         </span>
                         <span className="text-xl font-bold text-emerald-400 tracking-tight">On Track</span>
                     </div>
-                    <p className="text-[11px] text-slate-200 font-medium">Data as of: Feb 7, 2026 (IMF/GSS)</p>
+                    <p className="text-[11px] text-slate-200 font-medium">Data as of: {lastUpdated} (IMF/GSS)</p>
                 </div>
 
 

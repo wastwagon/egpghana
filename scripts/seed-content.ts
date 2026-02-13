@@ -62,7 +62,7 @@ Despite the positive outlook, the IMF stressed that sustained reform momentum is
                 excerpt: "IMF Board completes fifth review, unlocking $385m disbursement as macroeconomic stabilization takes hold.",
                 categoryId: catMap['imf'],
                 author: "Abdulkarim Mohammed",
-                publishedAt: new Date('2025-12-19'),
+                publishedAt: new Date('2026-01-15'),
                 featured: true,
                 tags: ['IMF', 'Economy', 'Fiscal Policy', 'News'],
             },
@@ -117,7 +117,7 @@ For investors, Ghana’s improving fundamentals present opportunity — but disc
                 excerpt: "The MPC's bold 350bps rate cut signals a turning point for Ghana’s recovery. What does this mean for businesses and households?",
                 categoryId: catMap['economy'],
                 author: "EGP Research Team",
-                publishedAt: new Date('2025-11-28'),
+                publishedAt: new Date('2026-01-05'),
                 featured: true,
                 tags: ['Monetary Policy', 'BoG', 'Interest Rates', 'News'],
             },
@@ -140,7 +140,7 @@ As the MPC prepares its decision this week, EGP will be monitoring three key are
                 excerpt: "Fitch Solutions forecasts further easing of Ghana's policy rate to 16.5% by 2026, contingent on sustained disinflation.",
                 categoryId: catMap['economy'],
                 author: "EGP Research Team",
-                publishedAt: new Date('2025-11-20'),
+                publishedAt: new Date('2026-01-20'),
                 featured: false,
                 tags: ['Fitch', 'Economy', 'Projections', 'News', 'Analysis'],
             },
@@ -162,7 +162,7 @@ The forum concluded with a communiqué urging Parliament to scrutinize the budge
                 excerpt: "EGP joins CSOs to scrutinize the 2026 Budget, calling for realistic revenue targets and protection of social spending.",
                 categoryId: catMap['policy'],
                 author: "EGP Communications",
-                publishedAt: new Date('2025-11-18'),
+                publishedAt: new Date('2026-01-25'),
                 featured: false,
                 tags: ['Budget', 'CSO', 'Advocacy', 'News'],
             },
@@ -212,7 +212,7 @@ As Ghana continues its journey under the Extended Credit Facility, the relations
                 excerpt: "A deep dive into Ghana's debt history, the recent crisis, and the path toward sustainable borrowing.",
                 categoryId: catMap['debt'],
                 author: "Ebenezer Otu Okley",
-                publishedAt: new Date('2025-09-14'),
+                publishedAt: new Date('2026-02-01'),
                 featured: true,
                 tags: ['Debt', 'Fiscal Responsibility', 'Economy', 'Analysis'],
             },
@@ -224,9 +224,41 @@ As Ghana continues its journey under the Extended Credit Facility, the relations
                 excerpt: "The stalled Bolgatanga-Bawku road project stands as a grim symbol of the real-world impact of Ghana's debt crisis.",
                 categoryId: catMap['debt'],
                 author: "EGP Research Team",
-                publishedAt: new Date('2025-10-02'),
+                publishedAt: new Date('2026-02-03'),
                 featured: true,
                 tags: ['Debt', 'Infrastructure', 'Upper East Region', 'Analysis'],
+            },
+            {
+                title: "Ghana’s Lending Rate at 17% and Its Impact",
+                slug: "ghana-lending-rate-17-percent-impact",
+                imageUrl: "/assets/images/publications/ghana-lending-rate-17-percent.jpg",
+                content: `Ghana’s lending environment has improved significantly in the past year as key macroeconomic indicators; inflation, policy rates, foreign reserves, and growth prospects have strengthened. As a result, the Ghana Reference Rate (GRR) - the benchmark that commercial banks use to price most loans has fallen sharply from near 30% at the start of 2025 to around 17.86% in October 2025, with occasional slight shifts month-to-month around that level.
+
+This decline reflects the cumulative transmission of aggressive cuts by the Bank of Ghana’s Monetary Policy Committee (MPC) including reductions that have brought the policy rate down to as low as 15.5% by early 2026 and broader improvements in inflation and market conditions.
+
+**Why this matters for the private sector:**
+
+1. **Lower cost of borrowing:** A reference rate near 17–18% significantly below the 29–30% seen earlier in 2025 should gradually lead to cheaper loan offers from banks for businesses and households. Cheaper credit improves firms’ ability to invest in expansion, technology, and working capital, which supports higher production and competitiveness across sectors.
+
+2. **Increased confidence and credit growth:** As borrowing becomes more affordable and predictable, private sector credit growth is recovering. Real terms growth in private sector credit has shifted from contraction earlier in the year to positive growth, indicating that businesses are beginning to borrow and invest again.
+
+3. **Support for SMEs:** Small and medium-sized enterprises typically more sensitive to financing costs stand to benefit disproportionately if banks pass through lower benchmark rates to actual lending products. This can help them hire more staff, buy equipment, and scale operations.
+
+**However, important caveats remain:**
+
+1. **Actual lending rates vary:** While the GRR is a strong baseline, commercial banks add risk premiums, operating costs, and other charges to determine the final rate offered to borrowers. As a result, some loans especially to higher-risk borrowers are still priced well above the benchmark. This means that not all businesses feel the full benefit immediately.
+
+2. **Transmission lag:** Monetary policy changes don’t instantly translate into loan pricing. Banks may take time to adjust their portfolios, and some segments (e.g., long-term business loans) are slower to reflect benchmark rate declines.
+
+3. **Broader economic context:** Even at 17%, borrowing costs remain relatively high compared with some emerging markets, and so financing is still a meaningful cost for businesses compared with the earlier period of extreme rates.
+
+The drop in Ghana’s benchmark lending rate toward 17% is a meaningful improvement from the tighter credit conditions of the past. If commercial banks continue to pass those reductions through to borrowers, businesses should experience lower financing costs, stronger investment capacity, and improved growth prospects particularly for SMEs. However, the full benefits depend on banks’ pricing decisions and the pace of transmission from policy to actual loan terms.`,
+                excerpt: "Ghana's benchmark lending rate drops to ~17%, signaling lower borrowing costs and private sector recovery, though transmission lags remain.",
+                categoryId: catMap['economy'],
+                author: "EGP Research Team",
+                publishedAt: new Date('2026-02-12'),
+                featured: true,
+                tags: ['Lending Rate', 'Economy', 'Private Sector', 'SMEs', 'Analysis', 'News'],
             },
         ];
 

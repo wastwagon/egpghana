@@ -11,7 +11,7 @@ export const revalidate = 0;
 
 async function getDashboardData() {
     // Fetch latest economic indicators
-    const [gdp, debt, inflation, debtGdp, exchangeRate, forexReserves, debtService, tradeBalance] = await Promise.all([
+    const [gdp, debt, inflation, debtGdp, exchangeRate, forexReserves, debtService, policyRate] = await Promise.all([
         prisma.economicData.findFirst({
             where: { indicator: 'GDP_GROWTH' },
             orderBy: { date: 'desc' },
@@ -41,7 +41,7 @@ async function getDashboardData() {
             orderBy: { date: 'desc' },
         }),
         prisma.economicData.findFirst({
-            where: { indicator: 'TRADE_BALANCE' },
+            where: { indicator: 'POLICY_RATE' },
             orderBy: { date: 'desc' },
         }),
     ]);
@@ -72,7 +72,7 @@ async function getDashboardData() {
         where: { indicator: 'IMF_DISBURSEMENT' },
     });
 
-    const totalIMF = 3000; // $3B total facility
+    const totalIMF = 3000000000; // $3B total facility in units of 1
     const disbursedIMF = imfDisbursements.reduce((sum, record) => sum + record.value, 0);
     const imfProgress = (disbursedIMF / totalIMF) * 100;
 
@@ -85,21 +85,21 @@ async function getDashboardData() {
 
     return {
         stats: {
-            gdpGrowth: gdp?.value ?? 0,
-            totalDebt: debt?.value ?? 0,
+            gdpGrowth: { value: gdp?.value ?? 0, date: gdp?.date },
+            totalDebt: { value: debt?.value ?? 0, date: debt?.date },
             domesticDebt: domesticDebt,
             externalDebt: externalDebt,
-            inflation: inflation?.value ?? 0,
+            inflation: { value: inflation?.value ?? 0, date: inflation?.date },
             inflationChange: -2.1, // Calculated or simplified delta
-            debtToGdp: debtGdp?.value ?? 0,
-            exchangeRate: exchangeRate?.value ?? 0,
-            forexReserves: forexReserves?.value ?? 0,
+            debtToGdp: { value: debtGdp?.value ?? 0, date: debtGdp?.date },
+            exchangeRate: { value: exchangeRate?.value ?? 0, date: exchangeRate?.date },
+            forexReserves: { value: forexReserves?.value ?? 0, date: forexReserves?.date },
             imfDisbursed: disbursedIMF,
             imfTotal: totalIMF,
             imfProgress: imfProgress,
             externalShare: externalShare,
-            debtService: debtService?.value ?? 0,
-            tradeBalance: tradeBalance?.value ?? 0,
+            debtService: { value: debtService?.value ?? 0, date: debtService?.date },
+            policyRate: { value: policyRate?.value ?? 0, date: policyRate?.date },
         },
         articles,
         upcomingEvents,
@@ -151,10 +151,18 @@ import AIAssistantButton from '@/components/home/AIAssistantButton';
 export default async function HomePage() {
     const { stats, articles, upcomingEvents, pastEvents } = await getDashboardData();
 
-    // Format helpers
     const formatCurrency = (val: number) => {
         if (val >= 1e9) return `GH₵ ${(val / 1e9).toFixed(1)}B`;
         return `GH₵ ${val.toLocaleString()}`;
+    };
+
+    const formatDate = (date: Date | undefined) => {
+        if (!date) return 'N/A';
+        return new Intl.DateTimeFormat('en-GB', {
+            day: 'numeric',
+            month: 'short',
+            year: 'numeric'
+        }).format(date);
     };
 
     return (
@@ -231,7 +239,7 @@ export default async function HomePage() {
                                     <div>
                                         <p className="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">GDP Growth</p>
                                         <h3 className="text-3xl font-bold text-slate-900">
-                                            {stats.gdpGrowth.toFixed(1)}%
+                                            {stats.gdpGrowth.value.toFixed(1)}%
                                         </h3>
                                     </div>
                                     <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center">
@@ -240,10 +248,14 @@ export default async function HomePage() {
                                         </svg>
                                     </div>
                                 </div>
-                                <p className="text-slate-500 text-xs font-medium flex items-center">
-                                    <span className="w-2 h-2 rounded-full bg-green-500 mr-2"></span>
-                                    Projected 2025 Growth
-                                </p>
+                                <div className="flex flex-col space-y-1">
+                                    <p className="text-slate-500 text-xs font-medium flex items-center">
+                                        Projected 2026 Growth
+                                    </p>
+                                    <p className="text-[10px] text-slate-400 font-normal">
+                                        Last updated: {formatDate(stats.gdpGrowth.date)}
+                                    </p>
+                                </div>
                             </div>
 
                             {/* Debt Card */}
@@ -252,7 +264,7 @@ export default async function HomePage() {
                                     <div>
                                         <p className="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">Debt to GDP</p>
                                         <h3 className="text-3xl font-bold text-slate-900">
-                                            {stats.debtToGdp.toFixed(1)}%
+                                            {stats.debtToGdp.value.toFixed(1)}%
                                         </h3>
                                     </div>
                                     <div className="w-12 h-12 bg-red-50 rounded-xl flex items-center justify-center">
@@ -261,10 +273,15 @@ export default async function HomePage() {
                                         </svg>
                                     </div>
                                 </div>
-                                <p className="text-red-500 text-xs font-medium flex items-center">
-                                    <span className="w-2 h-2 rounded-full bg-red-500 mr-2"></span>
-                                    Total: {formatCurrency(stats.totalDebt)}
-                                </p>
+                                <div className="flex flex-col space-y-1">
+                                    <p className="text-red-500 text-xs font-medium flex items-center">
+                                        <span className="w-2 h-2 rounded-full bg-red-500 mr-2"></span>
+                                        Total: {formatCurrency(stats.totalDebt.value)}
+                                    </p>
+                                    <p className="text-[10px] text-slate-400 font-normal">
+                                        Last updated: {formatDate(stats.debtToGdp.date)}
+                                    </p>
+                                </div>
                             </div>
 
                             {/* Inflation Card */}
@@ -273,7 +290,7 @@ export default async function HomePage() {
                                     <div>
                                         <p className="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">Inflation Rate</p>
                                         <h3 className="text-3xl font-bold text-slate-900">
-                                            {stats.inflation.toFixed(1)}%
+                                            {stats.inflation.value.toFixed(1)}%
                                         </h3>
                                     </div>
                                     <div className="w-12 h-12 bg-orange-50 rounded-xl flex items-center justify-center">
@@ -282,10 +299,15 @@ export default async function HomePage() {
                                         </svg>
                                     </div>
                                 </div>
-                                <p className="text-green-600 text-xs font-medium flex items-center">
-                                    <span className="w-2 h-2 rounded-full bg-green-500 mr-2"></span>
-                                    Declining Trend
-                                </p>
+                                <div className="flex flex-col space-y-1">
+                                    <p className="text-green-600 text-xs font-medium flex items-center">
+                                        <span className="w-2 h-2 rounded-full bg-green-500 mr-2"></span>
+                                        Declining Trend
+                                    </p>
+                                    <p className="text-[10px] text-slate-400 font-normal">
+                                        As of: {formatDate(stats.inflation.date)}
+                                    </p>
+                                </div>
                             </div>
 
                             {/* Exchange Rate Card */}
@@ -294,7 +316,7 @@ export default async function HomePage() {
                                     <div>
                                         <p className="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">Exchange Rate</p>
                                         <h3 className="text-3xl font-bold text-slate-900">
-                                            {stats.exchangeRate.toFixed(2)}
+                                            {stats.exchangeRate.value.toFixed(2)}
                                         </h3>
                                     </div>
                                     <div className="w-12 h-12 bg-purple-50 rounded-xl flex items-center justify-center">
@@ -303,10 +325,15 @@ export default async function HomePage() {
                                         </svg>
                                     </div>
                                 </div>
-                                <p className="text-slate-500 text-xs font-medium flex items-center">
-                                    <span className="w-2 h-2 rounded-full bg-purple-500 mr-2"></span>
-                                    GHS per USD
-                                </p>
+                                <div className="flex flex-col space-y-1">
+                                    <p className="text-slate-500 text-xs font-medium flex items-center">
+                                        <span className="w-2 h-2 rounded-full bg-purple-500 mr-2"></span>
+                                        GHS per USD
+                                    </p>
+                                    <p className="text-[10px] text-slate-400 font-normal">
+                                        Last rate: {formatDate(stats.exchangeRate.date)}
+                                    </p>
+                                </div>
                             </div>
 
                             {/* IMF Progress Card */}
@@ -324,10 +351,15 @@ export default async function HomePage() {
                                         </svg>
                                     </div>
                                 </div>
-                                <p className="text-teal-600 text-xs font-medium flex items-center">
-                                    <span className="w-2 h-2 rounded-full bg-teal-500 mr-2"></span>
-                                    ${(stats.imfDisbursed / 1000).toFixed(2)}B of ${(stats.imfTotal / 1000).toFixed(1)}B
-                                </p>
+                                <div className="flex flex-col space-y-1">
+                                    <p className="text-teal-600 text-xs font-medium flex items-center">
+                                        <span className="w-2 h-2 rounded-full bg-teal-500 mr-2"></span>
+                                        ${(stats.imfDisbursed / 1e9).toFixed(2)}B of ${(stats.imfTotal / 1e9).toFixed(1)}B
+                                    </p>
+                                    <p className="text-[10px] text-slate-400 font-normal">
+                                        Updated: {formatDate(new Date('2026-02-13'))}
+                                    </p>
+                                </div>
                             </div>
 
                             {/* Forex Reserves Card */}
@@ -336,7 +368,7 @@ export default async function HomePage() {
                                     <div>
                                         <p className="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">Forex Reserves</p>
                                         <h3 className="text-3xl font-bold text-slate-900">
-                                            ${stats.forexReserves.toFixed(1)}B
+                                            ${stats.forexReserves.value.toFixed(1)}B
                                         </h3>
                                     </div>
                                     <div className="w-12 h-12 bg-emerald-50 rounded-xl flex items-center justify-center">
@@ -345,10 +377,15 @@ export default async function HomePage() {
                                         </svg>
                                     </div>
                                 </div>
-                                <p className="text-emerald-600 text-xs font-medium flex items-center">
-                                    <span className="w-2 h-2 rounded-full bg-emerald-500 mr-2"></span>
-                                    {(stats.forexReserves / 2.5).toFixed(1)} months of imports
-                                </p>
+                                <div className="flex flex-col space-y-1">
+                                    <p className="text-emerald-600 text-xs font-medium flex items-center">
+                                        <span className="w-2 h-2 rounded-full bg-emerald-500 mr-2"></span>
+                                        {(stats.forexReserves.value / 2.5).toFixed(1)} months of imports
+                                    </p>
+                                    <p className="text-[10px] text-slate-400 font-normal">
+                                        Source Date: {formatDate(stats.forexReserves.date)}
+                                    </p>
+                                </div>
                             </div>
 
                             {/* External Debt Share Card */}
@@ -366,10 +403,15 @@ export default async function HomePage() {
                                         </svg>
                                     </div>
                                 </div>
-                                <p className="text-slate-500 text-xs font-medium flex items-center">
-                                    <span className="w-2 h-2 rounded-full bg-indigo-500 mr-2"></span>
-                                    Share of Total Debt
-                                </p>
+                                <div className="flex flex-col space-y-1">
+                                    <p className="text-slate-500 text-xs font-medium flex items-center">
+                                        <span className="w-2 h-2 rounded-full bg-indigo-500 mr-2"></span>
+                                        Share of Total Debt
+                                    </p>
+                                    <p className="text-[10px] text-slate-400 font-normal">
+                                        Last updated: {formatDate(stats.totalDebt.date)}
+                                    </p>
+                                </div>
                             </div>
 
                             {/* Debt Service Card */}
@@ -378,7 +420,7 @@ export default async function HomePage() {
                                     <div>
                                         <p className="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">Debt Service</p>
                                         <h3 className="text-3xl font-bold text-slate-900">
-                                            {stats.debtService.toFixed(1)}%
+                                            {stats.debtService.value.toFixed(1)}%
                                         </h3>
                                     </div>
                                     <div className="w-12 h-12 bg-amber-50 rounded-xl flex items-center justify-center">
@@ -387,10 +429,15 @@ export default async function HomePage() {
                                         </svg>
                                     </div>
                                 </div>
-                                <p className={`text-xs font-medium flex items-center ${stats.debtService > 50 ? 'text-red-600' : 'text-slate-500'}`}>
-                                    <span className={`w-2 h-2 rounded-full mr-2 ${stats.debtService > 50 ? 'bg-red-500' : 'bg-slate-500'}`}></span>
-                                    of Revenue
-                                </p>
+                                <div className="flex flex-col space-y-1">
+                                    <p className={`text-xs font-medium flex items-center ${stats.debtService.value > 50 ? 'text-red-600' : 'text-slate-500'}`}>
+                                        <span className={`w-2 h-2 rounded-full mr-2 ${stats.debtService.value > 50 ? 'bg-red-500' : 'bg-slate-500'}`}></span>
+                                        of Revenue
+                                    </p>
+                                    <p className="text-[10px] text-slate-400 font-normal">
+                                        As of: {formatDate(stats.debtService.date)}
+                                    </p>
+                                </div>
                             </div>
 
                             {/* Total Public Debt Card */}
@@ -399,7 +446,7 @@ export default async function HomePage() {
                                     <div>
                                         <p className="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">Total Debt</p>
                                         <h3 className="text-3xl font-bold text-slate-900">
-                                            {formatCurrency(stats.totalDebt)}
+                                            {formatCurrency(stats.totalDebt.value)}
                                         </h3>
                                     </div>
                                     <div className="w-12 h-12 bg-rose-50 rounded-xl flex items-center justify-center">
@@ -408,10 +455,15 @@ export default async function HomePage() {
                                         </svg>
                                     </div>
                                 </div>
-                                <p className="text-rose-600 text-xs font-medium flex items-center">
-                                    <span className="w-2 h-2 rounded-full bg-rose-500 mr-2"></span>
-                                    Public Debt Stock
-                                </p>
+                                <div className="flex flex-col space-y-1">
+                                    <p className="text-rose-600 text-xs font-medium flex items-center">
+                                        <span className="w-2 h-2 rounded-full bg-rose-500 mr-2"></span>
+                                        Public Debt Stock
+                                    </p>
+                                    <p className="text-[10px] text-slate-400 font-normal">
+                                        Last updated: {formatDate(stats.totalDebt.date)}
+                                    </p>
+                                </div>
                             </div>
 
                             {/* Domestic Debt Card */}
@@ -429,10 +481,15 @@ export default async function HomePage() {
                                         </svg>
                                     </div>
                                 </div>
-                                <p className="text-cyan-600 text-xs font-medium flex items-center">
-                                    <span className="w-2 h-2 rounded-full bg-cyan-500 mr-2"></span>
-                                    {stats.totalDebt > 0 ? ((stats.domesticDebt / stats.totalDebt) * 100).toFixed(1) : '0.0'}% of Total
-                                </p>
+                                <div className="flex flex-col space-y-1">
+                                    <p className="text-cyan-600 text-xs font-medium flex items-center">
+                                        <span className="w-2 h-2 rounded-full bg-cyan-500 mr-2"></span>
+                                        {stats.totalDebt.value > 0 ? ((stats.domesticDebt / stats.totalDebt.value) * 100).toFixed(1) : '0.0'}% of Total
+                                    </p>
+                                    <p className="text-[10px] text-slate-400 font-normal">
+                                        As of: {formatDate(stats.totalDebt.date)}
+                                    </p>
+                                </div>
                             </div>
 
                             {/* External Debt Value Card */}
@@ -450,33 +507,41 @@ export default async function HomePage() {
                                         </svg>
                                     </div>
                                 </div>
-                                <p className="text-sky-600 text-xs font-medium flex items-center">
-                                    <span className="w-2 h-2 rounded-full bg-sky-500 mr-2"></span>
-                                    {stats.totalDebt > 0 ? ((stats.externalDebt / stats.totalDebt) * 100).toFixed(1) : '0.0'}% of Total
-                                </p>
+                                <div className="flex flex-col space-y-1">
+                                    <p className="text-sky-600 text-xs font-medium flex items-center">
+                                        <span className="w-2 h-2 rounded-full bg-sky-500 mr-2"></span>
+                                        {stats.totalDebt.value > 0 ? ((stats.externalDebt / stats.totalDebt.value) * 100).toFixed(1) : '0.0'}% of Total
+                                    </p>
+                                    <p className="text-[10px] text-slate-400 font-normal">
+                                        As of: {formatDate(stats.totalDebt.date)}
+                                    </p>
+                                </div>
                             </div>
 
-                            {/* Trade Balance Card */}
+                            {/* Policy Rate Card */}
                             <div className="bg-white rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 border border-slate-100 transform hover:-translate-y-1">
                                 <div className="flex items-start justify-between mb-3">
                                     <div>
-                                        <p className="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">Trade Balance</p>
+                                        <p className="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">Policy Rate (MPR)</p>
                                         <h3 className="text-3xl font-bold text-slate-900">
-                                            {Math.abs(stats.tradeBalance) >= 1000000000
-                                                ? `$${(Math.abs(stats.tradeBalance) / 1000000000).toFixed(1)}B`
-                                                : `$${(Math.abs(stats.tradeBalance) / 1000000).toFixed(1)}M`}
+                                            {stats.policyRate.value.toFixed(1)}%
                                         </h3>
                                     </div>
                                     <div className="w-12 h-12 bg-violet-50 rounded-xl flex items-center justify-center">
                                         <svg className="w-6 h-6 text-violet-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6" />
                                         </svg>
                                     </div>
                                 </div>
-                                <p className={`text-xs font-medium flex items-center ${stats.tradeBalance < 0 ? 'text-red-600' : 'text-green-600'}`}>
-                                    <span className={`w-2 h-2 rounded-full mr-2 ${stats.tradeBalance < 0 ? 'bg-red-500' : 'bg-green-500'}`}></span>
-                                    {stats.tradeBalance < 0 ? 'Trade Deficit' : 'Trade Surplus'}
-                                </p>
+                                <div className="flex flex-col space-y-1">
+                                    <p className="text-violet-600 text-xs font-medium flex items-center">
+                                        <span className="w-2 h-2 rounded-full bg-violet-500 mr-2"></span>
+                                        Monetary Easing
+                                    </p>
+                                    <p className="text-[10px] text-slate-400 font-normal">
+                                        Last update: {formatDate(stats.policyRate.date)}
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>

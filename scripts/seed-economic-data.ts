@@ -5,8 +5,19 @@ const prisma = new PrismaClient();
 async function seedEconomicData() {
     console.log('🌱 Seeding economic data...');
 
-    // Clear existing economic data
-    await prisma.economicData.deleteMany({});
+    // Clear specific economic indicators
+    const indicatorsToClear = [
+        'GDP_GROWTH',
+        'INFLATION_RATE',
+        'EXCHANGE_RATE_USD',
+        'UNEMPLOYMENT_RATE',
+        'TRADE_BALANCE',
+        'FOREX_RESERVES',
+        'POLICY_RATE'
+    ];
+    await prisma.economicData.deleteMany({
+        where: { indicator: { in: indicatorsToClear } }
+    });
 
     // GDP Growth Data (Quarterly 2022-2025)
     const gdpData = [
@@ -30,6 +41,8 @@ async function seedEconomicData() {
         { quarter: '2025 Q2', date: new Date('2025-06-30'), growth: 5.2, agriculture: 5.8, industry: 4.9, services: 5.1 },
         { quarter: '2025 Q3', date: new Date('2025-09-30'), growth: 6.1, agriculture: 6.5, industry: 5.8, services: 6.0 },
         { quarter: '2025 Q4', date: new Date('2025-12-31'), growth: 5.8, agriculture: 6.2, industry: 5.4, services: 5.6 },
+        // 2026
+        { quarter: '2026 Q1', date: new Date('2026-03-31'), growth: 5.5, agriculture: 5.2, industry: 5.0, services: 5.8 },
     ];
 
     for (const data of gdpData) {
@@ -92,7 +105,8 @@ async function seedEconomicData() {
         { month: 'Nov 25', date: new Date('2025-11-30'), inflation: 21.0, policyRate: 25.0 },
         { month: 'Dec 25', date: new Date('2025-12-31'), inflation: 19.8, policyRate: 25.0 },
         // 2026
-        { month: 'Jan 26', date: new Date('2026-01-31'), inflation: 18.5, policyRate: 25.0 },
+        { month: 'Jan 26', date: new Date('2026-01-31'), inflation: 3.8, policyRate: 20.0 },
+        { month: 'Feb 26', date: new Date('2026-02-13'), inflation: 3.8, policyRate: 20.0 },
     ];
 
     for (const data of inflationData) {
@@ -153,9 +167,10 @@ async function seedEconomicData() {
         { month: 'Sep 25', date: new Date('2025-09-30'), rate: 18.50 },
         { month: 'Oct 25', date: new Date('2025-10-31'), rate: 18.80 },
         { month: 'Nov 25', date: new Date('2025-11-30'), rate: 19.10 },
-        { month: 'Dec 25', date: new Date('2025-12-31'), rate: 19.45 },
+        { month: 'Dec 25', date: new Date('2025-12-31'), rate: 15.20 },
         // 2026
-        { month: 'Jan 26', date: new Date('2026-01-31'), rate: 19.70 },
+        { month: 'Jan 26', date: new Date('2026-01-31'), rate: 11.05 },
+        { month: 'Feb 26', date: new Date('2026-02-13'), rate: 10.9920 },
     ];
 
     for (const data of exchangeRateData) {
@@ -211,6 +226,9 @@ async function seedEconomicData() {
         { month: 'Oct 24', date: new Date('2024-10-31'), balance: 2.0 },
         { month: 'Nov 24', date: new Date('2024-11-30'), balance: 2.1 },
         { month: 'Dec 24', date: new Date('2024-12-31'), balance: 3.9 },
+        // 2025
+        { month: 'Jun 25', date: new Date('2025-06-30'), balance: 2.5 },
+        { month: 'Dec 25', date: new Date('2025-12-31'), balance: 3.2 },
     ];
 
     for (const data of tradeBalanceData) {
@@ -239,6 +257,10 @@ async function seedEconomicData() {
         { quarter: '2024 Q3', date: new Date('2024-09-30'), reserves: 7.5 },
         { quarter: '2024 Q4', date: new Date('2024-12-31'), reserves: 7.2 },
         { quarter: '2025 Q1', date: new Date('2025-03-31'), reserves: 5.4 },
+        { quarter: '2025 Q2', date: new Date('2025-06-30'), reserves: 5.8 },
+        { quarter: '2025 Q3', date: new Date('2025-09-30'), reserves: 6.1 },
+        { quarter: '2025 Q4', date: new Date('2025-12-31'), reserves: 6.4 },
+        { quarter: '2026 Q1', date: new Date('2026-02-13'), reserves: 6.7 },
     ];
 
     for (const data of forexReservesData) {
@@ -251,6 +273,31 @@ async function seedEconomicData() {
                 unit: 'Billion USD',
                 metadata: {
                     quarter: data.quarter,
+                },
+            },
+        });
+    }
+
+    // Policy Rate (Monthly 2025-2026)
+    const policyRateData = [
+        { month: 'Jul 25', date: new Date('2025-07-31'), rate: 26.0 },
+        { month: 'Sep 25', date: new Date('2025-09-30'), rate: 23.5 },
+        { month: 'Oct 25', date: new Date('2025-10-31'), rate: 18.0 },
+        { month: 'Jan 26', date: new Date('2026-01-31'), rate: 15.5 },
+        { month: 'Feb 26', date: new Date('2026-02-13'), rate: 15.5 },
+    ];
+
+    for (const data of policyRateData) {
+        await prisma.economicData.create({
+            data: {
+                indicator: 'POLICY_RATE',
+                value: data.rate,
+                date: data.date,
+                source: 'Bank of Ghana',
+                unit: '%',
+                metadata: {
+                    month: data.month,
+                    note: 'Aggressive monetary easing to stimulate growth',
                 },
             },
         });

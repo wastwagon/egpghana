@@ -45,7 +45,7 @@ The drop in Ghana’s benchmark lending rate toward 17% is a meaningful improvem
             author: "EGP Research Team", // Assuming author
             publishedAt: new Date(), // Now
             featured: true,
-            tags: ['Lending Rate', 'Economy', 'Private Sector', 'SMEs'],
+            tags: ['Lending Rate', 'Economy', 'Private Sector', 'SMEs', 'Analysis', 'News'],
         };
 
         const article = await prisma.article.upsert({

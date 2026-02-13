@@ -167,7 +167,7 @@ async function seedFull() {
                 title: "Analyzing the President’s Five Pillars for Ghana’s Economic and Social Transformation",
                 slug: "analyzing-presidents-five-pillars",
                 imageUrl: "/assets/images/publications/presidents-five-pillars.jpeg",
-                content: "This assessment examines the President’s Five Pillars as a strategic framework for Ghana’s economic and social transformation as reported by the Daily Graphic, with the aim of evaluating their feasibility, coherence, and potential impact. It seeks to move beyond broad policy statements by grounding the pillars in empirical evidence, current economic realities, and institutional capacity.\n\nThe assessment draws on credible national and international data to analyze how each pillar aligns with Ghana’s development challenges, including fiscal constraints, unemployment, human capital gaps, governance weaknesses, environmental pressures, and social inclusion. It evaluates both the opportunities presented by the pillars and the structural bottlenecks that could limit effective implementation.\n\n1. A Productive and Diversified Economy\nGhana’s economic structure remains highly concentrated, making diversification an urgent necessity. According to the Ghana Statistical Service (GSS), agriculture, industry, and services contributed 21.3%, 32.4%, and 46.3% to GDP respectively in 2024, yet exports remain dominated by gold, cocoa, and oil, which together account for over 80% of export earnings. Manufacturing contributes less than 11% of GDP, well below the levels observed in peer emerging economies.\nProductivity growth is also weak; the World Bank estimates Ghana’s labour productivity growth at below 1.5% annually over the past decade. This constrains job creation despite positive GDP growth. Achieving this pillar therefore requires scaling industrial value addition, lowering energy and credit costs, and expanding SME access to finance particularly long-term capital if diversification is to translate into resilience and employment.\n\n2. Human Capital Development\nHuman capital outcomes in Ghana reveal a strong access–quality gap. While Free SHS has raised secondary school enrolment by over 30% since 2017, learning outcomes remain weak. The World Bank’s Human Capital Index (2023) places Ghana at 0.44, meaning a child born today will be only 44% as productive as they could be with full education and health.\nUnemployment among youth (15–35 years) stands at over 19%, with underemployment significantly higher, reflecting persistent skills mismatch. In health, Ghana spends about 3.2% of GDP, below the Abuja target of 15% of government expenditure, contributing to NHIS arrears and health worker emigration. Without stronger investment in TVET, skills alignment, and health system financing, the human capital pillar risks yielding limited economic returns.\n\n3. Good Governance and National Discipline\nGovernance weaknesses have been a central driver of Ghana’s fiscal distress. Public debt rose from 55% of GDP in 2019 to over 90% in 2023, prompting IMF intervention. The IMF Governance Diagnostic Assessment (2024) highlights vulnerabilities in procurement, SOE oversight, and asset declaration enforcement.\nCorruption-related inefficiencies are estimated by Transparency International and UNDP to cost Ghana 2–3% of GDP annually, equivalent to several billion cedis in lost public resources. While institutions such as the Auditor-General and OSP exist, enforcement remains uneven. This pillar can only be realized if fiscal rules are respected beyond IMF conditionality, procurement transparency is strengthened, and accountability institutions are insulated from political influence.",
+                content: "This assessment examines the President’s Five Pillars as a strategic framework for Ghana’s economic and social transformation as reported by the Daily Graphic, with the aim of evaluating their feasibility, coherence, and potential impact...",
                 excerpt: "An empirical assessment of the feasibility and impact of the new strategic framework for Ghana's transformation.",
                 categoryId: catMap['policy'],
                 author: "EGP Research Team",
@@ -179,11 +179,11 @@ async function seedFull() {
                 title: "IMF Approves Fifth Review of Ghana Programme, Set to Release US$385 Million",
                 slug: "imf-approves-fifth-review-stabilisation-gains",
                 imageUrl: "/assets/images/publications/imf-review-approval.jpeg",
-                content: `The Executive Board of the International Monetary Fund (IMF) has completed the fifth review of Ghana’s 39-month Extended Credit Facility (ECF) arrangement, approving the immediate disbursement of about US$385 million (SDR 267.5 million). This brings total IMF disbursements to Ghana to approximately US$2.8 billion under the US$3 billion programme approved in May 2023.`,
+                content: `The Executive Board of the International Monetary Fund (IMF) has completed the fifth review...`,
                 excerpt: "IMF Board completes fifth review, unlocking $385m disbursement as macroeconomic stabilization takes hold.",
                 categoryId: catMap['imf'],
                 author: "Abdulkarim Mohammed",
-                publishedAt: new Date('2025-12-19'),
+                publishedAt: new Date('2026-01-15'),
                 featured: true,
                 tags: ['IMF', 'Economy', 'Fiscal Policy', 'News'],
             },
@@ -191,11 +191,11 @@ async function seedFull() {
                 title: "Bank of Ghana’s 350bps Rate Cut: What It Means for Ghana’s Economy",
                 slug: "bog-350bps-rate-cut-implications",
                 imageUrl: "/assets/images/publications/bog-rate-cut.jpg",
-                content: `The Monetary Policy Committee (MPC) of the Bank of Ghana has concluded its 127th meeting with a significant decision — a reduction in the Monetary Policy Rate (MPR) by 350 basis points, from 21.5% to 18%. This is the largest single cut in the current easing cycle and marks a turning point in Ghana’s macroeconomic recovery efforts.`,
+                content: `The Monetary Policy Committee (MPC) of the Bank of Ghana has concluded its 127th meeting with a significant decision — a reduction in the Monetary Policy Rate (MPR) by 350 basis points, from 21.5% to 18%.`,
                 excerpt: "The MPC's bold 350bps rate cut signals a turning point for Ghana’s recovery. What does this mean for businesses and households?",
                 categoryId: catMap['economy'],
                 author: "EGP Research Team",
-                publishedAt: new Date('2025-11-28'),
+                publishedAt: new Date('2026-01-05'),
                 featured: true,
                 tags: ['Monetary Policy', 'BoG', 'Interest Rates', 'News'],
             },
@@ -203,11 +203,11 @@ async function seedFull() {
                 title: "Fitch Projects MPR Drop to 16.5% by 2026; What It Means for Ghana",
                 slug: "fitch-projects-mpr-drop-16-5-2026",
                 imageUrl: "/assets/images/publications/fitch-mpr-drop.jpeg",
-                content: `Fitch Solutions has projected that Ghana’s Monetary Policy Rate (MPR) could decline to 16.5% by 2026, signalling expectations of easing inflation pressures and a gradually stabilising macroeconomic environment.`,
+                content: `Fitch Solutions has projected that Ghana’s Monetary Policy Rate (MPR) could decline to 16.5% by 2026...`,
                 excerpt: "Fitch Solutions forecasts further easing of Ghana's policy rate to 16.5% by 2026, contingent on sustained disinflation.",
                 categoryId: catMap['economy'],
                 author: "EGP Research Team",
-                publishedAt: new Date('2025-11-20'),
+                publishedAt: new Date('2026-01-20'),
                 featured: false,
                 tags: ['Fitch', 'Economy', 'Projections', 'News', 'Analysis'],
             },
@@ -215,13 +215,93 @@ async function seedFull() {
                 title: "EGP Participates in CSO Budget Forum Review of the 2026 National Budget",
                 slug: "egp-participates-cso-budget-forum-2026",
                 imageUrl: "/assets/images/publications/cso-budget-forum.jpeg",
-                content: `The Economic Governance Platform (EGP) joined other Civil Society Organisations (CSOs) at the Annual CSO Budget Forum to review and analyze the 2026 National Budget Statement and Economic Policy.`,
+                content: `The Economic Governance Platform (EGP) joined other Civil Society Organisations (CSOs) at the Annual CSO Budget Forum...`,
                 excerpt: "EGP joins CSOs to scrutinize the 2026 Budget, calling for realistic revenue targets and protection of social spending.",
                 categoryId: catMap['policy'],
                 author: "EGP Communications",
-                publishedAt: new Date('2025-11-18'),
+                publishedAt: new Date('2026-01-25'),
                 featured: false,
                 tags: ['Budget', 'CSO', 'Advocacy', 'News'],
+            },
+            {
+                title: "Ghanaian CSOs bid farewell to outgoing IMF boss",
+                slug: "ghanaian-csos-bid-farewell-imf-boss",
+                imageUrl: "/assets/images/publications/imf-boss-farewell-1.jpg",
+                content: `A coalition of Ghanaian Civil Society Organisations (CSOs)...`,
+                excerpt: "Civil Society groups reflect on engagement with the IMF as the Resident Representative concludes their tenure.",
+                categoryId: catMap['imf'],
+                author: "EGP Communications",
+                publishedAt: new Date('2026-02-05'),
+                featured: false,
+                tags: ['IMF', 'Civil Society', 'Diplomacy', 'News'],
+            },
+            {
+                title: "Budget 2026 – An EGP analysis: Consolidating gains, but vigilance required",
+                slug: "budget-2026-egp-analysis-consolidating-gains",
+                imageUrl: "/assets/images/publications/budget-2026-analysis.jpeg",
+                content: "The 2026 Budget Statement, presented under the theme 'Consolidating Stability for Shared Growth'...",
+                excerpt: "EGP's analysis of the 2026 Budget: A balance between fiscal consolidation and the need for social protection.",
+                categoryId: catMap['economy'],
+                author: "EGP Research Team",
+                publishedAt: new Date('2026-02-10'),
+                featured: true,
+                tags: ['Budget 2026', 'Fiscal Policy', 'Analysis'],
+            },
+            {
+                title: "Sustainable Debt Management in Ghana",
+                slug: "sustainable-debt-management-ghana",
+                imageUrl: "/assets/images/publications/sustainable-debt-management.png",
+                content: "Ghana has been an active participant in the Highly Indebted Poor Countries (HIPC) Initiative...",
+                excerpt: "A deep dive into Ghana's debt history, the recent crisis, and the path toward sustainable borrowing.",
+                categoryId: catMap['debt'],
+                author: "Ebenezer Otu Okley",
+                publishedAt: new Date('2026-02-01'),
+                featured: true,
+                tags: ['Debt', 'Fiscal Responsibility', 'Economy', 'Analysis'],
+            },
+            {
+                title: "How Ghana’s debt crisis caused nightmares and injuries on Bolgatanga-Bawku road",
+                slug: "ghana-debt-crisis-bolgatanga-bawku-road",
+                imageUrl: "/assets/images/publications/debt-crisis-road.jpg",
+                content: "The Bolgatanga-Bawku-Polimakom road is more than just a stretch of asphalt...",
+                excerpt: "The stalled Bolgatanga-Bawku road project stands as a grim symbol of the real-world impact of Ghana's debt crisis.",
+                categoryId: catMap['debt'],
+                author: "EGP Research Team",
+                publishedAt: new Date('2026-02-03'),
+                featured: true,
+                tags: ['Debt', 'Infrastructure', 'Upper East Region', 'Analysis'],
+            },
+            {
+                title: "Ghana’s Lending Rate at 17% and Its Impact",
+                slug: "ghana-lending-rate-17-percent-impact",
+                imageUrl: "/assets/images/publications/ghana-lending-rate-17-percent.jpg",
+                content: `Ghana’s lending environment has improved significantly in the past year as key macroeconomic indicators; inflation, policy rates, foreign reserves, and growth prospects have strengthened. As a result, the Ghana Reference Rate (GRR) - the benchmark that commercial banks use to price most loans has fallen sharply from near 30% at the start of 2025 to around 17.86% in October 2025, with occasional slight shifts month-to-month around that level.
+
+This decline reflects the cumulative transmission of aggressive cuts by the Bank of Ghana’s Monetary Policy Committee (MPC) including reductions that have brought the policy rate down to as low as 15.5% by early 2026 and broader improvements in inflation and market conditions.
+
+**Why this matters for the private sector:**
+
+1. **Lower cost of borrowing:** A reference rate near 17–18% significantly below the 29–30% seen earlier in 2025 should gradually lead to cheaper loan offers from banks for businesses and households. Cheaper credit improves firms’ ability to invest in expansion, technology, and working capital, which supports higher production and competitiveness across sectors.
+
+2. **Increased confidence and credit growth:** As borrowing becomes more affordable and predictable, private sector credit growth is recovering. Real terms growth in private sector credit has shifted from contraction earlier in the year to positive growth, indicating that businesses are beginning to borrow and invest again.
+
+3. **Support for SMEs:** Small and medium-sized enterprises typically more sensitive to financing costs stand to benefit disproportionately if banks pass through lower benchmark rates to actual lending products. This can help them hire more staff, buy equipment, and scale operations.
+
+**However, important caveats remain:**
+
+1. **Actual lending rates vary:** While the GRR is a strong baseline, commercial banks add risk premiums, operating costs, and other charges to determine the final rate offered to borrowers. As a result, some loans especially to higher-risk borrowers are still priced well above the benchmark. This means that not all businesses feel the full benefit immediately.
+
+2. **Transmission lag:** Monetary policy changes don’t instantly translate into loan pricing. Banks may take time to adjust their portfolios, and some segments (e.g., long-term business loans) are slower to reflect benchmark rate declines.
+
+3. **Broader economic context:** Even at 17%, borrowing costs remain relatively high compared with some emerging markets, and so financing is still a meaningful cost for businesses compared with the earlier period of extreme rates.
+
+The drop in Ghana’s benchmark lending rate toward 17% is a meaningful improvement from the tighter credit conditions of the past. If commercial banks continue to pass those reductions through to borrowers, businesses should experience lower financing costs, stronger investment capacity, and improved growth prospects particularly for SMEs. However, the full benefits depend on banks’ pricing decisions and the pace of transmission from policy to actual loan terms.`,
+                excerpt: "Ghana's benchmark lending rate drops to ~17%, signaling lower borrowing costs and private sector recovery, though transmission lags remain.",
+                categoryId: catMap['economy'],
+                author: "EGP Research Team",
+                publishedAt: new Date('2026-02-12'),
+                featured: true,
+                tags: ['Lending Rate', 'Economy', 'Private Sector', 'SMEs', 'Analysis', 'News'],
             },
         ];
 

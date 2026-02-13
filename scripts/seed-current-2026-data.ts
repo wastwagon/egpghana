@@ -191,6 +191,36 @@ async function seedCurrentData() {
             },
         });
 
+        // Policy Rate - February 2026
+        await prisma.economicData.upsert({
+            where: {
+                indicator_date_source: {
+                    indicator: 'POLICY_RATE',
+                    date: new Date('2026-02-13'),
+                    source: 'Bank of Ghana',
+                },
+            },
+            update: {
+                value: 15.5,
+                unit: '%',
+                metadata: {
+                    month: 'Feb 26',
+                    note: 'Monetary Policy Rate reaching historic low to support private sector borrowing',
+                },
+            },
+            create: {
+                indicator: 'POLICY_RATE',
+                value: 15.5,
+                date: new Date('2026-02-13'),
+                source: 'Bank of Ghana',
+                unit: '%',
+                metadata: {
+                    month: 'Feb 26',
+                    note: 'Monetary Policy Rate reaching historic low to support private sector borrowing',
+                },
+            },
+        });
+
         console.log('✅ Current economic data seeded successfully!');
         console.log('   - GDP Growth: 5.9% (2026 projection)');
         console.log('   - Inflation: 3.8% (Jan 2026)');
