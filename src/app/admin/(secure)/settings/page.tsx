@@ -15,7 +15,7 @@ export default function SettingsPage() {
     const [error, setError] = useState('');
 
     const [activeTab, setActiveTab] = useState('profile');
-    const [dbAction, setDbAction] = useState<'idle' | 'migrate' | 'seed' | 'full'>('idle');
+    const [dbAction, setDbAction] = useState<'idle' | 'migrate' | 'seed' | 'full' | 'sync'>('idle');
     const [dbOutput, setDbOutput] = useState('');
 
     const [form, setForm] = useState({
@@ -111,12 +111,14 @@ export default function SettingsPage() {
         }
     };
 
-    const runDbAction = async (action: 'migrate' | 'seed' | 'full') => {
+    const runDbAction = async (action: 'migrate' | 'seed' | 'full' | 'sync') => {
         const confirmMsg = action === 'full'
-            ? 'Run full restore (migrations + seed + dashboard data)? This may overwrite existing data.'
+            ? 'Run full restore (migrations + seed + dashboard data)? This will WIPE and replace all articles/events.'
             : action === 'seed'
-                ? 'Run database seeding? This may add or update records.'
-                : 'Run database migrations?';
+                ? 'Run database seeding? This will WIPE and replace articles/events.'
+                : action === 'sync'
+                    ? 'Sync from local_data_export.json? This MERGES articles/events (no wipe). Production-only posts are preserved.'
+                    : 'Run database migrations?';
         if (!confirm(confirmMsg)) return;
 
         setDbAction(action);
@@ -332,8 +334,15 @@ export default function SettingsPage() {
                         {activeTab === 'database' && (
                             <div className="space-y-6 animate-in fade-in duration-300">
                                 <div className="rounded-lg bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 p-4">
-                                    <p className="text-sm text-amber-800 dark:text-amber-200">
-                                        <strong>Use with caution.</strong> These operations modify the database directly. Run migrations after deploying schema changes, or run a full restore to reset and re-seed all data.
+                                    <p className="text-sm text-amber-800 dark:text-amber-200 font-medium mb-2">Sync checklist (local → production):</p>
+                                    <ol className="text-sm text-amber-800 dark:text-amber-200 list-decimal list-inside space-y-1">
+                                        <li>Locally: <code className="bg-amber-100 dark:bg-amber-900/50 px-1 rounded">npm run export:data</code></li>
+                                        <li>Commit <code className="bg-amber-100 dark:bg-amber-900/50 px-1 rounded">scripts/local_data_export.json</code></li>
+                                        <li>Push and deploy</li>
+                                        <li>Click Sync below</li>
+                                    </ol>
+                                    <p className="text-sm text-amber-800 dark:text-amber-200 mt-2">
+                                        <strong>Sync</strong> merges articles/events (no wipe). <strong>Full Restore</strong> wipes and replaces all content.
                                     </p>
                                 </div>
 
@@ -366,6 +375,19 @@ export default function SettingsPage() {
                                     </button>
                                     <button
                                         type="button"
+                                        onClick={() => runDbAction('sync')}
+                                        disabled={dbAction !== 'idle'}
+                                        className="inline-flex items-center px-4 py-2 border border-green-300 dark:border-green-700 rounded-md shadow-sm text-sm font-medium text-green-700 dark:text-green-300 bg-green-50 dark:bg-green-900/30 hover:bg-green-100 dark:hover:bg-green-900/50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                                    >
+                                        {dbAction === 'sync' ? (
+                                            <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                                        ) : (
+                                            <RefreshCw className="w-4 h-4 mr-2" />
+                                        )}
+                                        Sync (Merge from Export)
+                                    </button>
+                                    <button
+                                        type="button"
                                         onClick={() => runDbAction('full')}
                                         disabled={dbAction !== 'idle'}
                                         className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
@@ -375,7 +397,7 @@ export default function SettingsPage() {
                                         ) : (
                                             <RefreshCw className="w-4 h-4 mr-2" />
                                         )}
-                                        Full Restore (Migrate + Seed + Dashboards)
+                                        Full Restore (Wipe + Replace)
                                     </button>
                                 </div>
 

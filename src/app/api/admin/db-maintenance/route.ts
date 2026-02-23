@@ -19,9 +19,9 @@ export async function POST(req: NextRequest) {
     }
 
     const action = body.action;
-    if (typeof action !== 'string' || !['migrate', 'seed', 'full'].includes(action)) {
+    if (typeof action !== 'string' || !['migrate', 'seed', 'full', 'sync'].includes(action)) {
         return NextResponse.json(
-            { error: 'Invalid action. Use: migrate, seed, or full' },
+            { error: 'Invalid action. Use: migrate, seed, full, or sync' },
             { status: 400 }
         );
     }
@@ -50,6 +50,35 @@ export async function POST(req: NextRequest) {
                 success: true,
                 message: 'Database seeded successfully',
                 output: stdout + (stderr ? `\n${stderr}` : ''),
+            });
+        }
+
+        if (action === 'sync') {
+            // Ensure scripts/local_data_export.json exists before running sync
+            const fs = await import('fs');
+            const path = await import('path');
+            const exportPath = path.join(projectRoot, 'scripts', 'local_data_export.json');
+            if (!fs.existsSync(exportPath)) {
+                return NextResponse.json({
+                    error: 'local_data_export.json not found on server',
+                    details: 'Export locally (npm run export:data), COMMIT the file, deploy, then run Sync.',
+                }, { status: 400 });
+            }
+            const syncResult = await execAsync('npx tsx scripts/sync-from-export.ts', {
+                cwd: projectRoot,
+                env: { ...process.env },
+            });
+            const dashResult = await execAsync('npx tsx scripts/seed-dashboards-complete.ts', {
+                cwd: projectRoot,
+                env: { ...process.env },
+            });
+            return NextResponse.json({
+                success: true,
+                message: 'Sync completed. Articles/events merged, dashboards updated.',
+                output: [
+                    syncResult.stdout + (syncResult.stderr ? `\n${syncResult.stderr}` : ''),
+                    dashResult.stdout + (dashResult.stderr ? `\n${dashResult.stderr}` : ''),
+                ].join('\n---\n'),
             });
         }
 
