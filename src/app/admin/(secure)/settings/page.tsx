@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { User, Lock, Mail, Save, Loader2, Shield, AlertCircle, CheckCircle } from 'lucide-react';
+import { User, Lock, Mail, Save, Loader2, Shield, AlertCircle, CheckCircle, Database, RefreshCw } from 'lucide-react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import AdminPageHeader from '@/components/admin/ui/AdminPageHeader';
@@ -15,6 +15,8 @@ export default function SettingsPage() {
     const [error, setError] = useState('');
 
     const [activeTab, setActiveTab] = useState('profile');
+    const [dbAction, setDbAction] = useState<'idle' | 'migrate' | 'seed' | 'full'>('idle');
+    const [dbOutput, setDbOutput] = useState('');
 
     const [form, setForm] = useState({
         name: '',
@@ -109,6 +111,41 @@ export default function SettingsPage() {
         }
     };
 
+    const runDbAction = async (action: 'migrate' | 'seed' | 'full') => {
+        const confirmMsg = action === 'full'
+            ? 'Run full restore (migrations + seed + dashboard data)? This may overwrite existing data.'
+            : action === 'seed'
+                ? 'Run database seeding? This may add or update records.'
+                : 'Run database migrations?';
+        if (!confirm(confirmMsg)) return;
+
+        setDbAction(action);
+        setDbOutput('');
+        setMessage('');
+        setError('');
+
+        try {
+            const res = await fetch('/api/admin/db-maintenance', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ action }),
+            });
+            const data = await res.json();
+
+            if (res.ok) {
+                setMessage(data.message || 'Operation completed successfully');
+                setDbOutput(data.output || '');
+            } else {
+                setError(data.error || data.details || 'Operation failed');
+                setDbOutput(data.output || '');
+            }
+        } catch (err) {
+            setError('Failed to run operation. Please try again.');
+        } finally {
+            setDbAction('idle');
+        }
+    };
+
     if (fetching) {
         return (
             <div className="flex h-96 justify-center items-center">
@@ -147,6 +184,16 @@ export default function SettingsPage() {
                         >
                             <Shield className={`-ml-0.5 mr-2 h-5 w-5 ${activeTab === 'security' ? 'text-blue-500' : 'text-gray-400 group-hover:text-gray-500'}`} />
                             Security
+                        </button>
+                        <button
+                            onClick={() => setActiveTab('database')}
+                            className={`group inline-flex items-center px-6 py-4 border-b-2 font-medium text-sm ${activeTab === 'database'
+                                ? 'border-blue-500 text-blue-600 dark:text-blue-400'
+                                : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300'
+                                }`}
+                        >
+                            <Database className={`-ml-0.5 mr-2 h-5 w-5 ${activeTab === 'database' ? 'text-blue-500' : 'text-gray-400 group-hover:text-gray-500'}`} />
+                            Database
                         </button>
                     </nav>
                 </div>
@@ -282,6 +329,68 @@ export default function SettingsPage() {
                             </div>
                         )}
 
+                        {activeTab === 'database' && (
+                            <div className="space-y-6 animate-in fade-in duration-300">
+                                <div className="rounded-lg bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 p-4">
+                                    <p className="text-sm text-amber-800 dark:text-amber-200">
+                                        <strong>Use with caution.</strong> These operations modify the database directly. Run migrations after deploying schema changes, or run a full restore to reset and re-seed all data.
+                                    </p>
+                                </div>
+
+                                <div className="flex flex-wrap gap-4">
+                                    <button
+                                        type="button"
+                                        onClick={() => runDbAction('migrate')}
+                                        disabled={dbAction !== 'idle'}
+                                        className="inline-flex items-center px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                                    >
+                                        {dbAction === 'migrate' ? (
+                                            <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                                        ) : (
+                                            <RefreshCw className="w-4 h-4 mr-2" />
+                                        )}
+                                        Run Migrations
+                                    </button>
+                                    <button
+                                        type="button"
+                                        onClick={() => runDbAction('seed')}
+                                        disabled={dbAction !== 'idle'}
+                                        className="inline-flex items-center px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                                    >
+                                        {dbAction === 'seed' ? (
+                                            <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                                        ) : (
+                                            <Database className="w-4 h-4 mr-2" />
+                                        )}
+                                        Run Seed
+                                    </button>
+                                    <button
+                                        type="button"
+                                        onClick={() => runDbAction('full')}
+                                        disabled={dbAction !== 'idle'}
+                                        className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                                    >
+                                        {dbAction === 'full' ? (
+                                            <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                                        ) : (
+                                            <RefreshCw className="w-4 h-4 mr-2" />
+                                        )}
+                                        Full Restore (Migrate + Seed + Dashboards)
+                                    </button>
+                                </div>
+
+                                {dbOutput && (
+                                    <div className="mt-4">
+                                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Output</label>
+                                        <pre className="p-4 bg-gray-50 dark:bg-gray-900 rounded-lg text-xs text-gray-700 dark:text-gray-300 overflow-x-auto max-h-48 overflow-y-auto font-mono whitespace-pre-wrap">
+                                            {dbOutput}
+                                        </pre>
+                                    </div>
+                                )}
+                            </div>
+                        )}
+
+                        {activeTab !== 'database' && (
                         <div className="pt-6 border-t border-gray-200 dark:border-gray-700 flex justify-end">
                             <button
                                 type="submit"
@@ -293,6 +402,7 @@ export default function SettingsPage() {
                                 Save Changes
                             </button>
                         </div>
+                        )}
                     </form>
                 </div>
             </div>

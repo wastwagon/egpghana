@@ -3,7 +3,10 @@ const nextConfig = {
     reactStrictMode: true,
     output: 'standalone',
     images: {
-        domains: ['localhost', 'egpghana.org'],
+        remotePatterns: [
+            { protocol: 'https', hostname: 'egpghana.org', pathname: '/**' },
+            { protocol: 'http', hostname: 'localhost', pathname: '/**' },
+        ],
         formats: ['image/webp', 'image/avif'],
     },
     experimental: {
