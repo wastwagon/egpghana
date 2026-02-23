@@ -101,10 +101,12 @@ export async function POST(req: NextRequest) {
 
         await mkdir(targetDir, { recursive: true });
 
-        // Create unique name
+        // Create unique name - sanitize filename, fallback to "image" if empty/corrupted
         const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-        const ext = path.extname(file.name);
-        const name = file.name.replace(ext, '').replace(/[^a-z0-9]/gi, '-').toLowerCase() + '-' + uniqueSuffix + ext;
+        const ext = path.extname(file.name).toLowerCase() || '.jpg';
+        let base = file.name.replace(/\.[^/.]+$/, '').replace(/[^a-z0-9]/gi, '-').toLowerCase().replace(/-+/g, '-').replace(/(^-|-$)/g, '');
+        if (!base || base.length > 100) base = 'image';
+        const name = base + '-' + uniqueSuffix + ext;
 
         const filePath = path.join(targetDir, name);
         await writeFile(filePath, buffer);

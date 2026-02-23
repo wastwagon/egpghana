@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
+import { slugify } from '@/lib/slug';
 
 export async function GET(req: NextRequest) {
     const session = await getServerSession(authOptions);
@@ -65,10 +66,11 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
         }
 
+        const safeSlug = slugify(slug || title) || slugify(title);
         const event = await prisma.event.create({
             data: {
                 title,
-                slug,
+                slug: safeSlug,
                 description,
                 location,
                 startDate: new Date(startDate),

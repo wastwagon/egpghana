@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
+import { slugify } from '@/lib/slug';
 
 export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
     const session = await getServerSession(authOptions);
@@ -35,11 +36,12 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
         const body = await req.json();
         const { title, slug, content, excerpt, categoryId, imageUrl, publishedAt, featured, tags } = body;
 
+        const safeSlug = slugify(slug || title) || slugify(title);
         const article = await prisma.article.update({
             where: { id: params.id },
             data: {
                 title,
-                slug,
+                slug: safeSlug,
                 content,
                 excerpt,
                 categoryId,

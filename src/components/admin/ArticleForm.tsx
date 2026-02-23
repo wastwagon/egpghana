@@ -3,10 +3,11 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import RichTextEditor from './RichTextEditor';
-import { Image as ImageIcon, Check, Loader2, X, Calendar, Upload } from 'lucide-react';
+import { Image as ImageIcon, Loader2, X, Calendar, RefreshCw } from 'lucide-react';
 import Image from 'next/image';
 
 import MediaLibrary from './MediaLibrary';
+import { slugify } from '@/lib/slug';
 
 interface Category {
     id: string;
@@ -64,15 +65,19 @@ export default function ArticleForm({ initialData, isEditing = false }: ArticleF
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
-        setForm(prev => ({ ...prev, [name]: value }));
+        setForm(prev => {
+            const next = { ...prev, [name]: value };
+            // Auto-generate slug from title (create: always; edit: when slug empty)
+            if (name === 'title') {
+                const shouldSync = !isEditing || !prev.slug;
+                if (shouldSync && value) next.slug = slugify(value);
+            }
+            return next;
+        });
+    };
 
-        // Auto-generate slug from title if creating new
-        if (name === 'title' && !isEditing) {
-            setForm(prev => ({
-                ...prev,
-                slug: value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '')
-            }));
-        }
+    const syncSlugFromTitle = () => {
+        if (form.title) setForm(prev => ({ ...prev, slug: slugify(form.title) }));
     };
 
     const handleContentChange = (content: string) => {
@@ -172,7 +177,17 @@ export default function ArticleForm({ initialData, isEditing = false }: ArticleF
                         />
 
                         <div className="mt-4">
-                            <label className="block text-xs font-medium text-gray-500 mb-1">Slug (URL)</label>
+                            <div className="flex items-center justify-between mb-1">
+                                <label className="block text-xs font-medium text-gray-500">Slug (URL)</label>
+                                <button
+                                    type="button"
+                                    onClick={syncSlugFromTitle}
+                                    className="text-xs text-blue-600 hover:text-blue-500 flex items-center gap-1"
+                                >
+                                    <RefreshCw className="w-3 h-3" />
+                                    Sync from title
+                                </button>
+                            </div>
                             <div className="flex rounded-md shadow-sm">
                                 <span className="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 sm:text-sm">
                                     egpghana.org/articles/

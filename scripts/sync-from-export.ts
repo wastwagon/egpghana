@@ -9,6 +9,19 @@ import * as path from 'path';
 
 const prisma = new PrismaClient();
 
+function slugify(text: string): string {
+    if (!text || typeof text !== 'string') return '';
+    return text
+        .normalize('NFKD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/[^a-z0-9\s-]/gi, '')
+        .trim()
+        .toLowerCase()
+        .replace(/\s+/g, '-')
+        .replace(/-+/g, '-')
+        .replace(/(^-|-$)/g, '') || 'article';
+}
+
 // Resolve path: works when run from project root or from scripts/
 const dataFilePath = fs.existsSync(path.join(__dirname, 'local_data_export.json'))
     ? path.join(__dirname, 'local_data_export.json')
@@ -30,7 +43,8 @@ async function main() {
     let updated = 0;
 
     for (const article of exportedData.articles) {
-        const { categorySlug, ...articleData } = article;
+        const { categorySlug, slug: rawSlug, ...articleData } = article;
+        const slug = slugify(rawSlug || article.title);
         const categoryId = categoryMap.get(categorySlug) || categoryMap.get('news');
         if (!categoryId) {
             console.warn(`⚠️ Skipping "${article.title}" - category "${categorySlug}" not found`);
@@ -39,14 +53,18 @@ async function main() {
 
         const data = {
             ...articleData,
+            slug,
             categoryId,
             publishedAt: new Date(article.publishedAt),
         };
 
-        const existing = await prisma.article.findUnique({ where: { slug: article.slug } });
+        let existing = await prisma.article.findUnique({ where: { slug } });
+        if (!existing && rawSlug && rawSlug !== slug) {
+            existing = await prisma.article.findUnique({ where: { slug: rawSlug } });
+        }
         if (existing) {
             await prisma.article.update({
-                where: { slug: article.slug },
+                where: { id: existing.id },
                 data: { ...data, views: existing.views },
             });
             updated++;
@@ -63,16 +81,22 @@ async function main() {
     updated = 0;
 
     for (const event of exportedData.events) {
+        const slug = slugify(event.slug || event.title);
         const data = {
             ...event,
+            slug,
             startDate: new Date(event.startDate),
             endDate: event.endDate ? new Date(event.endDate) : null,
         };
 
-        const existing = await prisma.event.findUnique({ where: { slug: event.slug } });
+        const rawEventSlug = event.slug;
+        let existing = await prisma.event.findUnique({ where: { slug } });
+        if (!existing && rawEventSlug && rawEventSlug !== slug) {
+            existing = await prisma.event.findUnique({ where: { slug: rawEventSlug } });
+        }
         if (existing) {
             await prisma.event.update({
-                where: { slug: event.slug },
+                where: { id: existing.id },
                 data,
             });
             updated++;
