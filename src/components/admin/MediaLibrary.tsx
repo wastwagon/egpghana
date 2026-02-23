@@ -54,22 +54,23 @@ export default function MediaLibrary({ onSelect, onClose, allowMultiple = false,
         formData.append('file', file);
 
         setUploading(true);
+        setError('');
         try {
             const res = await fetch('/api/media', {
                 method: 'POST',
                 body: formData,
             });
             const data = await res.json();
-            if (data.file) {
+            if (res.ok && data.file) {
                 setFiles(prev => [data.file, ...prev]);
                 if (onSelect) {
                     onSelect(data.file.url);
                 }
             } else {
-                setError('Upload failed');
+                setError(data.details || data.error || 'Upload failed');
             }
         } catch (err) {
-            setError('Upload error');
+            setError('Upload error - check network');
         } finally {
             setUploading(false);
         }

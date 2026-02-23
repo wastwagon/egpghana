@@ -28,8 +28,8 @@ RUN npm run build
 FROM node:18-alpine AS runner
 WORKDIR /app
 
-# Final stage also needs openssl to run
-RUN apk add --no-cache openssl curl
+# Final stage also needs openssl, curl, su-exec (for dropping privileges)
+RUN apk add --no-cache openssl curl su-exec
 
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
@@ -43,6 +43,9 @@ RUN mkdir -p .next && chown nextjs:nodejs .next
 # Copy necessary files for the application with correct permissions
 # Use --chown to avoid slow recursive chown later
 COPY --from=builder --chown=nextjs:nodejs /app/public ./public
+
+# Ensure uploads directory exists (gitignored, so not in build) - entrypoint chowns when volume mounted
+RUN mkdir -p public/uploads && chown nextjs:nodejs public/uploads
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
 # Automatically leverage output traces to reduce image size
@@ -58,7 +61,8 @@ COPY --from=builder --chown=nextjs:nodejs /app/package.json ./package.json
 # Ensure entrypoint is executable
 RUN chmod +x scripts/entrypoint.sh
 
-USER nextjs
+# Run as root so entrypoint can fix volume permissions, then drop to nextjs
+# USER nextjs
 
 EXPOSE 3000
 

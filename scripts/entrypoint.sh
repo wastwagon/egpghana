@@ -39,11 +39,17 @@ else
   echo "ℹ️ DATABASE_URL not set, skipping migrations and seeding."
 fi
 
-# Start the application
+# Ensure uploads directory is writable by nextjs (fixes volume mount permissions)
+if [ -d "public/uploads" ]; then
+  echo "📁 Ensuring uploads directory is writable..."
+  chown -R nextjs:nodejs public/uploads 2>/dev/null || true
+fi
+
+# Start the application (drop to nextjs user for security)
 echo "🌐 Starting application on PORT ${PORT:-3000}..."
 if [ -f "server.js" ]; then
   echo "📦 server.js found. Executing node server.js..."
-  exec node server.js
+  exec su-exec nextjs node server.js
 else
   echo "❌ server.js NOT FOUND!"
   echo "Directory listing:"

@@ -122,9 +122,11 @@ export async function POST(req: NextRequest) {
             }
         });
 
-    } catch (error) {
-        console.error('Upload error:', error);
-        return NextResponse.json({ error: 'Upload failed' }, { status: 500 });
+    } catch (error: unknown) {
+        const err = error as NodeJS.ErrnoException;
+        console.error('Upload error:', err);
+        const msg = err?.code === 'EACCES' ? 'Permission denied - check uploads directory permissions' : err?.message || 'Upload failed';
+        return NextResponse.json({ error: 'Upload failed', details: msg }, { status: 500 });
     }
 }
 

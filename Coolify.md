@@ -50,6 +50,8 @@ Since the app allows file uploads, you must ensure they aren't lost when you red
    - **Source**: `egp-uploads`
    - **Destination**: `/app/public/uploads`
 
+The entrypoint automatically fixes volume permissions on startup so uploads work. If uploads still fail, check container logs for permission errors.
+
 ## 4. Why this setup is "Best Practice"
 - **Standalone Mode**: The `Dockerfile` uses Next.js `standalone` output, which makes the image ~1GB smaller and much faster to start.
 - **Auto-Migrations**: The `scripts/entrypoint.sh` runs `prisma migrate deploy` on each deploy. **Seed is skipped by default** so content added via admin UI on production persists across deploys.
