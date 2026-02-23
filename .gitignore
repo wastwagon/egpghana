@@ -37,9 +37,8 @@ logs/
 *.sqlite
 *.sqlite3
 
-# Uploads
+# Uploads (user-uploaded files only, not API route)
 public/uploads/
-uploads/
 
 # Prisma
 # prisma/migrations/

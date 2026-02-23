@@ -2,6 +2,10 @@
 const nextConfig = {
     reactStrictMode: true,
     output: 'standalone',
+    // Serve /uploads/* via API (ensures uploads work behind reverse proxies)
+    async rewrites() {
+        return [{ source: '/uploads/:path*', destination: '/api/uploads/:path*' }];
+    },
     images: {
         remotePatterns: [
             { protocol: 'https', hostname: 'egpghana.org', pathname: '/**' },
