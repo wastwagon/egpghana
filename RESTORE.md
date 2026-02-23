@@ -67,7 +67,7 @@ DATABASE_URL="postgresql://egp_user:egp_dev_password_2026@localhost:5433/egp_db"
 ### 4. Seeding Order
 
 1. **Production seed** (`npx prisma db seed`): Uses `scripts/seed-production.ts`
-   - Admin user (admin@egpghana.org / admin123)
+   - Admin user (admin@egpghana.org / admin123, or `ADMIN_EMAIL`/`ADMIN_PASSWORD` from env)
    - Categories, programs, staff
    - Imports articles, events, economic data from `scripts/local_data_export.json`
 
@@ -76,7 +76,22 @@ DATABASE_URL="postgresql://egp_user:egp_dev_password_2026@localhost:5433/egp_db"
    - Debt by creditor
    - Economy data (GDP, inflation, exchange rate, etc.)
 
-### 5. Optional: AI Embeddings
+### 5. Change admin password or create another admin
+
+```bash
+# Change password for admin@egpghana.org
+ADMIN_PASSWORD=YourNewSecurePassword npm run db:manage-admins
+
+# Create a second admin
+NEW_ADMIN_EMAIL=editor@egpghana.org NEW_ADMIN_NAME="Editor" NEW_ADMIN_PASSWORD=SecurePass npm run db:manage-admins
+
+# Do both
+ADMIN_PASSWORD=NewPass1 NEW_ADMIN_EMAIL=other@egpghana.org NEW_ADMIN_NAME="Other Admin" NEW_ADMIN_PASSWORD=NewPass2 npm run db:manage-admins
+```
+
+Or use **Admin → Users** in the UI: New User (create admin), Edit (change password).
+
+### 6. Optional: AI Embeddings
 
 For the AI chatbot to search articles:
 

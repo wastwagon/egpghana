@@ -138,8 +138,9 @@ async function main() {
     try {
         // 1. Users
         console.log('👤 Seeding users...');
-        const adminEmail = 'admin@egpghana.org';
-        const hashedPassword = await bcrypt.hash('admin123', 10);
+        const adminEmail = process.env.ADMIN_EMAIL || 'admin@egpghana.org';
+        const adminPassword = process.env.ADMIN_PASSWORD || 'admin123';
+        const hashedPassword = await bcrypt.hash(adminPassword, 10);
         await prisma.user.upsert({
             where: { email: adminEmail },
             update: {},

@@ -21,6 +21,7 @@
     "sync:data": "tsx scripts/api/sync-data.ts",
     "export:data": "tsx scripts/export-local-data.ts",
     "db:sync": "tsx scripts/sync-from-export.ts",
+    "db:manage-admins": "tsx scripts/manage-admins.ts",
     "db:restore": "npx prisma migrate deploy && npx prisma db push && npx prisma db seed && npx tsx scripts/seed-dashboards-complete.ts"
   },
   "dependencies": {
