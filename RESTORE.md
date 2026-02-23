@@ -118,8 +118,29 @@ Change `DATABASE_URL` port in `.env` and `docker-compose.yml` ports if needed.
 
 1. Commit and push your code
 2. In Coolify, connect the repo and set environment variables
-3. Coolify will build the Docker image; the `entrypoint.sh` runs migrations and seed automatically on container start
-4. Ensure `scripts/local_data_export.json` is committed so production seed has articles/events/economic data
+3. On each deploy, `entrypoint.sh` runs **migrations only** (no seed by default)
+4. **Production content is preserved** – publications added via admin UI on live will not be wiped on deploy
+
+### When to run seed on production
+
+- **Fresh database**: Set `RUN_SEED_ON_STARTUP=true` in Coolify env for the first deploy only, then remove it
+- **Manual restore**: Admin → Settings → Database tab → "Full Restore" (overwrites with `local_data_export.json`)
+
+---
+
+## Local ↔ Production Sync
+
+**Problem:** The seed script **deletes all articles/events/economic data** and re-imports from `local_data_export.json`. Running it on every deploy was wiping production content.
+
+**Solution:** Seed no longer runs automatically on deploy. Content added on production now persists.
+
+**To push local content to production** (overwrites production content):
+1. Run `npm run export:data` locally
+2. Commit `scripts/local_data_export.json`
+3. Deploy (migrations only)
+4. Admin → Settings → Database → "Full Restore" (run seed manually)
+
+**To add content on production:** Use the admin UI. It will persist across deploys.
 
 ---
 

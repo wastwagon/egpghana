@@ -52,7 +52,8 @@ Since the app allows file uploads, you must ensure they aren't lost when you red
 
 ## 4. Why this setup is "Best Practice"
 - **Standalone Mode**: The `Dockerfile` uses Next.js `standalone` output, which makes the image ~1GB smaller and much faster to start.
-- **Auto-Migrations**: The `scripts/entrypoint.sh` automatically runs `prisma migrate deploy` whenever the container starts, so your database is always in sync with your code.
+- **Auto-Migrations**: The `scripts/entrypoint.sh` runs `prisma migrate deploy` on each deploy. **Seed is skipped by default** so content added via admin UI on production persists across deploys.
+- **Optional seed on deploy**: Set `RUN_SEED_ON_STARTUP=true` only for first-time/fresh DB setup. For manual seed, use Admin → Settings → Database tab.
 - **Separation of Concerns**: By using Coolify's built-in DB services instead of a single `docker-compose`, you get automatic backups and better management.
 
 ## 5. Local Development
