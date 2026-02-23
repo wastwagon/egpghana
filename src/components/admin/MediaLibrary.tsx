@@ -169,6 +169,7 @@ export default function MediaLibrary({ onSelect, onClose, allowMultiple = false,
                                         fill
                                         className="object-cover"
                                         sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 20vw"
+                                        unoptimized={file.url.startsWith('/uploads/') || file.url.startsWith('/assets/')}
                                     />
                                 ) : (
                                     <div className="flex items-center justify-center h-full bg-gray-100 dark:bg-gray-800 text-gray-400">

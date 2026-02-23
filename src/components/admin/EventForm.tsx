@@ -267,6 +267,7 @@ export default function EventForm({ initialData, isEditing = false }: EventFormP
                                 <Image
                                     src={form.imageUrl}
                                     alt="Featured"
+                                    unoptimized={form.imageUrl.startsWith('/uploads/') || form.imageUrl.startsWith('/assets/')}
                                     fill
                                     className="object-cover"
                                 />

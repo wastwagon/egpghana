@@ -40,6 +40,7 @@ export default function EventCard({
                         <Image
                             src={imageUrl}
                             alt={title}
+                            unoptimized={imageUrl.startsWith('/uploads/') || imageUrl.startsWith('/assets/')}
                             fill
                             className="object-cover group-hover:scale-105 transition-transform duration-500"
                         />

@@ -125,6 +125,7 @@ export default async function ArticlePage({ params }: { params: { slug: string }
                                         alt={article.title}
                                         fill
                                         className="object-contain"
+                                        unoptimized={article.imageUrl.startsWith('/uploads/') || article.imageUrl.startsWith('/assets/')}
                                     />
                                 </div>
                             )}
