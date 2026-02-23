@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { User, Lock, Mail, Save, Loader2, Shield, AlertCircle, CheckCircle, Database, RefreshCw } from 'lucide-react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
@@ -17,6 +17,18 @@ export default function SettingsPage() {
     const [activeTab, setActiveTab] = useState('profile');
     const [dbAction, setDbAction] = useState<'idle' | 'migrate' | 'seed' | 'full' | 'sync'>('idle');
     const [dbOutput, setDbOutput] = useState('');
+    const [dbStatus, setDbStatus] = useState<{
+        migration: { status: 'current' | 'pending' | 'unknown'; detail: string };
+        data: {
+            status: 'current' | 'needs_sync' | 'no_export' | 'unknown';
+            detail: string;
+            exportArticles: number;
+            exportEvents: number;
+            dbArticles: number;
+            dbEvents: number;
+        };
+    } | null>(null);
+    const [dbStatusLoading, setDbStatusLoading] = useState(false);
 
     const [form, setForm] = useState({
         name: '',
@@ -29,6 +41,27 @@ export default function SettingsPage() {
     useEffect(() => {
         fetchProfile();
     }, []);
+
+    const fetchDbStatus = useCallback(async () => {
+        setDbStatusLoading(true);
+        try {
+            const res = await fetch('/api/admin/db-status');
+            if (res.ok) {
+                const data = await res.json();
+                setDbStatus(data);
+            } else {
+                setDbStatus(null);
+            }
+        } catch {
+            setDbStatus(null);
+        } finally {
+            setDbStatusLoading(false);
+        }
+    }, []);
+
+    useEffect(() => {
+        if (activeTab === 'database') fetchDbStatus();
+    }, [activeTab, fetchDbStatus]);
 
     const fetchProfile = async () => {
         setFetching(true);
@@ -137,6 +170,7 @@ export default function SettingsPage() {
             if (res.ok) {
                 setMessage(data.message || 'Operation completed successfully');
                 setDbOutput(data.output || '');
+                fetchDbStatus(); // Refresh status after successful action
             } else {
                 setError(data.error || data.details || 'Operation failed');
                 setDbOutput(data.output || '');
@@ -333,6 +367,65 @@ export default function SettingsPage() {
 
                         {activeTab === 'database' && (
                             <div className="space-y-6 animate-in fade-in duration-300">
+                                {/* Status indicators */}
+                                <div className="rounded-lg border border-gray-200 dark:border-gray-600 p-4 bg-gray-50/50 dark:bg-gray-900/30">
+                                    <div className="flex items-center justify-between mb-3">
+                                        <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Database status</span>
+                                        <button
+                                            type="button"
+                                            onClick={() => fetchDbStatus()}
+                                            disabled={dbStatusLoading}
+                                            className="text-xs text-blue-600 dark:text-blue-400 hover:underline disabled:opacity-50"
+                                        >
+                                            {dbStatusLoading ? 'Checking…' : 'Refresh'}
+                                        </button>
+                                    </div>
+                                    {dbStatus ? (
+                                        <div className="flex flex-wrap gap-4">
+                                            <div className="flex items-center gap-2">
+                                                <span className="text-sm text-gray-600 dark:text-gray-400">Migrations:</span>
+                                                <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs font-medium ${
+                                                    dbStatus.migration.status === 'current'
+                                                        ? 'bg-green-100 text-green-800 dark:bg-green-900/40 dark:text-green-300'
+                                                        : dbStatus.migration.status === 'pending'
+                                                            ? 'bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300'
+                                                            : 'bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-gray-400'
+                                                }`}>
+                                                    {dbStatus.migration.status === 'current' && <CheckCircle className="w-3.5 h-3.5" />}
+                                                    {dbStatus.migration.status === 'pending' && <AlertCircle className="w-3.5 h-3.5" />}
+                                                    {dbStatus.migration.status === 'current' ? 'Current' : dbStatus.migration.status === 'pending' ? 'Pending' : 'Unknown'}
+                                                </span>
+                                            </div>
+                                            <div className="flex items-center gap-2">
+                                                <span className="text-sm text-gray-600 dark:text-gray-400">Data:</span>
+                                                <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs font-medium ${
+                                                    dbStatus.data.status === 'current'
+                                                        ? 'bg-green-100 text-green-800 dark:bg-green-900/40 dark:text-green-300'
+                                                        : dbStatus.data.status === 'needs_sync'
+                                                            ? 'bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300'
+                                                            : dbStatus.data.status === 'no_export'
+                                                                ? 'bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-gray-400'
+                                                                : 'bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-gray-400'
+                                                }`}>
+                                                    {dbStatus.data.status === 'current' && <CheckCircle className="w-3.5 h-3.5" />}
+                                                    {dbStatus.data.status === 'needs_sync' && <AlertCircle className="w-3.5 h-3.5" />}
+                                                    {dbStatus.data.status === 'current' ? 'Current' : dbStatus.data.status === 'needs_sync' ? 'Needs sync' : dbStatus.data.status === 'no_export' ? 'No export' : 'Unknown'}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    ) : dbStatusLoading ? (
+                                        <p className="text-sm text-gray-500">Checking…</p>
+                                    ) : (
+                                        <p className="text-sm text-gray-500">Could not load status</p>
+                                    )}
+                                    {dbStatus && (
+                                        <div className="text-xs text-gray-500 mt-2 space-y-1">
+                                            {dbStatus.migration.detail && <p>Migrations: {dbStatus.migration.detail}</p>}
+                                            {dbStatus.data.detail && <p>Data: {dbStatus.data.detail}</p>}
+                                        </div>
+                                    )}
+                                </div>
+
                                 <div className="rounded-lg bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 p-4">
                                     <p className="text-sm text-amber-800 dark:text-amber-200 font-medium mb-2">Sync checklist (local → production):</p>
                                     <ol className="text-sm text-amber-800 dark:text-amber-200 list-decimal list-inside space-y-1">
