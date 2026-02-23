@@ -19,7 +19,7 @@ export async function POST(req: NextRequest) {
     }
 
     const action = body.action;
-    if (!['migrate', 'seed', 'full'].includes(action)) {
+    if (typeof action !== 'string' || !['migrate', 'seed', 'full'].includes(action)) {
         return NextResponse.json(
             { error: 'Invalid action. Use: migrate, seed, or full' },
             { status: 400 }
