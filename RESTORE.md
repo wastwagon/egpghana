@@ -134,13 +134,16 @@ Change `DATABASE_URL` port in `.env` and `docker-compose.yml` ports if needed.
 
 **Solution:** Seed no longer runs automatically on deploy. Content added on production now persists.
 
-**To push local content to production** (overwrites production content):
+**To sync local content to production** (merges, preserves production posts):
 1. Run `npm run export:data` locally
 2. Commit `scripts/local_data_export.json`
-3. Deploy (migrations only)
-4. Admin → Settings → Database → "Full Restore" (run seed manually)
+3. Deploy
+4. Admin → Settings → Database → **"Sync (Merge from Export)"**
 
 **To add content on production:** Use the admin UI. It will persist across deploys.
+
+**Full Restore** (use only when you want to wipe and replace everything with the export):
+Admin → Settings → Database → "Full Restore"
 
 ---
 

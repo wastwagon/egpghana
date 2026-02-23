@@ -39,6 +39,7 @@ async function exportData() {
             excerpt: a.excerpt,
             content: a.content,
             imageUrl: a.imageUrl,
+            sourceUrl: a.sourceUrl,
             author: a.author,
             categorySlug: a.category?.slug || 'news', // Using slug instead of ID
             tags: a.tags,
