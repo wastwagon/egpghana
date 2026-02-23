@@ -19,7 +19,8 @@
     "docker:logs": "docker-compose logs -f",
     "ai:embed": "tsx scripts/ai/generate-embeddings.ts",
     "sync:data": "tsx scripts/api/sync-data.ts",
-    "export:data": "tsx scripts/export-local-data.ts"
+    "export:data": "tsx scripts/export-local-data.ts",
+    "db:restore": "npx prisma migrate deploy && npx prisma db push && npx prisma db seed && npx tsx scripts/seed-dashboards-complete.ts"
   },
   "dependencies": {
     "@ai-sdk/openai": "^0.0.60",
