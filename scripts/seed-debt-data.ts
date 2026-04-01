@@ -30,9 +30,9 @@ async function seedDebtData() {
             // Nov 2025 (Last data point) - specific legacy data
             if (i === 83) {
                 // Nov 2025 specific values
-                baseDebt = 644600000000; // 644.6B
-                const domestic = 314400000000; // 314.4B
-                const external = 330200000000; // 330.2B
+                baseDebt = 641000000000; // 641.0B
+                const domestic = 333800000000; // 333.8B
+                const external = 307200000000; // 307.2B
 
                 monthlyDebtData.push({
                     indicator: 'TOTAL_DEBT',
@@ -44,8 +44,8 @@ async function seedDebtData() {
                         currency: 'GHS',
                         domestic: domestic,
                         external: external,
-                        domestic_share: 48.8,
-                        external_share: 51.2,
+                        domestic_share: 52.08,
+                        external_share: 47.92,
                         source: 'Ministry of Finance'
                     }
                 });
@@ -165,8 +165,8 @@ async function seedDebtData() {
             if (year === 2023) baseRatio = 84.0 - (Math.random());
             if (year === 2024) baseRatio = 71.0 + Math.random();
             if (year === 2025) {
-                // 2025 drop to 45.5% specific target
-                baseRatio = 45.5;
+                // 2025 update
+                baseRatio = 45.3;
             } else if (year === 2026) {
                 baseRatio = 43.5;
             } else {
@@ -211,7 +211,7 @@ async function seedDebtData() {
             if (year === 2022) ratio = 110.0; // Consumed all revenue
             if (year === 2023) ratio = 42.0;
             if (year === 2024) ratio = 45.0;
-            if (year === 2025) ratio = 48.0;
+            if (year === 2025) ratio = 25.1;
 
             debtServiceData.push({
                 indicator: 'DEBT_SERVICE_TO_REVENUE',

@@ -27,7 +27,7 @@ const LABELS = {
 export default function HistoricalDebtAnalyzer() {
     // ---- State ----
     const [startYear, setStartYear] = useState(2008);
-    const [endYear, setEndYear] = useState(2026);
+    const [endYear, setEndYear] = useState(2025);
     const [currency, setCurrency] = useState<'GHS' | 'USD'>('GHS');
     const [metric, setMetric] = useState<'nominal' | 'gdp' | 'capita'>('nominal');
     const [chartType, setChartType] = useState<'line' | 'area' | 'bar' | 'table'>('line');
@@ -125,11 +125,11 @@ export default function HistoricalDebtAnalyzer() {
             <div className="p-6 border-b border-slate-100 bg-slate-50/50">
                 <h3 className="text-xl md:text-2xl font-bold text-slate-900 mb-3 tracking-tight">Historical Debt Trends Analysis</h3>
                 <p className="text-slate-600 max-w-3xl leading-relaxed">
-                    Ghana's public debt has experienced significant growth over the years, reflecting the country's efforts to finance development projects, economic shocks, and external vulnerabilities. Below is a summary of the public debt trends from 2008 to 2026.
+                    Ghana's public debt has experienced significant growth over the years, reflecting the country's efforts to finance development projects, economic shocks, and external vulnerabilities. Below is a summary of the public debt trends from 2008 to 2025.
                 </p>
                 <div className="mt-2 inline-flex items-center gap-2 bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-xs font-semibold">
                     <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
-                    Report generated: February 7, 2026
+                    Snapshot reference: November 2025
                 </div>
             </div>
 
@@ -142,7 +142,7 @@ export default function HistoricalDebtAnalyzer() {
                     <div className="flex items-center gap-2">
                         <span className="text-sm font-bold text-slate-700 w-10">{startYear}</span>
                         <input
-                            type="range" min={2008} max={2026}
+                            type="range" min={2008} max={2025}
                             value={startYear}
                             onChange={(e) => {
                                 const val = parseInt(e.target.value);
@@ -154,7 +154,7 @@ export default function HistoricalDebtAnalyzer() {
                     <div className="flex items-center gap-2">
                         <span className="text-sm font-bold text-slate-700 w-10">{endYear}</span>
                         <input
-                            type="range" min={2008} max={2026}
+                            type="range" min={2008} max={2025}
                             value={endYear}
                             onChange={(e) => {
                                 const val = parseInt(e.target.value);

@@ -139,7 +139,10 @@ async function main() {
         // 1. Users
         console.log('👤 Seeding users...');
         const adminEmail = process.env.ADMIN_EMAIL || 'admin@egpghana.org';
-        const adminPassword = process.env.ADMIN_PASSWORD || 'admin123';
+        const adminPassword = process.env.ADMIN_PASSWORD;
+        if (!adminPassword) {
+            throw new Error('ADMIN_PASSWORD is required for production seeding');
+        }
         const hashedPassword = await bcrypt.hash(adminPassword, 10);
         await prisma.user.upsert({
             where: { email: adminEmail },

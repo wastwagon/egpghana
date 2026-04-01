@@ -546,7 +546,7 @@ async function seedDashboards() {
         { date: '2024-06-30', value: 742000000000, domestic: 300000000000, external: 442000000000 }, // Peak
         { date: '2024-12-31', value: 726700000000, domestic: 290000000000, external: 436700000000 },
         { date: '2025-06-30', value: 680000000000, domestic: 310000000000, external: 370000000000 }, // Restructuring kick-in
-        { date: '2025-11-01', value: 644600000000, domestic: 314400000000, external: 330200000000 },
+        { date: '2025-11-30', value: 641000000000, domestic: 333800000000, external: 307200000000 },
     ];
 
     for (const item of historicalDebt) {
@@ -647,39 +647,91 @@ async function seedDashboards() {
         where: {
             indicator_date_source: {
                 indicator: 'TOTAL_DEBT',
-                date: new Date('2025-11-01'),
-                source: 'Ministry of Finance',
+                    date: new Date('2025-11-30'),
+                    source: 'Bank of Ghana',
             },
         },
         update: {
-            value: 644600000000, // GH₵ 644.6B
+            value: 641000000000, // GH₵ 641.0B
             metadata: {
                 currency: 'GHS',
-                domestic: 314400000000,
-                external: 330200000000,
-                domestic_share: 48.8,
-                external_share: 51.2,
-                externalUSD: 29300000000,
-                note: 'Significant reduction from GH₵726.7B in Dec 2024',
+                domestic: 333800000000,
+                external: 307200000000,
+                domestic_share: 52.08,
+                external_share: 47.92,
+                note: 'Debt data update as at Nov 2025',
             },
         },
         create: {
             indicator: 'TOTAL_DEBT',
-            value: 644600000000,
-            date: new Date('2025-11-01'),
-            source: 'Ministry of Finance',
+            value: 641000000000,
+            date: new Date('2025-11-30'),
+            source: 'Bank of Ghana',
             unit: 'GHS',
             metadata: {
                 currency: 'GHS',
-                domestic: 314400000000,
-                external: 330200000000,
-                domestic_share: 48.8,
-                external_share: 51.2,
-                externalUSD: 29300000000,
-                note: 'Significant reduction from GH₵726.7B in Dec 2024',
+                domestic: 333800000000,
+                external: 307200000000,
+                domestic_share: 52.08,
+                external_share: 47.92,
+                note: 'Debt data update as at Nov 2025',
             },
         },
     });
+
+    // Debt update pack (Nov 2025) - provided update values
+    const nov2025Data = [
+        { indicator: 'DEBT_STOCK_TOTAL', value: 641000000000, unit: 'GHS', source: 'Bank of Ghana' },
+        { indicator: 'DEBT_EXTERNAL', value: 307200000000, unit: 'GHS', source: 'Bank of Ghana' },
+        { indicator: 'DEBT_DOMESTIC', value: 333800000000, unit: 'GHS', source: 'Bank of Ghana' },
+        { indicator: 'DEBT_EXTERNAL_SHARE', value: 47.92, unit: '%', source: 'MOF' },
+        { indicator: 'DEBT_DOMESTIC_SHARE', value: 52.08, unit: '%', source: 'MOF' },
+        { indicator: 'DEBT_TO_GDP_RATIO', value: 45.3, unit: '%', source: 'MOF' },
+        { indicator: 'DEBT_DOMESTIC_TO_GDP', value: 23.6, unit: '%', source: 'MOF' },
+        { indicator: 'DEBT_EXTERNAL_TO_GDP', value: 21.7, unit: '%', source: 'MOF' },
+        { indicator: 'DEBT_INTEREST_PAYMENT_REVISED', value: 25400000000, unit: 'GHS', source: 'MOF' },
+        { indicator: 'DEBT_INTEREST_TO_EXPENDITURE', value: 9.45, unit: '%', source: 'Bank of Ghana' },
+        { indicator: 'DEBT_PER_CAPITA', value: 21061, unit: 'GHS', source: 'World Bank' },
+        { indicator: 'DEBT_SERVICE_TO_REVENUE', value: 25.1, unit: '%', source: 'KPMG' },
+        { indicator: 'PER_CAPITA_INCOME_USD', value: 2235, unit: 'USD', source: 'World Bank' },
+        { indicator: 'GDP_NOMINAL_USD', value: 111960000000, unit: 'USD', source: 'World Bank' },
+        { indicator: 'INFLATION_RATE', value: 3.3, unit: '%', source: 'Bank of Ghana' },
+        { indicator: 'INFLATION_TARGET_MID', value: 8, unit: '%', source: 'Bank of Ghana', metadata: { band: '+/- 2%' } },
+        { indicator: 'POLICY_RATE', value: 14, unit: '%', source: 'Bank of Ghana' },
+        { indicator: 'TREASURY_BILL_91D', value: 8.96, unit: '%', source: 'Bank of Ghana' },
+        { indicator: 'GDP_NOMINAL_GHS', value: 1020000000000, unit: 'GHS', source: 'Bank of Ghana' },
+    ] as const;
+
+    for (const item of nov2025Data) {
+        await prisma.economicData.upsert({
+            where: {
+                indicator_date_source: {
+                    indicator: item.indicator,
+                    date: new Date('2025-11-30'),
+                    source: item.source,
+                },
+            },
+            update: {
+                value: item.value,
+                unit: item.unit,
+                metadata: {
+                    ...(item as { metadata?: Record<string, unknown> }).metadata,
+                    reportDate: '2025-11',
+                },
+            },
+            create: {
+                indicator: item.indicator,
+                value: item.value,
+                date: new Date('2025-11-30'),
+                source: item.source,
+                unit: item.unit,
+                metadata: {
+                    ...(item as { metadata?: Record<string, unknown> }).metadata,
+                    reportDate: '2025-11',
+                },
+            },
+        });
+    }
 
     // Unemployment - Q4 2025
     await prisma.economicData.upsert({

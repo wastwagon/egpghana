@@ -6,31 +6,31 @@ import IndicatorCard, { IndicatorData } from './IndicatorCard';
 const indicators: IndicatorData[] = [
     // DEBT
     {
-        id: '1', category: 'debt', title: 'Total debt stock', value: 'GH₵ 644.6B',
+        id: '1', category: 'debt', title: 'Total debt stock', value: 'GH₵ 641.0B',
         trend: 'down', trendValue: '-5.8%',
         analysis: 'Debt decreased by GH₵ 40B from August, reflecting successful debt restructuring and improved fiscal management.',
-        source: 'MoF'
+        source: 'Bank of Ghana'
     },
     {
-        id: '2', category: 'debt', title: 'External Debt', value: 'GH₵ 330.2B',
+        id: '2', category: 'debt', title: 'External Debt', value: 'GH₵ 307.2B',
         trend: 'down', trendValue: '-27.4%',
         analysis: 'External debt fell significantly by GH₵ 124.8B, demonstrating major progress in debt restructuring efforts.',
-        source: 'MoF'
+        source: 'Bank of Ghana'
     },
     {
-        id: '3', category: 'debt', title: 'Domestic Debt', value: 'GH₵ 314.4B',
+        id: '3', category: 'debt', title: 'Domestic Debt', value: 'GH₵ 333.8B',
         trend: 'up', trendValue: '+8.4%',
         analysis: 'Domestic debt increased by GH₵ 24.4B, indicating shift toward local financing as external debt is restructured.',
-        source: 'MoF'
+        source: 'Bank of Ghana'
     },
     {
-        id: '4', category: 'debt', title: 'External Debt % share', value: '51.2%',
+        id: '4', category: 'debt', title: 'External Debt % share', value: '47.92%',
         trend: 'down', trendValue: '-2.4pts',
         analysis: 'External debt share decreased from 53.6%, reflecting rebalancing toward more balanced debt portfolio composition.',
         source: 'MoF'
     },
     {
-        id: '5', category: 'debt', title: 'Domestic Debt % share', value: '48.8%',
+        id: '5', category: 'debt', title: 'Domestic Debt % share', value: '52.08%',
         trend: 'up', trendValue: '+2.4pts',
         analysis: 'Domestic debt share increased from 46.4%, showing greater reliance on local markets during debt restructuring period.',
         source: 'MoF'
@@ -62,19 +62,19 @@ const indicators: IndicatorData[] = [
 
     // GDP
     {
-        id: '10', category: 'gdp', title: 'Total Debt to GDP Ratio', value: '45.5%',
+        id: '10', category: 'gdp', title: 'Total Debt to GDP Ratio', value: '45.3%',
         trend: 'down', trendValue: '-17.8pts',
         analysis: 'Debt-to-GDP fell dramatically from 63.3%, reflecting successful debt restructuring and GDP growth in nominal terms.',
         source: 'MoF', tag: { label: 'Moderate', type: 'moderate' }
     },
     {
-        id: '11', category: 'gdp', title: 'Domestic Debt % of GDP', value: '22.2%',
+        id: '11', category: 'gdp', title: 'Domestic Debt % of GDP', value: '23.6%',
         trend: 'down', trendValue: '-26.7pts',
         analysis: 'Domestic debt burden relative to GDP decreased significantly from 48.9%, reflecting debt reduction and GDP revaluation.',
         source: 'MoF'
     },
     {
-        id: '12', category: 'gdp', title: 'External Debt % of GDP', value: '23.3%',
+        id: '12', category: 'gdp', title: 'External Debt % of GDP', value: '21.7%',
         trend: 'down', trendValue: '-27.8pts',
         analysis: 'External debt-to-GDP ratio decreased from 51.1% due to successful external debt restructuring and GDP growth.',
         source: 'MoF'
@@ -86,7 +86,7 @@ const indicators: IndicatorData[] = [
         source: 'World Bank'
     },
     {
-        id: '14', category: 'gdp', title: 'GDP (USD)', value: '$ 88.33B',
+        id: '14', category: 'gdp', title: 'GDP (USD)', value: '$ 111.96B',
         trend: 'up', trendValue: '+11.8%',
         analysis: 'Economic output in dollar terms increased from $79B, reflecting economic growth and currency adjustments.',
         source: 'World Bank'
@@ -94,25 +94,25 @@ const indicators: IndicatorData[] = [
 
     // MARKET
     {
-        id: '15', category: 'market', title: 'Inflation (Nov 2025)', value: '3.8%',
+        id: '15', category: 'market', title: 'Inflation (Nov 2025)', value: '3.3%',
         trend: 'down', trendValue: '-2.5pts',
-        analysis: 'Excellent progress! Inflation dropped from 6.3% to 3.8%, now below BOG target range, showing strong monetary stability.',
+        analysis: 'Excellent progress. Inflation eased to 3.3% in Nov 2025, below the BoG target band, indicating stronger price stability.',
         source: 'Bank of Ghana', tag: { label: 'Below Target', type: 'target' }
     },
     {
         id: '16', category: 'market', title: 'Inflation Target', value: '8% ± 2%',
         trend: 'stable', trendValue: 'Target',
-        analysis: 'Current inflation at 3.8% is below the 6-10% target range, demonstrating exceptional monetary policy success.',
+        analysis: 'Current inflation at 3.3% is below the 6-10% target range, showing tighter-than-target price conditions.',
         source: 'Bank of Ghana', tag: { label: 'Target', type: 'target' }
     },
     {
-        id: '17', category: 'market', title: 'Monetary Policy Rate', value: '15.5%',
+        id: '17', category: 'market', title: 'Monetary Policy Rate', value: '14.0%',
         trend: 'down', trendValue: '-2.5pts',
-        analysis: 'Policy rate reduced from 18% to 15.5% as inflation targets exceeded, supporting economic growth while maintaining stability.',
+        analysis: 'Policy rate stands at 14.0% as at Nov 2025, consistent with easing inflation and improved macroeconomic conditions.',
         source: 'Bank of Ghana', tag: { label: 'Moderate', type: 'moderate' }
     },
     {
-        id: '18', category: 'market', title: '91-Day T-Bill Rate', value: '10.833%',
+        id: '18', category: 'market', title: '91-Day T-Bill Rate', value: '8.96%',
         trend: 'down', trendValue: '-2.87pts',
         analysis: 'Treasury bill yields declined, reducing the cost of short-term government borrowing.',
         source: 'Bank of Ghana'
@@ -135,7 +135,7 @@ export default function IndicatorsGrid() {
                         <p className="text-slate-600 leading-relaxed mb-2">
                             Real-time tracking of Ghana's critical economic metrics, covering debt stock, GDP growth, inflation, and market rates to monitor financial recovery progress.
                         </p>
-                        <p className="text-sm text-slate-500 font-medium">Snapshot as of Nov 2025 • Verified Feb 7, 2026</p>
+                        <p className="text-sm text-slate-500 font-medium">Snapshot as of Nov 2025</p>
                     </div>
 
                     {/* Responsive Filters */}

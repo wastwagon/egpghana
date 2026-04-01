@@ -22,16 +22,35 @@ export const metadata = {
 };
 
 export default async function DebtDashboardPage() {
-    // Fetch latest debt data
+    // Fetch latest official debt data (source-prioritized)
     const latestDebtData = await prisma.economicData.findFirst({
-        where: { indicator: 'TOTAL_DEBT' },
+        where: {
+            indicator: 'TOTAL_DEBT',
+            source: 'Bank of Ghana',
+        },
         orderBy: { date: 'desc' },
     });
 
-    const totalDebt = latestDebtData?.value || 644600000000;
+    const latestDebtToGdpData = await prisma.economicData.findFirst({
+        where: {
+            indicator: 'DEBT_TO_GDP_RATIO',
+            source: 'MOF',
+        },
+        orderBy: { date: 'desc' },
+    });
+
+    const latestDebtServiceData = await prisma.economicData.findFirst({
+        where: {
+            indicator: 'DEBT_SERVICE_TO_REVENUE',
+            source: 'KPMG',
+        },
+        orderBy: { date: 'desc' },
+    });
+
+    const totalDebt = latestDebtData?.value || 641000000000;
     const metadata = latestDebtData?.metadata as any;
-    const domesticDebt = metadata?.domestic || 314400000000;
-    const externalDebt = metadata?.external || 330200000000;
+    const domesticDebt = metadata?.domestic || 333800000000;
+    const externalDebt = metadata?.external || 307200000000;
 
     // Fetch debt overview data (monthly totals)
     const debtOverviewDataRaw = await prisma.economicData.findMany({
@@ -142,8 +161,8 @@ export default async function DebtDashboardPage() {
     const serviceEnd = debtServiceData.length > 0 ? new Date(debtServiceData[debtServiceData.length - 1].date).getFullYear() : '2025';
     const serviceRange = `${serviceStart} - ${serviceEnd}`;
 
-    const latestGDPRatio = debtToGDPData[debtToGDPData.length - 1]?.value || 45.5;
-    const latestServiceRatio = debtServiceData[debtServiceData.length - 1]?.value || 48.0;
+    const latestGDPRatio = latestDebtToGdpData?.value ?? debtToGDPData[debtToGDPData.length - 1]?.value ?? 45.5;
+    const latestServiceRatio = latestDebtServiceData?.value ?? debtServiceData[debtServiceData.length - 1]?.value ?? 48.0;
 
     return (
         <>
@@ -183,7 +202,7 @@ export default async function DebtDashboardPage() {
                                     <svg className="w-4 h-4 text-white/80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                     </svg>
-                                    Report Date: <span className="font-medium text-white">February 7, 2026</span>
+                                    Report Date: <span className="font-medium text-white">November 2025</span>
                                 </span>
                             </div>
                         </div>

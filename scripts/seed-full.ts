@@ -130,7 +130,11 @@ async function seedFull() {
     try {
         // 1. Users (Admin)
         const adminEmail = 'admin@egpghana.org';
-        const hashedPassword = await bcrypt.hash('admin123', 10);
+        const adminPassword = process.env.ADMIN_PASSWORD;
+        if (!adminPassword) {
+            throw new Error('ADMIN_PASSWORD is required to run seed-full');
+        }
+        const hashedPassword = await bcrypt.hash(adminPassword, 10);
 
         await prisma.user.upsert({
             where: { email: adminEmail },
