@@ -1,5 +1,5 @@
 # Install dependencies only when needed
-FROM node:18-alpine AS deps
+FROM node:20-alpine AS deps
 # Add openssl to fix Prisma libssl.so.1.1 error in Alpine
 RUN apk add --no-cache libc6-compat openssl
 WORKDIR /app
@@ -9,7 +9,7 @@ COPY package.json package-lock.json* ./
 RUN npm install --legacy-peer-deps
 
 # Rebuild the source code only when needed
-FROM node:18-alpine AS builder
+FROM node:20-alpine AS builder
 # Add openssl here too for the build phase (prerendering)
 RUN apk add --no-cache openssl
 WORKDIR /app
@@ -25,7 +25,7 @@ ENV NEXT_TELEMETRY_DISABLED=1
 RUN npm run build
 
 # Production image, copy all the files and run next
-FROM node:18-alpine AS runner
+FROM node:20-alpine AS runner
 WORKDIR /app
 
 # Final stage also needs openssl, curl, su-exec (for dropping privileges)
