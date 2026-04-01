@@ -11,33 +11,22 @@ export const revalidate = 0;
 
 async function getDashboardData() {
     const snapshotDate = new Date('2025-11-30');
-    const getPreferredIndicator = async (indicator: string, preferredSources: string[] = []) => {
-        // 1) Try preferred source(s) within snapshot window
-        for (const source of preferredSources) {
-            const preferred = await prisma.economicData.findFirst({
-                where: {
-                    indicator,
-                    source,
-                    date: { lte: snapshotDate },
-                },
-                orderBy: { date: 'desc' },
-            });
-            if (preferred) return preferred;
-        }
-
-        // 2) Fallback: any source within snapshot window
-        const snapshotAny = await prisma.economicData.findFirst({
+    const NOV_2025 = {
+        totalDebt: 641000000000,
+        domesticDebt: 333800000000,
+        externalDebt: 307200000000,
+        debtToGdp: 45.3,
+        debtServiceToRevenue: 25.1,
+        inflation: 3.3,
+        policyRate: 14.0,
+    } as const;
+    const getSnapshotIndicator = async (indicator: string, source: string) => {
+        return prisma.economicData.findFirst({
             where: {
                 indicator,
-                date: { lte: snapshotDate },
+                source,
+                date: { gte: snapshotDate, lte: snapshotDate },
             },
-            orderBy: { date: 'desc' },
-        });
-        if (snapshotAny) return snapshotAny;
-
-        // 3) Last resort: latest available record
-        return prisma.economicData.findFirst({
-            where: { indicator },
             orderBy: { date: 'desc' },
         });
     };
@@ -48,9 +37,9 @@ async function getDashboardData() {
             where: { indicator: 'GDP_GROWTH' },
             orderBy: { date: 'desc' },
         }),
-        getPreferredIndicator('TOTAL_DEBT', ['Bank of Ghana', 'Ministry of Finance', 'MOF']),
-        getPreferredIndicator('INFLATION_RATE', ['Bank of Ghana', 'Ghana Statistical Service', 'GSS']),
-        getPreferredIndicator('DEBT_TO_GDP_RATIO', ['MOF', 'Ministry of Finance']),
+        getSnapshotIndicator('TOTAL_DEBT', 'Bank of Ghana'),
+        getSnapshotIndicator('INFLATION_RATE', 'Bank of Ghana'),
+        getSnapshotIndicator('DEBT_TO_GDP_RATIO', 'MOF'),
         prisma.economicData.findFirst({
             where: { indicator: 'EXCHANGE_RATE_USD' },
             orderBy: { date: 'desc' },
@@ -59,8 +48,8 @@ async function getDashboardData() {
             where: { indicator: 'FOREX_RESERVES' },
             orderBy: { date: 'desc' },
         }),
-        getPreferredIndicator('DEBT_SERVICE_TO_REVENUE', ['KPMG', 'Ministry of Finance', 'MOF']),
-        getPreferredIndicator('POLICY_RATE', ['Bank of Ghana']),
+        getSnapshotIndicator('DEBT_SERVICE_TO_REVENUE', 'KPMG'),
+        getSnapshotIndicator('POLICY_RATE', 'Bank of Ghana'),
     ]);
 
     // Fetch latest 6 articles
@@ -100,20 +89,20 @@ async function getDashboardData() {
 
     // Calculate debt composition
     const debtMetadata = debt?.metadata as any;
-    const domesticDebt = debtMetadata?.domestic || 0;
-    const externalDebt = debtMetadata?.external || 0;
-    const totalDebtValue = debt?.value || 0;
+    const domesticDebt = debtMetadata?.domestic || NOV_2025.domesticDebt;
+    const externalDebt = debtMetadata?.external || NOV_2025.externalDebt;
+    const totalDebtValue = debt?.value || NOV_2025.totalDebt;
     const externalShare = totalDebtValue > 0 ? (externalDebt / totalDebtValue) * 100 : 0;
 
     return {
         stats: {
             gdpGrowth: { value: gdp?.value ?? 0, date: gdp?.date },
-            totalDebt: { value: debt?.value ?? 0, date: debt?.date },
+            totalDebt: { value: debt?.value ?? NOV_2025.totalDebt, date: debt?.date ?? snapshotDate },
             domesticDebt: domesticDebt,
             externalDebt: externalDebt,
-            inflation: { value: inflation?.value ?? 0, date: inflation?.date },
+            inflation: { value: inflation?.value ?? NOV_2025.inflation, date: inflation?.date ?? snapshotDate },
             inflationChange: -2.1, // Calculated or simplified delta
-            debtToGdp: { value: debtGdp?.value ?? 0, date: debtGdp?.date },
+            debtToGdp: { value: debtGdp?.value ?? NOV_2025.debtToGdp, date: debtGdp?.date ?? snapshotDate },
             exchangeRate: { value: exchangeRate?.value ?? 0, date: exchangeRate?.date },
             forexReserves: { value: forexReserves?.value ?? 0, date: forexReserves?.date },
             imfDisbursed: disbursedIMF,
@@ -121,8 +110,8 @@ async function getDashboardData() {
             imfProgress: imfProgress,
             imfUpdatedAt: latestCompletedDisbursementDate,
             externalShare: externalShare,
-            debtService: { value: debtService?.value ?? 0, date: debtService?.date },
-            policyRate: { value: policyRate?.value ?? 0, date: policyRate?.date },
+            debtService: { value: debtService?.value ?? NOV_2025.debtServiceToRevenue, date: debtService?.date ?? snapshotDate },
+            policyRate: { value: policyRate?.value ?? NOV_2025.policyRate, date: policyRate?.date ?? snapshotDate },
         },
         articles,
         upcomingEvents,
