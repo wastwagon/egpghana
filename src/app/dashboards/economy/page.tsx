@@ -21,6 +21,33 @@ export const metadata = {
 
 export default async function EconomyDashboardPage() {
     const snapshotDate = new Date('2025-11-30');
+    const getPreferredIndicator = async (indicator: string, preferredSources: string[] = []) => {
+        for (const source of preferredSources) {
+            const preferred = await prisma.economicData.findFirst({
+                where: {
+                    indicator,
+                    source,
+                    date: { lte: snapshotDate },
+                },
+                orderBy: { date: 'desc' },
+            });
+            if (preferred) return preferred;
+        }
+
+        const snapshotAny = await prisma.economicData.findFirst({
+            where: {
+                indicator,
+                date: { lte: snapshotDate },
+            },
+            orderBy: { date: 'desc' },
+        });
+        if (snapshotAny) return snapshotAny;
+
+        return prisma.economicData.findFirst({
+            where: { indicator },
+            orderBy: { date: 'desc' },
+        });
+    };
 
     // Fetch latest indicators
     const latestGDP = await prisma.economicData.findFirst({
@@ -28,14 +55,7 @@ export default async function EconomyDashboardPage() {
         orderBy: { date: 'desc' },
     });
 
-    const latestInflation = await prisma.economicData.findFirst({
-        where: {
-            indicator: 'INFLATION_RATE',
-            source: 'Bank of Ghana',
-            date: { lte: snapshotDate },
-        },
-        orderBy: { date: 'desc' },
-    });
+    const latestInflation = await getPreferredIndicator('INFLATION_RATE', ['Bank of Ghana', 'Ghana Statistical Service', 'GSS']);
 
     const latestExchangeRate = await prisma.economicData.findFirst({
         where: { indicator: 'EXCHANGE_RATE_USD' },
@@ -47,14 +67,7 @@ export default async function EconomyDashboardPage() {
         orderBy: { date: 'desc' },
     });
 
-    const latestPolicyRate = await prisma.economicData.findFirst({
-        where: {
-            indicator: 'POLICY_RATE',
-            source: 'Bank of Ghana',
-            date: { lte: snapshotDate },
-        },
-        orderBy: { date: 'desc' },
-    });
+    const latestPolicyRate = await getPreferredIndicator('POLICY_RATE', ['Bank of Ghana']);
 
     const latestForexReserves = await prisma.economicData.findFirst({
         where: { indicator: 'FOREX_RESERVES' },

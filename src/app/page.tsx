@@ -11,6 +11,36 @@ export const revalidate = 0;
 
 async function getDashboardData() {
     const snapshotDate = new Date('2025-11-30');
+    const getPreferredIndicator = async (indicator: string, preferredSources: string[] = []) => {
+        // 1) Try preferred source(s) within snapshot window
+        for (const source of preferredSources) {
+            const preferred = await prisma.economicData.findFirst({
+                where: {
+                    indicator,
+                    source,
+                    date: { lte: snapshotDate },
+                },
+                orderBy: { date: 'desc' },
+            });
+            if (preferred) return preferred;
+        }
+
+        // 2) Fallback: any source within snapshot window
+        const snapshotAny = await prisma.economicData.findFirst({
+            where: {
+                indicator,
+                date: { lte: snapshotDate },
+            },
+            orderBy: { date: 'desc' },
+        });
+        if (snapshotAny) return snapshotAny;
+
+        // 3) Last resort: latest available record
+        return prisma.economicData.findFirst({
+            where: { indicator },
+            orderBy: { date: 'desc' },
+        });
+    };
 
     // Fetch latest economic indicators
     const [gdp, debt, inflation, debtGdp, exchangeRate, forexReserves, debtService, policyRate] = await Promise.all([
@@ -18,30 +48,9 @@ async function getDashboardData() {
             where: { indicator: 'GDP_GROWTH' },
             orderBy: { date: 'desc' },
         }),
-        prisma.economicData.findFirst({
-            where: {
-                indicator: 'TOTAL_DEBT',
-                source: 'Bank of Ghana',
-                date: { lte: snapshotDate },
-            },
-            orderBy: { date: 'desc' },
-        }),
-        prisma.economicData.findFirst({
-            where: {
-                indicator: 'INFLATION_RATE',
-                source: 'Bank of Ghana',
-                date: { lte: snapshotDate },
-            },
-            orderBy: { date: 'desc' },
-        }),
-        prisma.economicData.findFirst({
-            where: {
-                indicator: 'DEBT_TO_GDP_RATIO',
-                source: 'MOF',
-                date: { lte: snapshotDate },
-            },
-            orderBy: { date: 'desc' },
-        }),
+        getPreferredIndicator('TOTAL_DEBT', ['Bank of Ghana', 'Ministry of Finance', 'MOF']),
+        getPreferredIndicator('INFLATION_RATE', ['Bank of Ghana', 'Ghana Statistical Service', 'GSS']),
+        getPreferredIndicator('DEBT_TO_GDP_RATIO', ['MOF', 'Ministry of Finance']),
         prisma.economicData.findFirst({
             where: { indicator: 'EXCHANGE_RATE_USD' },
             orderBy: { date: 'desc' },
@@ -50,22 +59,8 @@ async function getDashboardData() {
             where: { indicator: 'FOREX_RESERVES' },
             orderBy: { date: 'desc' },
         }),
-        prisma.economicData.findFirst({
-            where: {
-                indicator: 'DEBT_SERVICE_TO_REVENUE',
-                source: 'KPMG',
-                date: { lte: snapshotDate },
-            },
-            orderBy: { date: 'desc' },
-        }),
-        prisma.economicData.findFirst({
-            where: {
-                indicator: 'POLICY_RATE',
-                source: 'Bank of Ghana',
-                date: { lte: snapshotDate },
-            },
-            orderBy: { date: 'desc' },
-        }),
+        getPreferredIndicator('DEBT_SERVICE_TO_REVENUE', ['KPMG', 'Ministry of Finance', 'MOF']),
+        getPreferredIndicator('POLICY_RATE', ['Bank of Ghana']),
     ]);
 
     // Fetch latest 6 articles
