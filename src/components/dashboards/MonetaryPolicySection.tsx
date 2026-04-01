@@ -146,7 +146,7 @@ export default function MonetaryPolicySection() {
                 <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div className="bg-blue-50 rounded-lg p-4 border border-blue-100">
                         <p className="text-sm text-slate-600 mb-1">Current Policy Rate</p>
-                        <p className="text-2xl font-bold text-blue-600">15.5%</p>
+                        <p className="text-2xl font-bold text-blue-600">14.0%</p>
                         <p className="text-xs text-slate-500 mt-1">↓ down 1,450bps from peak</p>
                     </div>
                     <div className="bg-red-50 rounded-lg p-4 border border-red-100">
@@ -162,7 +162,7 @@ export default function MonetaryPolicySection() {
                 </div>
 
                 <p className="text-xs text-slate-500 mt-4 italic">
-                    Source: Bank of Ghana Monetary Policy Committee (Updated: Feb 2026)
+                    Source: Bank of Ghana Monetary Policy Committee (Updated: Nov 2025)
                 </p>
             </div>
 
@@ -271,7 +271,7 @@ export default function MonetaryPolicySection() {
                             </svg>
                         </div>
                         <p className="text-sm text-slate-700 leading-relaxed">
-                            <strong>Monetary Easing:</strong> BoG has cut the policy rate to 15.5% in early 2026, following a steady decline in inflation and improved macroeconomic stability.
+                            <strong>Monetary Easing:</strong> BoG policy rate stands at 14.0% (Nov 2025), reflecting continued disinflation and tighter macroeconomic conditions.
                         </p>
                     </div>
                     <div className="flex items-start gap-3">

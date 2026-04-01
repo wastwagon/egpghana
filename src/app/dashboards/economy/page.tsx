@@ -20,6 +20,8 @@ export const metadata = {
 };
 
 export default async function EconomyDashboardPage() {
+    const snapshotDate = new Date('2025-11-30');
+
     // Fetch latest indicators
     const latestGDP = await prisma.economicData.findFirst({
         where: { indicator: 'GDP_GROWTH' },
@@ -27,7 +29,11 @@ export default async function EconomyDashboardPage() {
     });
 
     const latestInflation = await prisma.economicData.findFirst({
-        where: { indicator: 'INFLATION_RATE' },
+        where: {
+            indicator: 'INFLATION_RATE',
+            source: 'Bank of Ghana',
+            date: { lte: snapshotDate },
+        },
         orderBy: { date: 'desc' },
     });
 
@@ -42,7 +48,11 @@ export default async function EconomyDashboardPage() {
     });
 
     const latestPolicyRate = await prisma.economicData.findFirst({
-        where: { indicator: 'POLICY_RATE' },
+        where: {
+            indicator: 'POLICY_RATE',
+            source: 'Bank of Ghana',
+            date: { lte: snapshotDate },
+        },
         orderBy: { date: 'desc' },
     });
 

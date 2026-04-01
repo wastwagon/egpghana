@@ -220,19 +220,19 @@ export default async function IMFDashboardPage() {
                                 },
                                 {
                                     label: 'Debt-to-GDP (Latest)',
-                                    value: '45.5%',
-                                    change: '-16.3%',
+                                    value: '45.3%',
+                                    change: '-0.2%',
                                     trend: 'down',
                                     trendColor: 'green',
                                     period: 'Nov 2025'
                                 },
                                 {
                                     label: 'Policy Rate',
-                                    value: '15.5%',
-                                    change: '-1450 bps',
+                                    value: '14.0%',
+                                    change: '-100 bps',
                                     trend: 'down',
                                     trendColor: 'green',
-                                    period: 'Monetary Easing'
+                                    period: 'Nov 2025'
                                 },
                                 {
                                     label: 'Gross Reserves',
@@ -243,7 +243,7 @@ export default async function IMFDashboardPage() {
                                     period: 'Feb 2026'
                                 },
                             ]}
-                            lastUpdated="Feb 13, 2026"
+                            lastUpdated="Nov 2025 snapshot"
                         />
 
                         <div className="mt-8 md:mt-10 bg-white rounded-2xl shadow-sm border border-slate-100 p-1 md:p-2 max-w-5xl mx-auto">

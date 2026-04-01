@@ -10,6 +10,8 @@ import { prisma } from '@/lib/prisma';
 export const revalidate = 0;
 
 async function getDashboardData() {
+    const snapshotDate = new Date('2025-11-30');
+
     // Fetch latest economic indicators
     const [gdp, debt, inflation, debtGdp, exchangeRate, forexReserves, debtService, policyRate] = await Promise.all([
         prisma.economicData.findFirst({
@@ -17,15 +19,27 @@ async function getDashboardData() {
             orderBy: { date: 'desc' },
         }),
         prisma.economicData.findFirst({
-            where: { indicator: 'TOTAL_DEBT' },
+            where: {
+                indicator: 'TOTAL_DEBT',
+                source: 'Bank of Ghana',
+                date: { lte: snapshotDate },
+            },
             orderBy: { date: 'desc' },
         }),
         prisma.economicData.findFirst({
-            where: { indicator: 'INFLATION_RATE' },
+            where: {
+                indicator: 'INFLATION_RATE',
+                source: 'Bank of Ghana',
+                date: { lte: snapshotDate },
+            },
             orderBy: { date: 'desc' },
         }),
         prisma.economicData.findFirst({
-            where: { indicator: 'DEBT_TO_GDP_RATIO' },
+            where: {
+                indicator: 'DEBT_TO_GDP_RATIO',
+                source: 'MOF',
+                date: { lte: snapshotDate },
+            },
             orderBy: { date: 'desc' },
         }),
         prisma.economicData.findFirst({
@@ -37,11 +51,19 @@ async function getDashboardData() {
             orderBy: { date: 'desc' },
         }),
         prisma.economicData.findFirst({
-            where: { indicator: 'DEBT_SERVICE_TO_REVENUE' },
+            where: {
+                indicator: 'DEBT_SERVICE_TO_REVENUE',
+                source: 'KPMG',
+                date: { lte: snapshotDate },
+            },
             orderBy: { date: 'desc' },
         }),
         prisma.economicData.findFirst({
-            where: { indicator: 'POLICY_RATE' },
+            where: {
+                indicator: 'POLICY_RATE',
+                source: 'Bank of Ghana',
+                date: { lte: snapshotDate },
+            },
             orderBy: { date: 'desc' },
         }),
     ]);
@@ -77,6 +99,9 @@ async function getDashboardData() {
         .filter(r => (r.metadata as any)?.status === 'Completed')
         .reduce((sum, record) => sum + record.value, 0);
     const imfProgress = (disbursedIMF / totalIMF) * 100;
+    const latestCompletedDisbursementDate = imfDisbursements
+        .filter(r => (r.metadata as any)?.status === 'Completed')
+        .sort((a, b) => b.date.getTime() - a.date.getTime())[0]?.date;
 
     // Calculate debt composition
     const debtMetadata = debt?.metadata as any;
@@ -99,6 +124,7 @@ async function getDashboardData() {
             imfDisbursed: disbursedIMF,
             imfTotal: totalIMF,
             imfProgress: imfProgress,
+            imfUpdatedAt: latestCompletedDisbursementDate,
             externalShare: externalShare,
             debtService: { value: debtService?.value ?? 0, date: debtService?.date },
             policyRate: { value: policyRate?.value ?? 0, date: policyRate?.date },
@@ -359,7 +385,7 @@ export default async function HomePage() {
                                         ${(stats.imfDisbursed / 1000).toFixed(2)}B of ${(stats.imfTotal / 1000).toFixed(1)}B
                                     </p>
                                     <p className="text-[10px] text-slate-400 font-normal">
-                                        Updated: {formatDate(new Date('2026-02-13'))}
+                                        Updated: {formatDate(stats.imfUpdatedAt)}
                                     </p>
                                 </div>
                             </div>
