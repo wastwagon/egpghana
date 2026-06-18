@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice - Economic Governance Platform | OceanCyber</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', -apple-system, sans-serif; font-size: 11pt; line-height: 1.5; color: #1f2937; background: #fff; padding: 40px; max-width: 900px; margin: 0 auto; }
+        @media print { body { padding: 20px; } .no-print { display: none; } }
+        
+        .header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 40px; padding-bottom: 24px; border-bottom: 2px solid #2563eb; }
+        .logo { max-height: 60px; max-width: 200px; }
+        .company-info { text-align: right; font-size: 10pt; color: #4b5563; }
+        .company-info strong { color: #1f2937; display: block; margin-bottom: 4px; }
+        
+        h1 { font-size: 22pt; font-weight: 700; color: #1e40af; margin-bottom: 8px; }
+        .subtitle { font-size: 12pt; color: #6b7280; margin-bottom: 32px; }
+        
+        .bill-to { margin-bottom: 32px; }
+        .bill-to h3 { font-size: 10pt; text-transform: uppercase; letter-spacing: 0.05em; color: #6b7280; margin-bottom: 8px; }
+        .bill-to p { font-size: 11pt; }
+        
+        .meta { display: flex; gap: 48px; margin-bottom: 32px; }
+        .meta-item { }
+        .meta-item label { font-size: 9pt; text-transform: uppercase; letter-spacing: 0.05em; color: #6b7280; }
+        .meta-item span { display: block; font-weight: 600; margin-top: 2px; }
+        
+        table { width: 100%; border-collapse: collapse; margin-bottom: 32px; }
+        th { text-align: left; padding: 12px 16px; background: #f3f4f6; font-size: 9pt; text-transform: uppercase; letter-spacing: 0.05em; color: #4b5563; }
+        td { padding: 14px 16px; border-bottom: 1px solid #e5e7eb; }
+        tr:last-child td { border-bottom: none; }
+        .amount { text-align: right; font-weight: 600; }
+        .total-row td { padding: 16px; font-size: 14pt; font-weight: 700; background: #eff6ff; color: #1e40af; }
+        .total-row .amount { font-size: 16pt; }
+        
+        .section { margin-top: 40px; }
+        .section h2 { font-size: 14pt; font-weight: 600; color: #1e40af; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid #e5e7eb; }
+        .section h3 { font-size: 11pt; font-weight: 600; color: #374151; margin: 16px 0 8px; }
+        .section ul { margin-left: 20px; margin-bottom: 12px; }
+        .section li { margin-bottom: 4px; }
+        
+        .notice { background: #fef3c7; border: 1px solid #f59e0b; border-radius: 8px; padding: 16px; margin-top: 32px; font-size: 10pt; }
+        .notice strong { display: block; margin-bottom: 4px; }
+        
+        .footer { margin-top: 48px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 9pt; color: #6b7280; text-align: center; }
+        
+        .print-btn { position: fixed; top: 20px; right: 20px; padding: 12px 24px; background: #2563eb; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 12pt; }
+        .print-btn:hover { background: #1d4ed8; }
+    </style>
+</head>
+<body>
+    <button class="print-btn no-print" onclick="window.print()">Save as PDF / Print</button>
+
+    <div class="header">
+        <div>
+            <img src="oceancyber-logo.png" alt="OceanCyber" class="logo">
+            <p style="margin-top: 8px; font-size: 10pt; color: #4b5563;">ICT Solutions Provider</p>
+        </div>
+        <div class="company-info">
+            <strong>OceanCyber</strong>
+            232 Nii Kwashiefio Avenue<br>
+            Abofu - Achimota - Accra, Ghana<br><br>
+            <strong>24/7 Support</strong><br>
+            enquiries@oceancyber.net<br>
+            +233 242 565695
+        </div>
+    </div>
+
+    <h1>INVOICE</h1>
+    <p class="subtitle">Professional Services – Website Maintenance, Hosting & Enhancement</p>
+
+    <div class="meta">
+        <div class="meta-item">
+            <label>Invoice Number</label>
+            <span>OC-EGP-2025-001</span>
+        </div>
+        <div class="meta-item">
+            <label>Invoice Date</label>
+            <span>23 February 2026</span>
+        </div>
+        <div class="meta-item">
+            <label>Contract Period</label>
+            <span>April 2025 – April 2026</span>
+        </div>
+        <div class="meta-item">
+            <label>Due Date</label>
+            <span>30 April 2026</span>
+        </div>
+    </div>
+
+    <div class="bill-to">
+        <h3>Bill To</h3>
+        <p><strong>Economic Governance Platform (EGP)</strong><br>
+        Ghana</p>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Description</th>
+                <th class="amount">Amount (GHS)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>VPS Hosting, Domain Renewal & Security</strong><br>
+                <span style="font-size: 9pt; color: #6b7280;">One-year VPS hosting (Coolify), egpghana.org domain renewal, SSL, security hardening</span></td>
+                <td class="amount">9,840.00</td>
+            </tr>
+            <tr>
+                <td><strong>Maintenance, Updates & Enhancement</strong><br>
+                <span style="font-size: 9pt; color: #6b7280;">Monthly maintenance, updates, and enhancements (GHS 2,500 × 12 months)</span></td>
+                <td class="amount">30,000.00</td>
+            </tr>
+            <tr>
+                <td><strong>Additional Feature Enhancement</strong><br>
+                <span style="font-size: 9pt; color: #6b7280;">Debt Tracker, IMF Dashboard, Economic Dashboard enhancements; new features and improvements</span></td>
+                <td class="amount">6,000.00</td>
+            </tr>
+            <tr class="total-row">
+                <td><strong>TOTAL DUE</strong></td>
+                <td class="amount">45,840.00</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="section">
+        <h2>Detailed Work Report – Contract Year (April 2025 – April 2026)</h2>
+        
+        <h3>1. Infrastructure & Deployment</h3>
+        <ul>
+            <li>VPS hosting setup and configuration (Coolify)</li>
+            <li>PostgreSQL database with pgvector extension</li>
+            <li>Redis for session/cache</li>
+            <li>Docker containerization and production deployment</li>
+            <li>SSL/HTTPS and domain configuration (egpghana.org)</li>
+            <li>Persistent storage for uploads and media</li>
+            <li>Production upload fixes and volume permissions</li>
+            <li>API route for reliable media serving (uploads 404 fix)</li>
+        </ul>
+
+        <h3>2. Debt Tracker Dashboard – Enhancements</h3>
+        <ul>
+            <li>Stat cards: Total Public Debt, Debt-to-GDP, External Share, Debt Service</li>
+            <li>Historical Debt Analyzer – interactive analysis</li>
+            <li>Debt trajectory charts (domestic vs external over time)</li>
+            <li>Portfolio composition and Debt-to-GDP charts</li>
+            <li>Creditor and instrument breakdown charts</li>
+            <li>Risk assessment section</li>
+            <li>Debt restructuring journey timeline</li>
+            <li>Admin interface for debt data management</li>
+        </ul>
+
+        <h3>3. IMF Bailout Monitor Dashboard – Enhancements</h3>
+        <ul>
+            <li>Executive summary (GDP, Inflation, Debt-to-GDP, Policy Rate, Reserves)</li>
+            <li>Status progress bar (conditionality tracking)</li>
+            <li>Disbursement schedule chart (planned vs actual)</li>
+            <li>Program timeline with milestones and modal details</li>
+            <li>Conditionality tracker with verification notes</li>
+            <li>Key economic indices and programme reviews</li>
+            <li>Path to crisis context section</li>
+            <li>Admin interface for IMF data (disbursements, milestones, conditionalities)</li>
+        </ul>
+
+        <h3>4. Economic Dashboard – New & Enhanced</h3>
+        <ul>
+            <li>Economic summary cards (GDP, Inflation, Exchange Rate, Unemployment, Policy Rate, Forex Reserves)</li>
+            <li>GDP growth analysis with sector breakdown</li>
+            <li>Inflation and exchange rate trend charts</li>
+            <li>Fiscal performance section</li>
+            <li>External sector section</li>
+            <li>Labor market section</li>
+            <li>Monetary policy section</li>
+            <li>Key economic insights</li>
+        </ul>
+
+        <h3>5. Admin Console & Content Management</h3>
+        <ul>
+            <li>Publications (articles) – full CRUD with rich text editor</li>
+            <li>Categories, Events, Resources management</li>
+            <li>Media library with upload and selection</li>
+            <li>User management (admin, editor roles)</li>
+            <li>Macro indicators / economic data management</li>
+            <li>Database maintenance tab (migrations, sync, seed status)</li>
+            <li>Local–production data sync workflow</li>
+        </ul>
+
+        <h3>6. AI Chatbot & Analytics</h3>
+        <ul>
+            <li>RAG-powered chatbot with article/resource search</li>
+            <li>OpenAI integration (GPT-4o-mini, embeddings)</li>
+            <li>Streaming responses, markdown, citations</li>
+            <li>Web search tool for live information</li>
+            <li>Self-hosted analytics (page views, sessions, devices, geography)</li>
+            <li>Advanced analytics (funnel, attribution, real-time)</li>
+        </ul>
+
+        <h3>7. Technical Improvements & Fixes</h3>
+        <ul>
+            <li>Slug auto-generation and URL sanitization</li>
+            <li>Image upload fixes (corrupted filenames, permissions)</li>
+            <li>Admin password management script</li>
+            <li>Data export and sync scripts</li>
+            <li>Dashboard data harmonization (2026 baseline)</li>
+        </ul>
+    </div>
+
+    <div class="notice">
+        <strong>Contract Expiration Notice</strong>
+        This invoice covers services for the period April 2025 – April 2026. Your contract for domain renewal, VPS hosting, and maintenance expires in April 2026. To ensure uninterrupted service for egpghana.org, please process payment before the due date. For renewal or questions, contact us at enquiries@oceancyber.net or +233 242 565695.
+    </div>
+
+    <div class="footer">
+        <p>Thank you for your partnership. OceanCyber – ICT Solutions Provider</p>
+        <p>232 Nii Kwashiefio Avenue, Abofu - Achimota - Accra, Ghana | enquiries@oceancyber.net | +233 242 565695</p>
+    </div>
+
+    <script>
+        // Ensure logo path works when opened from file system
+        document.querySelector('.logo').onerror = function() {
+            this.style.display = 'none';
+            this.parentElement.innerHTML = '<strong style="font-size: 18pt; color: #2563eb;">OCEANCYBER</strong><p style="margin-top: 4px; font-size: 10pt;">ICT Solutions Provider</p>';
+        };
+    </script>
+</body>
+</html>

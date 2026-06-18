@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice - VPS Hosting & Domain Portfolio | OceanCyber</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', -apple-system, sans-serif; font-size: 11pt; line-height: 1.5; color: #1f2937; background: #fff; padding: 40px; max-width: 900px; margin: 0 auto; }
+        @media print { body { padding: 20px; } .no-print { display: none; } }
+        
+        .header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 40px; padding-bottom: 24px; border-bottom: 2px solid #2563eb; }
+        .logo { max-height: 60px; max-width: 200px; }
+        .company-info { text-align: right; font-size: 10pt; color: #4b5563; }
+        .company-info strong { color: #1f2937; display: block; margin-bottom: 4px; }
+        
+        h1 { font-size: 22pt; font-weight: 700; color: #1e40af; margin-bottom: 8px; }
+        .subtitle { font-size: 12pt; color: #6b7280; margin-bottom: 32px; }
+        
+        .bill-to { margin-bottom: 32px; }
+        .bill-to h3 { font-size: 10pt; text-transform: uppercase; letter-spacing: 0.05em; color: #6b7280; margin-bottom: 8px; }
+        .bill-to p { font-size: 11pt; }
+        
+        .meta { display: flex; flex-wrap: wrap; gap: 32px 48px; margin-bottom: 32px; }
+        .meta-item label { font-size: 9pt; text-transform: uppercase; letter-spacing: 0.05em; color: #6b7280; }
+        .meta-item span { display: block; font-weight: 600; margin-top: 2px; }
+        
+        table { width: 100%; border-collapse: collapse; margin-bottom: 32px; }
+        th { text-align: left; padding: 12px 16px; background: #f3f4f6; font-size: 9pt; text-transform: uppercase; letter-spacing: 0.05em; color: #4b5563; }
+        td { padding: 14px 16px; border-bottom: 1px solid #e5e7eb; }
+        .amount { text-align: right; font-weight: 600; }
+        .total-row td { padding: 16px; font-size: 14pt; font-weight: 700; background: #eff6ff; color: #1e40af; }
+        .total-row .amount { font-size: 16pt; }
+        .subtotal-row td { background: #f9fafb; font-weight: 600; }
+        .tax-row td { background: #fff; }
+        
+        .footer { margin-top: 48px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 9pt; color: #6b7280; text-align: center; }
+
+        .total-payable-box {
+            margin: 24px 0 8px;
+            padding: 16px 20px;
+            background: #eff6ff;
+            border: 2px solid #2563eb;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .total-payable-box strong { font-size: 13pt; color: #1e40af; }
+        .total-payable-box .figure { font-size: 18pt; font-weight: 700; color: #1e40af; letter-spacing: 0.02em; }
+        
+        .notice {
+            background: #fef3c7;
+            border: 1px solid #f59e0b;
+            border-radius: 8px;
+            padding: 16px 18px;
+            margin-top: 24px;
+            font-size: 10pt;
+            line-height: 1.55;
+        }
+        .notice strong { display: block; margin-bottom: 8px; color: #92400e; font-size: 10.5pt; }
+        .notice ul { margin: 8px 0 0 18px; }
+        .notice li { margin-bottom: 6px; }
+
+        .print-btn { position: fixed; top: 20px; right: 20px; padding: 12px 24px; background: #2563eb; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 12pt; }
+        .print-btn:hover { background: #1d4ed8; }
+    </style>
+</head>
+<body>
+    <button class="print-btn no-print" onclick="window.print()">Save as PDF / Print</button>
+
+    <div class="header">
+        <div>
+            <img src="oceancyber-logo.png" alt="OceanCyber" class="logo">
+            <p style="margin-top: 8px; font-size: 10pt; color: #4b5563;">ICT Solutions Provider</p>
+        </div>
+        <div class="company-info">
+            <strong>OceanCyber</strong>
+            232 Nii Kwashiefio Avenue<br>
+            Abofu - Achimota - Accra, Ghana<br><br>
+            <strong>24/7 Support</strong><br>
+            enquiries@oceancyber.net<br>
+            +233 242 565695
+        </div>
+    </div>
+
+    <h1>INVOICE</h1>
+    <p class="subtitle">VPS Hosting (KVM 2 – reduced tier), Backup & Domain Renewal (3 years)</p>
+
+    <div class="meta">
+        <div class="meta-item">
+            <label>Invoice Number</label>
+            <span>OC-EGP-HOST-2026-004</span>
+        </div>
+        <div class="meta-item">
+            <label>Invoice Date</label>
+            <span>16 April 2026</span>
+        </div>
+        <div class="meta-item">
+            <label>Service Period</label>
+            <span>Hosting: Apr 2026 – Apr 2027 | Domains: Apr 2026 – Apr 2029 (3 years)</span>
+        </div>
+        <div class="meta-item">
+            <label>Due Date</label>
+            <span>15 May 2026</span>
+        </div>
+        <div class="meta-item">
+            <label>Total Amount Payable</label>
+            <span>GHS 8,057.66</span>
+        </div>
+    </div>
+
+    <div class="bill-to">
+        <h3>Bill To</h3>
+        <p><strong>Economic Governance Platform (EGP)</strong><br>
+        Ghana</p>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Description</th>
+                <th class="amount">Amount (GHS)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Domain Renewal - egpghana.org</strong><br>
+                <span style="font-size: 9pt; color: #6b7280;">Renewal cover for three years (.org registrar pricing)</span></td>
+                <td class="amount">599.25</td>
+            </tr>
+            <tr>
+                <td><strong>Domain Renewal - egpghana.com</strong><br>
+                <span style="font-size: 9pt; color: #6b7280;">Renewal cover for three years (.com registrar pricing)</span></td>
+                <td class="amount">693.00</td>
+            </tr>
+            <tr>
+                <td><strong>Domain Renewal - gaccgh.com</strong><br>
+                <span style="font-size: 9pt; color: #6b7280;">Renewal cover for three years (.com registrar pricing)</span></td>
+                <td class="amount">693.00</td>
+            </tr>
+            <tr>
+                <td><strong>Hostinger VPS Hosting - KVM 2 (Reduced from KVM 4)</strong><br>
+                <span style="font-size: 9pt; color: #6b7280;">Twelve-month subscription. Face value (annual): GHS 3,673.50 — equivalent GHS 306.13/month. Lower-tier plan.</span></td>
+                <td class="amount">3,673.50</td>
+            </tr>
+            <tr>
+                <td><strong>Daily Backup Add-on</strong><br>
+                <span style="font-size: 9pt; color: #6b7280;">Backup policy: 50% of hosting cost (0.5 x 3,673.50)</span></td>
+                <td class="amount">1,836.75</td>
+            </tr>
+            <tr class="subtotal-row">
+                <td><strong>Subtotal (tax exclusive)</strong><br>
+                <span style="font-size: 9pt; color: #6b7280;">Services and renewals before tax</span></td>
+                <td class="amount">7,495.50</td>
+            </tr>
+            <tr class="tax-row">
+                <td><strong>Tax (7.5%)</strong><br>
+                <span style="font-size: 9pt; color: #6b7280;">Seven point five percent of subtotal</span></td>
+                <td class="amount">562.16</td>
+            </tr>
+            <tr class="total-row">
+                <td><strong>Total due (incl. tax)</strong></td>
+                <td class="amount">8,057.66</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="total-payable-box">
+        <strong>Total amount payable (this invoice)</strong>
+        <span class="figure">GHS 8,057.66</span>
+    </div>
+
+    <div class="notice">
+        <strong>Audit notice — why domain and hosting renewals are arranged through the developer (OceanCyber)</strong>
+        <p>EGP is billed for registrar and hosting costs that OceanCyber pays directly to third-party providers (Namecheap, Hostinger). Renewals are currently processed through the developer rather than by EGP staff for the following documented reasons:</p>
+        <ul>
+            <li><strong>Service continuity:</strong> The live platform (egpghana.org) was deployed and is operated under technical accounts established during development. Immediate transfer of registrar and hosting control without coordinated migration would risk downtime, loss of SSL/DNS configuration, or interrupted public access.</li>
+            <li><strong>Technical configuration:</strong> Domain DNS, VPS hosting (Coolify), database, backups, and security settings are integrated. Renewal and hosting changes require specialist configuration that the developer currently maintains on EGP’s behalf.</li>
+            <li><strong>Institutional transition in progress:</strong> Per the EGP team meeting, hosting and related services are being transferred to an official EGP email account and institutional ownership. Until that handover is complete, the developer continues renewals so the organisation’s digital presence is not disrupted.</li>
+            <li><strong>Audit and reimbursement:</strong> This invoice itemises third-party costs plus tax so EGP can reimburse documented expenditure. Receipts from registrars and Hostinger can be provided on request. Ownership transfer to EGP accounts remains the agreed next step once institutional billing and access are in place.</li>
+        </ul>
+    </div>
+
+    <div class="footer">
+        <p>Thank you for your partnership. OceanCyber – ICT Solutions Provider</p>
+        <p>232 Nii Kwashiefio Avenue, Abofu - Achimota - Accra, Ghana | enquiries@oceancyber.net | +233 242 565695</p>
+    </div>
+
+    <script>
+        document.querySelector('.logo').onerror = function() {
+            this.style.display = 'none';
+            this.parentElement.innerHTML = '<strong style="font-size: 18pt; color: #2563eb;">OCEANCYBER</strong><p style="margin-top: 4px; font-size: 10pt;">ICT Solutions Provider</p>';
+        };
+    </script>
+</body>
+</html>
