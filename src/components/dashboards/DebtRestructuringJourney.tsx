@@ -26,6 +26,11 @@ const timelineEvents = [
     { year: '2025', month: 'Mar', label: '2025', title: 'Third IMF Review Completion', desc: 'Ghana successfully completed the third review of its IMF Extended Credit Facility, unlocking additional funding and demonstrating continued progress in fiscal reforms.', tag: 'IMF' },
     { year: '2025', month: 'Jun', label: '2025', title: 'Debt Sustainability Milestone', desc: 'Ghana achieved significant improvement in debt-to-GDP ratio, falling to 55% from 62%, marking a critical milestone in debt sustainability targets under the IMF program.', tag: 'Achievement' },
     { year: '2025', month: 'Jul', label: '2025', title: 'Capital Market Re-entry Planning', desc: 'Ghana announced concrete plans for gradual return to international capital markets in Q4 2025, supported by improved macroeconomic indicators and successful debt restructuring outcomes.', tag: 'Planning' },
+
+    { year: '2026', month: 'Feb', label: '2026', title: 'DDEP Coupon Settlement', desc: 'Government paid GH₵10 billion in DDEP interest obligations — the sixth coupon settlement and second full cash payment without Payment-In-Kind, signalling improved fiscal capacity and market confidence.', tag: 'Financial' },
+    { year: '2026', month: 'May', label: '2026', title: 'Sixth IMF Review — Staff-Level Agreement', desc: 'IMF staff completed the 2026 Article IV consultation and reached staff-level agreement on the sixth and final ECF review and a 36-month PCI. Mission: 29 Apr – 15 May 2026 (Dr Ruben Atoyan). Board decision expected 27 Jul 2026; final disbursement ~US$318M if approved.', tag: 'IMF' },
+    { year: '2026', month: 'May', label: '2026', title: 'Domestic T-Bond Issuance Resumes', desc: 'Successful resumption of domestic Treasury bond issuance signalled returning investor confidence, per IMF May 2026 mission statement.', tag: 'Milestone' },
+    { year: '2026', month: 'Jul', label: '2026', title: 'IMF Executive Board — 6th Review (Expected)', desc: 'IMF Executive Board expected to decide on Ghana\'s sixth and final ECF review, ~US$318 million disbursement, and 36-month PCI request (Mission Chief, May 2026).', tag: 'IMF' },
 ];
 
 export default function DebtRestructuringJourney() {
@@ -90,7 +95,7 @@ export default function DebtRestructuringJourney() {
                                 onChange={(e) => setFilterYear(e.target.value)}
                                 className="w-full appearance-none bg-white border border-slate-200 text-slate-700 py-2 pl-4 pr-8 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-slate-900 focus:border-transparent text-sm font-medium"
                             >
-                                {['all', '2022', '2023', '2024', '2025'].map(yr => (
+                                {['all', '2022', '2023', '2024', '2025', '2026'].map(yr => (
                                     <option key={yr} value={yr}>
                                         {yr === 'all' ? 'All Years' : yr}
                                     </option>
@@ -103,7 +108,7 @@ export default function DebtRestructuringJourney() {
 
                         {/* Desktop Pills */}
                         <div className="hidden md:inline-flex bg-slate-100 p-1 rounded-full shadow-sm border border-slate-200">
-                            {['all', '2022', '2023', '2024', '2025'].map(yr => (
+                            {['all', '2022', '2023', '2024', '2025', '2026'].map(yr => (
                                 <button
                                     key={yr}
                                     onClick={() => setFilterYear(yr)}

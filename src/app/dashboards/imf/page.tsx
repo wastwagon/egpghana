@@ -25,7 +25,7 @@ export default async function IMFDashboardPage() {
 
     // Fetch Disbursement Data from DB
     const disbursementDataDB = await prisma.economicData.findMany({
-        where: { indicator: 'IMF_DISBURSEMENT' },
+        where: { indicator: 'IMF_DISBURSEMENT', unit: 'Million USD' },
         orderBy: { date: 'asc' },
     });
 
@@ -162,14 +162,14 @@ export default async function IMFDashboardPage() {
                                         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                                         <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
                                     </span>
-                                    Program Status: <span className="font-medium text-emerald-300">Active (Review 3 Complete)</span>
+                                    Program Status: <span className="font-medium text-emerald-300">6th Review SLA — Board 27 Jul 2026</span>
                                 </span>
                                 <span className="hidden sm:block w-px h-4 bg-white/30"></span>
                                 <span className="flex items-center gap-2">
                                     <svg className="w-4 h-4 text-white/80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                                     </svg>
-                                    Next Review: <span className="font-medium text-white">Apr 2026</span>
+                                    Disbursed: <span className="font-medium text-white">~US$2.8B</span> · Final tranche: <span className="font-medium text-white">~US$318M</span>
                                 </span>
                             </div>
                         </div>
@@ -191,7 +191,7 @@ export default async function IMFDashboardPage() {
                                     Program Overview
                                 </h3>
                                 <p className="text-base text-black leading-relaxed text-left relative z-10">
-                                    Track the progress of Ghana's $3 billion IMF Extended Credit Facility (ECF) program. This dashboard provides detailed monitoring of disbursement schedules, quantitative performance criteria, structural benchmarks, and the implementation status of key conditionalities essential for restoring macroeconomic stability.
+                                    Track Ghana&apos;s US$3 billion, 39-month IMF Extended Credit Facility (ECF) program — about US$2.8 billion disbursed to date, with a final tranche of ~US$318 million pending Executive Board approval (expected 27 July 2026). This dashboard monitors disbursements, programme reviews, structural benchmarks, and key conditionalities.
                                 </p>
                             </div>
                         </div>
@@ -203,47 +203,47 @@ export default async function IMFDashboardPage() {
                         <ExecutiveSummary
                             metrics={[
                                 {
-                                    label: 'GDP Growth (2026 Proj)',
-                                    value: '5.5%',
-                                    change: '+0.7%',
+                                    label: 'GDP Growth (2025)',
+                                    value: '4.8%',
+                                    change: '+0.1%',
                                     trend: 'up',
                                     trendColor: 'green',
-                                    period: 'Projected 2026'
+                                    period: 'IMF 5th review proj.'
                                 },
                                 {
-                                    label: 'Inflation (Jan 26)',
-                                    value: '3.8%',
-                                    change: '-1.6%',
+                                    label: 'Inflation (2025 target)',
+                                    value: '8.0%',
+                                    change: 'In band',
                                     trend: 'down',
                                     trendColor: 'green',
-                                    period: 'Lowest since 2021'
+                                    period: 'BoG target range'
                                 },
                                 {
-                                    label: 'Debt-to-GDP (Latest)',
-                                    value: '45.3%',
-                                    change: '-0.2%',
+                                    label: 'Public Debt / GDP (2025)',
+                                    value: '56.6%',
+                                    change: '-13.2pp',
                                     trend: 'down',
                                     trendColor: 'green',
-                                    period: 'Nov 2025'
+                                    period: 'IMF staff report'
                                 },
                                 {
-                                    label: 'Policy Rate',
-                                    value: '14.0%',
-                                    change: '-100 bps',
-                                    trend: 'down',
-                                    trendColor: 'green',
-                                    period: 'Nov 2025'
-                                },
-                                {
-                                    label: 'Gross Reserves',
-                                    value: '$6.7B',
-                                    change: '+0.5B',
+                                    label: 'Primary Balance (2025)',
+                                    value: '1.7%',
+                                    change: 'Surplus',
                                     trend: 'up',
                                     trendColor: 'green',
-                                    period: 'Feb 2026'
+                                    period: '% of GDP, commitment basis'
+                                },
+                                {
+                                    label: 'Gross Reserves (program)',
+                                    value: 'US$8.6B',
+                                    change: '+2.1B',
+                                    trend: 'up',
+                                    trendColor: 'green',
+                                    period: '2025 (IMF projection)'
                                 },
                             ]}
-                            lastUpdated="Nov 2025 snapshot"
+                            lastUpdated="IMF 5th review (Dec 2025) & 6th review SLA (May 2026)"
                         />
 
                         <div className="mt-8 md:mt-10 bg-white rounded-2xl shadow-sm border border-slate-100 p-1 md:p-2 max-w-5xl mx-auto">

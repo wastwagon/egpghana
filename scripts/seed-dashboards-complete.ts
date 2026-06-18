@@ -16,8 +16,8 @@ async function seedDashboards() {
         { date: '2024-06-28', amount: 360, sdr: 269.1, status: 'Completed', quarter: 'Jun 2024', type: '2nd Review' },
         { date: '2024-12-02', amount: 360, sdr: 269.1, status: 'Completed', quarter: 'Dec 2024', type: '3rd Review' },
         { date: '2025-07-07', amount: 367, sdr: 267.5, status: 'Completed', quarter: 'Jul 2025', type: '4th Review' },
-        { date: '2025-12-15', amount: 385, sdr: 278.0, status: 'Completed', quarter: 'Dec 2025', type: '5th Review' },
-        { date: '2026-06-15', amount: 328, sdr: 250.0, status: 'Pending', quarter: 'Jun 2026', type: '6th Review (Proj)' },
+        { date: '2025-12-17', amount: 385, sdr: 267.5, status: 'Completed', quarter: 'Dec 2025', type: '5th Review' },
+        { date: '2026-07-27', amount: 318, sdr: 266.0, status: 'Pending', quarter: 'Jul 2026', type: '6th Review (Final)' },
     ];
 
     for (const item of disbursementDataRaw) {
@@ -86,7 +86,7 @@ async function seedDashboards() {
             status: 'In Progress',
             deadline: '2026-06-30',
             description: 'Complete debt restructuring under G20 Common Framework and domestic debt exchange measures.',
-            verificationNote: 'Substantial progress achieved. Domestic Debt Exchange Program (DDEP) completed with 85% participation. Official bilateral debt restructuring agreements reached with major creditors. Eurobond restructuring ongoing.',
+            verificationNote: 'Substantial progress achieved. Domestic Debt Exchange Program (DDEP) completed. Bilateral debt relief agreements reached with about half of official creditors under the G20 Common Framework (May 2026). Domestic T-bond issuance resumed, signalling returning investor confidence. Remaining official and commercial creditor agreements in progress.',
             target: 100,
             actual: 75,
             unit: '% Complete',
@@ -275,7 +275,7 @@ async function seedDashboards() {
             status: 'In Progress',
             deadline: '2026-12-31',
             description: 'Meet all quantitative performance criteria (fiscal, monetary, external) on each review date.',
-            verificationNote: 'Initially met across early reviews (1st–3rd). Deterioration noted end-2024 but corrective actions taken leading to 4th and 5th review completion. Ongoing monitoring for 6th review scheduled April 2026.',
+            verificationNote: 'Met at 6th review (May 2026). Quantitative targets mostly met in 2025; primary surplus overperformed program target. Structural reforms implemented with delays. Final ECF review reached staff-level agreement; pending Executive Board approval.',
             sourceLink: 'https://www.imf.org/en/Countries/GHA',
             sourceTitle: 'IMF Program Reviews'
         }
@@ -316,9 +316,10 @@ async function seedDashboards() {
         { date: '2024-06-28', title: '2nd Review Completion', description: 'Completion of second review; US$360 million disbursement approved.', status: 'completed', type: 'review' },
         { date: '2024-12-02', title: '3rd Review Completion', description: 'Completion of third review; US$360 million disbursement approved.', status: 'completed', type: 'review' },
         { date: '2025-07-07', title: '4th Review Completion', description: 'Completion of fourth review; US$367 million disbursement approved.', status: 'completed', type: 'review' },
-        { date: '2025-12-15', title: '5th Review Completion', description: 'Completion of fifth review after corrective actions; US$385 million disbursement.', status: 'completed', type: 'review' },
-        { date: '2026-04-15', title: '6th Review Mission', description: 'IMF staff mission expected to conduct 6th review of program performance.', status: 'pending', type: 'mission' },
-        { date: '2026-06-30', title: '6th Review Board Date', description: 'Expected Board approval for 6th review and disbursement.', status: 'pending', type: 'review' },
+        { date: '2025-12-17', title: '5th Review Completion', description: 'Board completes fifth review (39-month ECF); US$385 million (SDR 267.5 million) disbursement. Cumulative disbursements ~US$2.8 billion.', status: 'completed', type: 'review' },
+        { date: '2026-05-15', title: '6th Review — Staff-Level Agreement', description: 'Staff completed 2026 Article IV and reached SLA on sixth and final ECF review and 36-month non-financing PCI (mission 29 Apr – 15 May 2026).', status: 'completed', type: 'review' },
+        { date: '2026-07-27', title: '6th Review — Executive Board', description: 'Expected Board decision on final ECF review, ~US$318 million disbursement, and PCI request (Mission Chief, May 2026).', status: 'pending', type: 'review' },
+        { date: '2026-05-17', title: 'ECF Arrangement (Scheduled End)', description: 'Scheduled end of ECF timeline; formal conclusion pending Board approval of sixth review.', status: 'pending', type: 'end' },
     ];
 
     for (const m of milestonesRaw) {

@@ -278,6 +278,18 @@
     border-left-color: #00458b;
 }
 
+.timelineItem[data-year="2026"] .timelineDot {
+    background: #7c3aed;
+}
+
+.timelineItem[data-year="2026"] .month {
+    color: #7c3aed;
+}
+
+.timelineItem[data-year="2026"] .timelineContent {
+    border-left-color: #7c3aed;
+}
+
 /* Info Cards */
 .infoCards {
     display: grid;

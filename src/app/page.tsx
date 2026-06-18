@@ -75,10 +75,10 @@ async function getDashboardData() {
 
     // Fetch IMF records to calculate total disbursed
     const imfDisbursements = await prisma.economicData.findMany({
-        where: { indicator: 'IMF_DISBURSEMENT' },
+        where: { indicator: 'IMF_DISBURSEMENT', unit: 'Million USD' },
     });
 
-    const totalIMF = 3000; // $3B total facility in millions
+    const totalIMF = 3200; // ~US$3.2B cumulative disbursements upon final tranche (IMF, May 2026)
     const disbursedIMF = imfDisbursements
         .filter(r => (r.metadata as any)?.status === 'Completed')
         .reduce((sum, record) => sum + record.value, 0);
@@ -366,7 +366,7 @@ export default async function HomePage() {
                                 <div className="flex flex-col space-y-1">
                                     <p className="text-teal-600 text-xs font-medium flex items-center">
                                         <span className="w-2 h-2 rounded-full bg-teal-500 mr-2"></span>
-                                        ${(stats.imfDisbursed / 1000).toFixed(2)}B of ${(stats.imfTotal / 1000).toFixed(1)}B
+                                        {`~$${(stats.imfDisbursed / 1000).toFixed(1)}B of ~$${(stats.imfTotal / 1000).toFixed(1)}B`}
                                     </p>
                                     <p className="text-[10px] text-slate-400 font-normal">
                                         Updated: {formatDate(stats.imfUpdatedAt)}

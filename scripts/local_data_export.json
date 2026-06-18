@@ -299,7 +299,7 @@
         "sourceLink": "https://www.imf.org/en/Countries/GHA",
         "description": "Meet all quantitative performance criteria (fiscal, monetary, external) on each review date.",
         "sourceTitle": "IMF Program Reviews",
-        "verificationNote": "Initially met across early reviews (1st–3rd). Deterioration noted end-2024 but corrective actions taken leading to 4th and 5th review completion. Ongoing monitoring for 6th review scheduled April 2026."
+        "verificationNote": "Met at 6th review (May 2026). Quantitative targets mostly met in 2025; primary surplus overperformed program target. Structural reforms implemented with delays. Final ECF review reached staff-level agreement; pending Executive Board approval."
       }
     },
     {
@@ -476,15 +476,15 @@
     {
       "indicator": "IMF_MILESTONE",
       "value": 0,
-      "date": "2026-06-30T00:00:00.000Z",
+      "date": "2026-07-27T00:00:00.000Z",
       "source": "IMF",
       "unit": "Event",
       "metadata": {
-        "date": "2026-06-30",
+        "date": "2026-07-27",
         "type": "review",
-        "title": "6th Review Board Date",
+        "title": "6th Review — Executive Board",
         "status": "pending",
-        "description": "Expected Board approval for 6th review and disbursement."
+        "description": "Expected IMF Executive Board decision on final ECF review, ~US$318 million disbursement, and 36-month PCI request (Mission Chief, May 2026)."
       }
     },
     {
@@ -505,7 +505,7 @@
         "sourceLink": "https://mofep.gov.gh",
         "description": "Complete debt restructuring under G20 Common Framework and domestic debt exchange measures.",
         "sourceTitle": "MoF Debt Restructuring Report",
-        "verificationNote": "Substantial progress achieved. Domestic Debt Exchange Program (DDEP) completed with 85% participation. Official bilateral debt restructuring agreements reached with major creditors. Eurobond restructuring ongoing."
+        "verificationNote": "Substantial progress achieved. Domestic Debt Exchange Program (DDEP) completed. Bilateral debt relief agreements reached with about half of official creditors under the G20 Common Framework (May 2026). Domestic T-bond issuance resumed, signalling returning investor confidence. Remaining official and commercial creditor agreements in progress."
       }
     },
     {
@@ -573,43 +573,44 @@
     },
     {
       "indicator": "IMF_DISBURSEMENT",
-      "value": 328,
-      "date": "2026-06-15T00:00:00.000Z",
+      "value": 318,
+      "date": "2026-07-27T00:00:00.000Z",
       "source": "IMF",
       "unit": "Million USD",
       "metadata": {
-        "sdr": 250,
-        "type": "6th Review (Proj)",
+        "sdr": 266,
+        "type": "6th Review (Final)",
         "status": "Pending",
-        "quarter": "Jun 2026"
-      }
-    },
-    {
-      "indicator": "IMF_MILESTONE",
-      "value": 1,
-      "date": "2026-05-17T00:00:00.000Z",
-      "source": "IMF",
-      "unit": "milestone",
-      "metadata": {
-        "date": "2026-05-17",
-        "type": "end",
-        "title": "Program Completion",
-        "status": "pending",
-        "description": "Expected completion of 36-month ECF program"
+        "quarter": "Jul 2026",
+        "note": "US$318m (est.) upon Executive Board approval — expected 27 Jul 2026 (Mission Chief Ruben Atoyan, May 2026). Brings total disbursements to ~US$3.2bn."
       }
     },
     {
       "indicator": "IMF_MILESTONE",
       "value": 0,
-      "date": "2026-04-15T00:00:00.000Z",
+      "date": "2026-05-17T00:00:00.000Z",
       "source": "IMF",
       "unit": "Event",
       "metadata": {
-        "date": "2026-04-15",
-        "type": "mission",
-        "title": "6th Review Mission",
+        "date": "2026-05-17",
+        "type": "end",
+        "title": "ECF Arrangement (Scheduled End)",
         "status": "pending",
-        "description": "IMF staff mission expected to conduct 6th review of program performance."
+        "description": "Scheduled end of the 36-month ECF timeline. Formal program conclusion pending Executive Board approval of the sixth review; transition to non-financing PCI under discussion."
+      }
+    },
+    {
+      "indicator": "IMF_MILESTONE",
+      "value": 0,
+      "date": "2026-05-15T00:00:00.000Z",
+      "source": "IMF",
+      "unit": "Event",
+      "metadata": {
+        "date": "2026-05-15",
+        "type": "review",
+        "title": "6th Review — Staff-Level Agreement",
+        "status": "completed",
+        "description": "IMF staff completed the 2026 Article IV consultation and reached staff-level agreement on the sixth and final ECF review and a 36-month Policy Coordination Instrument (PCI) request (mission: 29 Apr – 15 May 2026)."
       }
     },
     {
@@ -974,11 +975,11 @@
     {
       "indicator": "IMF_DISBURSEMENT",
       "value": 385,
-      "date": "2025-12-15T00:00:00.000Z",
+      "date": "2025-12-17T00:00:00.000Z",
       "source": "IMF",
       "unit": "Million USD",
       "metadata": {
-        "sdr": 278,
+        "sdr": 267.5,
         "type": "5th Review",
         "status": "Completed",
         "quarter": "Dec 2025"
@@ -987,15 +988,15 @@
     {
       "indicator": "IMF_MILESTONE",
       "value": 0,
-      "date": "2025-12-15T00:00:00.000Z",
+      "date": "2025-12-17T00:00:00.000Z",
       "source": "IMF",
       "unit": "Event",
       "metadata": {
-        "date": "2025-12-15",
+        "date": "2025-12-17",
         "type": "review",
         "title": "5th Review Completion",
         "status": "completed",
-        "description": "Completion of fifth review after corrective actions; US$385 million disbursement."
+        "description": "Board completes fifth review of 39-month ECF; US$385 million (SDR 267.5 million) disbursement. Cumulative disbursements ~US$2.8 billion."
       }
     },
     {
