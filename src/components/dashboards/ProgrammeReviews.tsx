@@ -8,7 +8,7 @@ type ReviewData = {
     date: string;
     summary: string;
     qpcs: { indicator: string; target: string; performance: string; status: 'Achieved' | 'Exceeded' | 'Not Met' }[];
-    its: { indicator: string; target: string; performance: string; status: 'Achieved' | 'In Progress' | 'Not Met' }[];
+    its: { indicator: string; target: string; performance: string; status: 'Achieved' | 'Exceeded' | 'In Progress' | 'Not Met' }[];
     sbs: { indicator: string; target: string; performance: string; status: 'Achieved' | 'In Progress' | 'Not Met' }[];
     narratives: { title: string; content: string }[];
     link?: string;
