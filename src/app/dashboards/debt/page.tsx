@@ -47,10 +47,10 @@ export default async function DebtDashboardPage() {
         orderBy: { date: 'desc' },
     });
 
-    const totalDebt = latestDebtData?.value || 641000000000;
+    const totalDebt = latestDebtData?.value || 674100000000;
     const metadata = latestDebtData?.metadata as any;
-    const domesticDebt = metadata?.domestic || 333800000000;
-    const externalDebt = metadata?.external || 307200000000;
+    const domesticDebt = metadata?.domestic || 360400000000;
+    const externalDebt = metadata?.external || 313700000000;
 
     // Fetch debt overview data (monthly totals)
     const debtOverviewDataRaw = await prisma.economicData.findMany({
@@ -161,8 +161,8 @@ export default async function DebtDashboardPage() {
     const serviceEnd = debtServiceData.length > 0 ? new Date(debtServiceData[debtServiceData.length - 1].date).getFullYear() : '2025';
     const serviceRange = `${serviceStart} - ${serviceEnd}`;
 
-    const latestGDPRatio = latestDebtToGdpData?.value ?? debtToGDPData[debtToGDPData.length - 1]?.value ?? 45.5;
-    const latestServiceRatio = latestDebtServiceData?.value ?? debtServiceData[debtServiceData.length - 1]?.value ?? 48.0;
+    const latestGDPRatio = latestDebtToGdpData?.value ?? debtToGDPData[debtToGDPData.length - 1]?.value ?? 42.2;
+    const latestServiceRatio = latestDebtServiceData?.value ?? debtServiceData[debtServiceData.length - 1]?.value ?? 25.1;
 
     return (
         <>
@@ -195,14 +195,14 @@ export default async function DebtDashboardPage() {
                                         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                                         <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
                                     </span>
-                                    Data Source: <span className="font-medium text-emerald-300">Ministry of Finance (Nov 2025)</span>
+                                    Data Source: <span className="font-medium text-emerald-300">Bank of Ghana / MoF (Jun 2026)</span>
                                 </span>
                                 <span className="hidden sm:block w-px h-4 bg-white/30"></span>
                                 <span className="flex items-center gap-2">
                                     <svg className="w-4 h-4 text-white/80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                     </svg>
-                                    Report Date: <span className="font-medium text-white">November 2025</span>
+                                    Report Date: <span className="font-medium text-white">June 2026</span>
                                 </span>
                             </div>
                         </div>
@@ -238,7 +238,7 @@ export default async function DebtDashboardPage() {
                             <StatCard
                                 title="Total Public Debt"
                                 value={formatCurrency(totalDebt)}
-                                change="+15.4%"
+                                change="+5.2%"
                                 changeType="negative"
                                 description="Debt per capita: GH₵ 21,061"
                                 date={latestDateStr}

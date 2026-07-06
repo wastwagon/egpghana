@@ -27,12 +27,11 @@ async function seedDebtData() {
             const currentDate = date;
             const year = date.getFullYear();
 
-            // Nov 2025 (Last data point) - specific legacy data
-            if (i === 83) {
-                // Nov 2025 specific values
-                baseDebt = 641000000000; // 641.0B
-                const domestic = 333800000000; // 333.8B
-                const external = 307200000000; // 307.2B
+            // Jun 2026 (latest official data)
+            if (i === 90) {
+                baseDebt = 674100000000;
+                const domestic = 360400000000;
+                const external = 313700000000;
 
                 monthlyDebtData.push({
                     indicator: 'TOTAL_DEBT',
@@ -42,14 +41,35 @@ async function seedDebtData() {
                     unit: 'GHS',
                     metadata: {
                         currency: 'GHS',
-                        domestic: domestic,
-                        external: external,
+                        domestic,
+                        external,
+                        domestic_share: 53.46,
+                        external_share: 46.54,
+                        source: 'Bank of Ghana',
+                    },
+                });
+            } else if (i === 83) {
+                // Nov 2025 specific values
+                baseDebt = 641000000000;
+                const domestic = 333800000000;
+                const external = 307200000000;
+
+                monthlyDebtData.push({
+                    indicator: 'TOTAL_DEBT',
+                    value: baseDebt,
+                    date: currentDate,
+                    source: 'Ministry of Finance / IMF',
+                    unit: 'GHS',
+                    metadata: {
+                        currency: 'GHS',
+                        domestic,
+                        external,
                         domestic_share: 52.08,
                         external_share: 47.92,
-                        source: 'Ministry of Finance'
-                    }
+                        source: 'Ministry of Finance',
+                    },
                 });
-            } else if (i > 83) {
+            } else if (i > 83 && i !== 90) {
                 // 2026 projections
                 baseDebt *= 1.005; // 0.5% monthly growth
                 const domestic = baseDebt * 0.49;
@@ -168,7 +188,7 @@ async function seedDebtData() {
                 // 2025 update
                 baseRatio = 45.3;
             } else if (year === 2026) {
-                baseRatio = 43.5;
+                baseRatio = 42.2;
             } else {
                 baseRatio = 60.0 + (Math.random() * 2 - 1);
             }

@@ -10,14 +10,14 @@ import { prisma } from '@/lib/prisma';
 export const revalidate = 0;
 
 async function getDashboardData() {
-    const snapshotDate = new Date('2025-11-30');
-    const NOV_2025 = {
-        totalDebt: 641000000000,
-        domesticDebt: 333800000000,
-        externalDebt: 307200000000,
-        debtToGdp: 45.3,
+    const snapshotDate = new Date('2026-06-30');
+    const JUN_2026 = {
+        totalDebt: 674100000000,
+        domesticDebt: 360400000000,
+        externalDebt: 313700000000,
+        debtToGdp: 42.2,
         debtServiceToRevenue: 25.1,
-        inflation: 3.3,
+        inflation: 3.7,
         policyRate: 14.0,
     } as const;
     const getSnapshotIndicator = async (indicator: string, source: string) => {
@@ -89,20 +89,20 @@ async function getDashboardData() {
 
     // Calculate debt composition
     const debtMetadata = debt?.metadata as any;
-    const domesticDebt = debtMetadata?.domestic || NOV_2025.domesticDebt;
-    const externalDebt = debtMetadata?.external || NOV_2025.externalDebt;
-    const totalDebtValue = debt?.value || NOV_2025.totalDebt;
+    const domesticDebt = debtMetadata?.domestic || JUN_2026.domesticDebt;
+    const externalDebt = debtMetadata?.external || JUN_2026.externalDebt;
+    const totalDebtValue = debt?.value || JUN_2026.totalDebt;
     const externalShare = totalDebtValue > 0 ? (externalDebt / totalDebtValue) * 100 : 0;
 
     return {
         stats: {
             gdpGrowth: { value: gdp?.value ?? 0, date: gdp?.date },
-            totalDebt: { value: debt?.value ?? NOV_2025.totalDebt, date: debt?.date ?? snapshotDate },
+            totalDebt: { value: debt?.value ?? JUN_2026.totalDebt, date: debt?.date ?? snapshotDate },
             domesticDebt: domesticDebt,
             externalDebt: externalDebt,
-            inflation: { value: inflation?.value ?? NOV_2025.inflation, date: inflation?.date ?? snapshotDate },
-            inflationChange: -2.1, // Calculated or simplified delta
-            debtToGdp: { value: debtGdp?.value ?? NOV_2025.debtToGdp, date: debtGdp?.date ?? snapshotDate },
+            inflation: { value: inflation?.value ?? JUN_2026.inflation, date: inflation?.date ?? snapshotDate },
+            inflationChange: 0.4,
+            debtToGdp: { value: debtGdp?.value ?? JUN_2026.debtToGdp, date: debtGdp?.date ?? snapshotDate },
             exchangeRate: { value: exchangeRate?.value ?? 0, date: exchangeRate?.date },
             forexReserves: { value: forexReserves?.value ?? 0, date: forexReserves?.date },
             imfDisbursed: disbursedIMF,
@@ -110,8 +110,8 @@ async function getDashboardData() {
             imfProgress: imfProgress,
             imfUpdatedAt: latestCompletedDisbursementDate,
             externalShare: externalShare,
-            debtService: { value: debtService?.value ?? NOV_2025.debtServiceToRevenue, date: debtService?.date ?? snapshotDate },
-            policyRate: { value: policyRate?.value ?? NOV_2025.policyRate, date: policyRate?.date ?? snapshotDate },
+            debtService: { value: debtService?.value ?? JUN_2026.debtServiceToRevenue, date: debtService?.date ?? snapshotDate },
+            policyRate: { value: policyRate?.value ?? JUN_2026.policyRate, date: policyRate?.date ?? snapshotDate },
         },
         articles,
         upcomingEvents,

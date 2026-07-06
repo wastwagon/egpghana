@@ -25,6 +25,7 @@ const timelineEvents = [
 
     { year: '2025', month: 'Mar', label: '2025', title: 'Third IMF Review Completion', desc: 'Ghana successfully completed the third review of its IMF Extended Credit Facility, unlocking additional funding and demonstrating continued progress in fiscal reforms.', tag: 'IMF' },
     { year: '2025', month: 'Jun', label: '2025', title: 'Debt Sustainability Milestone', desc: 'Ghana achieved significant improvement in debt-to-GDP ratio, falling to 55% from 62%, marking a critical milestone in debt sustainability targets under the IMF program.', tag: 'Achievement' },
+    { year: '2026', month: 'Jun', label: '2026', title: 'Debt Data Update — June 2026', desc: 'Total public debt reached GH₵ 674.1B (42.2% of GDP), with domestic debt at GH₵ 360.4B (53.5%) and external debt at GH₵ 313.7B (46.5%). Debt-to-GDP continued its downward trajectory per Bank of Ghana / MoF data.', tag: 'Milestone' },
     { year: '2025', month: 'Jul', label: '2025', title: 'Capital Market Re-entry Planning', desc: 'Ghana announced concrete plans for gradual return to international capital markets in Q4 2025, supported by improved macroeconomic indicators and successful debt restructuring outcomes.', tag: 'Planning' },
 
     { year: '2026', month: 'Feb', label: '2026', title: 'DDEP Coupon Settlement', desc: 'Government paid GH₵10 billion in DDEP interest obligations — the sixth coupon settlement and second full cash payment without Payment-In-Kind, signalling improved fiscal capacity and market confidence.', tag: 'Financial' },
@@ -221,7 +222,7 @@ export default function DebtRestructuringJourney() {
 
                 <div className={styles.conclusionContent}>
                     <div className={styles.conclusionText}>
-                        <p>Ghana&apos;s comprehensive debt restructuring efforts have yielded significant positive results by mid-2025. The successful completion of both domestic and external debt restructuring has restored debt sustainability, with the debt-to-GDP ratio improving dramatically from 88% to 55%.</p>
+                        <p>Ghana&apos;s comprehensive debt restructuring efforts have yielded significant positive results. The successful completion of both domestic and external debt restructuring has restored debt sustainability, with the debt-to-GDP ratio improving dramatically from 88% at the crisis peak to 42.2% as at June 2026.</p>
                         <p>The ongoing IMF program has provided crucial support for macroeconomic stabilization, with inflation declining from over 50% to 13.7% and foreign exchange reserves gradually rebuilding. The successful implementation of fiscal reforms has enhanced revenue collection and improved public financial management.</p>
                         <p>With the completion of major restructuring milestones, Ghana is now positioned for a gradual return to international capital markets in late 2025, marking a significant achievement in the country&apos;s economic recovery journey. Continued adherence to fiscal discipline and structural reforms will be essential for maintaining this positive trajectory.</p>
                     </div>

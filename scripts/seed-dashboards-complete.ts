@@ -548,6 +548,7 @@ async function seedDashboards() {
         { date: '2024-12-31', value: 726700000000, domestic: 290000000000, external: 436700000000 },
         { date: '2025-06-30', value: 680000000000, domestic: 310000000000, external: 370000000000 }, // Restructuring kick-in
         { date: '2025-11-30', value: 641000000000, domestic: 333800000000, external: 307200000000 },
+        { date: '2026-06-30', value: 674100000000, domestic: 360400000000, external: 313700000000 },
     ];
 
     for (const item of historicalDebt) {
@@ -643,44 +644,98 @@ async function seedDashboards() {
         },
     });
 
-    // Total Debt - November 2025 (most recent)
+    // Total Debt - June 2026 (most recent)
     await prisma.economicData.upsert({
         where: {
             indicator_date_source: {
                 indicator: 'TOTAL_DEBT',
-                    date: new Date('2025-11-30'),
+                    date: new Date('2026-06-30'),
                     source: 'Bank of Ghana',
             },
         },
         update: {
-            value: 641000000000, // GH₵ 641.0B
+            value: 674100000000, // GH₵ 674.1B
             metadata: {
                 currency: 'GHS',
-                domestic: 333800000000,
-                external: 307200000000,
-                domestic_share: 52.08,
-                external_share: 47.92,
-                note: 'Debt data update as at Nov 2025',
+                domestic: 360400000000,
+                external: 313700000000,
+                domestic_share: 53.46,
+                external_share: 46.54,
+                note: 'Debt data update as at June 2026',
             },
         },
         create: {
             indicator: 'TOTAL_DEBT',
-            value: 641000000000,
-            date: new Date('2025-11-30'),
+            value: 674100000000,
+            date: new Date('2026-06-30'),
             source: 'Bank of Ghana',
             unit: 'GHS',
             metadata: {
                 currency: 'GHS',
-                domestic: 333800000000,
-                external: 307200000000,
-                domestic_share: 52.08,
-                external_share: 47.92,
-                note: 'Debt data update as at Nov 2025',
+                domestic: 360400000000,
+                external: 313700000000,
+                domestic_share: 53.46,
+                external_share: 46.54,
+                note: 'Debt data update as at June 2026',
             },
         },
     });
 
-    // Debt update pack (Nov 2025) - provided update values
+    // Debt update pack (June 2026) - provided update values
+    const jun2026Data = [
+        { indicator: 'DEBT_STOCK_TOTAL', value: 674100000000, unit: 'GHS', source: 'Bank of Ghana' },
+        { indicator: 'DEBT_EXTERNAL', value: 313700000000, unit: 'GHS', source: 'Bank of Ghana' },
+        { indicator: 'DEBT_DOMESTIC', value: 360400000000, unit: 'GHS', source: 'Bank of Ghana' },
+        { indicator: 'DEBT_EXTERNAL_SHARE', value: 46.54, unit: '%', source: 'MOF' },
+        { indicator: 'DEBT_DOMESTIC_SHARE', value: 53.46, unit: '%', source: 'MOF' },
+        { indicator: 'DEBT_TO_GDP_RATIO', value: 42.2, unit: '%', source: 'MOF' },
+        { indicator: 'DEBT_DOMESTIC_TO_GDP', value: 22.6, unit: '%', source: 'MOF' },
+        { indicator: 'DEBT_EXTERNAL_TO_GDP', value: 19.6, unit: '%', source: 'MOF' },
+        { indicator: 'DEBT_INTEREST_PAYMENT_REVISED', value: 25400000000, unit: 'GHS', source: 'MOF' },
+        { indicator: 'DEBT_INTEREST_TO_EXPENDITURE', value: 9.45, unit: '%', source: 'Bank of Ghana' },
+        { indicator: 'DEBT_PER_CAPITA', value: 21061, unit: 'GHS', source: 'World Bank' },
+        { indicator: 'DEBT_SERVICE_TO_REVENUE', value: 25.1, unit: '%', source: 'KPMG' },
+        { indicator: 'PER_CAPITA_INCOME_USD', value: 2235, unit: 'USD', source: 'World Bank' },
+        { indicator: 'GDP_NOMINAL_USD', value: 111960000000, unit: 'USD', source: 'World Bank' },
+        { indicator: 'INFLATION_RATE', value: 3.7, unit: '%', source: 'Bank of Ghana' },
+        { indicator: 'INFLATION_TARGET_MID', value: 8, unit: '%', source: 'Bank of Ghana', metadata: { band: '+/- 2%' } },
+        { indicator: 'POLICY_RATE', value: 14, unit: '%', source: 'Bank of Ghana' },
+        { indicator: 'TREASURY_BILL_91D', value: 5.24, unit: '%', source: 'Bank of Ghana' },
+        { indicator: 'GDP_NOMINAL_GHS', value: 1176000000000, unit: 'GHS', source: 'Bank of Ghana' },
+    ] as const;
+
+    for (const item of jun2026Data) {
+        await prisma.economicData.upsert({
+            where: {
+                indicator_date_source: {
+                    indicator: item.indicator,
+                    date: new Date('2026-06-30'),
+                    source: item.source,
+                },
+            },
+            update: {
+                value: item.value,
+                unit: item.unit,
+                metadata: {
+                    ...(item as { metadata?: Record<string, unknown> }).metadata,
+                    reportDate: '2026-06',
+                },
+            },
+            create: {
+                indicator: item.indicator,
+                value: item.value,
+                date: new Date('2026-06-30'),
+                source: item.source,
+                unit: item.unit,
+                metadata: {
+                    ...(item as { metadata?: Record<string, unknown> }).metadata,
+                    reportDate: '2026-06',
+                },
+            },
+        });
+    }
+
+    // Legacy Nov 2025 pack (retained for historical reference)
     const nov2025Data = [
         { indicator: 'DEBT_STOCK_TOTAL', value: 641000000000, unit: 'GHS', source: 'Bank of Ghana' },
         { indicator: 'DEBT_EXTERNAL', value: 307200000000, unit: 'GHS', source: 'Bank of Ghana' },

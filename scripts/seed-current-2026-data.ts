@@ -104,27 +104,110 @@ async function seedCurrentData() {
             },
         });
 
-        // Total Debt - November 2025 (most recent) - Update existing record
+        // Total Debt - June 2026 (most recent)
+        await prisma.economicData.upsert({
+            where: {
+                indicator_date_source: {
+                    indicator: 'TOTAL_DEBT',
+                    date: new Date('2026-06-30'),
+                    source: 'Bank of Ghana',
+                },
+            },
+            update: {
+                value: 674100000000,
+                unit: 'GHS',
+                metadata: {
+                    currency: 'GHS',
+                    domestic: 360400000000,
+                    external: 313700000000,
+                    domestic_share: 53.46,
+                    external_share: 46.54,
+                    note: 'Debt data update as at June 2026',
+                },
+            },
+            create: {
+                indicator: 'TOTAL_DEBT',
+                value: 674100000000,
+                date: new Date('2026-06-30'),
+                source: 'Bank of Ghana',
+                unit: 'GHS',
+                metadata: {
+                    currency: 'GHS',
+                    domestic: 360400000000,
+                    external: 313700000000,
+                    domestic_share: 53.46,
+                    external_share: 46.54,
+                    note: 'Debt data update as at June 2026',
+                },
+            },
+        });
+
+        // Debt to GDP Ratio - June 2026
+        await prisma.economicData.upsert({
+            where: {
+                indicator_date_source: {
+                    indicator: 'DEBT_TO_GDP_RATIO',
+                    date: new Date('2026-06-30'),
+                    source: 'MOF',
+                },
+            },
+            update: {
+                value: 42.2,
+                unit: '%',
+                metadata: { note: 'Down from 45.3% in Nov 2025' },
+            },
+            create: {
+                indicator: 'DEBT_TO_GDP_RATIO',
+                value: 42.2,
+                date: new Date('2026-06-30'),
+                source: 'MOF',
+                unit: '%',
+                metadata: { note: 'Down from 45.3% in Nov 2025' },
+            },
+        });
+
+        // Debt service to revenue - June 2026
+        await prisma.economicData.upsert({
+            where: {
+                indicator_date_source: {
+                    indicator: 'DEBT_SERVICE_TO_REVENUE',
+                    date: new Date('2026-06-30'),
+                    source: 'KPMG',
+                },
+            },
+            update: {
+                value: 25.1,
+                unit: '%',
+            },
+            create: {
+                indicator: 'DEBT_SERVICE_TO_REVENUE',
+                value: 25.1,
+                date: new Date('2026-06-30'),
+                source: 'KPMG',
+                unit: '%',
+            },
+        });
+
+        // Legacy Nov 2025 debt record (retained)
         await prisma.economicData.updateMany({
             where: {
                 indicator: 'TOTAL_DEBT',
                 date: new Date('2025-11-01'),
             },
             data: {
-                value: 644600000000, // GH₵ 644.6B
+                value: 641000000000,
                 metadata: {
                     currency: 'GHS',
-                    domestic: 314400000000, // GH₵ 314.4B
-                    external: 330200000000, // GH₵ 330.2B
-                    domestic_share: 48.8,
-                    external_share: 51.2,
-                    externalUSD: 29300000000, // US$29.3B
-                    note: 'Significant reduction from GH₵726.7B in Dec 2024',
+                    domestic: 333800000000,
+                    external: 307200000000,
+                    domestic_share: 52.08,
+                    external_share: 47.92,
+                    note: 'Debt data update as at Nov 2025',
                 },
             },
         });
 
-        // Debt to GDP Ratio - Update existing 2025 Q4 record
+        // Legacy debt-to-GDP Q4 2025
         await prisma.economicData.updateMany({
             where: {
                 indicator: 'DEBT_TO_GDP_RATIO',
@@ -132,11 +215,12 @@ async function seedCurrentData() {
                     gte: new Date('2025-10-01'),
                     lte: new Date('2025-12-31'),
                 },
+                source: 'MOF',
             },
             data: {
-                value: 45.5,
+                value: 45.3,
                 metadata: {
-                    note: 'Down from 61.8% in December 2024',
+                    note: 'Nov 2025 official update',
                 },
             },
         });

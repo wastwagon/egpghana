@@ -40,7 +40,7 @@ export default function RiskAssessmentSection() {
     ];
 
     const domesticRisks: RiskItem[] = [
-        { label: 'Increased Borrowing', description: '15.4% rise indicates higher domestic financing needs', severity: 'high' },
+        { label: 'Increased Borrowing', description: '5.2% rise in total debt reflects higher domestic financing; debt-to-GDP still declining', severity: 'medium' },
         { label: 'Banking Exposure', description: '65% held by local banks, systemic risk', severity: 'high' },
         { label: 'Short-term Bills', description: '36.5% in T-bills, rollover pressure', severity: 'high' },
         { label: 'Interest Burden', description: '18% policy rate drives up costs', severity: 'medium' },

@@ -20,7 +20,7 @@ export const metadata = {
 };
 
 export default async function EconomyDashboardPage() {
-    const snapshotDate = new Date('2025-11-30');
+    const snapshotDate = new Date('2026-06-30');
     const getSnapshotIndicator = async (indicator: string, source: string) => {
         return prisma.economicData.findFirst({
             where: {
@@ -138,9 +138,9 @@ export default async function EconomyDashboardPage() {
         },
         {
             title: 'Inflation Rate',
-            value: (latestInflation?.value ?? 3.3).toFixed(1),
-            change: `${(latestInflation?.value ?? 3.3) > 10 ? 'Above' : 'Within'} target`,
-            changeType: (latestInflation?.value ?? 3.3) > 10 ? 'negative' : 'positive',
+            value: (latestInflation?.value ?? 3.7).toFixed(1),
+            change: `${(latestInflation?.value ?? 3.7) > 10 ? 'Above' : 'Within'} target`,
+            changeType: (latestInflation?.value ?? 3.7) > 10 ? 'negative' : 'positive',
             unit: '%',
             icon: (
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -235,7 +235,7 @@ export default async function EconomyDashboardPage() {
                                         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                                         <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
                                     </span>
-                                    Live Data: <span className="font-medium text-emerald-300">Updated Nov 2025</span>
+                                    Live Data: <span className="font-medium text-emerald-300">Updated June 2026</span>
                                 </span>
                                 <span className="hidden sm:block w-px h-4 bg-white/30"></span>
                                 <span className="flex items-center gap-2">

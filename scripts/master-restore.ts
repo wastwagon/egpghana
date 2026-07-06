@@ -19,9 +19,9 @@ async function main() {
         { indicator: 'EXCHANGE_RATE_USD', value: 10.99, unit: 'GHS per USD' },
         { indicator: 'FOREX_RESERVES', value: 13.8, unit: 'Billion USD' },
         { indicator: 'POLICY_RATE', value: 15.5, unit: '%' },
-        { indicator: 'TOTAL_DEBT', value: 651100000000, unit: 'GHS', metadata: { domestic: 319000000000, external: 332100000000 } },
-        { indicator: 'DEBT_TO_GDP_RATIO', value: 45.5, unit: '%' },
-        { indicator: 'DEBT_SERVICE_TO_REVENUE', value: 48.0, unit: '%' }
+        { indicator: 'TOTAL_DEBT', value: 674100000000, unit: 'GHS', metadata: { domestic: 360400000000, external: 313700000000 } },
+        { indicator: 'DEBT_TO_GDP_RATIO', value: 42.2, unit: '%' },
+        { indicator: 'DEBT_SERVICE_TO_REVENUE', value: 25.1, unit: '%' }
     ];
 
     for (const ind of indicators) {

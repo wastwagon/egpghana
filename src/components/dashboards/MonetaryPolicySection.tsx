@@ -162,7 +162,7 @@ export default function MonetaryPolicySection() {
                 </div>
 
                 <p className="text-xs text-slate-500 mt-4 italic">
-                    Source: Bank of Ghana Monetary Policy Committee (Updated: Nov 2025)
+                    Source: Bank of Ghana Monetary Policy Committee (Updated: June 2026)
                 </p>
             </div>
 
