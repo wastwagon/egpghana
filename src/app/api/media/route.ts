@@ -3,8 +3,8 @@ import { readdir, stat, mkdir, writeFile, unlink } from 'fs/promises';
 import path from 'path';
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
+import { getUploadsDir } from "@/lib/uploads";
 
-const UPLOADS_DIR = path.join(process.cwd(), 'public/uploads');
 const ASSETS_DIR = path.join(process.cwd(), 'public/assets');
 
 interface MediaFile {
@@ -62,7 +62,7 @@ export async function GET(req: NextRequest) {
 
     try {
         // Scan both uploads and assets
-        const uploads = await getFiles(UPLOADS_DIR, '/uploads');
+        const uploads = await getFiles(getUploadsDir(), '/uploads');
         // We only scan assets/images to avoid scanning entire project assets if they are diverse
         const assets = await getFiles(path.join(ASSETS_DIR, 'images'), '/assets/images');
 
@@ -97,7 +97,7 @@ export async function POST(req: NextRequest) {
         const month = String(now.getMonth() + 1).padStart(2, '0');
 
         const relativeDir = `${year}/${month}`;
-        const targetDir = path.join(UPLOADS_DIR, relativeDir);
+        const targetDir = path.join(getUploadsDir(), relativeDir);
 
         await mkdir(targetDir, { recursive: true });
 
@@ -147,7 +147,13 @@ export async function DELETE(req: NextRequest) {
             return NextResponse.json({ error: 'Cannot delete system assets' }, { status: 403 });
         }
 
-        const filePath = path.join(process.cwd(), 'public', url);
+        // url is /uploads/YYYY/MM/file.ext — strip prefix and resolve under uploads dir
+        const relative = url.replace(/^\/uploads\//, '');
+        const uploadsRoot = path.resolve(getUploadsDir());
+        const filePath = path.resolve(uploadsRoot, relative);
+        if (!filePath.startsWith(uploadsRoot + path.sep)) {
+            return NextResponse.json({ error: 'Invalid path' }, { status: 400 });
+        }
 
         await unlink(filePath);
 

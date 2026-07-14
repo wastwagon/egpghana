@@ -27,6 +27,13 @@ export default function SettingsPage() {
             dbArticles: number;
             dbEvents: number;
         };
+        uploads?: {
+            persistent: boolean;
+            path: string;
+            fileCount: number;
+            brokenImageUrls: number;
+            detail: string;
+        };
     } | null>(null);
     const [dbStatusLoading, setDbStatusLoading] = useState(false);
 
@@ -412,6 +419,19 @@ export default function SettingsPage() {
                                                     {dbStatus.data.status === 'current' ? 'Current' : dbStatus.data.status === 'needs_sync' ? 'Needs sync' : dbStatus.data.status === 'no_export' ? 'No export' : 'Unknown'}
                                                 </span>
                                             </div>
+                                            {dbStatus.uploads && (
+                                                <div className="flex items-center gap-2">
+                                                    <span className="text-sm text-gray-600 dark:text-gray-400">Uploads:</span>
+                                                    <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs font-medium ${
+                                                        dbStatus.uploads.persistent
+                                                            ? 'bg-green-100 text-green-800 dark:bg-green-900/40 dark:text-green-300'
+                                                            : 'bg-red-100 text-red-800 dark:bg-red-900/40 dark:text-red-300'
+                                                    }`}>
+                                                        {dbStatus.uploads.persistent ? <CheckCircle className="w-3.5 h-3.5" /> : <AlertCircle className="w-3.5 h-3.5" />}
+                                                        {dbStatus.uploads.persistent ? 'Persistent volume' : 'Not persistent'}
+                                                    </span>
+                                                </div>
+                                            )}
                                         </div>
                                     ) : dbStatusLoading ? (
                                         <p className="text-sm text-gray-500">Checking…</p>
@@ -422,6 +442,13 @@ export default function SettingsPage() {
                                         <div className="text-xs text-gray-500 mt-2 space-y-1">
                                             {dbStatus.migration.detail && <p>Migrations: {dbStatus.migration.detail}</p>}
                                             {dbStatus.data.detail && <p>Data: {dbStatus.data.detail}</p>}
+                                            {dbStatus.uploads?.detail && <p>Uploads: {dbStatus.uploads.detail}</p>}
+                                        </div>
+                                    )}
+                                    {dbStatus?.uploads && !dbStatus.uploads.persistent && (
+                                        <div className="mt-3 rounded-md border border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-900/20 p-3 text-xs text-red-800 dark:text-red-200 space-y-1">
+                                            <p className="font-medium">Article images will keep breaking after each redeploy.</p>
+                                            <p>In Coolify → Storage: mount volume <code className="bg-red-100 dark:bg-red-900/50 px-1 rounded">egp-uploads</code> → <code className="bg-red-100 dark:bg-red-900/50 px-1 rounded">/data/uploads</code>, set env <code className="bg-red-100 dark:bg-red-900/50 px-1 rounded">UPLOADS_DIR=/data/uploads</code>, then redeploy and re-upload broken images.</p>
                                         </div>
                                     )}
                                 </div>

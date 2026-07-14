@@ -44,8 +44,10 @@ RUN mkdir -p .next && chown nextjs:nodejs .next
 # Use --chown to avoid slow recursive chown later
 COPY --from=builder --chown=nextjs:nodejs /app/public ./public
 
-# Ensure uploads directory exists (gitignored, so not in build) - entrypoint chowns when volume mounted
-RUN mkdir -p public/uploads && chown nextjs:nodejs public/uploads
+# Ensure uploads directories exist (gitignored). Prefer Coolify volume at /data/uploads
+# with env UPLOADS_DIR=/data/uploads so files survive redeploys. Entrypoint chowns + links.
+RUN mkdir -p public/uploads /data/uploads \
+  && chown nextjs:nodejs public/uploads /data/uploads
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
 # Automatically leverage output traces to reduce image size

@@ -5,8 +5,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { readFile } from 'fs/promises';
 import path from 'path';
-
-const UPLOADS_DIR = path.join(process.cwd(), 'public/uploads');
+import { getUploadsDir } from '@/lib/uploads';
 
 const MIME: Record<string, string> = {
     '.jpg': 'image/jpeg',
@@ -33,9 +32,9 @@ export async function GET(
         return NextResponse.json({ error: 'Invalid path' }, { status: 400 });
     }
 
-    const filePath = path.resolve(UPLOADS_DIR, relativePath);
-    const uploadsDirResolved = path.resolve(UPLOADS_DIR);
-    if (!filePath.startsWith(uploadsDirResolved)) {
+    const uploadsDirResolved = path.resolve(getUploadsDir());
+    const filePath = path.resolve(uploadsDirResolved, relativePath);
+    if (!filePath.startsWith(uploadsDirResolved + path.sep) && filePath !== uploadsDirResolved) {
         return NextResponse.json({ error: 'Not found' }, { status: 404 });
     }
 

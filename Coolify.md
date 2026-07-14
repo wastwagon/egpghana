@@ -38,19 +38,33 @@ Go to the **Environment Variables** tab of your application in Coolify and add:
 | `NEXT_PUBLIC_APP_URL` | `https://egpghana.org` | Public app URL |
 | `OPENAI_API_KEY` | `your-openai-key` | For the AI Chatbot |
 | `NODE_ENV` | `production` | Ensure it's set to production |
+| `UPLOADS_DIR` | `/data/uploads` | Must match Coolify volume destination (Step E) |
 
 ### Step D: Domains
 1.  In the **Domains** tab, set it to `https://egpghana.org`.
 2.  Coolify will automatically handle SSL (Let's Encrypt) via its built-in Traefik/Caddy proxy.
 
-### Step E: Persistent Storage (Important)
-Since the app allows file uploads, you must ensure they aren't lost when you redeploy:
-1. Go to your application -> **Storage** tab.
-2. Add a new **Persistent Storage** (Volume):
-   - **Source**: `egp-uploads`
-   - **Destination**: `/app/public/uploads`
+### Step E: Persistent Storage (Required — stops broken article images)
 
-The entrypoint automatically fixes volume permissions on startup so uploads work. If uploads still fail, check container logs for permission errors.
+**Symptom if missing:** New article images work for a few days, then 404 after the next Coolify redeploy. The database still has the image URLs; only the files on the container disk are deleted. Bundled assets under `/assets/images/` are fine (they ship in the image).
+
+1. Go to your application → **Storage** tab.
+2. Add **Persistent Storage** (Volume):
+   - **Name / Source**: `egp-uploads`
+   - **Destination**: `/data/uploads`
+3. In **Environment Variables**, add:
+   - `UPLOADS_DIR` = `/data/uploads`
+4. Redeploy the application.
+5. Check startup logs for: `✅ Uploads are on a Docker volume mount`.
+   - If you see `CRITICAL: Uploads are NOT on a persistent volume`, the mount did not apply — fix Storage and redeploy again.
+6. In **Admin → Settings → Database**, confirm **Uploads: Persistent volume**.
+7. Re-upload images for any articles that are already broken (those files are already gone).
+
+**Do not** mount an empty volume over a path that still has working files without copying them out first — a new empty volume hides existing container files. After persistence is confirmed, re-upload only what’s broken.
+
+Alternative destination (older docs): `/app/public/uploads` also works if that exact path is the Coolify mount destination (no `UPLOADS_DIR` needed). Prefer `/data/uploads` so app image rebuilds never collide with upload storage.
+
+The entrypoint fixes volume permissions on startup. If uploads fail with permission errors, check container logs.
 
 ## 4. Why this setup is "Best Practice"
 - **Standalone Mode**: The `Dockerfile` uses Next.js `standalone` output, which makes the image ~1GB smaller and much faster to start.
