@@ -34,7 +34,7 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
 
     try {
         const body = await req.json();
-        const { title, slug, content, excerpt, categoryId, imageUrl, publishedAt, featured, tags } = body;
+        const { title, slug, content, excerpt, categoryId, imageUrl, attachmentUrl, attachmentName, publishedAt, featured, tags } = body;
 
         const safeSlug = slugify(slug || title) || slugify(title);
         const article = await prisma.article.update({
@@ -45,7 +45,9 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
                 content,
                 excerpt,
                 categoryId,
-                imageUrl,
+                imageUrl: imageUrl || null,
+                attachmentUrl: attachmentUrl || null,
+                attachmentName: attachmentName || null,
                 publishedAt: publishedAt ? new Date(publishedAt) : undefined,
                 featured,
                 tags,

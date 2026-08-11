@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import RichTextEditor from './RichTextEditor';
-import { Image as ImageIcon, Loader2, X, Calendar, RefreshCw } from 'lucide-react';
+import { Image as ImageIcon, Loader2, X, Calendar, RefreshCw, FileText, Upload } from 'lucide-react';
 import Image from 'next/image';
 
 import MediaLibrary from './MediaLibrary';
@@ -23,6 +23,8 @@ interface ArticleFormProps {
         excerpt?: string;
         categoryId: string;
         imageUrl?: string;
+        attachmentUrl?: string;
+        attachmentName?: string;
         publishedAt?: string;
         featured: boolean;
         tags: string[];
@@ -30,11 +32,13 @@ interface ArticleFormProps {
     isEditing?: boolean;
 }
 
+type MediaPickerMode = 'image' | 'document' | null;
+
 export default function ArticleForm({ initialData, isEditing = false }: ArticleFormProps) {
     const router = useRouter();
     const [categories, setCategories] = useState<Category[]>([]);
     const [loading, setLoading] = useState(false);
-    const [showMediaLibrary, setShowMediaLibrary] = useState(false);
+    const [mediaPicker, setMediaPicker] = useState<MediaPickerMode>(null);
     const [error, setError] = useState('');
 
     const [form, setForm] = useState({
@@ -44,13 +48,14 @@ export default function ArticleForm({ initialData, isEditing = false }: ArticleF
         excerpt: initialData?.excerpt || '',
         categoryId: initialData?.categoryId || '',
         imageUrl: initialData?.imageUrl || '',
+        attachmentUrl: initialData?.attachmentUrl || '',
+        attachmentName: initialData?.attachmentName || '',
         publishedAt: initialData?.publishedAt ? new Date(initialData.publishedAt).toISOString().split('T')[0] : '',
         featured: initialData?.featured || false,
         tags: initialData?.tags.join(', ') || '',
     });
 
     useEffect(() => {
-        // Fetch categories
         fetch('/api/categories')
             .then(res => res.json())
             .then(data => {
@@ -67,7 +72,6 @@ export default function ArticleForm({ initialData, isEditing = false }: ArticleF
         const { name, value } = e.target;
         setForm(prev => {
             const next = { ...prev, [name]: value };
-            // Auto-generate slug from title (create: always; edit: when slug empty)
             if (name === 'title') {
                 const shouldSync = !isEditing || !prev.slug;
                 if (shouldSync && value) next.slug = slugify(value);
@@ -97,6 +101,8 @@ export default function ArticleForm({ initialData, isEditing = false }: ArticleF
             ...form,
             tags: form.tags.split(',').map(t => t.trim()).filter(Boolean),
             publishedAt: form.publishedAt ? new Date(form.publishedAt).toISOString() : null,
+            attachmentUrl: form.attachmentUrl || null,
+            attachmentName: form.attachmentName || null,
         };
 
         try {
@@ -299,7 +305,7 @@ export default function ArticleForm({ initialData, isEditing = false }: ArticleF
                             </label>
                             <button
                                 type="button"
-                                onClick={() => setShowMediaLibrary(true)}
+                                onClick={() => setMediaPicker('image')}
                                 className="text-sm text-blue-600 hover:text-blue-500 font-medium"
                             >
                                 Select from Library
@@ -326,7 +332,7 @@ export default function ArticleForm({ initialData, isEditing = false }: ArticleF
                         ) : (
                             <button
                                 type="button"
-                                onClick={() => setShowMediaLibrary(true)}
+                                onClick={() => setMediaPicker('image')}
                                 className="w-full mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-lg hover:border-blue-400 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                             >
                                 <div className="space-y-1 text-center">
@@ -337,6 +343,59 @@ export default function ArticleForm({ initialData, isEditing = false }: ArticleF
                                         </span>
                                     </div>
                                     <p className="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
+                                </div>
+                            </button>
+                        )}
+                    </div>
+
+                    {/* Downloadable Document (optional) */}
+                    <div className="p-6 bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700">
+                        <div className="flex justify-between items-center mb-2">
+                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                                Downloadable Report
+                            </label>
+                            <button
+                                type="button"
+                                onClick={() => setMediaPicker('document')}
+                                className="text-sm text-blue-600 hover:text-blue-500 font-medium"
+                            >
+                                {form.attachmentUrl ? 'Change' : 'Select from Library'}
+                            </button>
+                        </div>
+                        <p className="text-xs text-gray-500 mb-4">
+                            Optional. If set, a “Download full report” button appears on the public article page.
+                        </p>
+
+                        {form.attachmentUrl ? (
+                            <div className="flex items-center p-3 bg-blue-50 dark:bg-blue-900/10 rounded-lg border border-blue-100 dark:border-blue-800">
+                                <div className="p-2 bg-white dark:bg-gray-800 rounded-lg shadow-sm mr-3">
+                                    <FileText className="w-6 h-6 text-blue-600" />
+                                </div>
+                                <div className="flex-1 min-w-0">
+                                    <p className="text-sm font-medium text-gray-900 dark:text-white truncate">
+                                        {form.attachmentName || form.attachmentUrl.split('/').pop()}
+                                    </p>
+                                    <p className="text-xs text-gray-500 truncate mt-0.5">{form.attachmentUrl}</p>
+                                </div>
+                                <button
+                                    type="button"
+                                    onClick={() => setForm(prev => ({ ...prev, attachmentUrl: '', attachmentName: '' }))}
+                                    className="p-2 text-gray-400 hover:text-red-500 transition-colors"
+                                    aria-label="Remove attachment"
+                                >
+                                    <X className="w-5 h-5" />
+                                </button>
+                            </div>
+                        ) : (
+                            <button
+                                type="button"
+                                onClick={() => setMediaPicker('document')}
+                                className="w-full flex justify-center px-4 py-6 border-2 border-gray-300 border-dashed rounded-lg hover:border-blue-400 transition-colors"
+                            >
+                                <div className="space-y-1 text-center">
+                                    <Upload className="mx-auto h-8 w-8 text-gray-400" />
+                                    <p className="text-sm font-medium text-blue-600">Attach PDF / document</p>
+                                    <p className="text-xs text-gray-500">Leave empty if no download</p>
                                 </div>
                             </button>
                         )}
@@ -360,14 +419,23 @@ export default function ArticleForm({ initialData, isEditing = false }: ArticleF
             </div>
 
             {/* Media Library Modal */}
-            {showMediaLibrary && (
+            {mediaPicker && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
                     <MediaLibrary
-                        onSelect={(url) => {
-                            setForm(prev => ({ ...prev, imageUrl: url }));
-                            setShowMediaLibrary(false);
+                        filter={mediaPicker === 'document' ? 'document' : 'image'}
+                        onSelect={(url, file) => {
+                            if (mediaPicker === 'document') {
+                                setForm(prev => ({
+                                    ...prev,
+                                    attachmentUrl: url,
+                                    attachmentName: file?.name || url.split('/').pop() || 'Report.pdf',
+                                }));
+                            } else {
+                                setForm(prev => ({ ...prev, imageUrl: url }));
+                            }
+                            setMediaPicker(null);
                         }}
-                        onClose={() => setShowMediaLibrary(false)}
+                        onClose={() => setMediaPicker(null)}
                     />
                 </div>
             )}

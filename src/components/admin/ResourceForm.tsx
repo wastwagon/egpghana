@@ -339,6 +339,7 @@ export default function ResourceForm({ initialData, isEditing = false }: Resourc
                         For now, I'll update MediaLibrary component first to support passing full object.
                      */}
                     <MediaLibrary
+                        filter="document"
                         onSelect={(url, file) => {
                             if (file) {
                                 handleFileSelect(url, file.name, file.size, file.type);

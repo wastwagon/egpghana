@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Image as ImageIcon, Check, Loader2, X, Upload } from 'lucide-react';
+import { Image as ImageIcon, Check, Loader2, X, Upload, Link2, CheckCircle2 } from 'lucide-react';
 import Image from 'next/image';
 
 interface MediaFile {
@@ -17,15 +17,30 @@ interface MediaLibraryProps {
     onClose?: () => void;
     allowMultiple?: boolean;
     initialSelection?: string[];
+    /** Limit visible files: images, documents, or all */
+    filter?: 'image' | 'document' | 'all';
 }
 
-export default function MediaLibrary({ onSelect, onClose, allowMultiple = false, initialSelection = [] }: MediaLibraryProps) {
+function getAbsoluteMediaUrl(path: string) {
+    if (path.startsWith('http://') || path.startsWith('https://')) return path;
+    const base = (process.env.NEXT_PUBLIC_APP_URL || (typeof window !== 'undefined' ? window.location.origin : '')).replace(/\/$/, '');
+    return `${base}${path.startsWith('/') ? path : `/${path}`}`;
+}
+
+export default function MediaLibrary({
+    onSelect,
+    onClose,
+    allowMultiple = false,
+    initialSelection = [],
+    filter = 'all',
+}: MediaLibraryProps) {
     const [files, setFiles] = useState<MediaFile[]>([]);
     const [loading, setLoading] = useState(true);
     const [uploading, setUploading] = useState(false);
     const [error, setError] = useState('');
     const [selected, setSelected] = useState<string[]>(initialSelection);
     const [search, setSearch] = useState('');
+    const [copiedUrl, setCopiedUrl] = useState<string | null>(null);
 
     useEffect(() => {
         fetchMedia();
@@ -64,7 +79,7 @@ export default function MediaLibrary({ onSelect, onClose, allowMultiple = false,
             if (res.ok && data.file) {
                 setFiles(prev => [data.file, ...prev]);
                 if (onSelect) {
-                    onSelect(data.file.url);
+                    onSelect(data.file.url, data.file);
                 }
             } else {
                 setError(data.details || data.error || 'Upload failed');
@@ -76,23 +91,16 @@ export default function MediaLibrary({ onSelect, onClose, allowMultiple = false,
         }
     };
 
-    const handleDelete = async (url: string) => {
-        if (!confirm('Are you sure you want to delete this file? This action cannot be undone.')) return;
-
+    const handleCopyUrl = async (e: React.MouseEvent, url: string) => {
+        e.stopPropagation();
+        const absolute = getAbsoluteMediaUrl(url);
         try {
-            const res = await fetch('/api/media', {
-                method: 'DELETE',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ url }),
-            });
-
-            if (res.ok) {
-                setFiles(prev => prev.filter(f => f.url !== url));
-            } else {
-                alert('Cannot delete system assets or file in use.');
-            }
-        } catch (err) {
-            console.error(err);
+            await navigator.clipboard.writeText(absolute);
+            setCopiedUrl(url);
+            setTimeout(() => setCopiedUrl(null), 2000);
+        } catch {
+            // Fallback for older browsers
+            window.prompt('Copy link:', absolute);
         }
     };
 
@@ -103,22 +111,45 @@ export default function MediaLibrary({ onSelect, onClose, allowMultiple = false,
             } else {
                 setSelected(prev => [...prev, url]);
             }
-        } else {
-            if (onSelect) {
-                const file = files.find(f => f.url === url);
-                onSelect(url, file);
-                if (onClose) onClose();
-            }
+            return;
         }
+
+        // Picker mode: return selection immediately
+        if (onSelect) {
+            const file = files.find(f => f.url === url);
+            onSelect(url, file);
+            if (onClose) onClose();
+            return;
+        }
+
+        // Browse mode (Media admin page): select for Copy URL
+        setSelected([url]);
     };
 
-    const filteredFiles = files.filter(f => f.name.toLowerCase().includes(search.toLowerCase()));
+    const filteredFiles = files.filter(f => {
+        const matchesSearch = f.name.toLowerCase().includes(search.toLowerCase());
+        const matchesType = filter === 'all' || f.type === filter;
+        return matchesSearch && matchesType;
+    });
+
+    const acceptTypes = filter === 'document'
+        ? 'application/pdf,.pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx'
+        : filter === 'image'
+            ? 'image/*'
+            : 'image/*,application/pdf,.pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx';
 
     return (
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl overflow-hidden flex flex-col h-[600px] w-full max-w-4xl mx-auto">
             {/* Header */}
             <div className="p-4 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center bg-gray-50 dark:bg-gray-900">
-                <h2 className="text-lg font-bold text-gray-900 dark:text-white">Media Library</h2>
+                <div>
+                    <h2 className="text-lg font-bold text-gray-900 dark:text-white">Media Library</h2>
+                    {filter !== 'all' && (
+                        <p className="text-xs text-gray-500 mt-0.5">
+                            Showing {filter === 'document' ? 'documents' : 'images'} only
+                        </p>
+                    )}
+                </div>
                 <button onClick={onClose} className="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300">
                     <X className="w-5 h-5" />
                 </button>
@@ -136,13 +167,17 @@ export default function MediaLibrary({ onSelect, onClose, allowMultiple = false,
                     />
                 </div>
                 <div>
-                    <label className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 cursor-pointer">
-                        <Upload className="w-4 h-4 mr-2" />
+                    <label className={`inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 cursor-pointer ${uploading ? 'opacity-60 pointer-events-none' : ''}`}>
+                        {uploading ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Upload className="w-4 h-4 mr-2" />}
                         Upload New
-                        <input type="file" className="hidden" onChange={handleUpload} accept="image/*,application/pdf" />
+                        <input type="file" className="hidden" onChange={handleUpload} accept={acceptTypes} disabled={uploading} />
                     </label>
                 </div>
             </div>
+
+            {error && (
+                <div className="px-4 py-2 text-sm text-red-700 bg-red-50 border-b border-red-100">{error}</div>
+            )}
 
             {/* Content */}
             <div className="flex-1 overflow-y-auto p-4 bg-gray-50 dark:bg-gray-900">
@@ -178,10 +213,30 @@ export default function MediaLibrary({ onSelect, onClose, allowMultiple = false,
                                     </div>
                                 )}
 
-                                {/* Overlay info */}
-                                <div className="absolute inset-x-0 bottom-0 bg-black/60 p-2 transform translate-y-full group-hover:translate-y-0 transition-transform">
+                                {/* Overlay info + copy link */}
+                                <div className="absolute inset-x-0 bottom-0 bg-black/70 p-2 transform translate-y-full group-hover:translate-y-0 transition-transform">
                                     <p className="text-xs text-white truncate">{file.name}</p>
-                                    <p className="text-[10px] text-gray-300">{(file.size / 1024).toFixed(1)} KB</p>
+                                    <div className="flex items-center justify-between mt-1 gap-1">
+                                        <p className="text-[10px] text-gray-300">{(file.size / 1024).toFixed(1)} KB</p>
+                                        <button
+                                            type="button"
+                                            onClick={(e) => handleCopyUrl(e, file.url)}
+                                            className="inline-flex items-center gap-1 text-[10px] text-white bg-white/20 hover:bg-white/30 px-1.5 py-0.5 rounded"
+                                            title="Copy public URL"
+                                        >
+                                            {copiedUrl === file.url ? (
+                                                <>
+                                                    <CheckCircle2 className="w-3 h-3 text-green-300" />
+                                                    Copied
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <Link2 className="w-3 h-3" />
+                                                    Copy URL
+                                                </>
+                                            )}
+                                        </button>
+                                    </div>
                                 </div>
 
                                 {/* Selection Checkmark */}
@@ -196,18 +251,50 @@ export default function MediaLibrary({ onSelect, onClose, allowMultiple = false,
                 )}
             </div>
 
-            {/* Footer if multiple selection */}
-            {allowMultiple && (
+            {/* Footer: multi-select OR browse-mode copy link */}
+            {allowMultiple ? (
                 <div className="p-4 border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 flex justify-end gap-3">
                     <button onClick={onClose} className="px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md">Cancel</button>
                     <button
-                        onClick={() => { if (onSelect) onSelect(selected[0]); if (onClose) onClose(); }}
+                        onClick={() => {
+                            if (onSelect) {
+                                const file = files.find(f => f.url === selected[0]);
+                                onSelect(selected[0], file);
+                            }
+                            if (onClose) onClose();
+                        }}
                         className="px-4 py-2 text-sm text-white bg-blue-600 hover:bg-blue-700 rounded-md"
                     >
                         Use Selected ({selected.length})
                     </button>
                 </div>
-            )}
+            ) : !onSelect && selected[0] ? (
+                <div className="p-4 border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 flex flex-col sm:flex-row sm:items-center gap-3">
+                    <div className="flex-1 min-w-0">
+                        <p className="text-xs font-medium text-gray-500 mb-1">File URL</p>
+                        <p className="text-sm text-gray-900 dark:text-white truncate font-mono">
+                            {getAbsoluteMediaUrl(selected[0])}
+                        </p>
+                    </div>
+                    <button
+                        type="button"
+                        onClick={(e) => handleCopyUrl(e, selected[0])}
+                        className="inline-flex items-center justify-center gap-2 px-4 py-2 text-sm text-white bg-blue-600 hover:bg-blue-700 rounded-md shrink-0"
+                    >
+                        {copiedUrl === selected[0] ? (
+                            <>
+                                <CheckCircle2 className="w-4 h-4" />
+                                Copied
+                            </>
+                        ) : (
+                            <>
+                                <Link2 className="w-4 h-4" />
+                                Copy URL
+                            </>
+                        )}
+                    </button>
+                </div>
+            ) : null}
         </div>
     );
 }

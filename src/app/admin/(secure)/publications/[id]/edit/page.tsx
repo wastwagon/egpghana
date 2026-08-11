@@ -22,6 +22,8 @@ export default async function EditPublicationPage({ params }: { params: { id: st
                     excerpt: article.excerpt || undefined,
                     categoryId: article.categoryId,
                     imageUrl: article.imageUrl || undefined,
+                    attachmentUrl: article.attachmentUrl || undefined,
+                    attachmentName: article.attachmentName || undefined,
                     publishedAt: article.publishedAt ? article.publishedAt.toISOString() : undefined,
                     featured: article.featured,
                     tags: article.tags

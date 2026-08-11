@@ -65,7 +65,7 @@ export async function POST(req: NextRequest) {
 
     try {
         const body = await req.json();
-        const { title, slug, content, excerpt, categoryId, imageUrl, publishedAt, featured, tags } = body;
+        const { title, slug, content, excerpt, categoryId, imageUrl, attachmentUrl, attachmentName, publishedAt, featured, tags } = body;
 
         // Basic validation
         if (!title || !slug || !content || !categoryId) {
@@ -80,7 +80,9 @@ export async function POST(req: NextRequest) {
                 content,
                 excerpt,
                 categoryId,
-                imageUrl,
+                imageUrl: imageUrl || null,
+                attachmentUrl: attachmentUrl || null,
+                attachmentName: attachmentName || null,
                 publishedAt: publishedAt ? new Date(publishedAt) : new Date(), // Default to now if not provided, or handle as draft logic
                 featured: featured || false,
                 tags: tags || [],
