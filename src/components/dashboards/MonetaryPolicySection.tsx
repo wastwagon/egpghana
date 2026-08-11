@@ -145,24 +145,24 @@ export default function MonetaryPolicySection() {
 
                 <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div className="bg-blue-50 rounded-lg p-4 border border-blue-100">
-                        <p className="text-sm text-slate-600 mb-1">Current Policy Rate</p>
+                        <p className="text-sm text-slate-600 mb-1">Policy Rate (Jun 2026)</p>
                         <p className="text-2xl font-bold text-blue-600">14.0%</p>
-                        <p className="text-xs text-slate-500 mt-1">↓ down 1,450bps from peak</p>
+                        <p className="text-xs text-slate-500 mt-1">↓ sharply from 30%+ peak</p>
                     </div>
                     <div className="bg-red-50 rounded-lg p-4 border border-red-100">
-                        <p className="text-sm text-slate-600 mb-1">Inflation (Q1 2025)</p>
-                        <p className="text-2xl font-bold text-red-600">18.4%</p>
-                        <p className="text-xs text-slate-500 mt-1">↓ from 52.2% (Q1 2023)</p>
+                        <p className="text-sm text-slate-600 mb-1">Inflation (end-Jun 2026)</p>
+                        <p className="text-2xl font-bold text-red-600">5.3%</p>
+                        <p className="text-xs text-slate-500 mt-1">MoF Mid-Year checkpoint</p>
                     </div>
                     <div className="bg-green-50 rounded-lg p-4 border border-green-100">
                         <p className="text-sm text-slate-600 mb-1">Real Interest Rate</p>
-                        <p className="text-2xl font-bold text-green-600">+7.6%</p>
-                        <p className="text-xs text-slate-500 mt-1">Positive since Q4 2023</p>
+                        <p className="text-2xl font-bold text-green-600">+8.7%</p>
+                        <p className="text-xs text-slate-500 mt-1">Policy rate minus June inflation</p>
                     </div>
                 </div>
 
                 <p className="text-xs text-slate-500 mt-4 italic">
-                    Source: Bank of Ghana Monetary Policy Committee (Updated: June 2026)
+                    Source: Bank of Ghana / MoF Mid-Year Fiscal Policy Review (June 2026)
                 </p>
             </div>
 
@@ -271,7 +271,7 @@ export default function MonetaryPolicySection() {
                             </svg>
                         </div>
                         <p className="text-sm text-slate-700 leading-relaxed">
-                            <strong>Monetary Easing:</strong> BoG policy rate stands at 14.0% (Nov 2025), reflecting continued disinflation and tighter macroeconomic conditions.
+                            <strong>Monetary Easing:</strong> BoG policy rate stands at 14.0% (June 2026), with Mid-Year inflation at 5.3% — reflecting continued disinflation.
                         </p>
                     </div>
                     <div className="flex items-start gap-3">

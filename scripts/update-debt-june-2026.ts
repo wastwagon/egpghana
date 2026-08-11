@@ -1,5 +1,5 @@
 /**
- * Sync June 2026 debt data pack — Bank of Ghana / MOF update.
+ * Sync end-June 2026 debt pack from MoF Mid-Year Fiscal Policy Review.
  * Run: npx tsx scripts/update-debt-june-2026.ts
  */
 import { PrismaClient } from '@prisma/client';
@@ -9,24 +9,24 @@ const prisma = new PrismaClient();
 const SNAPSHOT = '2026-06-30';
 
 const DEBT_PACK = {
-    total: 674_100_000_000,
-    external: 313_700_000_000,
-    domestic: 360_400_000_000,
-    externalShare: 46.54,
-    domesticShare: 53.46,
-    debtToGdp: 42.2,
-    domesticToGdp: 22.6,
-    externalToGdp: 19.6,
+    total: 719_500_000_000,
+    external: 328_400_000_000,
+    domestic: 391_100_000_000,
+    externalShare: 45.6,
+    domesticShare: 54.4,
+    debtToGdp: 45.0,
+    domesticToGdp: 24.5,
+    externalToGdp: 20.5,
     interestPayment: 25_400_000_000,
     interestToExpenditure: 9.45,
-    debtPerCapita: 21_061,
+    debtPerCapita: 22_477,
     debtServiceToRevenue: 25.1,
     perCapitaIncomeUsd: 2_235,
     gdpNominalUsd: 111_960_000_000,
-    inflation: 3.7,
+    inflation: 5.3,
     policyRate: 14,
-    treasuryBill91d: 5.24,
-    gdpNominalGhs: 1_176_000_000_000,
+    treasuryBill91d: 5.73,
+    gdpNominalGhs: 1_599_000_000_000,
 } as const;
 
 const INDICATORS = [
@@ -150,7 +150,7 @@ async function main() {
     console.log('Syncing June 2026 debt data pack...');
     await syncTotalDebt();
     await syncIndicators();
-    console.log('Done. Total debt: GH₵ 674.1B | Debt/GDP: 42.2%');
+    console.log('Done. Total debt: GH₵ 719.5B | Debt/GDP: 45.0% (Mid-Year)');
 }
 
 main()

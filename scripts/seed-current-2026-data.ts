@@ -114,35 +114,37 @@ async function seedCurrentData() {
                 },
             },
             update: {
-                value: 674100000000,
+                value: 719500000000,
                 unit: 'GHS',
                 metadata: {
                     currency: 'GHS',
-                    domestic: 360400000000,
-                    external: 313700000000,
-                    domestic_share: 53.46,
-                    external_share: 46.54,
-                    note: 'Debt data update as at June 2026',
+                    domestic: 391100000000,
+                    external: 328400000000,
+                    domestic_share: 54.4,
+                    external_share: 45.6,
+                    note: 'MoF Mid-Year Fiscal Policy Review (end-June 2026)',
+                    authoritative: 'mid_year_budget',
                 },
             },
             create: {
                 indicator: 'TOTAL_DEBT',
-                value: 674100000000,
+                value: 719500000000,
                 date: new Date('2026-06-30'),
                 source: 'Bank of Ghana',
                 unit: 'GHS',
                 metadata: {
                     currency: 'GHS',
-                    domestic: 360400000000,
-                    external: 313700000000,
-                    domestic_share: 53.46,
-                    external_share: 46.54,
-                    note: 'Debt data update as at June 2026',
+                    domestic: 391100000000,
+                    external: 328400000000,
+                    domestic_share: 54.4,
+                    external_share: 45.6,
+                    note: 'MoF Mid-Year Fiscal Policy Review (end-June 2026)',
+                    authoritative: 'mid_year_budget',
                 },
             },
         });
 
-        // Debt to GDP Ratio - June 2026
+        // Debt to GDP Ratio - end-June 2026 (Mid-Year)
         await prisma.economicData.upsert({
             where: {
                 indicator_date_source: {
@@ -152,17 +154,17 @@ async function seedCurrentData() {
                 },
             },
             update: {
-                value: 42.2,
+                value: 45.0,
                 unit: '%',
-                metadata: { note: 'Down from 45.3% in Nov 2025' },
+                metadata: { note: 'MoF Mid-Year Fiscal Policy Review' },
             },
             create: {
                 indicator: 'DEBT_TO_GDP_RATIO',
-                value: 42.2,
+                value: 45.0,
                 date: new Date('2026-06-30'),
                 source: 'MOF',
                 unit: '%',
-                metadata: { note: 'Down from 45.3% in Nov 2025' },
+                metadata: { note: 'MoF Mid-Year Fiscal Policy Review' },
             },
         });
 
@@ -307,13 +309,9 @@ async function seedCurrentData() {
 
         console.log('✅ Current economic data seeded successfully!');
         console.log('   - GDP Growth: 5.9% (2026 projection)');
-        console.log('   - Inflation: 3.8% (Jan 2026)');
-        console.log('   - Exchange Rate: GHS 10.99 per USD (Feb 2026)');
-        console.log('   - Total Debt: GH₵ 644.6B (Nov 2025)');
-        console.log('   - Debt to GDP: 45.5% (Nov 2025)');
-        console.log('   - Forex Reserves: $13.8B (Dec 2025)');
-        console.log('   - Debt Service: 48.0% (2025)');
-        console.log('   - Trade Balance: $1.5B surplus (Jan 2026 est.)');
+        console.log('   - Total Debt: GH₵ 719.5B (Mid-Year / end-June 2026)');
+        console.log('   - Debt to GDP: 45.0% (Mid-Year)');
+        console.log('   - Composition: domestic 391.1B (54.4%) / external 328.4B (45.6%)');
     } catch (error) {
         console.error('❌ Error seeding current data:', error);
         throw error;

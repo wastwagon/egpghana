@@ -39,6 +39,8 @@ Go to the **Environment Variables** tab of your application in Coolify and add:
 | `OPENAI_API_KEY` | `your-openai-key` | For the AI Chatbot |
 | `NODE_ENV` | `production` | Ensure it's set to production |
 | `UPLOADS_DIR` | `/data/uploads` | Must match Coolify volume destination (Step E) |
+| `CRON_SECRET` | long random hex | Protects `POST /api/admin/data-sync` |
+| `RUN_SYNC_ON_STARTUP` | `true` | After each deploy, auto-refresh BoG / Mid-Year / WB indicators |
 
 ### Step D: Domains
 1.  In the **Domains** tab, set it to `https://egpghana.org`.
@@ -66,13 +68,37 @@ Alternative destination (older docs): `/app/public/uploads` also works if that e
 
 The entrypoint fixes volume permissions on startup. If uploads fail with permission errors, check container logs.
 
-## 4. Why this setup is "Best Practice"
+## 4. Auto data sync (no manual curl)
+
+### On every deploy
+Set both env vars, then redeploy:
+- `CRON_SECRET` = your secret
+- `RUN_SYNC_ON_STARTUP` = `true`
+
+The entrypoint waits for the app to be healthy, then calls `POST /api/admin/data-sync` internally. Check deploy logs for `✅ Startup data sync OK`.
+
+### Daily schedule (Coolify Scheduled Task)
+1. Open the app in Coolify → **Scheduled Tasks** / **Cron**.
+2. Schedule: `0 6 * * *` (06:00 UTC daily).
+3. Command:
+
+```bash
+curl -sS -X POST "http://127.0.0.1:3000/api/admin/data-sync" \
+  -H "Authorization: Bearer $CRON_SECRET" \
+  -H "Content-Type: application/json" \
+  -d '{"source":"all"}'
+```
+
+(If Coolify runs cron outside the container, use `https://egpghana.org/api/admin/data-sync` instead of localhost.)
+
+## 5. Why this setup is "Best Practice"
 - **Standalone Mode**: The `Dockerfile` uses Next.js `standalone` output, which makes the image ~1GB smaller and much faster to start.
 - **Auto-Migrations**: The `scripts/entrypoint.sh` runs `prisma migrate deploy` on each deploy. **Seed is skipped by default** so content added via admin UI on production persists across deploys.
 - **Optional seed on deploy**: Set `RUN_SEED_ON_STARTUP=true` only for first-time/fresh DB setup. For manual seed, use Admin → Settings → Database tab.
+- **Auto indicator sync**: With `RUN_SYNC_ON_STARTUP=true` + `CRON_SECRET`, Mid-Year / BoG / World Bank refresh after each deploy.
 - **Separation of Concerns**: By using Coolify's built-in DB services instead of a single `docker-compose`, you get automatic backups and better management.
 
-## 5. Local Development
+## 6. Local Development
 Continue using:
 - `docker-compose up -d` (Local DBs)
 - `npm run dev` (Local Next.js)

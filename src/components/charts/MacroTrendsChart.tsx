@@ -84,7 +84,7 @@ export default function MacroTrendsChart() {
                 </ResponsiveContainer>
             </div>
             <div className="mt-4 flex items-center justify-between text-xs text-slate-400 border-t border-slate-100 pt-3">
-                <span>Source: IMF World Economic Outlook (Feb 2026)</span>
+                <span>Source: IMF World Economic Outlook / MoF Mid-Year (2026)</span>
                 <span>*2026 Projected</span>
             </div>
         </div>

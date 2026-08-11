@@ -40,10 +40,10 @@ export default function RiskAssessmentSection() {
     ];
 
     const domesticRisks: RiskItem[] = [
-        { label: 'Increased Borrowing', description: '5.2% rise in total debt reflects higher domestic financing; debt-to-GDP still declining', severity: 'medium' },
+        { label: 'Stock Growth', description: 'End-June 2026 stock at GH₵719.5B (Mid-Year); domestic share 54.4% elevates rollover and interest risk', severity: 'medium' },
         { label: 'Banking Exposure', description: '65% held by local banks, systemic risk', severity: 'high' },
         { label: 'Short-term Bills', description: '36.5% in T-bills, rollover pressure', severity: 'high' },
-        { label: 'Interest Burden', description: '18% policy rate drives up costs', severity: 'medium' },
+        { label: 'Interest Burden', description: 'Policy rate near 14% still elevates domestic debt servicing costs', severity: 'medium' },
         { label: 'Pension Funds', description: 'Major holders, social security impact', severity: 'medium' },
     ];
 

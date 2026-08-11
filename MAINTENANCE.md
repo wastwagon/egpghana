@@ -4,20 +4,55 @@ This document serves as a reference for maintaining the data integrity of the EG
 
 ## 🛠️ Data Maintenance Workflows
 
-### 1. Updating Economic Indicators
-Economic indicators (Policy Rate, Inflation, etc.) are stored in the `EconomicData` table. To update them:
-- **Local**: Edit `scripts/seed-economic-data.ts` or `scripts/seed-current-2026-data.ts`.
-- **Sync**: Run `npm run db:seed` to push changes to the database.
-- **Production**: Ensure `scripts/local_data_export.json` is updated and committed, then run `npx prisma db seed` on the production server.
+### 0. Automated freshness (preferred)
+External sources are checked via **Admin → Data Freshness** (`/admin/dashboard/data-sync`):
 
-### 2. Dashboard Indicator Harmonization (Feb 2026 Truth)
-The following figures have been verified and harmonized across the Homepage and Dashboards as of Feb 13, 2026:
-- **Policy Rate (MPR)**: 15.5% (Monetary Easing)
-- **Inflation Rate**: 3.8% (Jan 26)
-- **Debt-to-GDP**: 45.5% (Nov 2025 Actual)
+| Source | What updates | Behaviour |
+|---|---|---|
+| Bank of Ghana homepage | Inflation, MPR, inflation target | Auto-applies when value changes |
+| BoG T-bill page | 91-day T-bill rate | Auto-applies when value changes |
+| **MoF Mid-Year Fiscal Policy Review** | H1 debt stock, debt/GDP, shares (+ June inflation/T-bill checkpoints) | **Preferred debt authority** after mid-year presentation; auto-applies |
+| BoG SEFD monthly PDF | Total/external/domestic debt, debt/GDP | Fills months before/after Mid-Year; auto-applies |
+| World Bank API | GDP (USD), per capita income, population | Auto-applies; derives debt/capita |
+| MoF quarterly debt bulletin PDF | Quarterly debt stock / ratios | Cross-check only; **never overwrites a newer as-of date** |
+
+MoF validation checks: total ≈ external + domestic, debt/GDP in range, shares ≈ 100%, GDP components consistent.
+
+**Production (preferred):** set `CRON_SECRET` + `RUN_SYNC_ON_STARTUP=true` in Coolify — sync runs automatically after each deploy. Add a daily Coolify cron for ongoing freshness (see `Coolify.md`).
+
+CLI / manual:
+```bash
+npm run sync:indicators
+npm run sync:indicators -- mof_midyear   # Mid-Year debt authority only
+# or
+curl -X POST "$NEXT_PUBLIC_APP_URL/api/admin/data-sync" \
+  -H "Authorization: Bearer $CRON_SECRET" \
+  -H "Content-Type: application/json" \
+  -d '{"source":"all"}'
+```
+
+Test PDF parsing locally:
+```bash
+npx tsx scripts/test-midyear-parse.ts          # discover + parse Mid-Year
+npx tsx scripts/test-mof-parse.ts /path/to/bulletin.pdf
+```
+
+Recommended Coolify schedule: daily or every Monday.
+
+### 1. Updating Economic Indicators (manual)
+Economic indicators are stored in the `EconomicData` table. To update them manually:
+- **Admin UI**: Macro Indicators / Debt Tracker forms.
+- **Local scripts**: Edit `scripts/seed-economic-data.ts` or `scripts/seed-current-2026-data.ts`, then `npm run db:seed`.
+- **Production export sync**: Update `scripts/local_data_export.json`, commit, then run `npx prisma db seed` / Settings sync on the server.
+
+### 2. Dashboard Indicator Harmonization (Mid-Year 2026 Truth)
+Debt figures below are from the **MoF 2026 Mid-Year Fiscal Policy Review** (end-June 2026). Market rates may be newer via BoG sync.
+- **Total public debt**: GH₵719.5B (domestic 391.1B / external 328.4B)
+- **Debt-to-GDP**: 45.0% (shares 54.4% domestic / 45.6% external)
+- **Inflation (Mid-Year checkpoint)**: 5.3% (end-June 2026)
+- **Policy Rate (MPR)**: ~14% (BoG; confirm via latest sync)
 - **GDP Growth**: 5.5% (Projected 2026)
-- **Forex Reserves**: $6.7B
-- **IMF Facility**: $3.0B Total ($1.8B Disbursed / 60% Progress)
+- Prefer Admin → Data Freshness / `npm run sync:indicators -- mof_midyear` over manual seed edits
 
 ### 3. Metadata Requirements for Charts
 The dashboard charts rely on specific metadata fields in the `EconomicData` records:

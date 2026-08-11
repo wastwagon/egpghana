@@ -17,6 +17,7 @@ const nextConfig = {
         serverActions: {
             bodySizeLimit: '10mb',
         },
+        serverComponentsExternalPackages: ['pdf-parse'],
     },
     // Optimize for production
     compiler: {

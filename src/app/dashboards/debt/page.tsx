@@ -13,6 +13,7 @@ import RiskAssessmentSection from '@/components/dashboards/RiskAssessmentSection
 import IndicatorsGrid from '@/components/dashboards/IndicatorsGrid';
 import HistoricalDebtAnalyzer from '@/components/dashboards/HistoricalDebtAnalyzer';
 import DebtRestructuringJourney from '@/components/dashboards/DebtRestructuringJourney';
+import { loadIndicatorGridData } from '@/lib/data-sync';
 
 const prisma = new PrismaClient();
 
@@ -47,10 +48,43 @@ export default async function DebtDashboardPage() {
         orderBy: { date: 'desc' },
     });
 
-    const totalDebt = latestDebtData?.value || 674100000000;
-    const metadata = latestDebtData?.metadata as any;
-    const domesticDebt = metadata?.domestic || 360400000000;
-    const externalDebt = metadata?.external || 313700000000;
+    const stockTotal = await prisma.economicData.findFirst({
+        where: { indicator: 'DEBT_STOCK_TOTAL', source: 'Bank of Ghana' },
+        orderBy: { date: 'desc' },
+    });
+    const domesticRow = await prisma.economicData.findFirst({
+        where: { indicator: 'DEBT_DOMESTIC' },
+        orderBy: { date: 'desc' },
+    });
+    const externalRow = await prisma.economicData.findFirst({
+        where: { indicator: 'DEBT_EXTERNAL' },
+        orderBy: { date: 'desc' },
+    });
+    const debtPerCapitaRow = await prisma.economicData.findFirst({
+        where: { indicator: 'DEBT_PER_CAPITA' },
+        orderBy: { date: 'desc' },
+    });
+    const priorDebtRow = latestDebtData
+        ? await prisma.economicData.findFirst({
+            where: {
+                indicator: 'TOTAL_DEBT',
+                source: 'Bank of Ghana',
+                date: { lt: latestDebtData.date },
+            },
+            orderBy: { date: 'desc' },
+        })
+        : null;
+
+    const metadata = latestDebtData?.metadata as { domestic?: number; external?: number } | null;
+    const totalDebt = stockTotal?.value ?? latestDebtData?.value ?? 0;
+    const domesticDebt = domesticRow?.value ?? metadata?.domestic ?? 0;
+    const externalDebt = externalRow?.value ?? metadata?.external ?? 0;
+    const debtPerCapita = debtPerCapitaRow?.value ?? null;
+    const debtChangePct =
+        priorDebtRow && totalDebt > 0
+            ? ((totalDebt - priorDebtRow.value) / priorDebtRow.value) * 100
+            : null;
+    const { indicators: gridIndicators, asOfLabel } = await loadIndicatorGridData();
 
     // Fetch debt overview data (monthly totals)
     const debtOverviewDataRaw = await prisma.economicData.findMany({
@@ -161,8 +195,16 @@ export default async function DebtDashboardPage() {
     const serviceEnd = debtServiceData.length > 0 ? new Date(debtServiceData[debtServiceData.length - 1].date).getFullYear() : '2025';
     const serviceRange = `${serviceStart} - ${serviceEnd}`;
 
-    const latestGDPRatio = latestDebtToGdpData?.value ?? debtToGDPData[debtToGDPData.length - 1]?.value ?? 42.2;
+    const latestGDPRatio = latestDebtToGdpData?.value ?? debtToGDPData[debtToGDPData.length - 1]?.value ?? 45.0;
     const latestServiceRatio = latestDebtServiceData?.value ?? debtServiceData[debtServiceData.length - 1]?.value ?? 25.1;
+    const reportLabel = asOfLabel || (latestDebtData ? formatDateShort(latestDebtData.date) : 'June 2026');
+    const debtChangeLabel =
+        debtChangePct == null
+            ? 'Latest stock'
+            : `${debtChangePct >= 0 ? '+' : ''}${debtChangePct.toFixed(1)}%`;
+    const perCapitaLabel = debtPerCapita != null
+        ? `Debt per capita: GH₵ ${Math.round(debtPerCapita).toLocaleString('en-GB')}`
+        : 'MoF Mid-Year Fiscal Policy Review';
 
     return (
         <>
@@ -195,14 +237,14 @@ export default async function DebtDashboardPage() {
                                         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                                         <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
                                     </span>
-                                    Data Source: <span className="font-medium text-emerald-300">Bank of Ghana / MoF (Jun 2026)</span>
+                                    Data Source: <span className="font-medium text-emerald-300">MoF Mid-Year / BoG</span>
                                 </span>
                                 <span className="hidden sm:block w-px h-4 bg-white/30"></span>
                                 <span className="flex items-center gap-2">
                                     <svg className="w-4 h-4 text-white/80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                     </svg>
-                                    Report Date: <span className="font-medium text-white">June 2026</span>
+                                    As of: <span className="font-medium text-white">{reportLabel}</span>
                                 </span>
                             </div>
                         </div>
@@ -238,9 +280,9 @@ export default async function DebtDashboardPage() {
                             <StatCard
                                 title="Total Public Debt"
                                 value={formatCurrency(totalDebt)}
-                                change="+5.2%"
-                                changeType="negative"
-                                description="Debt per capita: GH₵ 21,061"
+                                change={debtChangeLabel}
+                                changeType={debtChangePct != null && debtChangePct > 0 ? 'negative' : 'positive'}
+                                description={perCapitaLabel}
                                 date={latestDateStr}
                                 icon={
                                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -298,7 +340,7 @@ export default async function DebtDashboardPage() {
 
                 {/* Key Economic Indicators Full Grid - The "Present" */}
                 <section className="section bg-slate-50 border-t border-slate-100">
-                    <IndicatorsGrid />
+                    <IndicatorsGrid indicators={gridIndicators} asOfLabel={asOfLabel} />
                 </section>
 
                 {/* Debt Overview Chart - The "Trend" */}

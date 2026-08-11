@@ -141,7 +141,7 @@ export default function LaborMarketSection() {
                 </div>
 
                 <p className="text-xs text-slate-500 mt-4 italic">
-                    Source: Ghana Statistical Service Labour Statistics Report (Updated: Feb 2026)
+                    Source: Ghana Statistical Service Labour Statistics Report (Updated: June 2026)
                 </p>
             </div>
 

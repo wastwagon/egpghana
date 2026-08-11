@@ -105,12 +105,62 @@ echo "📁 Upload files currently on disk: ${file_count:-0}"
 
 # Start the application (drop to nextjs user for security)
 echo "🌐 Starting application on PORT ${PORT:-3000}..."
-if [ -f "server.js" ]; then
-  echo "📦 server.js found. Executing node server.js..."
-  exec su-exec nextjs node server.js
-else
+if [ ! -f "server.js" ]; then
   echo "❌ server.js NOT FOUND!"
   echo "Directory listing:"
   ls -la
   exit 1
 fi
+
+echo "📦 server.js found. Starting node server.js..."
+su-exec nextjs node server.js &
+APP_PID=$!
+
+# Wait until the app accepts HTTP (max ~90s)
+echo "⏳ Waiting for app health..."
+ready=0
+i=0
+while [ "$i" -lt 45 ]; do
+  if curl -sf "http://127.0.0.1:${PORT:-3000}/api/auth/session" >/dev/null 2>&1; then
+    ready=1
+    break
+  fi
+  # App may have crashed
+  if ! kill -0 "$APP_PID" 2>/dev/null; then
+    echo "❌ Application exited before becoming healthy."
+    wait "$APP_PID"
+    exit $?
+  fi
+  i=$((i + 1))
+  sleep 2
+done
+
+if [ "$ready" -ne 1 ]; then
+  echo "⚠️ App did not become healthy in time; skipping startup data sync."
+else
+  echo "✅ App is healthy."
+  # Optional: refresh BoG / Mid-Year / WB indicators after each deploy
+  # Set RUN_SYNC_ON_STARTUP=true and CRON_SECRET in Coolify.
+  if [ "$RUN_SYNC_ON_STARTUP" = "true" ] && [ -n "$CRON_SECRET" ]; then
+    echo "🔄 Running indicator data sync (RUN_SYNC_ON_STARTUP=true)..."
+    SYNC_CODE=$(curl -sS -o /tmp/data-sync-startup.json -w "%{http_code}" \
+      -X POST "http://127.0.0.1:${PORT:-3000}/api/admin/data-sync" \
+      -H "Authorization: Bearer ${CRON_SECRET}" \
+      -H "Content-Type: application/json" \
+      -d '{"source":"all"}' || echo "000")
+    if [ "$SYNC_CODE" = "200" ]; then
+      echo "✅ Startup data sync OK (HTTP 200). Summary:"
+      head -c 800 /tmp/data-sync-startup.json 2>/dev/null || true
+      echo ""
+    else
+      echo "⚠️ Startup data sync returned HTTP ${SYNC_CODE} (app still running)."
+      head -c 400 /tmp/data-sync-startup.json 2>/dev/null || true
+      echo ""
+    fi
+  else
+    echo "ℹ️ Skipping startup data sync (set RUN_SYNC_ON_STARTUP=true + CRON_SECRET to enable)."
+  fi
+fi
+
+wait "$APP_PID"
+exit $?

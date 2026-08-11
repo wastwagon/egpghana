@@ -516,7 +516,7 @@
     },
     {
       "indicator": "DEBT_EXTERNAL_TO_GDP",
-      "value": 19.6,
+      "value": 20.5,
       "date": "2026-06-30T00:00:00.000Z",
       "source": "MOF",
       "unit": "%",
@@ -547,7 +547,7 @@
     },
     {
       "indicator": "GDP_NOMINAL_GHS",
-      "value": 1176000000000,
+      "value": 1599000000000,
       "date": "2026-06-30T00:00:00.000Z",
       "source": "Bank of Ghana",
       "unit": "GHS",
@@ -557,7 +557,7 @@
     },
     {
       "indicator": "DEBT_DOMESTIC_TO_GDP",
-      "value": 22.6,
+      "value": 24.5,
       "date": "2026-06-30T00:00:00.000Z",
       "source": "MOF",
       "unit": "%",
@@ -567,7 +567,7 @@
     },
     {
       "indicator": "DEBT_TO_GDP_RATIO",
-      "value": 42.2,
+      "value": 45,
       "date": "2026-06-30T00:00:00.000Z",
       "source": "MOF",
       "unit": "%",
@@ -577,7 +577,7 @@
     },
     {
       "indicator": "DEBT_DOMESTIC_SHARE",
-      "value": 53.46,
+      "value": 54.4,
       "date": "2026-06-30T00:00:00.000Z",
       "source": "MOF",
       "unit": "%",
@@ -587,7 +587,7 @@
     },
     {
       "indicator": "DEBT_EXTERNAL_SHARE",
-      "value": 46.54,
+      "value": 45.6,
       "date": "2026-06-30T00:00:00.000Z",
       "source": "MOF",
       "unit": "%",
@@ -597,7 +597,7 @@
     },
     {
       "indicator": "DEBT_DOMESTIC",
-      "value": 360400000000,
+      "value": 391100000000,
       "date": "2026-06-30T00:00:00.000Z",
       "source": "Bank of Ghana",
       "unit": "GHS",
@@ -607,7 +607,7 @@
     },
     {
       "indicator": "DEBT_EXTERNAL",
-      "value": 313700000000,
+      "value": 328400000000,
       "date": "2026-06-30T00:00:00.000Z",
       "source": "Bank of Ghana",
       "unit": "GHS",
@@ -617,7 +617,7 @@
     },
     {
       "indicator": "DEBT_STOCK_TOTAL",
-      "value": 674100000000,
+      "value": 719500000000,
       "date": "2026-06-30T00:00:00.000Z",
       "source": "Bank of Ghana",
       "unit": "GHS",
@@ -627,28 +627,33 @@
     },
     {
       "indicator": "TOTAL_DEBT",
-      "value": 674100000000,
+      "value": 719500000000,
       "date": "2026-06-30T00:00:00.000Z",
       "source": "Ministry of Finance",
       "unit": "GHS",
       "metadata": {
-        "domestic": 360400000000,
-        "external": 313700000000
+        "domestic": 391100000000,
+        "external": 328400000000,
+        "domestic_share": 54.4,
+        "external_share": 45.6,
+        "note": "MoF Mid-Year Fiscal Policy Review (end-June 2026)",
+        "authoritative": "mid_year_budget"
       }
     },
     {
       "indicator": "TOTAL_DEBT",
-      "value": 674100000000,
+      "value": 719500000000,
       "date": "2026-06-30T00:00:00.000Z",
       "source": "Bank of Ghana",
       "unit": "GHS",
       "metadata": {
-        "note": "Debt data update as at June 2026",
+        "note": "MoF Mid-Year Fiscal Policy Review (end-June 2026)",
         "currency": "GHS",
-        "domestic": 360400000000,
-        "external": 313700000000,
-        "domestic_share": 53.46,
-        "external_share": 46.54
+        "domestic": 391100000000,
+        "external": 328400000000,
+        "domestic_share": 54.4,
+        "external_share": 45.6,
+        "authoritative": "mid_year_budget"
       }
     },
     {
@@ -695,7 +700,7 @@
     },
     {
       "indicator": "TREASURY_BILL_91D",
-      "value": 5.24,
+      "value": 5.73,
       "date": "2026-06-30T00:00:00.000Z",
       "source": "Bank of Ghana",
       "unit": "%",
@@ -726,7 +731,7 @@
     },
     {
       "indicator": "INFLATION_RATE",
-      "value": 3.7,
+      "value": 5.3,
       "date": "2026-06-30T00:00:00.000Z",
       "source": "Bank of Ghana",
       "unit": "%",
@@ -766,7 +771,7 @@
     },
     {
       "indicator": "DEBT_PER_CAPITA",
-      "value": 21061,
+      "value": 22477,
       "date": "2026-06-30T00:00:00.000Z",
       "source": "World Bank",
       "unit": "GHS",

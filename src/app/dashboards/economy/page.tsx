@@ -20,25 +20,16 @@ export const metadata = {
 };
 
 export default async function EconomyDashboardPage() {
-    const snapshotDate = new Date('2026-06-30');
-    const getSnapshotIndicator = async (indicator: string, source: string) => {
-        return prisma.economicData.findFirst({
-            where: {
-                indicator,
-                source,
-                date: { gte: snapshotDate, lte: snapshotDate },
-            },
-            orderBy: { date: 'desc' },
-        });
-    };
-
-    // Fetch latest indicators
+    // Fetch latest indicators (prefer newest official observations)
     const latestGDP = await prisma.economicData.findFirst({
         where: { indicator: 'GDP_GROWTH' },
         orderBy: { date: 'desc' },
     });
 
-    const latestInflation = await getSnapshotIndicator('INFLATION_RATE', 'Bank of Ghana');
+    const latestInflation = await prisma.economicData.findFirst({
+        where: { indicator: 'INFLATION_RATE', source: 'Bank of Ghana' },
+        orderBy: { date: 'desc' },
+    });
 
     const latestExchangeRate = await prisma.economicData.findFirst({
         where: { indicator: 'EXCHANGE_RATE_USD' },
@@ -50,7 +41,10 @@ export default async function EconomyDashboardPage() {
         orderBy: { date: 'desc' },
     });
 
-    const latestPolicyRate = await getSnapshotIndicator('POLICY_RATE', 'Bank of Ghana');
+    const latestPolicyRate = await prisma.economicData.findFirst({
+        where: { indicator: 'POLICY_RATE', source: 'Bank of Ghana' },
+        orderBy: { date: 'desc' },
+    });
 
     const latestForexReserves = await prisma.economicData.findFirst({
         where: { indicator: 'FOREX_RESERVES' },
@@ -138,16 +132,16 @@ export default async function EconomyDashboardPage() {
         },
         {
             title: 'Inflation Rate',
-            value: (latestInflation?.value ?? 3.7).toFixed(1),
-            change: `${(latestInflation?.value ?? 3.7) > 10 ? 'Above' : 'Within'} target`,
-            changeType: (latestInflation?.value ?? 3.7) > 10 ? 'negative' : 'positive',
+            value: (latestInflation?.value ?? 0).toFixed(1),
+            change: `${(latestInflation?.value ?? 0) > 10 ? 'Above' : 'Within'} target`,
+            changeType: (latestInflation?.value ?? 0) > 10 ? 'negative' : 'positive',
             unit: '%',
             icon: (
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
             ),
-            date: latestInflation?.date || snapshotDate,
+            date: latestInflation?.date,
         },
         {
             title: 'Exchange Rate',
@@ -177,7 +171,7 @@ export default async function EconomyDashboardPage() {
         },
         {
             title: 'Policy Rate',
-            value: (latestPolicyRate?.value ?? 14.0).toFixed(1),
+            value: (latestPolicyRate?.value ?? 0).toFixed(1),
             change: 'Monetary Policy Rate',
             changeType: 'neutral',
             unit: '%',
@@ -186,7 +180,7 @@ export default async function EconomyDashboardPage() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6" />
                 </svg>
             ),
-            date: latestPolicyRate?.date || snapshotDate,
+            date: latestPolicyRate?.date,
         },
         {
             title: 'Forex Reserves',
@@ -235,7 +229,7 @@ export default async function EconomyDashboardPage() {
                                         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                                         <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
                                     </span>
-                                    Live Data: <span className="font-medium text-emerald-300">Updated June 2026</span>
+                                    Live Data: <span className="font-medium text-emerald-300">Latest official sources</span>
                                 </span>
                                 <span className="hidden sm:block w-px h-4 bg-white/30"></span>
                                 <span className="flex items-center gap-2">

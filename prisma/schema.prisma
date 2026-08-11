@@ -139,6 +139,46 @@ model EconomicData {
   @@map("economic_data")
 }
 
+/// One execution of an external data sync job (cron or admin "Check now").
+model DataSyncRun {
+  id         String    @id @default(cuid())
+  sourceKey  String
+  status     String
+  startedAt  DateTime  @default(now())
+  finishedAt DateTime?
+  summary    Json?
+  error      String?
+
+  @@index([sourceKey])
+  @@index([startedAt])
+  @@map("data_sync_runs")
+}
+
+/// Proposed indicator update awaiting admin approval (or audit trail after auto-apply).
+model DataSyncProposal {
+  id            String    @id @default(cuid())
+  indicator     String
+  source        String
+  sourceKey     String
+  currentValue  Float?
+  proposedValue Float
+  unit          String?
+  asOfDate      DateTime
+  sourceUrl     String?
+  note          String?
+  status        String    @default("pending")
+  autoApplied   Boolean   @default(false)
+  metadata      Json?
+  createdAt     DateTime  @default(now())
+  reviewedAt    DateTime?
+  reviewedBy    String?
+
+  @@index([status])
+  @@index([indicator])
+  @@index([createdAt])
+  @@map("data_sync_proposals")
+}
+
 model ChatMessage {
   id        String   @id @default(cuid())
   sessionId String

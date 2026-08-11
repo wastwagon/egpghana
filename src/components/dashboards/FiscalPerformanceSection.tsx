@@ -24,7 +24,7 @@ const fiscalData = [
     { year: '2023', revenue: 19.8, expenditure: 24.3, deficit: -4.5, debt: 84.9 },
     { year: '2024', revenue: 15.9, expenditure: 23.3, deficit: -7.3, debt: 61.8 },
     { year: '2025 (Proj)', revenue: 16.0, expenditure: 18.8, deficit: -2.8, debt: 45.3 },
-    { year: '2026', revenue: 16.8, expenditure: 18.8, deficit: -2.0, debt: 42.2 },
+    { year: '2026 (H1)', revenue: 16.8, expenditure: 18.8, deficit: -2.0, debt: 45.0 },
 ];
 
 // Quarterly fiscal performance 2023-2025
@@ -40,10 +40,10 @@ const quarterlyFiscalData = [
     { quarter: '2025 Q1 (Proj)', revenue: 4.0, expenditure: 4.7, balance: -0.7 },
 ];
 
-// Debt composition data
+// Debt composition data (MoF Mid-Year Fiscal Policy Review, end-June 2026)
 const debtComposition = [
-    { category: 'Domestic Debt', value: 36.04, percentage: 53.46 },
-    { category: 'External Debt', value: 31.37, percentage: 46.54 },
+    { category: 'Domestic Debt', value: 391.1, percentage: 54.4 },
+    { category: 'External Debt', value: 328.4, percentage: 45.6 },
 ];
 
 export default function FiscalPerformanceSection() {
@@ -127,7 +127,7 @@ export default function FiscalPerformanceSection() {
                 </div>
 
                 <p className="text-xs text-slate-500 mt-4 italic">
-                    Source: IMF Country Reports, Ministry of Finance (Updated: Feb 2026)
+                    Source: IMF Country Reports, Ministry of Finance Mid-Year Fiscal Policy Review (Updated: June 2026)
                 </p>
             </div>
 
@@ -217,14 +217,14 @@ export default function FiscalPerformanceSection() {
 
                 <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="bg-blue-50 rounded-lg p-4 border border-blue-100">
-                        <p className="text-sm text-slate-600 mb-1">Latest Debt (Jun 2026)</p>
-                        <p className="text-2xl font-bold text-blue-600">42.2% of GDP</p>
-                        <p className="text-xs text-slate-500 mt-1">↓ 3.1pp from Nov 2025</p>
+                        <p className="text-sm text-slate-600 mb-1">Latest Debt (end-Jun 2026)</p>
+                        <p className="text-2xl font-bold text-blue-600">45.0% of GDP</p>
+                        <p className="text-xs text-slate-500 mt-1">MoF Mid-Year Fiscal Policy Review</p>
                     </div>
                     <div className="bg-green-50 rounded-lg p-4 border border-green-100">
                         <p className="text-sm text-slate-600 mb-1">Domestic Share</p>
-                        <p className="text-2xl font-bold text-green-600">53.5% of stock</p>
-                        <p className="text-xs text-slate-500 mt-1">Bank of Ghana / MoF</p>
+                        <p className="text-2xl font-bold text-green-600">54.4% of stock</p>
+                        <p className="text-xs text-slate-500 mt-1">GH₵719.5B total · Mid-Year</p>
                     </div>
                 </div>
 

@@ -14,7 +14,7 @@ export default function PathToCrisis() {
 
     // Ghana Fiscal Data 2010-2025 (% of GDP)
     // Source: IMF Country Reports, World Bank, Bank of Ghana, Ministry of Finance
-    // Updated: February 2026
+    // Historical crisis path (context); current debt stock from Mid-Year 2026
     const fiscalData = [
         { year: '2010', revenue: 20.5, expenditure: 23.6, deficit: -3.1 },
         { year: '2011', revenue: 22.8, expenditure: 25.2, deficit: -2.4 },
@@ -115,7 +115,7 @@ export default function PathToCrisis() {
                             </div>
 
                             <p className="text-xs text-slate-500 mt-4 italic">
-                                Source: IMF Country Reports, World Bank, Bank of Ghana, Ministry of Finance (Updated: Feb 2026)
+                                Source: IMF Country Reports, World Bank, Bank of Ghana, Ministry of Finance (historical path; current debt Mid-Year 2026)
                             </p>
                         </div>
                     </div>

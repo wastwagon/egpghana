@@ -3,129 +3,12 @@
 import React, { useState } from 'react';
 import IndicatorCard, { IndicatorData } from './IndicatorCard';
 
-const indicators: IndicatorData[] = [
-    // DEBT
-    {
-        id: '1', category: 'debt', title: 'Total debt stock', value: 'GH₵ 674.1B',
-        trend: 'up', trendValue: '+5.2%',
-        analysis: 'Total debt rose by GH₵ 33.1B from November 2025, reflecting higher domestic borrowing alongside continued external debt restructuring.',
-        source: 'Bank of Ghana'
-    },
-    {
-        id: '2', category: 'debt', title: 'External Debt', value: 'GH₵ 313.7B',
-        trend: 'up', trendValue: '+2.1%',
-        analysis: 'External debt increased modestly by GH₵ 6.5B as remaining commercial and official creditor agreements progressed.',
-        source: 'Bank of Ghana'
-    },
-    {
-        id: '3', category: 'debt', title: 'Domestic Debt', value: 'GH₵ 360.4B',
-        trend: 'up', trendValue: '+8.0%',
-        analysis: 'Domestic debt rose by GH₵ 26.6B, reflecting resumed T-bond issuance and continued reliance on local financing.',
-        source: 'Bank of Ghana'
-    },
-    {
-        id: '4', category: 'debt', title: 'External Debt % share', value: '46.54%',
-        trend: 'down', trendValue: '-1.4pts',
-        analysis: 'External share declined from 47.92%, as domestic debt grew faster than external obligations in the period.',
-        source: 'MoF'
-    },
-    {
-        id: '5', category: 'debt', title: 'Domestic Debt % share', value: '53.46%',
-        trend: 'up', trendValue: '+1.4pts',
-        analysis: 'Domestic share increased from 52.08%, reflecting the shift toward local market financing.',
-        source: 'MoF'
-    },
-    {
-        id: '6', category: 'debt', title: 'Revised interest payment', value: 'GH₵ 25.4B',
-        trend: 'stable', trendValue: 'Stable',
-        analysis: 'Interest obligations remain at GH₵ 25.4B, reflecting sustained benefits from earlier debt restructuring and relief.',
-        source: 'MoF'
-    },
-    {
-        id: '7', category: 'debt', title: 'Interest/Expenditure Ratio', value: '9.45%',
-        trend: 'stable', trendValue: 'Stable',
-        analysis: 'Interest burden on expenditure remains low at 9.45%, preserving fiscal space for development spending.',
-        source: 'BoG'
-    },
-    {
-        id: '8', category: 'debt', title: 'Debt per Capita', value: 'GH₵ 21,061',
-        trend: 'stable', trendValue: 'Stable',
-        analysis: 'Per capita debt burden remains unchanged, as debt growth aligns proportionally with population estimates.',
-        source: 'World Bank'
-    },
-    {
-        id: '9', category: 'debt', title: 'Interest/Revenue Share', value: '25.1%',
-        trend: 'stable', trendValue: 'Stable',
-        analysis: 'A quarter of government revenue is allocated to debt servicing, unchanged despite higher nominal debt stock.',
-        source: 'KPMG'
-    },
+interface IndicatorsGridProps {
+    indicators: IndicatorData[];
+    asOfLabel?: string;
+}
 
-    // GDP
-    {
-        id: '10', category: 'gdp', title: 'Total Debt to GDP Ratio', value: '42.2%',
-        trend: 'down', trendValue: '-3.1pts',
-        analysis: 'Debt-to-GDP fell from 45.3%, reflecting stronger nominal GDP growth and continued debt restructuring gains.',
-        source: 'MoF', tag: { label: 'Moderate', type: 'moderate' }
-    },
-    {
-        id: '11', category: 'gdp', title: 'Domestic Debt % of GDP', value: '22.6%',
-        trend: 'down', trendValue: '-1.0pts',
-        analysis: 'Domestic debt burden relative to GDP decreased from 23.6% as GDP expanded faster than domestic obligations.',
-        source: 'MoF'
-    },
-    {
-        id: '12', category: 'gdp', title: 'External Debt % of GDP', value: '19.6%',
-        trend: 'down', trendValue: '-2.1pts',
-        analysis: 'External debt-to-GDP ratio decreased from 21.7%, supported by external restructuring and GDP revaluation.',
-        source: 'MoF'
-    },
-    {
-        id: '13', category: 'gdp', title: 'Per CAPITA Income', value: '$ 2,235',
-        trend: 'stable', trendValue: 'Stable',
-        analysis: 'Income per person remains steady, providing a consistent baseline for debt sustainability assessments.',
-        source: 'World Bank'
-    },
-    {
-        id: '14', category: 'gdp', title: 'GDP (USD)', value: '$ 111.96B',
-        trend: 'stable', trendValue: 'Stable',
-        analysis: 'Nominal GDP in dollar terms remains at $111.96B per World Bank estimates.',
-        source: 'World Bank'
-    },
-    {
-        id: '19', category: 'gdp', title: 'GDP (GHS)', value: 'GH₵ 1,176.0B',
-        trend: 'up', trendValue: '+15.3%',
-        analysis: 'Nominal GDP in cedis rose from GH₵ 1,020B (Nov 2025), reflecting economic expansion and updated national accounts.',
-        source: 'Bank of Ghana'
-    },
-
-    // MARKET
-    {
-        id: '15', category: 'market', title: 'Inflation (YoY)', value: '3.7%',
-        trend: 'up', trendValue: '+0.4pts',
-        analysis: 'Year-on-year inflation stood at 3.7% in June 2026, remaining well below the Bank of Ghana target band.',
-        source: 'Bank of Ghana', tag: { label: 'Below Target', type: 'target' }
-    },
-    {
-        id: '16', category: 'market', title: 'Inflation Target', value: '8% ± 2%',
-        trend: 'stable', trendValue: 'Target',
-        analysis: 'Current inflation at 3.7% is below the 6–10% target range, indicating tight price conditions.',
-        source: 'Bank of Ghana', tag: { label: 'Target', type: 'target' }
-    },
-    {
-        id: '17', category: 'market', title: 'Monetary Policy Rate', value: '14.0%',
-        trend: 'stable', trendValue: 'Stable',
-        analysis: 'Policy rate stands at 14.0% (Nov 2025 reference), consistent with easing inflation and improved macroeconomic conditions.',
-        source: 'Bank of Ghana', tag: { label: 'Moderate', type: 'moderate' }
-    },
-    {
-        id: '18', category: 'market', title: '91-Day T-Bill Rate', value: '5.24%',
-        trend: 'down', trendValue: '-3.72pts',
-        analysis: 'Treasury bill yields fell sharply from 8.96%, significantly reducing the cost of short-term government borrowing.',
-        source: 'Bank of Ghana'
-    }
-];
-
-export default function IndicatorsGrid() {
+export default function IndicatorsGrid({ indicators, asOfLabel }: IndicatorsGridProps) {
     const [filter, setFilter] = useState<'all' | 'debt' | 'gdp' | 'market'>('all');
 
     const filteredIndicators = filter === 'all'
@@ -139,18 +22,16 @@ export default function IndicatorsGrid() {
                     <div className="max-w-3xl">
                         <h2 className="text-xl md:text-2xl font-bold text-slate-900 mb-4 tracking-tight">Key Economic Indicators</h2>
                         <p className="text-slate-600 leading-relaxed mb-2">
-                            Real-time tracking of Ghana's critical economic metrics, covering debt stock, GDP growth, inflation, and market rates to monitor financial recovery progress.
+                            Tracking of Ghana&apos;s critical economic metrics — debt stock, GDP, inflation, and market rates — refreshed from official sources.
                         </p>
-                        <p className="text-sm text-slate-500 font-medium">Snapshot as of June 2026</p>
+                        <p className="text-sm text-slate-500 font-medium">{asOfLabel || 'Latest available official data'}</p>
                     </div>
 
-                    {/* Responsive Filters */}
                     <div className="w-full md:w-auto">
-                        {/* Mobile Dropdown */}
                         <div className="md:hidden relative">
                             <select
                                 value={filter}
-                                onChange={(e) => setFilter(e.target.value as any)}
+                                onChange={(e) => setFilter(e.target.value as 'all' | 'debt' | 'gdp' | 'market')}
                                 className="w-full appearance-none bg-white border border-slate-200 text-slate-700 py-2 pl-4 pr-10 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-slate-900 focus:border-transparent text-sm font-medium"
                             >
                                 {['all', 'debt', 'gdp', 'market'].map((cat) => (
@@ -164,12 +45,11 @@ export default function IndicatorsGrid() {
                             </div>
                         </div>
 
-                        {/* Desktop Pills */}
                         <div className="hidden md:inline-flex bg-white p-1 rounded-full border border-slate-200">
-                            {['all', 'debt', 'gdp', 'market'].map((cat) => (
+                            {(['all', 'debt', 'gdp', 'market'] as const).map((cat) => (
                                 <button
                                     key={cat}
-                                    onClick={() => setFilter(cat as any)}
+                                    onClick={() => setFilter(cat)}
                                     className={`px-4 py-1.5 rounded-full text-xs md:text-sm font-medium transition-all duration-200 capitalize ${filter === cat
                                         ? 'bg-slate-900 text-white shadow-sm'
                                         : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
@@ -182,11 +62,15 @@ export default function IndicatorsGrid() {
                     </div>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                    {filteredIndicators.map((indicator) => (
-                        <IndicatorCard key={indicator.id} data={indicator} />
-                    ))}
-                </div>
+                {filteredIndicators.length === 0 ? (
+                    <p className="text-slate-500 text-sm">No indicator data available yet. Run Data Freshness sync in admin.</p>
+                ) : (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                        {filteredIndicators.map((indicator) => (
+                            <IndicatorCard key={indicator.id} data={indicator} />
+                        ))}
+                    </div>
+                )}
             </div>
         </section>
     );

@@ -2,7 +2,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import Link from 'next/link';
-import { BarChart2, FileText, Settings, Users, LogOut, LayoutDashboard, PieChart, Activity, Calendar, Image as ImageIcon, Database, Target, TrendingUp } from 'lucide-react';
+import { FileText, Settings, Users, LogOut, LayoutDashboard, PieChart, Activity, Calendar, Image as ImageIcon, Database, Target, TrendingUp, RefreshCw } from 'lucide-react';
 
 export default async function DashboardLayout({
     children,
@@ -79,6 +79,10 @@ export default async function DashboardLayout({
                     <Link href="/admin/dashboard/debt" className="flex items-center gap-3 px-3 py-2 text-gray-700 dark:text-gray-200 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:text-blue-600 dark:hover:text-blue-400 rounded-lg transition-all group">
                         <TrendingUp className="w-5 h-5 group-hover:scale-110 transition-transform" />
                         <span className="font-medium">Debt Tracker</span>
+                    </Link>
+                    <Link href="/admin/dashboard/data-sync" className="flex items-center gap-3 px-3 py-2 text-gray-700 dark:text-gray-200 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:text-blue-600 dark:hover:text-blue-400 rounded-lg transition-all group">
+                        <RefreshCw className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                        <span className="font-medium">Data Freshness</span>
                     </Link>
 
                     <div className="px-3 mt-6 mb-2 text-xs font-semibold text-gray-400 uppercase tracking-wider">

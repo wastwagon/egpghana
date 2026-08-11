@@ -11,16 +11,16 @@ async function main() {
     // 2. Run economic seed (GDP, Inf, Ex, Forex, Policy)
     // I'll manually seed the latest values to be 100% sure
     console.log('💹 Seeding core indicators...');
-    const now = new Date('2026-02-13');
+    const now = new Date('2026-06-30');
 
     const indicators = [
         { indicator: 'GDP_GROWTH', value: 5.5, unit: '%' },
-        { indicator: 'INFLATION_RATE', value: 3.8, unit: '%' },
+        { indicator: 'INFLATION_RATE', value: 5.3, unit: '%' },
         { indicator: 'EXCHANGE_RATE_USD', value: 10.99, unit: 'GHS per USD' },
         { indicator: 'FOREX_RESERVES', value: 13.8, unit: 'Billion USD' },
-        { indicator: 'POLICY_RATE', value: 15.5, unit: '%' },
-        { indicator: 'TOTAL_DEBT', value: 674100000000, unit: 'GHS', metadata: { domestic: 360400000000, external: 313700000000 } },
-        { indicator: 'DEBT_TO_GDP_RATIO', value: 42.2, unit: '%' },
+        { indicator: 'POLICY_RATE', value: 14.0, unit: '%' },
+        { indicator: 'TOTAL_DEBT', value: 719500000000, unit: 'GHS', metadata: { domestic: 391100000000, external: 328400000000, domestic_share: 54.4, external_share: 45.6, note: 'MoF Mid-Year Fiscal Policy Review' } },
+        { indicator: 'DEBT_TO_GDP_RATIO', value: 45.0, unit: '%' },
         { indicator: 'DEBT_SERVICE_TO_REVENUE', value: 25.1, unit: '%' }
     ];
 

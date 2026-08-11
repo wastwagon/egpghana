@@ -144,7 +144,7 @@ export default function ExternalSectorSection() {
                 </div>
 
                 <p className="text-xs text-slate-500 mt-4 italic">
-                    Source: Ghana Statistical Service, Bank of Ghana (Updated: Feb 2026)
+                    Source: Ghana Statistical Service, Bank of Ghana (Updated: June 2026)
                 </p>
             </div>
 

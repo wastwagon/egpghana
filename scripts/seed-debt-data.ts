@@ -27,11 +27,11 @@ async function seedDebtData() {
             const currentDate = date;
             const year = date.getFullYear();
 
-            // Jun 2026 (latest official data)
+            // Jun 2026 (MoF Mid-Year Fiscal Policy Review)
             if (i === 90) {
-                baseDebt = 674100000000;
-                const domestic = 360400000000;
-                const external = 313700000000;
+                baseDebt = 719500000000;
+                const domestic = 391100000000;
+                const external = 328400000000;
 
                 monthlyDebtData.push({
                     indicator: 'TOTAL_DEBT',
@@ -43,9 +43,10 @@ async function seedDebtData() {
                         currency: 'GHS',
                         domestic,
                         external,
-                        domestic_share: 53.46,
-                        external_share: 46.54,
-                        source: 'Bank of Ghana',
+                        domestic_share: 54.4,
+                        external_share: 45.6,
+                        source: 'Ministry of Finance',
+                        note: 'MoF Mid-Year Fiscal Policy Review',
                     },
                 });
             } else if (i === 83) {
@@ -188,7 +189,7 @@ async function seedDebtData() {
                 // 2025 update
                 baseRatio = 45.3;
             } else if (year === 2026) {
-                baseRatio = 42.2;
+                baseRatio = 45.0;
             } else {
                 baseRatio = 60.0 + (Math.random() * 2 - 1);
             }
