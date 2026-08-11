@@ -148,16 +148,16 @@ export default async function ArticlePage({ params }: { params: { slug: string }
 
                             {/* Download full report (only when a document is attached) */}
                             {article.attachmentUrl && (
-                                <div className="mt-8 md:mt-12 flex justify-center">
+                                <div className="mt-8 md:mt-10">
                                     <a
                                         href={article.attachmentUrl}
                                         download={article.attachmentName || undefined}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="inline-flex items-center px-8 py-4 bg-primary-600 text-white font-bold rounded-lg shadow-lg hover:bg-primary-700 hover:-translate-y-1 transition-all duration-300 group"
+                                        className="inline-flex items-center gap-2 px-4 py-2.5 text-sm font-semibold text-white bg-primary-600 rounded-md shadow-sm hover:bg-primary-700 hover:shadow transition-all duration-200"
                                     >
-                                        <svg className="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                                        <svg className="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                                         </svg>
                                         <span>Download Full Report</span>
                                     </a>
@@ -166,16 +166,16 @@ export default async function ArticlePage({ params }: { params: { slug: string }
 
                             {/* External Article Link */}
                             {article.sourceUrl && (
-                                <div className={`${article.attachmentUrl ? 'mt-4' : 'mt-8 md:mt-12'} flex justify-center`}>
+                                <div className={`${article.attachmentUrl ? 'mt-3' : 'mt-8 md:mt-10'}`}>
                                     <a
                                         href={article.sourceUrl}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="inline-flex items-center px-8 py-4 bg-white text-primary-700 border-2 border-primary-600 font-bold rounded-lg shadow-md hover:bg-primary-50 hover:-translate-y-1 transition-all duration-300 group"
+                                        className="inline-flex items-center gap-2 px-4 py-2.5 text-sm font-semibold text-primary-700 bg-white border border-primary-600 rounded-md shadow-sm hover:bg-primary-50 transition-all duration-200"
                                     >
                                         <span>Read Full Story</span>
-                                        <svg className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                        <svg className="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                                         </svg>
                                     </a>
                                 </div>
