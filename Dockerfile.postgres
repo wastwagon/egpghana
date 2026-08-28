@@ -1,3 +1,6 @@
+# Unused by local Docker Desktop and unused by Coolify.
+# Local Postgres is pgvector/pgvector:pg16 in docker-compose.dev.yml.
+# Production Postgres is a Coolify-managed database resource.
 FROM postgres:16-alpine
 
 # Install build dependencies and pgvector

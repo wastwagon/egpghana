@@ -1,3 +1,7 @@
+# LOCAL DEVELOPMENT ONLY — not used by Coolify.
+# Coolify must use the Dockerfile build pack plus its own Postgres/Redis resources.
+# If Coolify offers "Docker Compose", do not select it.
+
 services:
   postgres:
     image: pgvector/pgvector:pg16

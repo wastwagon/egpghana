@@ -23,6 +23,7 @@ export default function Header() {
         { name: 'Resource Centre', href: '/resources' },
         { name: 'Programs', href: '/programs' },
         { name: 'Dashboards', href: '/dashboards' },
+        { name: 'Careers', href: '/careers' },
         { name: 'Contact Us', href: '/contact' },
     ];
 

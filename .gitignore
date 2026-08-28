@@ -46,6 +46,11 @@ public/uploads/
 
 # Docker
 docker-compose.override.yml
+# Default compose names would be auto-detected by Coolify — local stack is docker-compose.dev.yml
+docker-compose.yml
+docker-compose.yaml
+compose.yml
+compose.yaml
 
 # Misc
 .cache/

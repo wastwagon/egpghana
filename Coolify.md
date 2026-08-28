@@ -24,7 +24,7 @@ For a full-stack Next.js app, the best approach in Coolify is:
 1.  Go to **Resources** -> **New Resource** -> **Public Repository**.
 2.  URL: `https://github.com/wastwagon/egpghana`.
 3.  Branch: `main`.
-4.  **Build Pack**: Select `Dockerfile`. Coolify will automatically find the `Dockerfile` I created.
+4.  **Build Pack**: Select `Dockerfile`. Do **not** select Docker Compose. The repo’s compose file (`docker-compose.dev.yml`) is for local Docker Desktop only.
 
 ### Step C: Environment Variables
 Go to the **Environment Variables** tab of your application in Coolify and add:
@@ -41,6 +41,10 @@ Go to the **Environment Variables** tab of your application in Coolify and add:
 | `UPLOADS_DIR` | `/data/uploads` | Must match Coolify volume destination (Step E) |
 | `CRON_SECRET` | long random hex | Protects `POST /api/admin/data-sync` |
 | `RUN_SYNC_ON_STARTUP` | `true` | After each deploy, auto-refresh BoG / Mid-Year / WB indicators |
+| `CAREERS_NOTIFY_EMAIL` | `egpghana20@gmail.com` | Receives career / EOI form submissions |
+| `SMTP_HOST` / `SMTP_PORT` / `SMTP_USER` / `SMTP_PASSWORD` / `SMTP_FROM` | your mail server | Required for EOI emails |
+| `RUN_SEED_ON_STARTUP` | *(leave unset)* | Do **not** set on a live site |
+| `ALLOW_DESTRUCTIVE_SEED` | *(leave unset)* | Only with `RUN_SEED_ON_STARTUP` on a brand-new empty database, then remove both |
 
 ### Step D: Domains
 1.  In the **Domains** tab, set it to `https://egpghana.org`.
@@ -94,11 +98,13 @@ curl -sS -X POST "http://127.0.0.1:3000/api/admin/data-sync" \
 ## 5. Why this setup is "Best Practice"
 - **Standalone Mode**: The `Dockerfile` uses Next.js `standalone` output, which makes the image ~1GB smaller and much faster to start.
 - **Auto-Migrations**: The `scripts/entrypoint.sh` runs `prisma migrate deploy` on each deploy. **Seed is skipped by default** so content added via admin UI on production persists across deploys.
-- **Optional seed on deploy**: Set `RUN_SEED_ON_STARTUP=true` only for first-time/fresh DB setup. For manual seed, use Admin → Settings → Database tab.
+- **Optional seed on deploy**: Leave `RUN_SEED_ON_STARTUP` unset. A live production seed is blocked unless `ALLOW_DESTRUCTIVE_SEED=true` (first empty database only). For content updates, use Admin → Settings → **Sync (Merge)**. Full Restore still wipes if you confirm it in admin.
 - **Auto indicator sync**: With `RUN_SYNC_ON_STARTUP=true` + `CRON_SECRET`, Mid-Year / BoG / World Bank refresh after each deploy.
 - **Separation of Concerns**: By using Coolify's built-in DB services instead of a single `docker-compose`, you get automatic backups and better management.
 
 ## 6. Local Development
 Continue using:
-- `docker-compose up -d` (Local DBs)
-- `npm run dev` (Local Next.js)
+- `npm run docker:up` (local Postgres / Redis / pgAdmin via `docker-compose.dev.yml`)
+- `npm run dev` (Next.js on http://localhost:3456)
+
+Pushing to `main` redeploys the **app container** on Coolify (migrations + new code). It does **not** replace the Coolify Postgres/Redis data, and it will not run the wipe-seed.

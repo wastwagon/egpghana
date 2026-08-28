@@ -13,11 +13,11 @@ const nextConfig = {
         ],
         formats: ['image/webp', 'image/avif'],
     },
-    experimental: {
+        experimental: {
         serverActions: {
-            bodySizeLimit: '10mb',
+            bodySizeLimit: '25mb',
         },
-        serverComponentsExternalPackages: ['pdf-parse'],
+        serverComponentsExternalPackages: ['pdf-parse', 'nodemailer', 'jszip'],
     },
     // Optimize for production
     compiler: {

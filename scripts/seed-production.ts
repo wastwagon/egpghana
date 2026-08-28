@@ -210,8 +210,49 @@ async function main() {
             }
         }
 
-        // 5. Import data from exported JSON if available
-        if (hasExportedData) {
+        console.log('💼 Seeding career opportunity...');
+        const {
+            STRATEGIC_REVIEW_EOI_DEADLINE_ISO,
+            STRATEGIC_REVIEW_END_ISO,
+            STRATEGIC_REVIEW_NOTIFY_EMAIL,
+            STRATEGIC_REVIEW_SLUG,
+            STRATEGIC_REVIEW_START_ISO,
+            STRATEGIC_REVIEW_SUMMARY,
+            STRATEGIC_REVIEW_TITLE,
+            STRATEGIC_REVIEW_TOR_HTML,
+        } = await import('../src/lib/career-tor-content');
+        const careerData = {
+            title: STRATEGIC_REVIEW_TITLE,
+            type: 'consultancy',
+            summary: STRATEGIC_REVIEW_SUMMARY,
+            content: STRATEGIC_REVIEW_TOR_HTML,
+            deadline: new Date(STRATEGIC_REVIEW_EOI_DEADLINE_ISO),
+            startDate: new Date(STRATEGIC_REVIEW_START_ISO),
+            endDate: new Date(STRATEGIC_REVIEW_END_ISO),
+            notifyEmail: STRATEGIC_REVIEW_NOTIFY_EMAIL,
+        };
+        await prisma.careerOpportunity.upsert({
+            where: { slug: STRATEGIC_REVIEW_SLUG },
+            update: careerData,
+            create: {
+                slug: STRATEGIC_REVIEW_SLUG,
+                status: 'open',
+                ...careerData,
+            },
+        });
+
+        // 5. Import data from exported JSON if available.
+        // In production this wipe is blocked unless ALLOW_DESTRUCTIVE_SEED=true
+        // (local NODE_ENV=development is allowed so Docker Desktop restore still works).
+        const allowDestructiveSeed =
+            process.env.ALLOW_DESTRUCTIVE_SEED === 'true' ||
+            process.env.NODE_ENV !== 'production';
+
+        if (hasExportedData && !allowDestructiveSeed) {
+            console.log('ℹ️ Production: skipping destructive import of articles/events/economic data.');
+            console.log('   Live content is preserved. Use Admin → Settings → Sync (merge),');
+            console.log('   or Full Restore (sets ALLOW_DESTRUCTIVE_SEED) only if you intend to wipe.');
+        } else if (hasExportedData) {
             console.log('📥 Importing data from local export...');
             const exportedData = JSON.parse(fs.readFileSync(dataFilePath, 'utf-8'));
 

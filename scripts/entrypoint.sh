@@ -12,20 +12,32 @@ if [ -n "$DATABASE_URL" ]; then
   echo "🚀 Running database migrations (npx prisma migrate deploy)..."
   if npx prisma migrate deploy; then
     echo "✅ Migrations applied successfully."
+
+    echo "💼 Ensuring career listings exist (upsert, does not wipe applications)..."
+    if npx tsx scripts/seed-career-opportunity.ts; then
+      echo "✅ Career listings checked."
+    else
+      echo "⚠️ Career listing seed skipped (app will still start)."
+    fi
     
-    # Only run seed if RUN_SEED_ON_STARTUP=true (e.g. fresh DB setup).
-    # Default: skip seed on deploy to preserve content added via admin UI on production.
-    # Use Admin Settings → Database tab to run seed manually when needed.
+    # Seed is skipped on every normal Coolify deploy so admin-created content survives.
+    # Destructive seed (wipes articles/events/economic data) is blocked in production
+    # unless ALLOW_DESTRUCTIVE_SEED=true — only for a brand-new empty database.
     if [ "$RUN_SEED_ON_STARTUP" = "true" ]; then
-      echo "🌱 RUN_SEED_ON_STARTUP=true. Running data seeding..."
-      SEED_OUTPUT=$(npx prisma db seed 2>&1)
-      if [ $? -eq 0 ]; then
-        echo "✅ Seeding completed."
-        echo "$SEED_OUTPUT"
+      if [ "${NODE_ENV}" = "production" ] && [ "$ALLOW_DESTRUCTIVE_SEED" != "true" ]; then
+        echo "ℹ️ RUN_SEED_ON_STARTUP ignored in production without ALLOW_DESTRUCTIVE_SEED=true."
+        echo "   This protects live content. Use Admin → Settings → Sync (merge) instead."
       else
-        echo "⚠️ SEEDING RETURNED AN ERROR:"
-        echo "$SEED_OUTPUT"
-        echo "Continuing to start app anyway..."
+        echo "🌱 RUN_SEED_ON_STARTUP=true. Running data seeding..."
+        SEED_OUTPUT=$(npx prisma db seed 2>&1)
+        if [ $? -eq 0 ]; then
+          echo "✅ Seeding completed."
+          echo "$SEED_OUTPUT"
+        else
+          echo "⚠️ SEEDING RETURNED AN ERROR:"
+          echo "$SEED_OUTPUT"
+          echo "Continuing to start app anyway..."
+        fi
       fi
     else
       echo "ℹ️ Skipping seed on startup (preserves production content). Use Admin → Settings → Database to seed manually."

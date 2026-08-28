@@ -48,8 +48,8 @@ cp .env.example .env
 npm run docker:up
 ```
 
-This starts:
-- PostgreSQL on port 5432
+This starts (local only — Coolify ignores this file):
+- PostgreSQL on port 5433
 - Redis on port 6379
 - pgAdmin on port 5050 (http://localhost:5050)
 
@@ -82,7 +82,7 @@ Visit **http://localhost:3456** 🎉
 │   ├── scraper/          # Web scraping scripts
 │   ├── import/           # Data import scripts
 │   └── ai/               # AI embedding scripts
-├── docker-compose.yml    # Docker configuration
+├── docker-compose.dev.yml # Local Docker Desktop DBs only
 └── package.json          # Dependencies
 ```
 
@@ -141,16 +141,18 @@ This fetches data from:
 
 ### Using Coolify
 
-1. Push to GitHub
-2. Connect repository in Coolify
-3. Set environment variables
-4. Deploy!
+1. Push to GitHub (`main`)
+2. Coolify **Build Pack = Dockerfile** (not Docker Compose)
+3. Production uses Coolify’s own Postgres/Redis — local `docker-compose.dev.yml` is ignored
+4. Deploys run migrations only; they do not wipe articles/events
+
+See `Coolify.md`.
 
 ### Manual Docker Deployment
 
 ```bash
 docker build -t egp-website .
-docker run -p 3456:3456 egp-website
+docker run -p 3456:3000 egp-website
 ```
 
 ## 📝 Available Scripts

@@ -44,7 +44,7 @@ export async function POST(req: NextRequest) {
         if (action === 'seed') {
             const { stdout, stderr } = await execAsync('npx prisma db seed', {
                 cwd: projectRoot,
-                env: { ...process.env },
+                env: { ...process.env, ALLOW_DESTRUCTIVE_SEED: 'true' },
             });
             return NextResponse.json({
                 success: true,
@@ -98,7 +98,7 @@ export async function POST(req: NextRequest) {
             // 3. Seed
             const seedResult = await execAsync('npx prisma db seed', {
                 cwd: projectRoot,
-                env: { ...process.env },
+                env: { ...process.env, ALLOW_DESTRUCTIVE_SEED: 'true' },
             });
 
             // 4. Dashboard data

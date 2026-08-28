@@ -7,6 +7,7 @@ export default function Footer() {
         about: [
             { name: 'About EGP', href: '/about' },
             { name: 'Our Team', href: '/team' },
+            { name: 'Careers', href: '/careers' },
             { name: 'Contact Us', href: '/contact' },
         ],
         resources: [

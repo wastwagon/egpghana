@@ -104,6 +104,18 @@
   .section {
     @apply py-16 md:py-24;
   }
+
+  .prose table {
+    @apply w-full text-sm border border-slate-200;
+  }
+
+  .prose th {
+    @apply bg-slate-50 text-left p-3 font-semibold;
+  }
+
+  .prose td {
+    @apply border-t border-slate-200 p-3 align-top;
+  }
 }
 
 @layer utilities {

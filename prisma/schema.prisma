@@ -273,3 +273,67 @@ model DailyStats {
   @@index([date])
   @@map("daily_stats")
 }
+
+model CareerOpportunity {
+  id           String               @id @default(cuid())
+  slug         String               @unique
+  title        String
+  type         String               @default("consultancy")
+  summary      String?
+  content      String
+  deadline     DateTime?
+  startDate    DateTime?
+  endDate      DateTime?
+  notifyEmail  String               @default("egpghana20@gmail.com")
+  status       String               @default("open")
+  createdAt    DateTime             @default(now())
+  updatedAt    DateTime             @updatedAt
+  applications CareerApplication[]
+
+  @@index([status])
+  @@index([deadline])
+  @@map("career_opportunities")
+}
+
+model CareerApplication {
+  id                   String             @id @default(cuid())
+  opportunityId        String
+  opportunity          CareerOpportunity  @relation(fields: [opportunityId], references: [id], onDelete: Cascade)
+  applicantName        String
+  applicantType        String
+  location             String?
+  phone                String
+  email                String
+  website              String?
+  profile              String
+  relevantExperience   String
+  assignments          Json
+  references           Json
+  methodology          String
+  teamQualifications   String
+  teamMembers          Json
+  totalFee             String
+  currency             String?
+  levelOfEffort        String?
+  financialNotes       String?
+  contactName          String
+  contactPosition      String?
+  contactPhone         String?
+  contactEmail         String?
+  declarationName      String
+  declarationOrg       String?
+  declarationSignature String?
+  declarationDate      String?
+  attachments          Json
+  status               String             @default("new")
+  notes                String?
+  createdAt            DateTime           @default(now())
+  updatedAt            DateTime           @updatedAt
+
+  @@unique([opportunityId, email])
+  @@index([opportunityId])
+  @@index([email])
+  @@index([createdAt])
+  @@index([status])
+  @@map("career_applications")
+}

@@ -108,9 +108,9 @@ Requires `OPENAI_API_KEY` in `.env`.
 ### "Container name already in use"
 
 ```bash
-docker-compose down --remove-orphans
+docker compose -f docker-compose.dev.yml down --remove-orphans
 docker rm -f egp-postgres egp-redis egp-pgadmin 2>/dev/null
-docker-compose up -d
+docker compose -f docker-compose.dev.yml up -d
 ```
 
 ### "Table does not exist"
@@ -125,7 +125,7 @@ npm install --legacy-peer-deps
 
 ### Port 5433 in use
 
-Change `DATABASE_URL` port in `.env` and `docker-compose.yml` ports if needed.
+Change `DATABASE_URL` port in `.env` and `docker-compose.dev.yml` ports if needed.
 
 ---
 
@@ -133,7 +133,7 @@ Change `DATABASE_URL` port in `.env` and `docker-compose.yml` ports if needed.
 
 1. Commit and push your code
 2. In Coolify, connect the repo and set environment variables
-3. On each deploy, `entrypoint.sh` runs **migrations only** (no seed by default)
+3. On each deploy, `entrypoint.sh` runs **migrations only** (no seed by default). Production seed is also blocked unless `ALLOW_DESTRUCTIVE_SEED=true`.
 4. **Production content is preserved** – publications added via admin UI on live will not be wiped on deploy
 
 ### When to run seed on production

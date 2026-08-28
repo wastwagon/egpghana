@@ -2,7 +2,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import Link from 'next/link';
-import { FileText, Settings, Users, LogOut, LayoutDashboard, PieChart, Activity, Calendar, Image as ImageIcon, Database, Target, TrendingUp, RefreshCw } from 'lucide-react';
+import { FileText, Settings, Users, LogOut, LayoutDashboard, PieChart, Activity, Calendar, Image as ImageIcon, Database, Target, TrendingUp, RefreshCw, Briefcase } from 'lucide-react';
 
 export default async function DashboardLayout({
     children,
@@ -67,6 +67,10 @@ export default async function DashboardLayout({
                     <Link href="/admin/resources" className="flex items-center gap-3 px-3 py-2 text-gray-700 dark:text-gray-200 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:text-blue-600 dark:hover:text-blue-400 rounded-lg transition-all group">
                         <Database className="w-5 h-5 group-hover:scale-110 transition-transform" />
                         <span className="font-medium">Resources</span>
+                    </Link>
+                    <Link href="/admin/careers" className="flex items-center gap-3 px-3 py-2 text-gray-700 dark:text-gray-200 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:text-blue-600 dark:hover:text-blue-400 rounded-lg transition-all group">
+                        <Briefcase className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                        <span className="font-medium">Careers</span>
                     </Link>
                     <Link href="/admin/dashboard/economic-data" className="flex items-center gap-3 px-3 py-2 text-gray-700 dark:text-gray-200 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:text-blue-600 dark:hover:text-blue-400 rounded-lg transition-all group">
                         <Activity className="w-5 h-5 group-hover:scale-110 transition-transform" />
