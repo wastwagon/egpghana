@@ -12,10 +12,17 @@ export default async function EditCareerPage({ params }: { params: { id: string 
             <AdminPageHeader title="Edit opportunity" description={opportunity.title} />
             <CareerOpportunityForm
                 initialData={{
-                    ...opportunity,
+                    id: opportunity.id,
+                    title: opportunity.title,
+                    slug: opportunity.slug,
+                    type: opportunity.type,
+                    summary: opportunity.summary ?? undefined,
+                    content: opportunity.content,
                     deadline: opportunity.deadline?.toISOString() || null,
                     startDate: opportunity.startDate?.toISOString() || null,
                     endDate: opportunity.endDate?.toISOString() || null,
+                    notifyEmail: opportunity.notifyEmail,
+                    status: opportunity.status,
                 }}
             />
         </div>

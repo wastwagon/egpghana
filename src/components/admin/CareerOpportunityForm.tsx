@@ -9,7 +9,7 @@ interface OpportunityForm {
     title?: string;
     slug?: string;
     type?: string;
-    summary?: string;
+    summary?: string | null;
     content?: string;
     deadline?: string | null;
     startDate?: string | null;
