@@ -59,6 +59,9 @@ COPY --from=builder --chown=nextjs:nodejs /app/node_modules ./node_modules
 COPY --from=builder --chown=nextjs:nodejs /app/prisma ./prisma
 COPY --from=builder --chown=nextjs:nodejs /app/scripts ./scripts
 COPY --from=builder --chown=nextjs:nodejs /app/package.json ./package.json
+# Career EOI upsert imports this at container start (not included in standalone output)
+RUN mkdir -p src/lib
+COPY --from=builder --chown=nextjs:nodejs /app/src/lib/career-tor-content.ts ./src/lib/career-tor-content.ts
 
 # Ensure entrypoint is executable
 RUN chmod +x scripts/entrypoint.sh

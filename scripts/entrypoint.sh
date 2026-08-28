@@ -17,7 +17,7 @@ if [ -n "$DATABASE_URL" ]; then
     if npx tsx scripts/seed-career-opportunity.ts; then
       echo "✅ Career listings checked."
     else
-      echo "⚠️ Career listing seed skipped (app will still start)."
+      echo "⚠️ Career listing seed failed (app will still start). Check logs above."
     fi
     
     # Seed is skipped on every normal Coolify deploy so admin-created content survives.
