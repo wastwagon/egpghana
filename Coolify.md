@@ -41,8 +41,12 @@ Go to the **Environment Variables** tab of your application in Coolify and add:
 | `UPLOADS_DIR` | `/data/uploads` | Must match Coolify volume destination (Step E) |
 | `CRON_SECRET` | long random hex | Protects `POST /api/admin/data-sync` |
 | `RUN_SYNC_ON_STARTUP` | `true` | After each deploy, auto-refresh BoG / Mid-Year / WB indicators |
-| `CAREERS_NOTIFY_EMAIL` | `egpghana20@gmail.com` | Receives career / EOI form submissions |
-| `SMTP_HOST` / `SMTP_PORT` / `SMTP_USER` / `SMTP_PASSWORD` / `SMTP_FROM` | your mail server | Required for EOI emails |
+| `CAREERS_NOTIFY_EMAIL` | `egpghana20@gmail.com` | Receives a copy of each career / EOI form |
+| `SMTP_HOST` | `smtp.resend.com` | Resend SMTP |
+| `SMTP_PORT` | `465` | Resend SSL port (`587` also works) |
+| `SMTP_USER` | `resend` | Resend SMTP username |
+| `SMTP_PASSWORD` | `re_...` | Resend API key |
+| `SMTP_FROM` | `EGP Ghana <noreply@egpghana.org>` | Must be a domain verified in Resend |
 | `RUN_SEED_ON_STARTUP` | *(leave unset)* | Do **not** set on a live site |
 | `ALLOW_DESTRUCTIVE_SEED` | *(leave unset)* | Only with `RUN_SEED_ON_STARTUP` on a brand-new empty database, then remove both |
 

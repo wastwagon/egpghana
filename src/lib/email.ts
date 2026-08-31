@@ -1,19 +1,47 @@
 import nodemailer from 'nodemailer';
 
+const RESEND_HOST = 'smtp.resend.com';
+const DEFAULT_FROM = 'EGP Ghana <noreply@egpghana.org>';
+const DEFAULT_NOTIFY = 'egpghana20@gmail.com';
+
+function smtpHost() {
+    return process.env.SMTP_HOST || (smtpPassword() ? RESEND_HOST : '');
+}
+
+function smtpPort() {
+    return Number(process.env.SMTP_PORT || (smtpHost() === RESEND_HOST ? 465 : 587));
+}
+
+function smtpUser() {
+    return process.env.SMTP_USER || (smtpHost() === RESEND_HOST ? 'resend' : '');
+}
+
+function smtpPassword() {
+    return process.env.SMTP_PASSWORD || process.env.RESEND_API_KEY || '';
+}
+
+function smtpFrom() {
+    return process.env.SMTP_FROM || DEFAULT_FROM;
+}
+
+export function careersNotifyEmail() {
+    return process.env.CAREERS_NOTIFY_EMAIL || DEFAULT_NOTIFY;
+}
+
 export function isMailConfigured(): boolean {
-    return Boolean(process.env.SMTP_HOST && process.env.SMTP_FROM);
+    return Boolean(smtpHost() && smtpFrom() && smtpPassword());
 }
 
 function getTransporter() {
-    const port = Number(process.env.SMTP_PORT || 587);
+    const port = smtpPort();
     return nodemailer.createTransport({
-        host: process.env.SMTP_HOST,
+        host: smtpHost(),
         port,
         secure: port === 465,
-        auth: process.env.SMTP_USER
+        auth: smtpUser()
             ? {
-                  user: process.env.SMTP_USER,
-                  pass: process.env.SMTP_PASSWORD,
+                  user: smtpUser(),
+                  pass: smtpPassword(),
               }
             : undefined,
     });
@@ -35,7 +63,7 @@ export async function sendMail(options: {
     try {
         const transporter = getTransporter();
         await transporter.sendMail({
-            from: process.env.SMTP_FROM,
+            from: smtpFrom(),
             to: options.to,
             subject: options.subject,
             text: options.text,

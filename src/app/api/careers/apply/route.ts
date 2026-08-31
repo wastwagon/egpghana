@@ -3,8 +3,8 @@ import { mkdir, writeFile } from 'fs/promises';
 import path from 'path';
 import { prisma } from '@/lib/prisma';
 import { getUploadsDir } from '@/lib/uploads';
-import { sendMail } from '@/lib/email';
-import { CareerAttachment, formatApplicationText } from '@/lib/career-application';
+import { careersNotifyEmail, sendMail } from '@/lib/email';
+import { CareerAttachment, formatApplicationHtml, formatApplicationText } from '@/lib/career-application';
 import { STRATEGIC_REVIEW_EMAIL_SUBJECT } from '@/lib/career-tor-content';
 
 export const runtime = 'nodejs';
@@ -200,7 +200,14 @@ export async function POST(req: NextRequest) {
             },
         });
 
-        const notifyTo = process.env.CAREERS_NOTIFY_EMAIL || opportunity.notifyEmail || 'egpghana20@gmail.com';
+        const notifyTo = Array.from(
+            new Set(
+                (process.env.CAREERS_NOTIFY_EMAIL || opportunity.notifyEmail || careersNotifyEmail())
+                    .split(/[,;]/)
+                    .map((value) => value.trim().toLowerCase())
+                    .filter(Boolean)
+            )
+        );
         const text = formatApplicationText(created, opportunity);
         const subject = `${STRATEGIC_REVIEW_EMAIL_SUBJECT} — ${applicantName}`;
         const mailResult = await sendMail({
@@ -208,14 +215,12 @@ export async function POST(req: NextRequest) {
             replyTo: email,
             subject,
             text,
-            html: `<p>A new Expression of Interest was submitted for <strong>${opportunity.title}</strong>.</p>
-<p><strong>Applicant:</strong> ${applicantName} (${email})<br/>
-<strong>Type:</strong> ${applicantType}<br/>
-<strong>Fee:</strong> ${totalFee} ${requiredString(form, 'currency') || 'GHS'}</p>
-<p>The full entry and attachments are stored in EGP Admin → Careers → Applications.</p>
-<pre style="white-space:pre-wrap;font-family:Georgia,serif;font-size:14px">${text.replace(/[<>]/g, '')}</pre>`,
+            html: formatApplicationHtml(created, opportunity),
             attachments: mailFiles,
         });
+        if (!mailResult.sent) {
+            console.error('EOI saved but email copy was not sent:', mailResult.error);
+        }
 
         return NextResponse.json({
             success: true,

@@ -116,6 +116,107 @@ export function formatApplicationText(
     return lines.filter((line) => line !== undefined).join('\n');
 }
 
+function escapeHtml(value: string) {
+    return value
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+}
+
+function row(label: string, value?: string | null) {
+    return `<tr><td style="padding:6px 10px;border:1px solid #e2e8f0;width:220px;color:#475569;vertical-align:top">${escapeHtml(label)}</td><td style="padding:6px 10px;border:1px solid #e2e8f0">${escapeHtml(value || '—')}</td></tr>`;
+}
+
+function paragraph(text: string) {
+    return `<p style="white-space:pre-wrap;margin:0 0 12px">${escapeHtml(text || '—')}</p>`;
+}
+
+function tableHtml(headers: string[], rows: string[][]) {
+    const head = headers.map((h) => `<th style="text-align:left;padding:6px 8px;border:1px solid #e2e8f0;background:#f8fafc">${escapeHtml(h)}</th>`).join('');
+    const body = rows
+        .map(
+            (cells) =>
+                `<tr>${cells.map((c) => `<td style="padding:6px 8px;border:1px solid #e2e8f0">${escapeHtml(c || '—')}</td>`).join('')}</tr>`
+        )
+        .join('');
+    return `<table style="border-collapse:collapse;width:100%;margin:8px 0 16px;font-size:14px"><thead><tr>${head}</tr></thead><tbody>${body}</tbody></table>`;
+}
+
+export function formatApplicationHtml(
+    app: CareerApplication,
+    opportunity?: Pick<CareerOpportunity, 'title' | 'slug'> | null
+): string {
+    const assignments = asArray<AssignmentRow>(app.assignments);
+    const references = asArray<ReferenceRow>(app.references);
+    const team = asArray<TeamMemberRow>(app.teamMembers);
+    const files = asArray<CareerAttachment>(app.attachments);
+
+    return `<div style="font-family:Georgia,serif;color:#0f172a;line-height:1.5;max-width:760px">
+<p style="font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#1d4ed8;margin:0 0 6px">EGP Ghana</p>
+<h1 style="font-size:22px;margin:0 0 16px">Expression of Interest: Strategic Organisational Review</h1>
+<p>A copy of an online EOI submission${opportunity ? ` for <strong>${escapeHtml(opportunity.title)}</strong>` : ''}.</p>
+<table style="border-collapse:collapse;width:100%;margin:0 0 20px;font-size:14px">
+${row('Application ID', app.id)}
+${row('Submitted', app.createdAt.toISOString())}
+${row('Applicant', `${app.applicantName} (${app.email})`)}
+</table>
+<h2 style="font-size:16px">1. Applicant details</h2>
+<table style="border-collapse:collapse;width:100%;margin:0 0 20px;font-size:14px">
+${row('Name of Consultant / Firm', app.applicantName)}
+${row('Type', app.applicantType)}
+${row('Location', app.location)}
+${row('Contact (Phone)', app.phone)}
+${row('Email', app.email)}
+${row('Website', app.website)}
+</table>
+<h2 style="font-size:16px">2. Profile and areas of expertise</h2>
+${paragraph(app.profile)}
+<h2 style="font-size:16px">3. Relevant experience and track record</h2>
+${paragraph(app.relevantExperience)}
+<p><strong>Comparable assignments</strong></p>
+${tableHtml(
+    ['Assignment / Review', 'Client / Organisation', 'Year', 'Brief Description of Role'],
+    assignments.map((r) => [r.assignment || '', r.client || '', r.year || '', r.role || ''])
+)}
+<p><strong>References</strong></p>
+${tableHtml(
+    ['Referee Name', 'Organisation', 'Position', 'Contact / Email'],
+    references.map((r) => [r.name || '', r.organisation || '', r.position || '', r.contact || ''])
+)}
+<h2 style="font-size:16px">4. Technical approach and methodology</h2>
+${paragraph(app.methodology)}
+<h2 style="font-size:16px">5. Team qualifications and expertise</h2>
+${paragraph(app.teamQualifications)}
+${tableHtml(
+    ['Name', 'Role in the Assignment', 'Highest Qualification', 'Years of Relevant Experience'],
+    team.map((r) => [r.name || '', r.role || '', r.qualification || '', r.years || ''])
+)}
+<h2 style="font-size:16px">6. Financial proposal</h2>
+<table style="border-collapse:collapse;width:100%;margin:0 0 20px;font-size:14px">
+${row('Total Proposed Fee', `${app.totalFee} ${app.currency || ''}`.trim())}
+${row('Number of Working Days / Level of Effort', app.levelOfEffort)}
+</table>
+${app.financialNotes ? paragraph(app.financialNotes) : ''}
+<h2 style="font-size:16px">7. Contact person</h2>
+<table style="border-collapse:collapse;width:100%;margin:0 0 20px;font-size:14px">
+${row('Name', app.contactName)}
+${row('Position', app.contactPosition)}
+${row('Contact (Phone)', app.contactPhone)}
+${row('Email', app.contactEmail)}
+</table>
+<h2 style="font-size:16px">Declaration</h2>
+<p>I ${escapeHtml(app.declarationName)}, the representative of ${escapeHtml(app.declarationOrg || app.applicantName)} hereby confirm that the information provided above is accurate.</p>
+<table style="border-collapse:collapse;width:100%;margin:0 0 20px;font-size:14px">
+${row('Signature', app.declarationSignature || app.declarationName)}
+${row('Date', app.declarationDate)}
+</table>
+<p><strong>Attachments</strong> (also attached to this email):</p>
+<ul>${files.map((f) => `<li>${escapeHtml(f.field)}: ${escapeHtml(f.originalName)}</li>`).join('')}</ul>
+<p style="color:#64748b;font-size:13px">The original files are also stored in EGP Admin → Careers → Applications.</p>
+</div>`;
+}
+
 export async function zipApplicationPackage(
     app: CareerApplication,
     opportunity?: Pick<CareerOpportunity, 'title' | 'slug'> | null
