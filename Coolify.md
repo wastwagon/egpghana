@@ -37,7 +37,7 @@ Go to the **Environment Variables** tab of your application in Coolify and add:
 | `NEXTAUTH_URL` | `https://egpghana.org` | Your production URL |
 | `NEXT_PUBLIC_APP_URL` | `https://egpghana.org` | Public app URL |
 | `OPENAI_API_KEY` | `your-openai-key` | For the AI Chatbot |
-| `NODE_ENV` | `production` | Ensure it's set to production |
+| `NODE_ENV` | `production` | Runtime only. Uncheck **Available at Buildtime** so `npm install` still gets Tailwind/TypeScript |
 | `UPLOADS_DIR` | `/data/uploads` | Must match Coolify volume destination (Step E) |
 | `CRON_SECRET` | long random hex | Protects `POST /api/admin/data-sync` |
 | `RUN_SYNC_ON_STARTUP` | `true` | After each deploy, auto-refresh BoG / Mid-Year / WB indicators |

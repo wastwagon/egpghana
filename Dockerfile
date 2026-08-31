@@ -4,9 +4,11 @@ FROM node:20-alpine AS deps
 RUN apk add --no-cache libc6-compat openssl
 WORKDIR /app
 
-# Install dependencies based on the preferred package manager
+# Install dependencies based on the preferred package manager.
+# Coolify can inject NODE_ENV=production as a build ARG. That would skip
+# tailwindcss / postcss / typescript (devDependencies) and fail `next build`.
 COPY package.json package-lock.json* ./
-RUN npm install --legacy-peer-deps
+RUN npm install --legacy-peer-deps --include=dev
 
 # Rebuild the source code only when needed
 FROM node:20-alpine AS builder
