@@ -3,11 +3,13 @@ import { createOpenAI } from '@ai-sdk/openai';
 import { findRelevantContent } from '@/lib/ai';
 import { z } from 'zod';
 
-const openai = createOpenAI({
-    apiKey: process.env.OPENAI_API_KEY,
-});
+export const dynamic = 'force-dynamic';
 
-// export const runtime = 'edge'; // Disabled: Prisma requires Node.js runtime
+function getOpenAI() {
+    return createOpenAI({
+        apiKey: process.env.OPENAI_API_KEY,
+    });
+}
 
 export async function POST(req: Request) {
     const { messages } = await req.json();
@@ -68,7 +70,7 @@ Instructions for Best Practice Response:
 `;
 
     const result = await streamText({
-        model: openai('gpt-4o-mini'), // Switched to gpt-4o-mini for much better tool handling and clean text
+        model: getOpenAI()('gpt-4o-mini'),
         messages,
         system: systemPrompt,
         tools: {
