@@ -15,23 +15,6 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     };
 }
 
-function formatDeadline(date?: Date | null) {
-    if (!date) return null;
-    const datePart = date.toLocaleString('en-GB', {
-        day: 'numeric',
-        month: 'long',
-        year: 'numeric',
-        timeZone: 'GMT',
-    });
-    const timePart = date.toLocaleString('en-GB', {
-        hour: 'numeric',
-        minute: '2-digit',
-        hour12: true,
-        timeZone: 'GMT',
-    }).toLowerCase();
-    return `${datePart} at ${timePart} GMT`;
-}
-
 export default async function CareerDetailPage({ params }: { params: { slug: string } }) {
     const opportunity = await prisma.careerOpportunity.findUnique({ where: { slug: params.slug } });
     if (!opportunity || opportunity.status === 'draft') notFound();
@@ -52,11 +35,6 @@ export default async function CareerDetailPage({ params }: { params: { slug: str
                     <p className="text-blue-100 max-w-4xl border-l-4 border-primary-400 pl-6 leading-relaxed">
                         {opportunity.summary}
                     </p>
-                    {opportunity.deadline && (
-                        <p className="text-blue-200 mt-6 text-sm">
-                            EOI deadline: {formatDeadline(opportunity.deadline)}
-                        </p>
-                    )}
                     {!closed && (
                         <a href="#eoi" className="btn-primary inline-flex mt-6 bg-white text-primary-800 hover:bg-blue-50">
                             Submit Expression of Interest

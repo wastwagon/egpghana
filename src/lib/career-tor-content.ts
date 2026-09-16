@@ -1,7 +1,5 @@
 export const STRATEGIC_REVIEW_SLUG = 'strategic-organisational-review';
 export const STRATEGIC_REVIEW_TITLE = 'Strategic Organisational Review';
-export const STRATEGIC_REVIEW_START_ISO = '2026-09-21T00:00:00.000Z';
-export const STRATEGIC_REVIEW_END_ISO = '2026-10-31T23:59:59.000Z';
 export const STRATEGIC_REVIEW_NOTIFY_EMAIL = 'egpghana20@gmail.com';
 export const STRATEGIC_REVIEW_EMAIL_SUBJECT = 'Expression of Interest - EGP Strategic Organisational Review';
 
@@ -101,7 +99,7 @@ export const STRATEGIC_REVIEW_TOR_HTML = `
 </ul>
 
 <h2>7. Duration and Timeline</h2>
-<p>The strategic review is expected to commence on <strong>September 21 2026</strong> and be completed by <strong>October 31 2026</strong>. The reviewer shall propose a detailed timeline aligned with this period, taking into account data collection, analysis, validation, and reporting requirements.</p>
+<p>The reviewer shall propose a detailed timeline for the assignment, taking into account data collection, analysis, validation, and reporting requirements. The actual start and completion dates will be agreed with EGP.</p>
 
 <h2>8. Reporting and Use of Findings</h2>
 <p>The reviewer shall report to the EGP through its coordinator. The final report shall be the property of EGP and will be used to inform strategic decision-making, governance reforms, and institutional strengthening initiatives.</p>

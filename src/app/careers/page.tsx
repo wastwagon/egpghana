@@ -10,23 +10,6 @@ export const metadata = {
     description: 'Current opportunities and consultancies at the Economic Governance Platform Ghana.',
 };
 
-function formatDeadline(date?: Date | null) {
-    if (!date) return null;
-    const datePart = date.toLocaleString('en-GB', {
-        day: 'numeric',
-        month: 'long',
-        year: 'numeric',
-        timeZone: 'GMT',
-    });
-    const timePart = date.toLocaleString('en-GB', {
-        hour: 'numeric',
-        minute: '2-digit',
-        hour12: true,
-        timeZone: 'GMT',
-    }).toLowerCase();
-    return `${datePart} at ${timePart} GMT`;
-}
-
 export default async function CareersPage() {
     const opportunities = await prisma.careerOpportunity.findMany({
         where: { status: { in: ['open', 'closed'] } },
@@ -63,12 +46,7 @@ export default async function CareersPage() {
                                                 </span>
                                             </div>
                                             <h2 className="text-2xl font-heading font-bold text-slate-900 mb-3">{item.title}</h2>
-                                            {item.summary && <p className="text-slate-600 mb-4 max-w-5xl">{item.summary}</p>}
-                                            {item.deadline && (
-                                                <p className="text-sm text-slate-500 mb-6">
-                                                    Deadline: {formatDeadline(item.deadline)}
-                                                </p>
-                                            )}
+                                            {item.summary && <p className="text-slate-600 mb-6 max-w-5xl">{item.summary}</p>}
                                             <Link href={`/careers/${item.slug}`} className="btn-primary inline-flex">
                                                 {closed ? 'View details' : 'View Terms of Reference & Apply'}
                                             </Link>

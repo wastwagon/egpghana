@@ -212,10 +212,8 @@ async function main() {
 
         console.log('💼 Seeding career opportunity...');
         const {
-            STRATEGIC_REVIEW_END_ISO,
             STRATEGIC_REVIEW_NOTIFY_EMAIL,
             STRATEGIC_REVIEW_SLUG,
-            STRATEGIC_REVIEW_START_ISO,
             STRATEGIC_REVIEW_SUMMARY,
             STRATEGIC_REVIEW_TITLE,
             STRATEGIC_REVIEW_TOR_HTML,
@@ -226,8 +224,8 @@ async function main() {
             summary: STRATEGIC_REVIEW_SUMMARY,
             content: STRATEGIC_REVIEW_TOR_HTML,
             deadline: null,
-            startDate: new Date(STRATEGIC_REVIEW_START_ISO),
-            endDate: new Date(STRATEGIC_REVIEW_END_ISO),
+            startDate: null,
+            endDate: null,
             notifyEmail: STRATEGIC_REVIEW_NOTIFY_EMAIL,
         };
         await prisma.careerOpportunity.upsert({
