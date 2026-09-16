@@ -51,7 +51,7 @@ export default async function CareersPage() {
                         ) : (
                             <div className="space-y-6">
                                 {opportunities.map((item) => {
-                                    const closed = item.status !== 'open' || (item.deadline ? item.deadline < new Date() : false);
+                                    const closed = item.status !== 'open';
                                     return (
                                         <article key={item.id} className="bg-white rounded-xl border border-slate-100 shadow-sm p-6 md:p-8">
                                             <div className="flex flex-wrap items-center gap-3 mb-3">

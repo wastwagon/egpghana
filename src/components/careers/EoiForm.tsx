@@ -5,7 +5,6 @@ import { CheckCircle2, Plus, Trash2, Upload } from 'lucide-react';
 import {
     STRATEGIC_REVIEW_EOI_ATTACHMENTS,
     STRATEGIC_REVIEW_EOI_BACKGROUND,
-    STRATEGIC_REVIEW_EOI_DEADLINE_TEXT,
 } from '@/lib/career-tor-content';
 
 type Row = Record<string, string>;
@@ -427,11 +426,11 @@ export default function EoiForm({ slug, closed }: { slug: string; closed?: boole
             </section>
 
             <p className="text-xs text-slate-500 mb-5 leading-relaxed">
-                Expressions of interest will be evaluated against the selection criteria set out in the Terms of Reference. Late submissions will not be considered, and only shortlisted applicants will be contacted.
+                Expressions of interest will be evaluated against the selection criteria set out in the Terms of Reference. Only shortlisted applicants will be contacted.
             </p>
 
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pt-4 border-t border-slate-200">
-                <p className="text-sm text-slate-600">Closing: 5:00 pm (GMT) · {STRATEGIC_REVIEW_EOI_DEADLINE_TEXT}</p>
+                <p className="text-sm text-slate-600">Open until EGP closes this opportunity</p>
                 <button type="submit" disabled={!canSubmit} className="btn-primary disabled:opacity-60">
                     {submitting ? 'Submitting…' : 'Submit Expression of Interest'}
                 </button>

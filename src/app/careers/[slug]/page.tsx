@@ -36,7 +36,7 @@ export default async function CareerDetailPage({ params }: { params: { slug: str
     const opportunity = await prisma.careerOpportunity.findUnique({ where: { slug: params.slug } });
     if (!opportunity || opportunity.status === 'draft') notFound();
 
-    const closed = opportunity.status !== 'open' || (opportunity.deadline ? opportunity.deadline < new Date() : false);
+    const closed = opportunity.status !== 'open';
 
     return (
         <>

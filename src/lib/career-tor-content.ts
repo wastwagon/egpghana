@@ -1,17 +1,15 @@
 export const STRATEGIC_REVIEW_SLUG = 'strategic-organisational-review';
 export const STRATEGIC_REVIEW_TITLE = 'Strategic Organisational Review';
-export const STRATEGIC_REVIEW_EOI_DEADLINE_TEXT = 'Friday, 9th September 2026';
-export const STRATEGIC_REVIEW_EOI_DEADLINE_ISO = '2026-09-09T17:00:00.000Z';
 export const STRATEGIC_REVIEW_START_ISO = '2026-09-21T00:00:00.000Z';
 export const STRATEGIC_REVIEW_END_ISO = '2026-10-31T23:59:59.000Z';
 export const STRATEGIC_REVIEW_NOTIFY_EMAIL = 'egpghana20@gmail.com';
 export const STRATEGIC_REVIEW_EMAIL_SUBJECT = 'Expression of Interest - EGP Strategic Organisational Review';
 
 export const STRATEGIC_REVIEW_SUMMARY =
-    'EGP is commissioning an independent consultant or review team to undertake a comprehensive Strategic Organisational Review covering performance, governance, strategic positioning, operations and long-term sustainability. Expressions of interest close at 5:00 pm (GMT) on Friday, 9th September 2026.';
+    'EGP is commissioning an independent consultant or review team to undertake a comprehensive Strategic Organisational Review covering performance, governance, strategic positioning, operations and long-term sustainability. Expressions of interest remain open until EGP closes this opportunity.';
 
 export const STRATEGIC_REVIEW_EOI_BACKGROUND =
-    'The Economic Governance Platform (EGP) intends to commission an independent consultant or review team to undertake a comprehensive Strategic Organisational Review of the Platform, covering its performance, governance, strategic positioning, operations and long-term sustainability. Interested consultants / service providers are invited to express their interest by responding to the items below and submitting the completed form, together with the supporting documents, to egpghana20@gmail.com with the subject “Expression of Interest - EGP Strategic Organisational Review” by 5:00 pm (GMT) on Friday, 9th September 2026.';
+    'The Economic Governance Platform (EGP) intends to commission an independent consultant or review team to undertake a comprehensive Strategic Organisational Review of the Platform, covering its performance, governance, strategic positioning, operations and long-term sustainability. Interested consultants / service providers are invited to express their interest by responding to the items below and submitting the completed form, together with the supporting documents, to egpghana20@gmail.com with the subject “Expression of Interest - EGP Strategic Organisational Review”. Submissions remain open until EGP closes this opportunity.';
 
 export const STRATEGIC_REVIEW_EOI_ATTACHMENTS =
     'Please attach the following: (i) a company or individual profile; (ii) curriculum vitae (CV) of the reviewer or key team members; and (iii) a financial proposal / invoice covering the full scope of the assignment.';
@@ -160,6 +158,6 @@ export const STRATEGIC_REVIEW_TOR_HTML = `
 <li>Curriculum vitae (CV) of the reviewer or the key members of the review team;</li>
 <li>A financial proposal, or invoice, covering the full scope of the assignment (professional fees and any reimbursable costs).</li>
 </ul>
-<p>Kindly complete all sections of the EOI form below and submit it, with the supporting documents above, to <a href="mailto:egpghana20@gmail.com">egpghana20@gmail.com</a> (copied automatically to EGP Admin when you submit online) with the subject <strong>“${STRATEGIC_REVIEW_EMAIL_SUBJECT}”</strong> by <strong>5:00 pm (GMT) on ${STRATEGIC_REVIEW_EOI_DEADLINE_TEXT}</strong>.</p>
-<p>Submissions should be in PDF or Microsoft Word. Late submissions will not be considered, and only shortlisted applicants will be contacted.</p>
+<p>Kindly complete all sections of the EOI form below and submit it, with the supporting documents above, to <a href="mailto:egpghana20@gmail.com">egpghana20@gmail.com</a> (copied automatically to EGP Admin when you submit online) with the subject <strong>“${STRATEGIC_REVIEW_EMAIL_SUBJECT}”</strong>. Submissions remain open until EGP closes this opportunity.</p>
+<p>Submissions should be in PDF or Microsoft Word. Only shortlisted applicants will be contacted.</p>
 `;

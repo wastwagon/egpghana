@@ -91,9 +91,6 @@ export async function POST(req: NextRequest) {
         if (!opportunity || opportunity.status !== 'open') {
             return NextResponse.json({ error: 'This opportunity is not open for applications.' }, { status: 400 });
         }
-        if (opportunity.deadline && new Date() > opportunity.deadline) {
-            return NextResponse.json({ error: 'The submission deadline has passed.' }, { status: 400 });
-        }
 
         const applicantName = requiredString(form, 'applicantName');
         const applicantType = requiredString(form, 'applicantType');

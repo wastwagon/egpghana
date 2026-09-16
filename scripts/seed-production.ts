@@ -212,7 +212,6 @@ async function main() {
 
         console.log('💼 Seeding career opportunity...');
         const {
-            STRATEGIC_REVIEW_EOI_DEADLINE_ISO,
             STRATEGIC_REVIEW_END_ISO,
             STRATEGIC_REVIEW_NOTIFY_EMAIL,
             STRATEGIC_REVIEW_SLUG,
@@ -226,7 +225,7 @@ async function main() {
             type: 'consultancy',
             summary: STRATEGIC_REVIEW_SUMMARY,
             content: STRATEGIC_REVIEW_TOR_HTML,
-            deadline: new Date(STRATEGIC_REVIEW_EOI_DEADLINE_ISO),
+            deadline: null,
             startDate: new Date(STRATEGIC_REVIEW_START_ISO),
             endDate: new Date(STRATEGIC_REVIEW_END_ISO),
             notifyEmail: STRATEGIC_REVIEW_NOTIFY_EMAIL,

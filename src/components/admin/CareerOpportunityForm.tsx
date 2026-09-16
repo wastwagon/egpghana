@@ -94,6 +94,7 @@ export default function CareerOpportunityForm({ initialData }: { initialData?: O
                         <option value="open">Open</option>
                         <option value="closed">Closed</option>
                     </select>
+                    <p className="mt-1 text-xs text-slate-500">Set to Closed when you want to stop applications. Deadlines do not auto-close a listing.</p>
                 </label>
                 <label className="block">
                     <span className="text-sm font-medium">Notify email</span>
@@ -106,8 +107,9 @@ export default function CareerOpportunityForm({ initialData }: { initialData?: O
             </label>
             <div className="grid md:grid-cols-3 gap-4">
                 <label className="block">
-                    <span className="text-sm font-medium">Deadline</span>
+                    <span className="text-sm font-medium">Deadline (optional)</span>
                     <input name="deadline" type="datetime-local" defaultValue={toLocal(initialData?.deadline)} className="mt-1 w-full border rounded-lg px-3 py-2" />
+                    <p className="mt-1 text-xs text-slate-500">Display only. Leave blank to keep applications open indefinitely.</p>
                 </label>
                 <label className="block">
                     <span className="text-sm font-medium">Assignment start</span>
