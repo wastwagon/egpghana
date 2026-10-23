@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation';
 
+import Image from 'next/image';
 import Footer from '@/components/Footer';
 import EventCard from '@/components/EventCard';
 import { prisma } from '@/lib/prisma';
@@ -22,6 +23,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
         description: event.description || event.title,
         path: `/events/${event.slug}`,
         imageUrl: event.imageUrl,
+        dynamicOgPath: event.imageUrl ? undefined : `/events/${event.slug}/opengraph-image`,
     });
 }
 
@@ -135,11 +137,21 @@ export default async function EventDetailPage({ params }: { params: { slug: stri
                                 {/* Featured Image */}
                                 <div className="relative rounded-2xl overflow-hidden shadow-sm aspect-video bg-slate-100">
                                     {event.imageUrl ? (
-                                        <img
-                                            src={event.imageUrl}
-                                            alt={event.title}
-                                            className="w-full h-full object-cover"
-                                        />
+                                        event.imageUrl.startsWith('http') ? (
+                                            <img
+                                                src={event.imageUrl}
+                                                alt={event.title}
+                                                className="w-full h-full object-cover"
+                                            />
+                                        ) : (
+                                            <Image
+                                                src={event.imageUrl}
+                                                alt={event.title}
+                                                fill
+                                                className="object-cover"
+                                                sizes="(max-width: 1024px) 100vw, 66vw"
+                                            />
+                                        )
                                     ) : (
                                         <div className="w-full h-full flex items-center justify-center text-slate-300">
                                             <svg className="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24">

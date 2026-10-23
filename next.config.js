@@ -1,8 +1,11 @@
 /** @type {import('next').NextConfig} */
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+    enabled: process.env.ANALYZE === 'true',
+});
+
 const nextConfig = {
     reactStrictMode: true,
     output: 'standalone',
-    // Serve /uploads/* via API (ensures uploads work behind reverse proxies)
     async rewrites() {
         return [{ source: '/uploads/:path*', destination: '/api/uploads/:path*' }];
     },
@@ -34,20 +37,18 @@ const nextConfig = {
         ],
         formats: ['image/webp', 'image/avif'],
     },
-        experimental: {
+    experimental: {
         serverActions: {
             bodySizeLimit: '25mb',
         },
         serverComponentsExternalPackages: ['pdf-parse', 'nodemailer', 'jszip'],
     },
-    // Optimize for production
     compiler: {
         removeConsole: process.env.NODE_ENV === 'production',
     },
-    // Environment variables
     env: {
         NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3456',
     },
 };
 
-module.exports = nextConfig;
+module.exports = withBundleAnalyzer(nextConfig);

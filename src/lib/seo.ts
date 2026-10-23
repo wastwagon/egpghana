@@ -25,13 +25,20 @@ export function buildPageMetadata({
     description,
     path,
     imageUrl,
+    dynamicOgPath,
 }: {
     title: string;
     description: string;
     path: string;
     imageUrl?: string | null;
+    /** e.g. `/articles/my-slug/opengraph-image` when no upload is set */
+    dynamicOgPath?: string;
 }): Metadata {
-    const image = absoluteAssetUrl(imageUrl);
+    const image = imageUrl?.trim()
+        ? absoluteAssetUrl(imageUrl)
+        : dynamicOgPath
+          ? `${siteBaseUrl()}${dynamicOgPath.startsWith('/') ? dynamicOgPath : `/${dynamicOgPath}`}`
+          : absoluteAssetUrl(null);
     const canonical = path.startsWith('/') ? path : `/${path}`;
     const absolutePage = `${siteBaseUrl()}${canonical}`;
 

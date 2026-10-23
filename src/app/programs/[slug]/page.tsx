@@ -27,6 +27,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
         title: `${program.title} | EGP Ghana`,
         description: program.description,
         path: `/programs/${program.slug}`,
+        dynamicOgPath: `/programs/${program.slug}/opengraph-image`,
     });
 }
 

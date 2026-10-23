@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import Footer from '@/components/Footer';
 import { prisma } from '@/lib/prisma';
 import * as Icons from 'lucide-react';
@@ -45,11 +46,14 @@ export default async function AboutPage() {
                 <section className="py-8 md:py-12 bg-white">
                     <div className="container">
                         {/* Top Image */}
-                        <div className="mb-8 rounded-2xl overflow-hidden shadow-lg border border-slate-100">
-                            <img
+                        <div className="mb-8 rounded-2xl overflow-hidden shadow-lg border border-slate-100 relative aspect-[16/9] max-h-[500px]">
+                            <Image
                                 src="/assets/images/About-us.jpg"
                                 alt="About EGP Ghana"
-                                className="w-full h-auto object-cover max-h-[500px]"
+                                fill
+                                className="object-cover"
+                                sizes="(max-width: 768px) 100vw, 960px"
+                                priority
                             />
                         </div>
 
@@ -167,43 +171,31 @@ export default async function AboutPage() {
                         </div>
 
                         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
-                            {/* Row 1 */}
-                            <div className="bg-white p-6 rounded-xl border border-slate-100 shadow-sm flex items-center justify-center hover:shadow-md transition-shadow h-32">
-                                <img src="/assets/images/members/oxfam-logo-horizontal-green-rgb-scaled.png" alt="Oxfam" className="max-h-16 w-auto object-contain" />
-                            </div>
-                            <div className="bg-white p-6 rounded-xl border border-slate-100 shadow-sm flex items-center justify-center hover:shadow-md transition-shadow h-32">
-                                <img src="/assets/images/members/gacc-logo-2.png" alt="Ghana Anti-Corruption Coalition" className="max-h-16 w-auto object-contain" />
-                            </div>
-                            <div className="bg-white p-6 rounded-xl border border-slate-100 shadow-sm flex items-center justify-center hover:shadow-md transition-shadow h-32">
-                                {/* ACEP Placeholder */}
-                                <img src="/assets/images/members/images-8.png" alt="Africa Centre for Energy Policy" className="max-h-16 w-auto object-contain" />
-                            </div>
-                            <div className="bg-white p-6 rounded-xl border border-slate-100 shadow-sm flex items-center justify-center hover:shadow-md transition-shadow h-32">
-                                <img src="/assets/images/members/imani_africa_web.jpg" alt="IMANI" className="max-h-16 w-auto object-contain" />
-                            </div>
-                            <div className="bg-white p-6 rounded-xl border border-slate-100 shadow-sm flex items-center justify-center hover:shadow-md transition-shadow h-32">
-                                {/* IEA Placeholder */}
-                                <img src="/assets/images/members/images-9.png" alt="IEA Ghana" className="max-h-16 w-auto object-contain" />
-                            </div>
-
-                            {/* Row 2 */}
-                            <div className="bg-white p-6 rounded-xl border border-slate-100 shadow-sm flex items-center justify-center hover:shadow-md transition-shadow h-32">
-                                {/* GII Placeholder */}
-                                <img src="/assets/images/members/images-17.jpeg" alt="Ghana Integrity Initiative" className="max-h-16 w-auto object-contain" />
-                            </div>
-                            <div className="bg-white p-6 rounded-xl border border-slate-100 shadow-sm flex items-center justify-center hover:shadow-md transition-shadow h-32">
-                                {/* EduWatch Placeholder */}
-                                <img src="/assets/images/members/logo_favicon-1.png" alt="Africa Education Watch" className="max-h-16 w-auto object-contain" />
-                            </div>
-                            <div className="bg-white p-6 rounded-xl border border-slate-100 shadow-sm flex items-center justify-center hover:shadow-md transition-shadow h-32">
-                                <img src="/assets/images/members/IDEG-logo.png.webp" alt="IDEG" className="max-h-16 w-auto object-contain" />
-                            </div>
-                            <div className="bg-white p-6 rounded-xl border border-slate-100 shadow-sm flex items-center justify-center hover:shadow-md transition-shadow h-32">
-                                <img src="/assets/images/members/tjna_final_final_logo_0.jpg" alt="Tax Justice Network Africa" className="max-h-16 w-auto object-contain" />
-                            </div>
-                            <div className="bg-white p-6 rounded-xl border border-slate-100 shadow-sm flex items-center justify-center hover:shadow-md transition-shadow h-32">
-                                <img src="/assets/images/members/OSF3-2.png" alt="Open Society Foundations" className="max-h-16 w-auto object-contain" />
-                            </div>
+                            {[
+                                { src: '/assets/images/members/oxfam-logo-horizontal-green-rgb-scaled.png', alt: 'Oxfam' },
+                                { src: '/assets/images/members/gacc-logo-2.png', alt: 'Ghana Anti-Corruption Coalition' },
+                                { src: '/assets/images/members/images-8.png', alt: 'Africa Centre for Energy Policy' },
+                                { src: '/assets/images/members/imani_africa_web.jpg', alt: 'IMANI' },
+                                { src: '/assets/images/members/images-9.png', alt: 'IEA Ghana' },
+                                { src: '/assets/images/members/images-17.jpeg', alt: 'Ghana Integrity Initiative' },
+                                { src: '/assets/images/members/logo_favicon-1.png', alt: 'Africa Education Watch' },
+                                { src: '/assets/images/members/IDEG-logo.png.webp', alt: 'IDEG' },
+                                { src: '/assets/images/members/tjna_final_final_logo_0.jpg', alt: 'Tax Justice Network Africa' },
+                                { src: '/assets/images/members/OSF3-2.png', alt: 'Open Society Foundations' },
+                            ].map((logo) => (
+                                <div
+                                    key={logo.src}
+                                    className="bg-white p-6 rounded-xl border border-slate-100 shadow-sm flex items-center justify-center hover:shadow-md transition-shadow h-32"
+                                >
+                                    <Image
+                                        src={logo.src}
+                                        alt={logo.alt}
+                                        width={160}
+                                        height={64}
+                                        className="max-h-16 w-auto object-contain"
+                                    />
+                                </div>
+                            ))}
                         </div>
                     </div>
                 </section>

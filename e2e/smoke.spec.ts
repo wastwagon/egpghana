@@ -10,6 +10,7 @@ test.describe('public smoke', () => {
         await page.goto('/search');
         await expect(page.getByRole('heading', { name: /search/i })).toBeVisible();
         await expect(page.getByRole('searchbox')).toBeVisible();
+        await expect(page.getByRole('link', { name: 'Public debt' })).toBeVisible();
     });
 
     test('programs page loads', async ({ page }) => {

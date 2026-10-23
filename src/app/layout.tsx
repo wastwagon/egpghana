@@ -5,6 +5,7 @@ import "./globals.css";
 import dynamic from "next/dynamic";
 import Header from "@/components/Header";
 import { AnalyticsTracker } from "@/components/AnalyticsTracker";
+import WebVitalsReporter from "@/components/WebVitalsReporter";
 import { OrganizationJsonLd, WebSiteJsonLd } from "@/components/JsonLd";
 import { absoluteAssetUrl, siteBaseUrl } from "@/lib/seo";
 import type { Viewport } from "next";
@@ -103,6 +104,7 @@ export default function RootLayout({
                 <ChatWidget />
                 <Suspense fallback={null}>
                     <AnalyticsTracker />
+                    <WebVitalsReporter />
                 </Suspense>
 
 

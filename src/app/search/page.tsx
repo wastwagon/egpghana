@@ -4,6 +4,14 @@ import { searchPublicContent } from '@/lib/public-search';
 import type { Metadata } from 'next';
 import { BreadcrumbJsonLd } from '@/components/JsonLd';
 
+const SUGGESTED_SEARCHES = [
+    { label: 'Public debt', q: 'debt' },
+    { label: 'Inflation', q: 'inflation' },
+    { label: 'IMF program', q: 'imf' },
+    { label: 'GDP growth', q: 'gdp' },
+    { label: 'Fiscal policy', q: 'fiscal' },
+];
+
 export const metadata: Metadata = {
     title: 'Search | EGP Ghana',
     description: 'Search publications, resources, and economic dashboards on EGP Ghana.',
@@ -28,8 +36,10 @@ export default async function SearchPage({
                     <h1 className="heading-2 mb-2">Search</h1>
                     <p className="text-slate-600 mb-8">Publications, downloads, and dashboards.</p>
 
-                    <form method="get" action="/search" className="flex gap-2 mb-10">
+                    <form method="get" action="/search" className="flex gap-2 mb-4" role="search">
+                        <label htmlFor="site-search" className="sr-only">Search publications and dashboards</label>
                         <input
+                            id="site-search"
                             type="search"
                             name="q"
                             value={q}
@@ -37,9 +47,27 @@ export default async function SearchPage({
                             className="input flex-1 min-h-[44px]"
                             minLength={2}
                             required
+                            autoComplete="off"
                         />
-                        <button type="submit" className="btn-primary shrink-0">Search</button>
+                        <button type="submit" className="btn-primary shrink-0 min-h-[44px]">Search</button>
                     </form>
+
+                    {!q && (
+                        <div className="mb-10">
+                            <p className="text-xs font-medium text-slate-500 mb-2">Popular searches</p>
+                            <div className="flex flex-wrap gap-2">
+                                {SUGGESTED_SEARCHES.map((item) => (
+                                    <Link
+                                        key={item.q}
+                                        href={`/search?q=${encodeURIComponent(item.q)}`}
+                                        className="text-sm font-medium px-3 py-2 rounded-lg bg-white border border-slate-200 text-primary-800 hover:bg-primary-50 min-h-[36px] inline-flex items-center"
+                                    >
+                                        {item.label}
+                                    </Link>
+                                ))}
+                            </div>
+                        </div>
+                    )}
 
                     {q.length > 0 && q.length < 2 && (
                         <p className="text-slate-500">Enter at least 2 characters.</p>

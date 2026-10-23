@@ -24,6 +24,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
         description: article.excerpt || article.title,
         path: `/articles/${article.slug}`,
         imageUrl: article.imageUrl,
+        dynamicOgPath: article.imageUrl ? undefined : `/articles/${article.slug}/opengraph-image`,
     });
 }
 
@@ -159,7 +160,7 @@ export default async function ArticlePage({ params }: { params: { slug: string }
 
                             {/* Content */}
                             <div
-                                className="text-slate-700 leading-relaxed whitespace-pre-wrap"
+                                className="prose prose-slate lg:prose-lg max-w-3xl prose-headings:font-heading prose-p:leading-relaxed text-slate-700"
                                 dangerouslySetInnerHTML={{ __html: article.content }}
                             />
 

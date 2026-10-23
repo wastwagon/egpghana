@@ -204,6 +204,10 @@ Partners can read cached headline indicators via `GET /api/indicators/latest` (o
 
 Dashboard **Print briefing** opens a print-ready HTML page — use the browser’s “Save as PDF” for a PDF export.
 
+**SEO images:** dynamic Open Graph PNGs are generated for the site root, articles, events, and programs (`/…/opengraph-image`). Articles/events fall back when no upload image is set.
+
+**Bundle size:** run `npm run analyze` (sets `ANALYZE=true`) to open the Next.js bundle analyzer report after build.
+
 ## 📝 Available Scripts
 
 - `npm run dev` - Start development server
