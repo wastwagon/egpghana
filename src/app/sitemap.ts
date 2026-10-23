@@ -1,6 +1,9 @@
 import { MetadataRoute } from 'next';
+import { publicPageDynamic } from '@/lib/cache-tags';
 import { prisma } from '@/lib/prisma';
 import { siteBaseUrl } from '@/lib/seo';
+
+export const dynamic = publicPageDynamic;
 
 const baseUrl = siteBaseUrl();
 

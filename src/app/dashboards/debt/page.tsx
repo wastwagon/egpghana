@@ -1,11 +1,11 @@
-import dynamic from 'next/dynamic';
+import nextDynamic from 'next/dynamic';
 import { Suspense } from 'react';
 import Footer from '@/components/Footer';
 import DashboardToolbar from '@/components/dashboards/DashboardToolbar';
 import HeroBannerVideo from '@/components/HeroBannerVideo';
 import StatCard from '@/components/StatCard';
 import ChartBlockSkeleton from '@/components/ChartBlockSkeleton';
-import { PUBLIC_DATA_REVALIDATE_SECONDS } from '@/lib/cache-tags';
+import { publicPageDynamic, publicPageRevalidate } from '@/lib/cache-tags';
 import { findEconomicDataSeries, findLatestEconomicData } from '@/lib/cached-economic-data';
 import {
     filterEconomicRowsByCutoff,
@@ -20,17 +20,18 @@ import { prisma } from '@/lib/prisma';
 
 const chartLoading = () => <ChartBlockSkeleton />;
 
-const DebtOverviewChart = dynamic(() => import('@/components/charts/DebtOverviewChart'), { loading: chartLoading });
-const DebtCompositionChart = dynamic(() => import('@/components/charts/DebtCompositionChart'), { loading: chartLoading });
-const DebtToGDPChart = dynamic(() => import('@/components/charts/DebtToGDPChart'), { loading: chartLoading });
-const DebtBreakdownChart = dynamic(() => import('@/components/charts/DebtBreakdownChart'), { loading: chartLoading });
-const DebtServiceChart = dynamic(() => import('@/components/charts/DebtServiceChart'), { loading: chartLoading });
-const RiskAssessmentSection = dynamic(() => import('@/components/dashboards/RiskAssessmentSection'), { loading: chartLoading });
-const IndicatorsGrid = dynamic(() => import('@/components/dashboards/IndicatorsGrid'), { loading: chartLoading });
-const HistoricalDebtAnalyzer = dynamic(() => import('@/components/dashboards/HistoricalDebtAnalyzer'), { loading: chartLoading });
-const DebtRestructuringJourney = dynamic(() => import('@/components/dashboards/DebtRestructuringJourney'), { loading: chartLoading });
+const DebtOverviewChart = nextDynamic(() => import('@/components/charts/DebtOverviewChart'), { loading: chartLoading });
+const DebtCompositionChart = nextDynamic(() => import('@/components/charts/DebtCompositionChart'), { loading: chartLoading });
+const DebtToGDPChart = nextDynamic(() => import('@/components/charts/DebtToGDPChart'), { loading: chartLoading });
+const DebtBreakdownChart = nextDynamic(() => import('@/components/charts/DebtBreakdownChart'), { loading: chartLoading });
+const DebtServiceChart = nextDynamic(() => import('@/components/charts/DebtServiceChart'), { loading: chartLoading });
+const RiskAssessmentSection = nextDynamic(() => import('@/components/dashboards/RiskAssessmentSection'), { loading: chartLoading });
+const IndicatorsGrid = nextDynamic(() => import('@/components/dashboards/IndicatorsGrid'), { loading: chartLoading });
+const HistoricalDebtAnalyzer = nextDynamic(() => import('@/components/dashboards/HistoricalDebtAnalyzer'), { loading: chartLoading });
+const DebtRestructuringJourney = nextDynamic(() => import('@/components/dashboards/DebtRestructuringJourney'), { loading: chartLoading });
 
-export const revalidate = PUBLIC_DATA_REVALIDATE_SECONDS;
+export const dynamic = publicPageDynamic;
+export const revalidate = publicPageRevalidate;
 
 export const metadata = {
     title: 'Public Debt Tracker | EGP Ghana',

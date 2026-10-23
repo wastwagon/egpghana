@@ -1,10 +1,10 @@
-import dynamic from 'next/dynamic';
+import nextDynamic from 'next/dynamic';
 import { Suspense } from 'react';
 import Footer from '@/components/Footer';
 import DashboardToolbar from '@/components/dashboards/DashboardToolbar';
 import HeroBannerVideo from '@/components/HeroBannerVideo';
 import ChartBlockSkeleton from '@/components/ChartBlockSkeleton';
-import { PUBLIC_DATA_REVALIDATE_SECONDS } from '@/lib/cache-tags';
+import { publicPageDynamic, publicPageRevalidate } from '@/lib/cache-tags';
 import { findEconomicDataSeries, findLatestEconomicData } from '@/lib/cached-economic-data';
 import {
     filterEconomicRowsByCutoff,
@@ -17,16 +17,17 @@ import { BreadcrumbJsonLd } from '@/components/JsonLd';
 
 const chartLoading = () => <ChartBlockSkeleton />;
 
-const GDPGrowthChart = dynamic(() => import('@/components/charts/GDPGrowthChart'), { loading: chartLoading });
-const InflationChart = dynamic(() => import('@/components/charts/InflationChart'), { loading: chartLoading });
-const ExchangeRateChart = dynamic(() => import('@/components/charts/ExchangeRateChart'), { loading: chartLoading });
-const EconomicSummaryCards = dynamic(() => import('@/components/charts/EconomicSummaryCards'), { loading: chartLoading });
-const FiscalPerformanceSection = dynamic(() => import('@/components/dashboards/FiscalPerformanceSection'), { loading: chartLoading });
-const ExternalSectorSection = dynamic(() => import('@/components/dashboards/ExternalSectorSection'), { loading: chartLoading });
-const LaborMarketSection = dynamic(() => import('@/components/dashboards/LaborMarketSection'), { loading: chartLoading });
-const MonetaryPolicySection = dynamic(() => import('@/components/dashboards/MonetaryPolicySection'), { loading: chartLoading });
+const GDPGrowthChart = nextDynamic(() => import('@/components/charts/GDPGrowthChart'), { loading: chartLoading });
+const InflationChart = nextDynamic(() => import('@/components/charts/InflationChart'), { loading: chartLoading });
+const ExchangeRateChart = nextDynamic(() => import('@/components/charts/ExchangeRateChart'), { loading: chartLoading });
+const EconomicSummaryCards = nextDynamic(() => import('@/components/charts/EconomicSummaryCards'), { loading: chartLoading });
+const FiscalPerformanceSection = nextDynamic(() => import('@/components/dashboards/FiscalPerformanceSection'), { loading: chartLoading });
+const ExternalSectorSection = nextDynamic(() => import('@/components/dashboards/ExternalSectorSection'), { loading: chartLoading });
+const LaborMarketSection = nextDynamic(() => import('@/components/dashboards/LaborMarketSection'), { loading: chartLoading });
+const MonetaryPolicySection = nextDynamic(() => import('@/components/dashboards/MonetaryPolicySection'), { loading: chartLoading });
 
-export const revalidate = PUBLIC_DATA_REVALIDATE_SECONDS;
+export const dynamic = publicPageDynamic;
+export const revalidate = publicPageRevalidate;
 
 export const metadata = {
     title: 'Economic Indicators | EGP Ghana',

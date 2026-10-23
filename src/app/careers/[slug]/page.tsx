@@ -7,9 +7,10 @@ import { prisma } from '@/lib/prisma';
 import { buildPageMetadata } from '@/lib/seo';
 import { BreadcrumbJsonLd, JobPostingJsonLd } from '@/components/JsonLd';
 
-import { PUBLIC_DATA_REVALIDATE_SECONDS } from '@/lib/cache-tags';
+import { publicPageDynamic, publicPageRevalidate } from '@/lib/cache-tags';
 
-export const revalidate = PUBLIC_DATA_REVALIDATE_SECONDS;
+export const dynamic = publicPageDynamic;
+export const revalidate = publicPageRevalidate;
 
 export async function generateMetadata({ params }: { params: { slug: string } }) {
     const opportunity = await prisma.careerOpportunity.findUnique({ where: { slug: params.slug } });

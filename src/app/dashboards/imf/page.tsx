@@ -1,4 +1,4 @@
-import dynamic from 'next/dynamic';
+import nextDynamic from 'next/dynamic';
 import { Suspense } from 'react';
 import Footer from '@/components/Footer';
 import DashboardToolbar from '@/components/dashboards/DashboardToolbar';
@@ -9,22 +9,23 @@ import { findAllEconomicData } from '@/lib/cached-economic-data';
 import { filterEconomicRowsByCutoff, parseDashboardRange, rangeCutoff } from '@/lib/dashboard-range';
 import DashboardTimeRange from '@/components/dashboards/DashboardTimeRange';
 import { BreadcrumbJsonLd } from '@/components/JsonLd';
-import { PUBLIC_DATA_REVALIDATE_SECONDS } from '@/lib/cache-tags';
+import { publicPageDynamic, publicPageRevalidate } from '@/lib/cache-tags';
 
 const chartLoading = () => <ChartBlockSkeleton />;
 
-const ProgramTimelineChart = dynamic(() => import('@/components/charts/ProgramTimelineChart'), { loading: chartLoading });
-const DisbursementScheduleChart = dynamic(() => import('@/components/charts/DisbursementScheduleChart'), { loading: chartLoading });
-const ConditionalityTracker = dynamic(() => import('@/components/charts/ConditionalityTracker'), { loading: chartLoading });
-const StatusProgressBar = dynamic(() => import('@/components/dashboards/StatusProgressBar'), { loading: chartLoading });
-const ExecutiveSummary = dynamic(() => import('@/components/dashboards/ExecutiveSummary'), { loading: chartLoading });
-const MacroTrendsChart = dynamic(() => import('@/components/charts/MacroTrendsChart'), { loading: chartLoading });
-const KeyEconomicIndices = dynamic(() => import('@/components/dashboards/KeyEconomicIndices'), { loading: chartLoading });
-const ProgrammeReviews = dynamic(() => import('@/components/dashboards/ProgrammeReviews'), { loading: chartLoading });
-const KeyConditions = dynamic(() => import('@/components/dashboards/KeyConditions'), { loading: chartLoading });
-const PathToCrisis = dynamic(() => import('@/components/dashboards/PathToCrisis'), { loading: chartLoading });
+const ProgramTimelineChart = nextDynamic(() => import('@/components/charts/ProgramTimelineChart'), { loading: chartLoading });
+const DisbursementScheduleChart = nextDynamic(() => import('@/components/charts/DisbursementScheduleChart'), { loading: chartLoading });
+const ConditionalityTracker = nextDynamic(() => import('@/components/charts/ConditionalityTracker'), { loading: chartLoading });
+const StatusProgressBar = nextDynamic(() => import('@/components/dashboards/StatusProgressBar'), { loading: chartLoading });
+const ExecutiveSummary = nextDynamic(() => import('@/components/dashboards/ExecutiveSummary'), { loading: chartLoading });
+const MacroTrendsChart = nextDynamic(() => import('@/components/charts/MacroTrendsChart'), { loading: chartLoading });
+const KeyEconomicIndices = nextDynamic(() => import('@/components/dashboards/KeyEconomicIndices'), { loading: chartLoading });
+const ProgrammeReviews = nextDynamic(() => import('@/components/dashboards/ProgrammeReviews'), { loading: chartLoading });
+const KeyConditions = nextDynamic(() => import('@/components/dashboards/KeyConditions'), { loading: chartLoading });
+const PathToCrisis = nextDynamic(() => import('@/components/dashboards/PathToCrisis'), { loading: chartLoading });
 
-export const revalidate = PUBLIC_DATA_REVALIDATE_SECONDS;
+export const dynamic = publicPageDynamic;
+export const revalidate = publicPageRevalidate;
 
 
 export const metadata = {

@@ -1,6 +1,6 @@
 
 import Footer from '@/components/Footer';
-import { PUBLIC_DATA_REVALIDATE_SECONDS } from '@/lib/cache-tags';
+import { publicPageDynamic, publicPageRevalidate } from '@/lib/cache-tags';
 import ResourceCard from '@/components/ResourceCard';
 import ArticleCard from '@/components/ArticleCard';
 import LibraryHeader from '@/components/library/LibraryHeader';
@@ -15,7 +15,8 @@ export const metadata = {
     description: 'Access research papers, policy briefs, and publications on Ghana\'s economic governance',
 };
 
-export const revalidate = PUBLIC_DATA_REVALIDATE_SECONDS;
+export const dynamic = publicPageDynamic;
+export const revalidate = publicPageRevalidate;
 
 export default async function ResourcesPage({
     searchParams,

@@ -37,11 +37,7 @@ ENV NEXTAUTH_URL=${NEXTAUTH_URL}
 ARG NEXT_PUBLIC_APP_URL=http://localhost:3456
 ENV NEXT_PUBLIC_APP_URL=${NEXT_PUBLIC_APP_URL}
 
-# Prerender needs a real URL at build time (Coolify: mark DATABASE_URL "Available at Buildtime").
-RUN if [ -z "$DATABASE_URL" ]; then \
-  echo "ERROR: DATABASE_URL is empty during docker build. Coolify: enable Available at Buildtime for DATABASE_URL (see Coolify.md)."; \
-  exit 1; \
-  fi && npm run build
+RUN npm run build
 
 # Production image, copy all the files and run next
 FROM node:20-alpine AS runner

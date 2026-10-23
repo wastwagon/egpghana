@@ -1,10 +1,11 @@
 import Footer from '@/components/Footer';
 import StaffGrid from '@/components/StaffGrid';
-import { PUBLIC_DATA_REVALIDATE_SECONDS } from '@/lib/cache-tags';
+import { publicPageDynamic, publicPageRevalidate } from '@/lib/cache-tags';
 import { prisma } from '@/lib/prisma';
 import { BreadcrumbJsonLd } from '@/components/JsonLd';
 
-export const revalidate = PUBLIC_DATA_REVALIDATE_SECONDS;
+export const dynamic = publicPageDynamic;
+export const revalidate = publicPageRevalidate;
 
 export const metadata = {
     title: 'Our Team | EGP Ghana',

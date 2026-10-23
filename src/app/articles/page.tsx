@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 import Footer from '@/components/Footer';
 import ArticleCard from '@/components/ArticleCard';
-import { PUBLIC_DATA_REVALIDATE_SECONDS } from '@/lib/cache-tags';
+import { publicPageDynamic, publicPageRevalidate } from '@/lib/cache-tags';
 import { prisma } from '@/lib/prisma';
 import { BreadcrumbJsonLd } from '@/components/JsonLd';
 
@@ -12,7 +12,8 @@ export const metadata = {
     description: 'Latest economic analysis, policy briefs, and news from the Economic Governance Platform.',
 };
 
-export const revalidate = PUBLIC_DATA_REVALIDATE_SECONDS;
+export const dynamic = publicPageDynamic;
+export const revalidate = publicPageRevalidate;
 
 export default async function ArticlesPage({ searchParams }: { searchParams: { category?: string; page?: string } }) {
 

@@ -2,11 +2,12 @@ import Footer from '@/components/Footer';
 import Link from 'next/link';
 import EventsList from '@/components/events/EventsList';
 import NewsletterSignup from '@/components/NewsletterSignup';
-import { PUBLIC_DATA_REVALIDATE_SECONDS } from '@/lib/cache-tags';
+import { publicPageDynamic, publicPageRevalidate } from '@/lib/cache-tags';
 import { prisma } from '@/lib/prisma';
 import { BreadcrumbJsonLd } from '@/components/JsonLd';
 
-export const revalidate = PUBLIC_DATA_REVALIDATE_SECONDS;
+export const dynamic = publicPageDynamic;
+export const revalidate = publicPageRevalidate;
 
 export const metadata = {
     title: 'Events & Activities | EGP Ghana',

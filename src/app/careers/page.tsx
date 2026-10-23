@@ -1,11 +1,12 @@
 import Link from 'next/link';
 import Footer from '@/components/Footer';
 import CareerPageHero from '@/components/careers/CareerPageHero';
-import { PUBLIC_DATA_REVALIDATE_SECONDS } from '@/lib/cache-tags';
+import { publicPageDynamic, publicPageRevalidate } from '@/lib/cache-tags';
 import { prisma } from '@/lib/prisma';
 import { BreadcrumbJsonLd } from '@/components/JsonLd';
 
-export const revalidate = PUBLIC_DATA_REVALIDATE_SECONDS;
+export const dynamic = publicPageDynamic;
+export const revalidate = publicPageRevalidate;
 
 export const metadata = {
     title: 'Careers | EGP Ghana',

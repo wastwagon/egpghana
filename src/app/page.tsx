@@ -3,11 +3,12 @@ import Footer from '@/components/Footer';
 import ArticleCard from '@/components/ArticleCard';
 import EventCard from '@/components/EventCard';
 import HeroBannerVideo from '@/components/HeroBannerVideo';
-import { PUBLIC_DATA_REVALIDATE_SECONDS } from '@/lib/cache-tags';
+import { publicPageDynamic, publicPageRevalidate } from '@/lib/cache-tags';
 import { findLatestEconomicData } from '@/lib/cached-economic-data';
 import { prisma } from '@/lib/prisma';
 
-export const revalidate = PUBLIC_DATA_REVALIDATE_SECONDS;
+export const dynamic = publicPageDynamic;
+export const revalidate = publicPageRevalidate;
 
 async function getDashboardData() {
     const latestIndicator = findLatestEconomicData;

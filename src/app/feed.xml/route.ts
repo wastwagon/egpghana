@@ -1,4 +1,7 @@
+import { publicPageDynamic } from '@/lib/cache-tags';
 import { prisma } from '@/lib/prisma';
+
+export const dynamic = publicPageDynamic;
 
 const SITE = 'https://egpghana.org';
 

@@ -31,7 +31,7 @@ Go to the **Environment Variables** tab of your application in Coolify and add:
 
 | Key | Value (Example) | Description |
 | :--- | :--- | :--- |
-| `DATABASE_URL` | `postgresql://user:pass@egp-db:5432/db` | Use the internal string from Step A. **Enable “Available at Buildtime”** — `next build` prerenders pages (home, careers, sitemap, etc.) with Prisma; without this, deploy fails with `DATABASE_URL resolved to an empty string`. |
+| `DATABASE_URL` | `postgresql://user:pass@egp-db:5432/db` | Use the internal string from Step A (runtime). **Optional:** enable **Available at Buildtime** to prerender public pages during `docker build` (faster first paint). If buildtime is off, the app still builds and renders those pages on first request using runtime `DATABASE_URL`. |
 | `REDIS_URL` | `redis://egp-redis:6379` | Internal Redis link |
 | `NEXTAUTH_SECRET` | `generate-a-long-random-string` | For admin authentication |
 | `NEXTAUTH_URL` | `https://egpghana.org` | Your production URL |
@@ -122,14 +122,16 @@ New articles/resources also refresh their own embedding on save when `OPENAI_API
 
 ### `DATABASE_URL resolved to an empty string` during `npm run build`
 
-The Docker build runs `next build`, which prerenders public pages against Postgres (same as GitHub Actions CI). Coolify must pass `DATABASE_URL` into the **build**, not only into the running container.
+Recent app versions skip build-time Prerender when `DATABASE_URL` is not passed into the image build (typical Coolify setup: DB env runtime-only). **Redeploy from an up-to-date `main` commit** if you still see this on an older image.
+
+To prerender at build (optional, like GitHub Actions CI):
 
 1. Open the app → **Environment Variables**.
-2. Edit `DATABASE_URL` (same value as runtime: internal hostname, e.g. `postgresql://...@egp-db:5432/...`).
-3. Turn on **Available at Buildtime** (wording may vary by Coolify version).
-4. Redeploy and confirm the build log includes `--build-arg DATABASE_URL` (or that `DATABASE_URL` is set in the sourced build env).
+2. Edit `DATABASE_URL` (same internal URL as runtime).
+3. Turn on **Available at Buildtime**.
+4. Redeploy and confirm the build log passes `DATABASE_URL` into `docker build`.
 
-`NODE_ENV=production` should stay **runtime-only** (buildtime off) so devDependencies install for Tailwind/TypeScript. `DATABASE_URL` is the opposite: **buildtime on**.
+`NODE_ENV=production` should stay **runtime-only** (buildtime off) so devDependencies install for Tailwind/TypeScript.
 
 ## 7. Local Development
 Continue using:

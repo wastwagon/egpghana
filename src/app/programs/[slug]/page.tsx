@@ -6,9 +6,10 @@ import { buildPageMetadata } from '@/lib/seo';
 import { BreadcrumbJsonLd, WebPageJsonLd } from '@/components/JsonLd';
 import * as Icons from 'lucide-react';
 
-import { PUBLIC_DATA_REVALIDATE_SECONDS } from '@/lib/cache-tags';
+import { publicPageDynamic, publicPageRevalidate } from '@/lib/cache-tags';
 
-export const revalidate = PUBLIC_DATA_REVALIDATE_SECONDS;
+export const dynamic = publicPageDynamic;
+export const revalidate = publicPageRevalidate;
 
 const DynamicIcon = ({ name, className }: { name: string; className?: string }) => {
     const IconComponent = (Icons as any)[name];

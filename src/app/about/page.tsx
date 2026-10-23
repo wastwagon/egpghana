@@ -4,10 +4,11 @@ import Footer from '@/components/Footer';
 import { prisma } from '@/lib/prisma';
 import * as Icons from 'lucide-react';
 
-import { PUBLIC_DATA_REVALIDATE_SECONDS } from '@/lib/cache-tags';
+import { publicPageDynamic, publicPageRevalidate } from '@/lib/cache-tags';
 import { BreadcrumbJsonLd } from '@/components/JsonLd';
 
-export const revalidate = PUBLIC_DATA_REVALIDATE_SECONDS;
+export const dynamic = publicPageDynamic;
+export const revalidate = publicPageRevalidate;
 
 export const metadata = {
     title: 'About Us | EGP Ghana',
