@@ -31,7 +31,7 @@ export default function ReviewSection({
             >
                 <div>
                     <div className="flex items-center space-x-3 mb-2">
-                        <span className="px-3 py-1 rounded-full bg-primary-100 text-primary-700 text-xs font-bold uppercase tracking-wider">
+                        <span className="px-3 py-1 rounded-full bg-primary-100 text-primary-700 text-xs font-semibold tracking-normal">
                             {date}
                         </span>
                         <h3 className="text-base md:text-lg font-semibold text-slate-800">{title}</h3>
@@ -60,7 +60,7 @@ export default function ReviewSection({
                         <div className="px-6 pb-8 border-t border-slate-100">
                             {/* Highlights */}
                             <div className="py-6">
-                                <h4 className="text-sm font-bold text-slate-900 uppercase tracking-wide mb-4">Key Highlights</h4>
+                                <h4 className="text-sm font-semibold text-slate-900 mb-4">Key highlights</h4>
                                 <div className="flex flex-wrap gap-2">
                                     {highlights.map((highlight, index) => (
                                         <span key={index} className="px-3 py-1.5 bg-slate-100 text-slate-700 rounded-lg text-sm font-medium border border-slate-200">

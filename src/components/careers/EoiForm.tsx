@@ -149,7 +149,10 @@ export default function EoiForm({ slug, closed }: { slug: string; closed?: boole
             data.set('teamMembers', JSON.stringify(teamMembers));
 
             const res = await fetch('/api/careers/apply', { method: 'POST', body: data });
-            const json = await res.json();
+            const json = (await res.json().catch(() => ({}))) as { error?: string };
+            if (res.status === 429) {
+                throw new Error(json.error || 'Too many submissions from this network. Please try again later.');
+            }
             if (!res.ok) throw new Error(json.error || 'Submission failed');
             setSuccess(true);
             window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -162,7 +165,7 @@ export default function EoiForm({ slug, closed }: { slug: string; closed?: boole
 
     if (success) {
         return (
-            <div className="bg-white border border-slate-200 rounded-lg p-8 text-center">
+            <div className="bg-white border border-slate-200 rounded-lg p-8 text-center" data-testid="eoi-success">
                 <CheckCircle2 className="w-10 h-10 text-emerald-600 mx-auto mb-3" />
                 <h3 className="text-xl font-heading font-bold text-slate-900 mb-2">Expression of Interest received</h3>
                 <p className="text-slate-600 max-w-xl mx-auto text-sm">
@@ -183,7 +186,7 @@ export default function EoiForm({ slug, closed }: { slug: string; closed?: boole
     return (
         <form onSubmit={onSubmit} className="bg-white border border-slate-200 rounded-lg p-5 md:p-8 shadow-sm" encType="multipart/form-data">
             <header className="border-b border-slate-200 pb-4 mb-6">
-                <p className="text-xs font-semibold tracking-wider text-primary-700 uppercase">EGP Ghana</p>
+                <p className="section-label text-primary-700">EGP Ghana</p>
                 <h3 className="text-xl md:text-2xl font-heading font-bold text-slate-900 mt-1">
                     Expression of Interest: Strategic Organisational Review
                 </h3>

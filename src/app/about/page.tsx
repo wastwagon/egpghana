@@ -1,9 +1,12 @@
-
+import Link from 'next/link';
 import Footer from '@/components/Footer';
 import { prisma } from '@/lib/prisma';
 import * as Icons from 'lucide-react';
 
-export const revalidate = 0;
+import { PUBLIC_DATA_REVALIDATE_SECONDS } from '@/lib/cache-tags';
+import { BreadcrumbJsonLd } from '@/components/JsonLd';
+
+export const revalidate = PUBLIC_DATA_REVALIDATE_SECONDS;
 
 export const metadata = {
     title: 'About Us | EGP Ghana',
@@ -24,6 +27,7 @@ export default async function AboutPage() {
 
     return (
         <>
+            <BreadcrumbJsonLd items={[{ name: 'Home', path: '/' }, { name: 'About', path: '/about' }]} />
             <main className="min-h-screen bg-slate-50">
                 {/* Hero Section */}
                 <section className="relative bg-primary-700 py-12 md:py-20">
@@ -62,7 +66,7 @@ export default async function AboutPage() {
                         {/* Vision, Mission, Goal Cards */}
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                             {/* Vision */}
-                            <div className="glass-card transition-transform duration-300 hover:scale-105 bg-white border-l-4 border-l-cyan-400 border-y border-r border-slate-100 shadow-sm p-8 h-full flex flex-col">
+                            <div className="interactive-card card-hover bg-white border-l-4 border-l-cyan-400 border-y border-r border-slate-100 shadow-sm p-8 h-full flex flex-col">
                                 <div className="flex items-center gap-3 mb-4">
                                     <div className="w-10 h-10 rounded-full bg-cyan-50 flex items-center justify-center text-cyan-500">
                                         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -78,7 +82,7 @@ export default async function AboutPage() {
                             </div>
 
                             {/* Mission */}
-                            <div className="glass-card transition-transform duration-300 hover:scale-105 bg-white border-l-4 border-l-emerald-400 border-y border-r border-slate-100 shadow-sm p-8 h-full flex flex-col">
+                            <div className="interactive-card card-hover bg-white border-l-4 border-l-emerald-400 border-y border-r border-slate-100 shadow-sm p-8 h-full flex flex-col">
                                 <div className="flex items-center gap-3 mb-4">
                                     <div className="w-10 h-10 rounded-full bg-emerald-50 flex items-center justify-center text-emerald-500">
                                         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -93,7 +97,7 @@ export default async function AboutPage() {
                             </div>
 
                             {/* Goal */}
-                            <div className="glass-card transition-transform duration-300 hover:scale-105 bg-white border-l-4 border-l-blue-400 border-y border-r border-slate-100 shadow-sm p-8 h-full flex flex-col">
+                            <div className="interactive-card card-hover bg-white border-l-4 border-l-blue-400 border-y border-r border-slate-100 shadow-sm p-8 h-full flex flex-col">
                                 <div className="flex items-center gap-3 mb-4">
                                     <div className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-blue-500">
                                         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -122,24 +126,25 @@ export default async function AboutPage() {
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                             {programs.map((program) => (
-                                <div key={program.id} className="glass-card group hover:scale-[1.02] transition-all duration-300 bg-slate-50 border border-slate-200 p-8 flex flex-col items-start h-full">
-                                    {/* Icon */}
-                                    <div className={`w-16 h-16 rounded-lg bg-white shadow-sm flex items-center justify-center text-${program.color || 'primary-500'} mb-6 border border-slate-100`}>
-                                        <div className="text-primary-600">
-                                            <DynamicIcon name={program.icon || 'Activity'} className="w-8 h-8" />
-                                        </div>
+                                <Link
+                                    key={program.id}
+                                    href={`/programs/${program.slug}`}
+                                    className="interactive-card card-hover group bg-white border border-slate-100 p-8 flex flex-col items-start h-full rounded-2xl"
+                                >
+                                    <div className="w-16 h-16 rounded-xl bg-primary-50 flex items-center justify-center text-primary-600 mb-6 border border-slate-100">
+                                        <DynamicIcon name={program.icon || 'Activity'} className="w-8 h-8" />
                                     </div>
-
-                                    {/* Title */}
-                                    <h3 className="font-heading font-bold text-xl text-slate-900 mb-3">
+                                    <h3 className="font-heading font-bold text-xl text-slate-900 mb-3 group-hover:text-primary-700 transition-colors">
                                         {program.title}
                                     </h3>
-
-                                    {/* Description */}
-                                    <p className="text-slate-600 text-base leading-relaxed">
+                                    <p className="text-slate-600 text-base leading-relaxed flex-grow">
                                         {program.description}
                                     </p>
-                                </div>
+                                    <span className="mt-4 text-sm font-medium text-primary-700 inline-flex items-center gap-1">
+                                        Learn more
+                                        <span aria-hidden>→</span>
+                                    </span>
+                                </Link>
                             ))}
                         </div>
                     </div>

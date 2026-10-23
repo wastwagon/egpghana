@@ -1,6 +1,7 @@
 import { streamText, tool } from 'ai';
 import { createOpenAI } from '@ai-sdk/openai';
 import { findRelevantContent } from '@/lib/ai';
+import { clientIp, consumeRateLimit } from '@/lib/rate-limit';
 import { z } from 'zod';
 
 export const dynamic = 'force-dynamic';
@@ -12,6 +13,12 @@ function getOpenAI() {
 }
 
 export async function POST(req: Request) {
+    const ip = clientIp(req);
+    const allowed = await consumeRateLimit(`chat:${ip}`, 30, 60 * 60);
+    if (!allowed) {
+        return new Response('Too many requests. Please try again later.', { status: 429 });
+    }
+
     const { messages } = await req.json();
 
     const lastUserMessage = messages[messages.length - 1];

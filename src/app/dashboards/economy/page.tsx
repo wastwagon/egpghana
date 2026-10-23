@@ -1,63 +1,58 @@
-import { PrismaClient } from '@prisma/client';
-
-export const dynamic = 'force-dynamic';
-
+import dynamic from 'next/dynamic';
+import { Suspense } from 'react';
 import Footer from '@/components/Footer';
-import GDPGrowthChart from '@/components/charts/GDPGrowthChart';
-import InflationChart from '@/components/charts/InflationChart';
-import ExchangeRateChart from '@/components/charts/ExchangeRateChart';
-import EconomicSummaryCards from '@/components/charts/EconomicSummaryCards';
-import FiscalPerformanceSection from '@/components/dashboards/FiscalPerformanceSection';
-import ExternalSectorSection from '@/components/dashboards/ExternalSectorSection';
-import LaborMarketSection from '@/components/dashboards/LaborMarketSection';
-import MonetaryPolicySection from '@/components/dashboards/MonetaryPolicySection';
+import DashboardToolbar from '@/components/dashboards/DashboardToolbar';
+import HeroBannerVideo from '@/components/HeroBannerVideo';
+import ChartBlockSkeleton from '@/components/ChartBlockSkeleton';
+import { PUBLIC_DATA_REVALIDATE_SECONDS } from '@/lib/cache-tags';
+import { findEconomicDataSeries, findLatestEconomicData } from '@/lib/cached-economic-data';
+import {
+    filterEconomicRowsByCutoff,
+    parseDashboardRange,
+    rangeCutoff,
+    seriesTakeForRange,
+} from '@/lib/dashboard-range';
+import DashboardTimeRange from '@/components/dashboards/DashboardTimeRange';
+import { BreadcrumbJsonLd } from '@/components/JsonLd';
 
-const prisma = new PrismaClient();
+const chartLoading = () => <ChartBlockSkeleton />;
+
+const GDPGrowthChart = dynamic(() => import('@/components/charts/GDPGrowthChart'), { loading: chartLoading });
+const InflationChart = dynamic(() => import('@/components/charts/InflationChart'), { loading: chartLoading });
+const ExchangeRateChart = dynamic(() => import('@/components/charts/ExchangeRateChart'), { loading: chartLoading });
+const EconomicSummaryCards = dynamic(() => import('@/components/charts/EconomicSummaryCards'), { loading: chartLoading });
+const FiscalPerformanceSection = dynamic(() => import('@/components/dashboards/FiscalPerformanceSection'), { loading: chartLoading });
+const ExternalSectorSection = dynamic(() => import('@/components/dashboards/ExternalSectorSection'), { loading: chartLoading });
+const LaborMarketSection = dynamic(() => import('@/components/dashboards/LaborMarketSection'), { loading: chartLoading });
+const MonetaryPolicySection = dynamic(() => import('@/components/dashboards/MonetaryPolicySection'), { loading: chartLoading });
+
+export const revalidate = PUBLIC_DATA_REVALIDATE_SECONDS;
 
 export const metadata = {
     title: 'Economic Indicators | EGP Ghana',
     description: 'Track Ghana\'s key economic indicators including GDP, inflation, exchange rates, and more',
 };
 
-export default async function EconomyDashboardPage() {
+export default async function EconomyDashboardPage({
+    searchParams,
+}: {
+    searchParams?: { range?: string };
+}) {
+    const range = parseDashboardRange(searchParams?.range);
+    const cutoff = rangeCutoff(range);
+    const monthlyTake = seriesTakeForRange(range, true);
+    const quarterlyTake = seriesTakeForRange(range, false);
+
     // Fetch latest indicators (prefer newest official observations)
-    const latestGDP = await prisma.economicData.findFirst({
-        where: { indicator: 'GDP_GROWTH' },
-        orderBy: { date: 'desc' },
-    });
+    const latestGDP = await findLatestEconomicData('GDP_GROWTH');
+    const latestInflation = await findLatestEconomicData('INFLATION_RATE', 'Bank of Ghana');
+    const latestExchangeRate = await findLatestEconomicData('EXCHANGE_RATE_USD');
+    const latestUnemployment = await findLatestEconomicData('UNEMPLOYMENT_RATE');
+    const latestPolicyRate = await findLatestEconomicData('POLICY_RATE', 'Bank of Ghana');
+    const latestForexReserves = await findLatestEconomicData('FOREX_RESERVES');
 
-    const latestInflation = await prisma.economicData.findFirst({
-        where: { indicator: 'INFLATION_RATE', source: 'Bank of Ghana' },
-        orderBy: { date: 'desc' },
-    });
-
-    const latestExchangeRate = await prisma.economicData.findFirst({
-        where: { indicator: 'EXCHANGE_RATE_USD' },
-        orderBy: { date: 'desc' },
-    });
-
-    const latestUnemployment = await prisma.economicData.findFirst({
-        where: { indicator: 'UNEMPLOYMENT_RATE' },
-        orderBy: { date: 'desc' },
-    });
-
-    const latestPolicyRate = await prisma.economicData.findFirst({
-        where: { indicator: 'POLICY_RATE', source: 'Bank of Ghana' },
-        orderBy: { date: 'desc' },
-    });
-
-    const latestForexReserves = await prisma.economicData.findFirst({
-        where: { indicator: 'FOREX_RESERVES' },
-        orderBy: { date: 'desc' },
-    });
-
-    // Fetch GDP growth data
-    const gdpDataRaw = await prisma.economicData.findMany({
-        where: { indicator: 'GDP_GROWTH' },
-        orderBy: { date: 'desc' }, // Get latest
-        take: 12, // Last 3 years
-    });
-    const gdpData = gdpDataRaw.reverse();
+    const gdpDataRaw = await findEconomicDataSeries({ indicator: 'GDP_GROWTH' }, quarterlyTake);
+    const gdpData = filterEconomicRowsByCutoff(gdpDataRaw, cutoff).reverse();
 
     const gdpChartData = gdpData.map((d) => {
         const meta = d.metadata as any;
@@ -71,12 +66,8 @@ export default async function EconomyDashboardPage() {
     });
 
     // Fetch inflation data
-    const inflationDataRaw = await prisma.economicData.findMany({
-        where: { indicator: 'INFLATION_RATE' },
-        orderBy: { date: 'desc' },
-        take: 24, // Last 2 years
-    });
-    const inflationData = inflationDataRaw.reverse();
+    const inflationDataRaw = await findEconomicDataSeries({ indicator: 'INFLATION_RATE' }, monthlyTake);
+    const inflationData = filterEconomicRowsByCutoff(inflationDataRaw, cutoff).reverse();
 
     const inflationChartData = inflationData.map((d) => {
         const meta = d.metadata as any;
@@ -93,12 +84,8 @@ export default async function EconomyDashboardPage() {
     });
 
     // Fetch exchange rate data
-    const exchangeRateDataRaw = await prisma.economicData.findMany({
-        where: { indicator: 'EXCHANGE_RATE_USD' },
-        orderBy: { date: 'desc' },
-        take: 24, // Last 2 years
-    });
-    const exchangeRateData = exchangeRateDataRaw.reverse();
+    const exchangeRateDataRaw = await findEconomicDataSeries({ indicator: 'EXCHANGE_RATE_USD' }, monthlyTake);
+    const exchangeRateData = filterEconomicRowsByCutoff(exchangeRateDataRaw, cutoff).reverse();
 
     const exchangeRateChartData = exchangeRateData.map((d, index) => {
         const date = new Date(d.date);
@@ -201,22 +188,21 @@ export default async function EconomyDashboardPage() {
 
     return (
         <>
+            <BreadcrumbJsonLd
+                items={[
+                    { name: 'Home', path: '/' },
+                    { name: 'Dashboards', path: '/dashboards' },
+                    { name: 'Economy', path: '/dashboards/economy' },
+                ]}
+            />
             <main className="min-h-screen bg-slate-50">
                 {/* Hero Section */}
                 <section className="relative h-[500px] flex items-center justify-center overflow-hidden">
-                    <video
-                        autoPlay
-                        loop
-                        muted
-                        playsInline
-                        className="absolute inset-0 w-full h-full object-cover"
-                    >
-                        <source src="/assets/videos/EGP-BANNER-1.mp4" type="video/mp4" />
-                    </video>
+                    <HeroBannerVideo videoSrc="/assets/videos/EGP-BANNER-1.mp4" lazy />
                     <div className="absolute inset-0 bg-black/60"></div>
                     <div className="container relative z-10 text-left">
                         <div className="max-w-4xl mr-auto">
-                            <span className="inline-block py-1 px-3 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-white text-sm font-semibold mb-6 tracking-wide uppercase">
+                            <span className="inline-block py-1 px-3 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-white text-sm font-semibold mb-6 tracking-normal">
                                 Economic Governance Platform
                             </span>
                             <h1 className="text-3xl md:text-4xl font-bold text-white mb-8 tracking-tight leading-tight">
@@ -267,14 +253,30 @@ export default async function EconomyDashboardPage() {
 
                 {/* Main Content */}
                 <div className="container py-8 md:py-12">
+                    <Suspense fallback={null}>
+                        <DashboardTimeRange />
+                        <DashboardToolbar
+                            dashboard="economy"
+                            sections={[
+                                { id: 'summary', label: 'Summary' },
+                                { id: 'gdp', label: 'GDP' },
+                                { id: 'inflation', label: 'Inflation' },
+                                { id: 'fiscal', label: 'Fiscal' },
+                                { id: 'external', label: 'External' },
+                                { id: 'labor', label: 'Labor' },
+                                { id: 'monetary', label: 'Monetary' },
+                                { id: 'insights', label: 'Insights' },
+                            ]}
+                        />
+                    </Suspense>
                     {/* Summary Cards */}
-                    <div className="mb-12">
+                    <div id="summary" className="mb-12 scroll-mt-28">
                         <EconomicSummaryCards indicators={indicators} />
                     </div>
                 </div>
 
                 {/* GDP Growth Chart - The "Engine" */}
-                <section className="section py-8 md:py-12 bg-white border-t border-slate-100" style={{ paddingTop: '3rem', paddingBottom: '3rem' }}>
+                <section id="gdp" className="section py-8 md:py-12 bg-white border-t border-slate-100 scroll-mt-28" style={{ paddingTop: '3rem', paddingBottom: '3rem' }}>
                     <div className="container">
                         <div className="mb-8 md:mb-10 max-w-3xl">
                             <h2 className="text-xl md:text-2xl font-bold text-slate-900 mb-4 tracking-tight">GDP Growth Analysis</h2>
@@ -283,7 +285,7 @@ export default async function EconomyDashboardPage() {
                         {gdpChartData.length > 0 ? (
                             <GDPGrowthChart data={gdpChartData} />
                         ) : (
-                            <div className="glass-card text-center py-12">
+                            <div className="bg-white border border-slate-100 rounded-xl shadow-sm text-center py-12">
                                 <p className="text-black">No GDP data available</p>
                             </div>
                         )}
@@ -291,7 +293,7 @@ export default async function EconomyDashboardPage() {
                 </section>
 
                 {/* Inflation & Exchange Rate Charts - The "Stability" */}
-                <section className="section py-8 md:py-12 bg-slate-50 border-t border-slate-100" style={{ paddingTop: '3rem', paddingBottom: '3rem' }}>
+                <section id="inflation" className="section py-8 md:py-12 bg-slate-50 border-t border-slate-100 scroll-mt-28" style={{ paddingTop: '3rem', paddingBottom: '3rem' }}>
                     <div className="container">
                         <div className="mb-8 md:mb-10 max-w-3xl">
                             <h2 className="text-xl md:text-2xl font-bold text-slate-900 mb-4 tracking-tight">Inflation & Exchange Rate Trends</h2>
@@ -301,14 +303,14 @@ export default async function EconomyDashboardPage() {
                             {inflationChartData.length > 0 ? (
                                 <InflationChart data={inflationChartData} />
                             ) : (
-                                <div className="glass-card text-center py-12">
+                                <div className="bg-white border border-slate-100 rounded-xl shadow-sm text-center py-12">
                                     <p className="text-black">No inflation data available</p>
                                 </div>
                             )}
                             {exchangeRateChartData.length > 0 ? (
                                 <ExchangeRateChart data={exchangeRateChartData} />
                             ) : (
-                                <div className="glass-card text-center py-12">
+                                <div className="bg-white border border-slate-100 rounded-xl shadow-sm text-center py-12">
                                     <p className="text-black">No exchange rate data available</p>
                                 </div>
                             )}
@@ -317,35 +319,35 @@ export default async function EconomyDashboardPage() {
                 </section>
 
                 {/* Fiscal Performance Dashboard */}
-                <section className="section py-8 md:py-12 bg-white border-t border-slate-100" style={{ paddingTop: '3rem', paddingBottom: '3rem' }}>
+                <section id="fiscal" className="section py-8 md:py-12 bg-white border-t border-slate-100 scroll-mt-28" style={{ paddingTop: '3rem', paddingBottom: '3rem' }}>
                     <div className="container">
                         <FiscalPerformanceSection />
                     </div>
                 </section>
 
                 {/* External Sector Dashboard */}
-                <section className="section py-8 md:py-12 bg-slate-50 border-t border-slate-100" style={{ paddingTop: '3rem', paddingBottom: '3rem' }}>
+                <section id="external" className="section py-8 md:py-12 bg-slate-50 border-t border-slate-100 scroll-mt-28" style={{ paddingTop: '3rem', paddingBottom: '3rem' }}>
                     <div className="container">
                         <ExternalSectorSection />
                     </div>
                 </section>
 
                 {/* Labor Market Dashboard */}
-                <section className="section py-8 md:py-12 bg-white border-t border-slate-100" style={{ paddingTop: '3rem', paddingBottom: '3rem' }}>
+                <section id="labor" className="section py-8 md:py-12 bg-white border-t border-slate-100 scroll-mt-28" style={{ paddingTop: '3rem', paddingBottom: '3rem' }}>
                     <div className="container">
                         <LaborMarketSection />
                     </div>
                 </section>
 
                 {/* Monetary Policy Dashboard */}
-                <section className="section py-8 md:py-12 bg-slate-50 border-t border-slate-100" style={{ paddingTop: '3rem', paddingBottom: '3rem' }}>
+                <section id="monetary" className="section py-8 md:py-12 bg-slate-50 border-t border-slate-100 scroll-mt-28" style={{ paddingTop: '3rem', paddingBottom: '3rem' }}>
                     <div className="container">
                         <MonetaryPolicySection />
                     </div>
                 </section>
 
                 {/* Key Insights - The "Takeaway" */}
-                <section className="section bg-white py-8 md:py-12 border-t border-slate-100" style={{ paddingTop: '3rem', paddingBottom: '3rem' }}>
+                <section id="insights" className="section bg-white py-8 md:py-12 border-t border-slate-100 scroll-mt-28" style={{ paddingTop: '3rem', paddingBottom: '3rem' }}>
                     <div className="container max-w-4xl">
                         <div className="glass-card bg-white border border-slate-100 shadow-sm rounded-xl p-8">
                             <h2 className="text-xl md:text-2xl font-bold tracking-tight mb-6 text-slate-900">Key Economic Insights</h2>

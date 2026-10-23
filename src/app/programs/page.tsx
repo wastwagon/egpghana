@@ -3,10 +3,11 @@ import Footer from '@/components/Footer';
 import Link from 'next/link';
 import { prisma } from '@/lib/prisma';
 
-export const dynamic = 'force-dynamic';
 import * as Icons from 'lucide-react';
+import { PUBLIC_DATA_REVALIDATE_SECONDS } from '@/lib/cache-tags';
+import { BreadcrumbJsonLd } from '@/components/JsonLd';
 
-export const revalidate = 0;
+export const revalidate = PUBLIC_DATA_REVALIDATE_SECONDS;
 
 export const metadata = {
     title: 'What We Do | EGP Ghana',
@@ -27,6 +28,7 @@ export default async function ProgramsPage() {
 
     return (
         <>
+            <BreadcrumbJsonLd items={[{ name: 'Home', path: '/' }, { name: 'Programs', path: '/programs' }]} />
             <main className="min-h-screen bg-slate-50">
                 {/* Hero Section */}
                 <section className="relative bg-primary-700 py-20 md:py-32">
@@ -46,7 +48,7 @@ export default async function ProgramsPage() {
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                             {programs.map((program) => (
                                 <Link href={`/programs/${program.slug}`} key={program.id} className="block h-full">
-                                    <div className="glass-card group hover:scale-[1.02] transition-all duration-300 bg-white border border-slate-100 shadow-sm p-8 flex flex-col items-start h-full">
+                                    <div className="interactive-card rounded-2xl group p-8 flex flex-col items-start h-full">
                                         {/* Icon */}
                                         <div className={`w-16 h-16 rounded-lg bg-${program.color || 'primary-500'}/10 flex items-center justify-center text-${program.color || 'primary-500'} mb-6`}>
                                             <DynamicIcon name={program.icon || 'Activity'} className="w-8 h-8" />

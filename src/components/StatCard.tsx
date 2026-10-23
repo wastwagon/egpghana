@@ -18,10 +18,10 @@ export default function StatCard({
     date,
 }: StatCardProps) {
     return (
-        <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-lg transition-all duration-300 group">
+        <div className="interactive-card rounded-2xl p-6 group">
             <div className="flex items-start justify-between mb-4">
                 <div className="flex-1">
-                    <p className="text-slate-500 text-sm font-medium mb-1 uppercase tracking-wide">{title}</p>
+                    <p className="section-label text-sm mb-1">{title}</p>
                     <p className="text-slate-900 text-3xl md:text-4xl font-bold font-heading">
                         {value}
                     </p>
@@ -55,7 +55,7 @@ export default function StatCard({
                         </p>
                     )}
                     {date && (
-                        <p className="text-[10px] uppercase font-bold text-slate-300 tracking-wider">
+                        <p className="text-[10px] font-medium text-slate-400">
                             Updated: {date}
                         </p>
                     )}

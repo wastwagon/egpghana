@@ -1,12 +1,20 @@
-
 import { notFound } from 'next/navigation';
 import Footer from '@/components/Footer';
 import Link from 'next/link';
 import { prisma } from '@/lib/prisma';
+import { buildPageMetadata } from '@/lib/seo';
+import { BreadcrumbJsonLd, WebPageJsonLd } from '@/components/JsonLd';
 import * as Icons from 'lucide-react';
 
-// Force dynamic rendering since we are fetching from DB
-export const revalidate = 0;
+import { PUBLIC_DATA_REVALIDATE_SECONDS } from '@/lib/cache-tags';
+
+export const revalidate = PUBLIC_DATA_REVALIDATE_SECONDS;
+
+const DynamicIcon = ({ name, className }: { name: string; className?: string }) => {
+    const IconComponent = (Icons as any)[name];
+    if (!IconComponent) return <Icons.Activity className={className} />;
+    return <IconComponent className={className} />;
+};
 
 export async function generateMetadata({ params }: { params: { slug: string } }) {
     const program = await prisma.program.findUnique({
@@ -15,10 +23,11 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 
     if (!program) return { title: 'Program Not Found' };
 
-    return {
+    return buildPageMetadata({
         title: `${program.title} | EGP Ghana`,
         description: program.description,
-    };
+        path: `/programs/${program.slug}`,
+    });
 }
 
 export default async function ProgramPage({ params }: { params: { slug: string } }) {
@@ -30,90 +39,104 @@ export default async function ProgramPage({ params }: { params: { slug: string }
         notFound();
     }
 
-    // Default related links for now, since we don't store them in DB yet.
-    // In a real app, we would add a RelatedLinks model or JSON field.
     const relatedLinks = [
-        { title: 'Contact Us', url: '/contact' },
-        { title: 'View Resources', url: '/resources' },
+        { title: 'Contact us', url: '/contact' },
+        { title: 'Resource centre', url: '/resources' },
+        { title: 'All programs', url: '/programs' },
     ];
 
     return (
         <>
-            <main className="min-h-screen bg-dark-900">
-                {/* Hero Section */}
-                <section className={`relative py-20 md:py-32 bg-gradient-to-br from-dark-900 via-${program.color || 'primary-500'}/20 to-dark-900`}>
-                    <div className="container">
+            <BreadcrumbJsonLd
+                items={[
+                    { name: 'Home', path: '/' },
+                    { name: 'Programs', path: '/programs' },
+                    { name: program.title, path: `/programs/${program.slug}` },
+                ]}
+            />
+            <WebPageJsonLd
+                name={program.title}
+                description={program.description}
+                path={`/programs/${program.slug}`}
+            />
+            <main className="min-h-screen bg-slate-50">
+                <section className="relative bg-primary-700 py-12 md:py-20">
+                    <div className="container px-4 sm:px-6 lg:px-8">
                         <div className="max-w-4xl mr-auto text-left">
-                            <span className={`inline-block px-4 py-2 rounded-full bg-${program.color || 'primary-500'}/20 text-${program.color || 'primary-500'} text-sm font-bold uppercase tracking-wider mb-6 border border-${program.color || 'primary-500'}/30`}>
-                                Program Initiative
-                            </span>
-                            <h1 className="text-3xl md:text-4xl font-bold font-heading mb-6 animate-fade-in">{program.title}</h1>
-                            <p className="text-lg text-gray-300 animate-slide-up max-w-2xl border-l-4 border-primary-500 pl-6">
+                            <p className="section-label text-primary-200 mb-4">Program initiative</p>
+                            <div className="flex items-start gap-4 mb-6">
+                                <div className="w-14 h-14 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center text-white shrink-0">
+                                    <DynamicIcon name={program.icon || 'Activity'} className="w-7 h-7" />
+                                </div>
+                                <h1 className="text-3xl md:text-4xl font-bold font-heading text-white leading-tight">
+                                    {program.title}
+                                </h1>
+                            </div>
+                            <p className="text-lg text-blue-100 max-w-2xl leading-relaxed border-l-4 border-primary-400 pl-6">
                                 {program.description}
                             </p>
                         </div>
                     </div>
                 </section>
 
-                <section className="section">
-                    <div className="container">
-                        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-                            {/* Main Content */}
-                            <div className="lg:col-span-2">
-                                <div className="glass-card mb-8">
-                                    <h2 className="heading-3 mb-6">About the Program</h2>
+                <section className="section py-12 md:py-16">
+                    <div className="container px-4 sm:px-6 lg:px-8">
+                        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
+                            <div className="lg:col-span-2 space-y-8">
+                                <div className="bg-white border border-slate-100 rounded-2xl shadow-sm p-6 md:p-8">
+                                    <h2 className="heading-3 text-slate-900 mb-6">About the program</h2>
                                     <div
-                                        className="prose prose-invert prose-slate md:prose-lg max-w-none text-gray-300"
-                                        dangerouslySetInnerHTML={{ __html: program.fullContent || '' }}
+                                        className="prose prose-slate md:prose-lg max-w-none text-slate-600"
+                                        dangerouslySetInnerHTML={{ __html: program.fullContent || '<p>Details coming soon.</p>' }}
                                     />
                                 </div>
 
-                                <div className="glass-card">
-                                    <h2 className="heading-3 mb-6">Key Features</h2>
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                        {program.features.map((feature, index) => (
-                                            <div key={index} className="flex items-center space-x-3 p-3 rounded-lg bg-dark-800/50">
-                                                <svg className={`w-5 h-5 text-${program.color || 'primary-500'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                                                </svg>
-                                                <span className="text-gray-300">{feature}</span>
-                                            </div>
-                                        ))}
+                                {program.features.length > 0 && (
+                                    <div className="bg-white border border-slate-100 rounded-2xl shadow-sm p-6 md:p-8">
+                                        <h2 className="heading-3 text-slate-900 mb-6">Key features</h2>
+                                        <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                            {program.features.map((feature, index) => (
+                                                <li
+                                                    key={index}
+                                                    className="flex items-start gap-3 p-3 rounded-xl bg-slate-50 border border-slate-100 text-slate-700 text-sm"
+                                                >
+                                                    <Icons.Check className="w-5 h-5 text-primary-600 shrink-0 mt-0.5" aria-hidden />
+                                                    <span>{feature}</span>
+                                                </li>
+                                            ))}
+                                        </ul>
                                     </div>
-                                </div>
+                                )}
                             </div>
 
-                            {/* Sidebar */}
-                            <div className="space-y-6">
-                                <div className="glass-card p-6">
-                                    <h3 className="heading-3 text-lg mb-4">Quick Links</h3>
-                                    <ul className="space-y-3">
-                                        {relatedLinks.map((link, index) => (
-                                            <li key={index}>
+                            <aside className="space-y-6">
+                                <div className="bg-white border border-slate-100 rounded-2xl shadow-sm p-6">
+                                    <h3 className="font-heading font-semibold text-slate-900 mb-4">Quick links</h3>
+                                    <ul className="space-y-2">
+                                        {relatedLinks.map((link) => (
+                                            <li key={link.url}>
                                                 <Link
                                                     href={link.url}
-                                                    className="flex items-center justify-between p-3 rounded-lg bg-dark-800 hover:bg-dark-700 transition-colors group"
+                                                    className="flex items-center justify-between p-3 rounded-xl bg-slate-50 hover:bg-primary-50 text-slate-700 hover:text-primary-800 transition-colors min-h-[44px] group"
                                                 >
-                                                    <span className="text-gray-300 group-hover:text-white transition-colors">{link.title}</span>
-                                                    <svg className="w-4 h-4 text-gray-500 group-hover:text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                                                    </svg>
+                                                    <span className="text-sm font-medium">{link.title}</span>
+                                                    <Icons.ChevronRight className="w-4 h-4 text-slate-400 group-hover:text-primary-600" aria-hidden />
                                                 </Link>
                                             </li>
                                         ))}
                                     </ul>
                                 </div>
 
-                                <div className="glass-card p-6 bg-gradient-to-br from-primary-900/50 to-dark-800">
-                                    <h3 className="heading-3 text-lg mb-4">Get Involved</h3>
-                                    <p className="text-gray-400 text-sm mb-6">
+                                <div className="bg-primary-700 rounded-2xl p-6 text-white">
+                                    <h3 className="font-heading font-semibold mb-2">Get involved</h3>
+                                    <p className="text-blue-100 text-sm mb-5">
                                         Interested in supporting this program or learning more? Contact our team.
                                     </p>
-                                    <Link href="/contact" className="btn-primary w-full text-center">
-                                        Contact Us
+                                    <Link href="/contact" className="btn-primary w-full text-center bg-white text-primary-800 hover:bg-blue-50">
+                                        Contact us
                                     </Link>
                                 </div>
-                            </div>
+                            </aside>
                         </div>
                     </div>
                 </section>

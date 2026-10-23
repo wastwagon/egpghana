@@ -39,7 +39,7 @@ Go to the **Environment Variables** tab of your application in Coolify and add:
 | `OPENAI_API_KEY` | `your-openai-key` | For the AI Chatbot |
 | `NODE_ENV` | `production` | Runtime only. Uncheck **Available at Buildtime** so `npm install` still gets Tailwind/TypeScript |
 | `UPLOADS_DIR` | `/data/uploads` | Must match Coolify volume destination (Step E) |
-| `CRON_SECRET` | long random hex | Protects `POST /api/admin/data-sync` |
+| `CRON_SECRET` | long random hex | Protects `POST /api/admin/data-sync` and `POST /api/admin/embeddings` |
 | `RUN_SYNC_ON_STARTUP` | `true` | After each deploy, auto-refresh BoG / Mid-Year / WB indicators |
 | `CAREERS_NOTIFY_EMAIL` | `egpghana20@gmail.com` | Receives a copy of each career / EOI form |
 | `SMTP_HOST` | `smtp.resend.com` | Resend SMTP |
@@ -85,6 +85,8 @@ Set both env vars, then redeploy:
 
 The entrypoint waits for the app to be healthy, then calls `POST /api/admin/data-sync` internally. Check deploy logs for `✅ Startup data sync OK`.
 
+For uptime checks, use `GET /api/health` (returns `{ ok: true, database: "up" }` or HTTP 503 if Postgres is unreachable).
+
 ### Daily schedule (Coolify Scheduled Task)
 1. Open the app in Coolify → **Scheduled Tasks** / **Cron**.
 2. Schedule: `0 6 * * *` (06:00 UTC daily).
@@ -98,6 +100,16 @@ curl -sS -X POST "http://127.0.0.1:3000/api/admin/data-sync" \
 ```
 
 (If Coolify runs cron outside the container, use `https://egpghana.org/api/admin/data-sync` instead of localhost.)
+
+### Weekly embeddings (optional — after bulk content imports)
+Schedule: `0 3 * * 0` (Sundays 03:00 UTC). Requires `OPENAI_API_KEY`.
+
+```bash
+curl -sS -X POST "http://127.0.0.1:3000/api/admin/embeddings" \
+  -H "Authorization: Bearer $CRON_SECRET"
+```
+
+New articles/resources also refresh their own embedding on save when `OPENAI_API_KEY` is set.
 
 ## 5. Why this setup is "Best Practice"
 - **Standalone Mode**: The `Dockerfile` uses Next.js `standalone` output, which makes the image ~1GB smaller and much faster to start.

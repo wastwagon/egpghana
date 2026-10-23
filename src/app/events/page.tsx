@@ -1,17 +1,17 @@
-import { PrismaClient } from '@prisma/client';
-
 import Footer from '@/components/Footer';
 import Link from 'next/link';
 import EventsList from '@/components/events/EventsList';
+import NewsletterSignup from '@/components/NewsletterSignup';
+import { PUBLIC_DATA_REVALIDATE_SECONDS } from '@/lib/cache-tags';
+import { prisma } from '@/lib/prisma';
+import { BreadcrumbJsonLd } from '@/components/JsonLd';
 
-const prisma = new PrismaClient();
+export const revalidate = PUBLIC_DATA_REVALIDATE_SECONDS;
 
 export const metadata = {
     title: 'Events & Activities | EGP Ghana',
     description: 'Stay updated with EGP Ghana events, workshops, and activities',
 };
-
-export const dynamic = 'force-dynamic';
 
 export default async function EventsPage() {
     // Fetch all events, sorted by newest first (descending)
@@ -30,6 +30,7 @@ export default async function EventsPage() {
 
     return (
         <>
+            <BreadcrumbJsonLd items={[{ name: 'Home', path: '/' }, { name: 'Events', path: '/events' }]} />
             <main className="min-h-screen bg-slate-50">
                 {/* Hero Section */}
                 <section className="relative bg-primary-700 py-20 md:py-32">
@@ -59,17 +60,7 @@ export default async function EventsPage() {
                             <p className="mb-8 text-slate-300 text-lg">
                                 Subscribe to our newsletter to receive updates about upcoming events and activities directly in your inbox.
                             </p>
-                            <form className="flex flex-col sm:flex-row gap-3 max-w-lg mx-auto">
-                                <input
-                                    type="email"
-                                    placeholder="Enter your email address"
-                                    className="flex-1 px-5 py-3.5 rounded-xl bg-white/10 border border-white/20 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-primary-500 backdrop-blur-sm transition-all"
-                                    required
-                                />
-                                <button type="submit" className="px-8 py-3.5 font-semibold text-white bg-primary-600 rounded-xl hover:bg-primary-500 focus:ring-4 focus:ring-primary-500/20 transition-all shadow-lg hover:shadow-primary-500/25">
-                                    Subscribe
-                                </button>
-                            </form>
+                            <NewsletterSignup variant="hero" />
                         </div>
                     </div>
                 </section>

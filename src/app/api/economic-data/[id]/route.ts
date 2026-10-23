@@ -2,9 +2,8 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { NextResponse } from "next/server";
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
+import { prisma } from "@/lib/prisma";
+import { onEconomicDataChanged } from "@/lib/revalidate-public";
 
 export async function PUT(req: Request, { params }: { params: { id: string } }) {
     const session = await getServerSession(authOptions);
@@ -29,6 +28,7 @@ export async function PUT(req: Request, { params }: { params: { id: string } }) 
             },
         });
 
+        await onEconomicDataChanged();
         return NextResponse.json(updatedData);
     } catch (error) {
         console.error('Error updating economic data:', error);
@@ -48,6 +48,7 @@ export async function DELETE(req: Request, { params }: { params: { id: string } 
             where: { id: params.id },
         });
 
+        await onEconomicDataChanged();
         return NextResponse.json({ success: true });
     } catch (error) {
         console.error('Error deleting economic data:', error);

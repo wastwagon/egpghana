@@ -71,28 +71,28 @@ export default function StatusProgressBar({ counts, total }: StatusProgressBarPr
                     <div className="w-3 h-3 rounded-full bg-green-500 mr-2"></div>
                     <div>
                         <p className="text-xl font-bold text-slate-900 leading-none">{counts.met}</p>
-                        <p className="text-xs text-slate-500 uppercase tracking-wide">Met</p>
+                        <p className="section-label">Met</p>
                     </div>
                 </div>
                 <div className="flex items-center">
                     <div className="w-3 h-3 rounded-full bg-blue-500 mr-2"></div>
                     <div>
                         <p className="text-xl font-bold text-slate-900 leading-none">{counts.inProgress}</p>
-                        <p className="text-xs text-slate-500 uppercase tracking-wide">In Progress</p>
+                        <p className="section-label">In progress</p>
                     </div>
                 </div>
                 <div className="flex items-center">
                     <div className="w-3 h-3 rounded-full bg-red-500 mr-2"></div>
                     <div>
                         <p className="text-xl font-bold text-slate-900 leading-none">{counts.notMet}</p>
-                        <p className="text-xs text-slate-500 uppercase tracking-wide">Not Met</p>
+                        <p className="section-label">Not met</p>
                     </div>
                 </div>
                 <div className="flex items-center">
                     <div className="w-3 h-3 rounded-full bg-slate-300 mr-2"></div>
                     <div>
                         <p className="text-xl font-bold text-slate-900 leading-none">{counts.pending}</p>
-                        <p className="text-xs text-slate-500 uppercase tracking-wide">Pending</p>
+                        <p className="section-label">Pending</p>
                     </div>
                 </div>
             </div>

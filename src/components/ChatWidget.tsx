@@ -1,11 +1,13 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 import { AnimatePresence, motion } from 'framer-motion';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
 export default function ChatWidget() {
+    const pathname = usePathname();
     const [isOpen, setIsOpen] = useState(false);
     const [messages, setMessages] = useState<any[]>([
         {
@@ -55,6 +57,19 @@ export default function ChatWidget() {
                 },
                 body: JSON.stringify({ messages: newMessages }),
             });
+
+            if (response.status === 429) {
+                setMessages((prev) => [
+                    ...prev,
+                    {
+                        id: `rate-${Date.now()}`,
+                        role: 'assistant',
+                        content:
+                            'You have sent many messages in a short time. Please wait a minute and try again.',
+                    },
+                ]);
+                return;
+            }
 
             if (!response.ok) {
                 throw new Error('Failed to fetch response');
@@ -106,8 +121,18 @@ export default function ChatWidget() {
         }
     };
 
+    if (pathname?.startsWith('/embed')) {
+        return null;
+    }
+
     return (
-        <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end sm:bottom-10 sm:right-10 font-sans">
+        <div
+            className="fixed z-50 flex flex-col items-end font-sans safe-bottom"
+            style={{
+                bottom: 'max(1.5rem, env(safe-area-inset-bottom, 0px))',
+                right: 'max(1.5rem, env(safe-area-inset-right, 0px))',
+            }}
+        >
             <AnimatePresence>
                 {isOpen && (
                     <motion.div

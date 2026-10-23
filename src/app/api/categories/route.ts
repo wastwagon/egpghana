@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
+import { onPublicContentChanged } from '@/lib/revalidate-content';
 
 export async function GET(req: NextRequest) {
     const session = await getServerSession(authOptions);
@@ -47,6 +48,8 @@ export async function POST(req: NextRequest) {
                 description,
             },
         });
+
+        await onPublicContentChanged();
 
         return NextResponse.json(category, { status: 201 });
     } catch (error: any) {

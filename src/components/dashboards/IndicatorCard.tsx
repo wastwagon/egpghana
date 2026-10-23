@@ -57,7 +57,7 @@ const IndicatorCard: React.FC<IndicatorCardProps> = ({ data }) => {
     };
 
     return (
-        <div className={`bg-white rounded-xl shadow-sm border border-slate-200 p-5 hover:shadow-md transition-shadow duration-200 flex flex-col h-full ${getCategoryColor(category)}`}>
+        <div className={`interactive-card rounded-xl p-5 flex flex-col h-full ${getCategoryColor(category)}`}>
             <div className="mb-3">
                 <h3 className="text-sm font-semibold text-slate-800 leading-snug min-h-[40px]">{title}</h3>
             </div>
@@ -83,7 +83,7 @@ const IndicatorCard: React.FC<IndicatorCardProps> = ({ data }) => {
                 </p>
             </div>
 
-            <div className="mt-auto pt-3 border-t border-slate-100 flex items-center text-[10px] text-slate-400 font-medium uppercase tracking-wider">
+            <div className="mt-auto pt-3 border-t border-slate-100 flex items-center text-[10px] text-slate-400 font-medium tracking-normal">
                 <svg className="w-3 h-3 mr-1.5 opacity-70" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z" />
                 </svg>

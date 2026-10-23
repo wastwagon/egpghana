@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { getSyncDashboard, runDataSync, type SyncSourceKey } from '@/lib/data-sync';
+import { onEconomicDataChanged } from '@/lib/revalidate-public';
 
 function isAuthorized(req: NextRequest, session: { user?: { role?: string } } | null) {
     if (session?.user?.role === 'admin') return true;
@@ -49,6 +50,7 @@ export async function POST(req: NextRequest) {
         }
 
         const result = await runDataSync(source);
+        await onEconomicDataChanged();
         return NextResponse.json({ ok: true, ...result });
     } catch (error) {
         console.error('data-sync POST', error);

@@ -1,19 +1,30 @@
-import { prisma } from '@/lib/prisma';
-
-export const dynamic = 'force-dynamic';
-
+import dynamic from 'next/dynamic';
+import { Suspense } from 'react';
 import Footer from '@/components/Footer';
+import DashboardToolbar from '@/components/dashboards/DashboardToolbar';
+import HeroBannerVideo from '@/components/HeroBannerVideo';
 import StatCard from '@/components/StatCard';
-import ProgramTimelineChart from '@/components/charts/ProgramTimelineChart';
-import DisbursementScheduleChart from '@/components/charts/DisbursementScheduleChart';
-import ConditionalityTracker from '@/components/charts/ConditionalityTracker';
-import StatusProgressBar from '@/components/dashboards/StatusProgressBar';
-import ExecutiveSummary from '@/components/dashboards/ExecutiveSummary';
-import MacroTrendsChart from '@/components/charts/MacroTrendsChart';
-import KeyEconomicIndices from '@/components/dashboards/KeyEconomicIndices';
-import ProgrammeReviews from '@/components/dashboards/ProgrammeReviews';
-import KeyConditions from '@/components/dashboards/KeyConditions';
-import PathToCrisis from '@/components/dashboards/PathToCrisis';
+import ChartBlockSkeleton from '@/components/ChartBlockSkeleton';
+import { findAllEconomicData } from '@/lib/cached-economic-data';
+import { filterEconomicRowsByCutoff, parseDashboardRange, rangeCutoff } from '@/lib/dashboard-range';
+import DashboardTimeRange from '@/components/dashboards/DashboardTimeRange';
+import { BreadcrumbJsonLd } from '@/components/JsonLd';
+import { PUBLIC_DATA_REVALIDATE_SECONDS } from '@/lib/cache-tags';
+
+const chartLoading = () => <ChartBlockSkeleton />;
+
+const ProgramTimelineChart = dynamic(() => import('@/components/charts/ProgramTimelineChart'), { loading: chartLoading });
+const DisbursementScheduleChart = dynamic(() => import('@/components/charts/DisbursementScheduleChart'), { loading: chartLoading });
+const ConditionalityTracker = dynamic(() => import('@/components/charts/ConditionalityTracker'), { loading: chartLoading });
+const StatusProgressBar = dynamic(() => import('@/components/dashboards/StatusProgressBar'), { loading: chartLoading });
+const ExecutiveSummary = dynamic(() => import('@/components/dashboards/ExecutiveSummary'), { loading: chartLoading });
+const MacroTrendsChart = dynamic(() => import('@/components/charts/MacroTrendsChart'), { loading: chartLoading });
+const KeyEconomicIndices = dynamic(() => import('@/components/dashboards/KeyEconomicIndices'), { loading: chartLoading });
+const ProgrammeReviews = dynamic(() => import('@/components/dashboards/ProgrammeReviews'), { loading: chartLoading });
+const KeyConditions = dynamic(() => import('@/components/dashboards/KeyConditions'), { loading: chartLoading });
+const PathToCrisis = dynamic(() => import('@/components/dashboards/PathToCrisis'), { loading: chartLoading });
+
+export const revalidate = PUBLIC_DATA_REVALIDATE_SECONDS;
 
 
 export const metadata = {
@@ -21,13 +32,19 @@ export const metadata = {
     description: 'Track Ghana\'s IMF Extended Credit Facility program implementation and compliance',
 };
 
-export default async function IMFDashboardPage() {
+export default async function IMFDashboardPage({
+    searchParams,
+}: {
+    searchParams?: { range?: string };
+}) {
+    const range = parseDashboardRange(searchParams?.range);
+    const cutoff = rangeCutoff(range);
 
-    // Fetch Disbursement Data from DB
-    const disbursementDataDB = await prisma.economicData.findMany({
-        where: { indicator: 'IMF_DISBURSEMENT', unit: 'Million USD' },
-        orderBy: { date: 'asc' },
-    });
+    let disbursementDataDB = await findAllEconomicData(
+        { indicator: 'IMF_DISBURSEMENT', unit: 'Million USD' },
+        'asc',
+    );
+    disbursementDataDB = filterEconomicRowsByCutoff(disbursementDataDB, cutoff);
 
     const disbursementDataRaw = disbursementDataDB.map((d) => {
         const meta = d.metadata as any;
@@ -70,10 +87,7 @@ export default async function IMFDashboardPage() {
 
 
     // Fetch milestones
-    const milestoneData = await prisma.economicData.findMany({
-        where: { indicator: 'IMF_MILESTONE' },
-        orderBy: { date: 'asc' },
-    });
+    const milestoneData = await findAllEconomicData({ indicator: 'IMF_MILESTONE' }, 'asc');
 
     const milestones = milestoneData.map((m) => {
         const meta = m.metadata as any;
@@ -87,10 +101,7 @@ export default async function IMFDashboardPage() {
     });
 
     // Fetch conditionalities from DB
-    const conditionalityData = await prisma.economicData.findMany({
-        where: { indicator: 'IMF_CONDITIONALITY' },
-        orderBy: { date: 'asc' }, // Or by ID if you want specific order
-    });
+    const conditionalityData = await findAllEconomicData({ indicator: 'IMF_CONDITIONALITY' }, 'asc');
 
     // Validating types with fallback
     const realConditionalities = conditionalityData.map(c => {
@@ -133,19 +144,18 @@ export default async function IMFDashboardPage() {
 
     return (
         <>
+            <BreadcrumbJsonLd
+                items={[
+                    { name: 'Home', path: '/' },
+                    { name: 'Dashboards', path: '/dashboards' },
+                    { name: 'IMF program', path: '/dashboards/imf' },
+                ]}
+            />
             <main className="min-h-screen bg-slate-50">
                 {/* Hero Section */}
                 {/* Hero Section */}
                 <section className="relative h-[500px] flex items-center justify-center overflow-hidden">
-                    <video
-                        autoPlay
-                        loop
-                        muted
-                        playsInline
-                        className="absolute inset-0 w-full h-full object-cover"
-                    >
-                        <source src="/assets/videos/EGP-BANNER-1.mp4" type="video/mp4" />
-                    </video>
+                    <HeroBannerVideo videoSrc="/assets/videos/EGP-BANNER-1.mp4" lazy />
                     <div className="absolute inset-0 bg-black/60"></div>
                     <div className="container relative z-10 text-left">
                         <div className="max-w-4xl mr-auto">
@@ -198,8 +208,21 @@ export default async function IMFDashboardPage() {
                     </div>
                 </section>
                 {/* Executive Summary & Key Metrics */}
-                <section className="section pb-8 md:pb-12 text-center" style={{ paddingBottom: '3rem' }}>
+                <section id="summary" className="section pb-8 md:pb-12 text-center scroll-mt-28" style={{ paddingBottom: '3rem' }}>
                     <div className="container">
+                        <Suspense fallback={null}>
+                            <DashboardTimeRange />
+                            <DashboardToolbar
+                                dashboard="imf"
+                                sections={[
+                                    { id: 'summary', label: 'Summary' },
+                                    { id: 'crisis', label: 'Context' },
+                                    { id: 'disbursements', label: 'Disbursements' },
+                                    { id: 'conditions', label: 'Conditions' },
+                                    { id: 'reviews', label: 'Reviews' },
+                                ]}
+                            />
+                        </Suspense>
                         <ExecutiveSummary
                             metrics={[
                                 {
@@ -255,14 +278,14 @@ export default async function IMFDashboardPage() {
                 </section >
 
                 {/* Context: Path To Crisis */}
-                <section className="section py-8 md:py-12 bg-slate-50 border-t border-slate-100" style={{ paddingTop: '3rem', paddingBottom: '3rem' }}>
+                <section id="crisis" className="section py-8 md:py-12 bg-slate-50 border-t border-slate-100 scroll-mt-28" style={{ paddingTop: '3rem', paddingBottom: '3rem' }}>
                     <div className="container">
                         <PathToCrisis />
                     </div>
                 </section >
 
                 {/* Disbursement Schedule - The "Fuel" */}
-                < section className="section py-8 md:py-12 bg-white border-t border-slate-100" style={{ paddingTop: '3rem', paddingBottom: '3rem' }}>
+                <section id="disbursements" className="section py-8 md:py-12 bg-white border-t border-slate-100 scroll-mt-28" style={{ paddingTop: '3rem', paddingBottom: '3rem' }}>
                     <div className="container">
                         <div className="mb-8 md:mb-10 max-w-3xl">
                             <h2 className="text-xl md:text-2xl font-bold text-slate-900 mb-4 tracking-tight">IMF Disbursement Schedule</h2>
@@ -272,7 +295,7 @@ export default async function IMFDashboardPage() {
                             {disbursementChartData.length > 0 ? (
                                 <DisbursementScheduleChart data={disbursementChartData} />
                             ) : (
-                                <div className="glass-card text-center py-12">
+                                <div className="bg-white border border-slate-100 rounded-xl shadow-sm text-center py-12">
                                     <p className="text-gray-400">No disbursement data available</p>
                                 </div>
                             )}
@@ -288,14 +311,14 @@ export default async function IMFDashboardPage() {
                 </section >
 
                 {/* Programme Reviews - The "Checkpoints" */}
-                < section className="section py-8 md:py-12 bg-white border-t border-slate-100" style={{ paddingTop: '3rem', paddingBottom: '3rem' }}>
+                <section id="reviews" className="section py-8 md:py-12 bg-white border-t border-slate-100 scroll-mt-28" style={{ paddingTop: '3rem', paddingBottom: '3rem' }}>
                     <div className="container">
                         <ProgrammeReviews />
                     </div>
                 </section >
 
                 {/* Key Conditions - The "Hurdles" */}
-                < section className="section py-8 md:py-12 bg-slate-50 border-t border-slate-100" style={{ paddingTop: '3rem', paddingBottom: '3rem' }}>
+                <section id="conditions" className="section py-8 md:py-12 bg-slate-50 border-t border-slate-100 scroll-mt-28" style={{ paddingTop: '3rem', paddingBottom: '3rem' }}>
                     <div className="container">
                         <KeyConditions />
                     </div>
@@ -307,7 +330,7 @@ export default async function IMFDashboardPage() {
                         {conditionalities.length > 0 ? (
                             <ConditionalityTracker conditionalities={conditionalities} />
                         ) : (
-                            <div className="glass-card text-center py-12">
+                            <div className="bg-white border border-slate-100 rounded-xl shadow-sm text-center py-12">
                                 <p className="text-gray-400">No conditionality data available</p>
                             </div>
                         )}
@@ -320,7 +343,7 @@ export default async function IMFDashboardPage() {
                         {milestones.length > 0 ? (
                             <ProgramTimelineChart milestones={milestones} />
                         ) : (
-                            <div className="glass-card text-center py-12">
+                            <div className="bg-white border border-slate-100 rounded-xl shadow-sm text-center py-12">
                                 <p className="text-gray-400">No milestone data available</p>
                             </div>
                         )}

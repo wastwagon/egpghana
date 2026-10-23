@@ -1,13 +1,17 @@
 import Footer from '@/components/Footer';
+import { BreadcrumbJsonLd } from '@/components/JsonLd';
+import { buildPageMetadata } from '@/lib/seo';
 
-export const metadata = {
+export const metadata = buildPageMetadata({
     title: 'Terms of Service | Economic Governance Platform',
-    description: 'Terms of Service for using the Economic Governance Platform Ghana website and services.'
-};
+    description: 'Terms of Service for using the Economic Governance Platform Ghana website and services.',
+    path: '/terms',
+});
 
 export default function TermsPage() {
     return (
         <>
+            <BreadcrumbJsonLd items={[{ name: 'Home', path: '/' }, { name: 'Terms of service', path: '/terms' }]} />
             <main className="min-h-screen bg-slate-50">
                 {/* Hero Section */}
                 <section className="relative bg-primary-700 py-20">

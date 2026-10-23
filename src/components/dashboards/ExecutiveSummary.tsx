@@ -31,7 +31,7 @@ export default function ExecutiveSummary({
             <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-8 items-start lg:items-center">
                 {/* Status Section */}
                 <div className="border-b lg:border-b-0 lg:border-r border-slate-800 pb-6 lg:pb-0 lg:pr-8">
-                    <h3 className="text-xs font-bold uppercase tracking-widest text-slate-100 mb-2">Program Status</h3>
+                    <h3 className="text-xs font-semibold tracking-normal text-slate-100 mb-2">Program status</h3>
                     <div className="flex items-center space-x-3 mb-2">
                         <span className="relative flex h-4 w-4">
                             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
@@ -47,7 +47,7 @@ export default function ExecutiveSummary({
                 <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6">
                     {metrics.map((metric, index) => (
                         <div key={index} className="flex flex-col justify-center lg:border-r last:border-0 border-slate-800/50 pr-0 lg:pr-4">
-                            <p className="text-[10px] font-bold text-white uppercase tracking-wider mb-1.5 h-auto lg:h-8 flex items-end pb-1">
+                            <p className="text-[10px] font-semibold text-slate-300 tracking-normal mb-1.5 h-auto lg:h-8 flex items-end pb-1">
                                 {metric.label}
                             </p>
                             <div className="flex items-baseline gap-2 mb-1">

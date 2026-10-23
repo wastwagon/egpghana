@@ -139,7 +139,19 @@ This fetches data from:
 
 ## 🌐 Deployment
 
-### Using Coolify
+### Production deploy checklist (Coolify)
+
+1. **Secrets** — `DATABASE_URL`, `REDIS_URL`, `NEXTAUTH_SECRET`, `NEXTAUTH_URL`, `NEXT_PUBLIC_APP_URL`, `OPENAI_API_KEY`, Resend SMTP (`SMTP_*`), `CRON_SECRET`, optional `INDICATOR_ALERT_EMAIL`, `GOOGLE_SITE_VERIFICATION`.
+2. **Uploads** — persistent volume at `UPLOADS_DIR=/data/uploads` (careers EOIs and media survive redeploys).
+3. **Build** — Dockerfile build pack (not Compose); push to `main` to deploy.
+4. **Database** — migrations run on deploy; do **not** set `RUN_SEED_ON_STARTUP` on production unless the DB is brand new.
+5. **Cron** — schedule `POST /api/admin/data-sync` with `Authorization: Bearer $CRON_SECRET` (optional `RUN_SYNC_ON_STARTUP=true` once after go-live). After large content imports, run `POST /api/admin/embeddings` (same auth) or use **Data Freshness → Refresh embeddings** in admin.
+6. **Smoke** — `GET /api/health`, home, `/dashboards`, `/search?q=debt`, `/feed.xml`, `/contact`, admin login, careers EOI path if open.
+7. **Redis** — enables indicator + RAG response caching; safe to omit (app falls back to Postgres).
+
+See `Coolify.md` for UI steps.
+
+### Using Coolify (summary)
 
 1. Push to GitHub (`main`)
 2. Coolify **Build Pack = Dockerfile** (not Docker Compose)
@@ -155,6 +167,43 @@ docker build -t egp-website .
 docker run -p 3456:3000 egp-website
 ```
 
+## 🧪 Testing
+
+```bash
+# Unit / types
+npm run type-check
+npm run lint
+
+# End-to-end (starts dev server locally, or production build when CI=true)
+npm run docker:up
+npm run db:restore   # or migrate + seed
+npm run test:e2e
+
+# Optional admin login smoke
+E2E_ADMIN_EMAIL=admin@egpghana.org E2E_ADMIN_PASSWORD=admin123 npm run test:e2e
+```
+
+GitHub Actions runs **type-check**, **lint**, and **Playwright** (Postgres + pgvector, seed, careers EOI API test) on push/PR.
+
+Production uptime checks can hit `GET /api/health` (JSON `{ ok, database, timestamp }`; 503 if Postgres is down).
+
+Partners can read cached headline indicators via `GET /api/indicators/latest` (optional `?keys=gdp_growth,inflation,...`; rate-limited, 5-minute cache).
+
+**Embed (iframe):** use `/embed/indicators` on partner sites:
+
+```html
+<iframe
+  src="https://egpghana.org/embed/indicators"
+  title="EGP Ghana headline indicators"
+  width="100%"
+  height="420"
+  style="border:0;max-width:32rem"
+  loading="lazy"
+></iframe>
+```
+
+Dashboard **Print briefing** opens a print-ready HTML page — use the browser’s “Save as PDF” for a PDF export.
+
 ## 📝 Available Scripts
 
 - `npm run dev` - Start development server
@@ -162,6 +211,7 @@ docker run -p 3456:3000 egp-website
 - `npm run start` - Start production server
 - `npm run lint` - Run ESLint
 - `npm run type-check` - Check TypeScript types
+- `npm run test:e2e` - Playwright public + careers/admin smoke tests
 - `npm run scraper:run` - Scrape existing website
 - `npm run import:content` - Import scraped content
 

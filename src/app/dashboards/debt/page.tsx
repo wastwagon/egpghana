@@ -1,69 +1,60 @@
-import { PrismaClient } from '@prisma/client';
-
-export const dynamic = 'force-dynamic';
-
+import dynamic from 'next/dynamic';
+import { Suspense } from 'react';
 import Footer from '@/components/Footer';
+import DashboardToolbar from '@/components/dashboards/DashboardToolbar';
+import HeroBannerVideo from '@/components/HeroBannerVideo';
 import StatCard from '@/components/StatCard';
-import DebtOverviewChart from '@/components/charts/DebtOverviewChart';
-import DebtCompositionChart from '@/components/charts/DebtCompositionChart';
-import DebtToGDPChart from '@/components/charts/DebtToGDPChart';
-import DebtBreakdownChart from '@/components/charts/DebtBreakdownChart';
-import DebtServiceChart from '@/components/charts/DebtServiceChart';
-import RiskAssessmentSection from '@/components/dashboards/RiskAssessmentSection';
-import IndicatorsGrid from '@/components/dashboards/IndicatorsGrid';
-import HistoricalDebtAnalyzer from '@/components/dashboards/HistoricalDebtAnalyzer';
-import DebtRestructuringJourney from '@/components/dashboards/DebtRestructuringJourney';
+import ChartBlockSkeleton from '@/components/ChartBlockSkeleton';
+import { PUBLIC_DATA_REVALIDATE_SECONDS } from '@/lib/cache-tags';
+import { findEconomicDataSeries, findLatestEconomicData } from '@/lib/cached-economic-data';
+import {
+    filterEconomicRowsByCutoff,
+    parseDashboardRange,
+    rangeCutoff,
+    seriesTakeForRange,
+} from '@/lib/dashboard-range';
+import DashboardTimeRange from '@/components/dashboards/DashboardTimeRange';
+import { BreadcrumbJsonLd } from '@/components/JsonLd';
 import { loadIndicatorGridData } from '@/lib/data-sync';
+import { prisma } from '@/lib/prisma';
 
-const prisma = new PrismaClient();
+const chartLoading = () => <ChartBlockSkeleton />;
+
+const DebtOverviewChart = dynamic(() => import('@/components/charts/DebtOverviewChart'), { loading: chartLoading });
+const DebtCompositionChart = dynamic(() => import('@/components/charts/DebtCompositionChart'), { loading: chartLoading });
+const DebtToGDPChart = dynamic(() => import('@/components/charts/DebtToGDPChart'), { loading: chartLoading });
+const DebtBreakdownChart = dynamic(() => import('@/components/charts/DebtBreakdownChart'), { loading: chartLoading });
+const DebtServiceChart = dynamic(() => import('@/components/charts/DebtServiceChart'), { loading: chartLoading });
+const RiskAssessmentSection = dynamic(() => import('@/components/dashboards/RiskAssessmentSection'), { loading: chartLoading });
+const IndicatorsGrid = dynamic(() => import('@/components/dashboards/IndicatorsGrid'), { loading: chartLoading });
+const HistoricalDebtAnalyzer = dynamic(() => import('@/components/dashboards/HistoricalDebtAnalyzer'), { loading: chartLoading });
+const DebtRestructuringJourney = dynamic(() => import('@/components/dashboards/DebtRestructuringJourney'), { loading: chartLoading });
+
+export const revalidate = PUBLIC_DATA_REVALIDATE_SECONDS;
 
 export const metadata = {
     title: 'Public Debt Tracker | EGP Ghana',
     description: 'Real-time monitoring and analysis of Ghana\'s public debt portfolio',
 };
 
-export default async function DebtDashboardPage() {
+export default async function DebtDashboardPage({
+    searchParams,
+}: {
+    searchParams?: { range?: string };
+}) {
+    const range = parseDashboardRange(searchParams?.range);
+    const cutoff = rangeCutoff(range);
+    const monthlyTake = seriesTakeForRange(range, true);
+    const quarterlyTake = seriesTakeForRange(range, false);
+
     // Fetch latest official debt data (source-prioritized)
-    const latestDebtData = await prisma.economicData.findFirst({
-        where: {
-            indicator: 'TOTAL_DEBT',
-            source: 'Bank of Ghana',
-        },
-        orderBy: { date: 'desc' },
-    });
-
-    const latestDebtToGdpData = await prisma.economicData.findFirst({
-        where: {
-            indicator: 'DEBT_TO_GDP_RATIO',
-            source: 'MOF',
-        },
-        orderBy: { date: 'desc' },
-    });
-
-    const latestDebtServiceData = await prisma.economicData.findFirst({
-        where: {
-            indicator: 'DEBT_SERVICE_TO_REVENUE',
-            source: 'KPMG',
-        },
-        orderBy: { date: 'desc' },
-    });
-
-    const stockTotal = await prisma.economicData.findFirst({
-        where: { indicator: 'DEBT_STOCK_TOTAL', source: 'Bank of Ghana' },
-        orderBy: { date: 'desc' },
-    });
-    const domesticRow = await prisma.economicData.findFirst({
-        where: { indicator: 'DEBT_DOMESTIC' },
-        orderBy: { date: 'desc' },
-    });
-    const externalRow = await prisma.economicData.findFirst({
-        where: { indicator: 'DEBT_EXTERNAL' },
-        orderBy: { date: 'desc' },
-    });
-    const debtPerCapitaRow = await prisma.economicData.findFirst({
-        where: { indicator: 'DEBT_PER_CAPITA' },
-        orderBy: { date: 'desc' },
-    });
+    const latestDebtData = await findLatestEconomicData('TOTAL_DEBT', 'Bank of Ghana');
+    const latestDebtToGdpData = await findLatestEconomicData('DEBT_TO_GDP_RATIO', 'MOF');
+    const latestDebtServiceData = await findLatestEconomicData('DEBT_SERVICE_TO_REVENUE', 'KPMG');
+    const stockTotal = await findLatestEconomicData('DEBT_STOCK_TOTAL', 'Bank of Ghana');
+    const domesticRow = await findLatestEconomicData('DEBT_DOMESTIC');
+    const externalRow = await findLatestEconomicData('DEBT_EXTERNAL');
+    const debtPerCapitaRow = await findLatestEconomicData('DEBT_PER_CAPITA');
     const priorDebtRow = latestDebtData
         ? await prisma.economicData.findFirst({
             where: {
@@ -87,12 +78,8 @@ export default async function DebtDashboardPage() {
     const { indicators: gridIndicators, asOfLabel } = await loadIndicatorGridData();
 
     // Fetch debt overview data (monthly totals)
-    const debtOverviewDataRaw = await prisma.economicData.findMany({
-        where: { indicator: 'TOTAL_DEBT' },
-        orderBy: { date: 'desc' },
-        take: 24, // Last 2 years
-    });
-    const debtOverviewData = debtOverviewDataRaw.reverse();
+    const debtOverviewDataRaw = await findEconomicDataSeries({ indicator: 'TOTAL_DEBT' }, monthlyTake);
+    const debtOverviewData = filterEconomicRowsByCutoff(debtOverviewDataRaw, cutoff).reverse();
 
     const overviewChartData = debtOverviewData.map((d) => {
         const meta = d.metadata as any;
@@ -105,12 +92,8 @@ export default async function DebtDashboardPage() {
     });
 
     // Fetch debt-to-GDP ratio data
-    const debtToGDPDataRaw = await prisma.economicData.findMany({
-        where: { indicator: 'DEBT_TO_GDP_RATIO' },
-        orderBy: { date: 'desc' },
-        take: 12, // Last 3 years
-    });
-    const debtToGDPData = debtToGDPDataRaw.reverse();
+    const debtToGDPDataRaw = await findEconomicDataSeries({ indicator: 'DEBT_TO_GDP_RATIO' }, quarterlyTake);
+    const debtToGDPData = filterEconomicRowsByCutoff(debtToGDPDataRaw, cutoff).reverse();
 
     const gdpChartData = debtToGDPData.map((d) => ({
         date: d.date.toISOString().split('T')[0],
@@ -118,11 +101,7 @@ export default async function DebtDashboardPage() {
     }));
 
     // Fetch debt service data
-    const debtServiceDataRaw = await prisma.economicData.findMany({
-        where: { indicator: 'DEBT_SERVICE_TO_REVENUE' },
-        orderBy: { date: 'desc' },
-        take: 5,
-    });
+    const debtServiceDataRaw = await findEconomicDataSeries({ indicator: 'DEBT_SERVICE_TO_REVENUE' }, 5);
     const debtServiceData = debtServiceDataRaw.reverse();
 
     const serviceChartData = debtServiceData.map((d) => ({
@@ -131,11 +110,7 @@ export default async function DebtDashboardPage() {
     }));
 
     // Fetch latest creditor breakdown date
-    const latestCreditorRecord = await prisma.economicData.findFirst({
-        where: { indicator: 'DEBT_BY_CREDITOR' },
-        orderBy: { date: 'desc' },
-        select: { date: true }
-    });
+    const latestCreditorRecord = await findLatestEconomicData('DEBT_BY_CREDITOR');
 
     let creditorData: any[] = [];
     if (latestCreditorRecord) {
@@ -208,19 +183,18 @@ export default async function DebtDashboardPage() {
 
     return (
         <>
+            <BreadcrumbJsonLd
+                items={[
+                    { name: 'Home', path: '/' },
+                    { name: 'Dashboards', path: '/dashboards' },
+                    { name: 'Public debt', path: '/dashboards/debt' },
+                ]}
+            />
             <main className="min-h-screen bg-slate-50">
                 {/* Hero Section */}
                 {/* Hero Section */}
                 <section className="relative h-[500px] flex items-center justify-center overflow-hidden">
-                    <video
-                        autoPlay
-                        loop
-                        muted
-                        playsInline
-                        className="absolute inset-0 w-full h-full object-cover"
-                    >
-                        <source src="/assets/videos/EGP-BANNER-1.mp4" type="video/mp4" />
-                    </video>
+                    <HeroBannerVideo videoSrc="/assets/videos/EGP-BANNER-1.mp4" lazy />
                     <div className="absolute inset-0 bg-black/60"></div>
                     <div className="container relative z-10 text-left">
                         <div className="max-w-4xl mr-auto">
@@ -274,8 +248,22 @@ export default async function DebtDashboardPage() {
                 </section>
 
                 {/* Stats Cards */}
-                <section className="section pb-8 md:pb-12" style={{ paddingBottom: '3rem' }}>
+                <section id="overview" className="section pb-8 md:pb-12 scroll-mt-28" style={{ paddingBottom: '3rem' }}>
                     <div className="container">
+                        <Suspense fallback={null}>
+                            <DashboardTimeRange />
+                            <DashboardToolbar
+                                dashboard="debt"
+                                sections={[
+                                    { id: 'overview', label: 'Overview' },
+                                    { id: 'history', label: 'History' },
+                                    { id: 'indicators', label: 'Indicators' },
+                                    { id: 'trajectory', label: 'Trajectory' },
+                                    { id: 'composition', label: 'Composition' },
+                                    { id: 'journey', label: 'Restructuring' },
+                                ]}
+                            />
+                        </Suspense>
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                             <StatCard
                                 title="Total Public Debt"
@@ -334,17 +322,17 @@ export default async function DebtDashboardPage() {
                 </section>
 
                 {/* Historical Analyzer - The "History" */}
-                <div className="section container py-8 -mt-8 bg-white border-t border-slate-100" style={{ paddingTop: '3rem', paddingBottom: '3rem' }}>
+                <div id="history" className="section container py-8 -mt-8 bg-white border-t border-slate-100 scroll-mt-28" style={{ paddingTop: '3rem', paddingBottom: '3rem' }}>
                     <HistoricalDebtAnalyzer />
                 </div>
 
                 {/* Key Economic Indicators Full Grid - The "Present" */}
-                <section className="section bg-slate-50 border-t border-slate-100">
+                <section id="indicators" className="section bg-slate-50 border-t border-slate-100 scroll-mt-28">
                     <IndicatorsGrid indicators={gridIndicators} asOfLabel={asOfLabel} />
                 </section>
 
                 {/* Debt Overview Chart - The "Trend" */}
-                <section className="section py-8 md:py-12 bg-white border-t border-slate-100" style={{ paddingTop: '3rem', paddingBottom: '3rem' }}>
+                <section id="trajectory" className="section py-8 md:py-12 bg-white border-t border-slate-100 scroll-mt-28" style={{ paddingTop: '3rem', paddingBottom: '3rem' }}>
                     <div className="container">
                         <div className="mb-8 md:mb-10 max-w-3xl">
                             <h2 className="text-xl md:text-2xl font-bold text-slate-900 mb-4 tracking-tight">Debt Trajectory Analysis</h2>
@@ -355,7 +343,7 @@ export default async function DebtDashboardPage() {
                         {overviewChartData.length > 0 ? (
                             <DebtOverviewChart data={overviewChartData} lastUpdated={overviewRange} />
                         ) : (
-                            <div className="glass-card text-center py-12">
+                            <div className="bg-white border border-slate-100 rounded-xl shadow-sm text-center py-12">
                                 <p className="text-black">No debt overview data available</p>
                             </div>
                         )}
@@ -363,7 +351,7 @@ export default async function DebtDashboardPage() {
                 </section>
 
                 {/* Composition and Ratios - The "Makeup" */}
-                <section className="section py-8 md:py-12 bg-slate-50 border-t border-slate-100" style={{ paddingTop: '3rem', paddingBottom: '3rem' }}>
+                <section id="composition" className="section py-8 md:py-12 bg-slate-50 border-t border-slate-100 scroll-mt-28" style={{ paddingTop: '3rem', paddingBottom: '3rem' }}>
                     <div className="container">
                         <div className="mb-8 md:mb-10 max-w-3xl">
                             <h2 className="text-xl md:text-2xl font-bold text-slate-900 mb-4 tracking-tight">Portfolio Composition & Ratios</h2>
@@ -376,7 +364,7 @@ export default async function DebtDashboardPage() {
                             {gdpChartData.length > 0 ? (
                                 <DebtToGDPChart data={gdpChartData} lastUpdated={gdpRange} />
                             ) : (
-                                <div className="glass-card text-center py-12">
+                                <div className="bg-white border border-slate-100 rounded-xl shadow-sm text-center py-12">
                                     <p className="text-black">No debt-to-GDP data available</p>
                                 </div>
                             )}
@@ -426,7 +414,7 @@ export default async function DebtDashboardPage() {
                 </section>
 
                 {/* Restructuring Journey - The "Story" */}
-                <div className="container pb-12 pt-12">
+                <div id="journey" className="container pb-12 pt-12 scroll-mt-28">
                     <DebtRestructuringJourney />
                 </div>
             </main>

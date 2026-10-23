@@ -1,11 +1,10 @@
-import { PrismaClient } from '@prisma/client';
-
-export const dynamic = 'force-dynamic';
-
 import Footer from '@/components/Footer';
 import StaffGrid from '@/components/StaffGrid';
+import { PUBLIC_DATA_REVALIDATE_SECONDS } from '@/lib/cache-tags';
+import { prisma } from '@/lib/prisma';
+import { BreadcrumbJsonLd } from '@/components/JsonLd';
 
-const prisma = new PrismaClient();
+export const revalidate = PUBLIC_DATA_REVALIDATE_SECONDS;
 
 export const metadata = {
     title: 'Our Team | EGP Ghana',
@@ -21,7 +20,7 @@ export default async function TeamPage() {
 
     return (
         <>
-
+            <BreadcrumbJsonLd items={[{ name: 'Home', path: '/' }, { name: 'Team', path: '/team' }]} />
             <main className="min-h-screen bg-slate-50">
                 {/* Hero Section */}
                 <section className="relative bg-primary-700 py-20 md:py-32">

@@ -1,21 +1,18 @@
 
-import { PrismaClient } from '@prisma/client';
-
-export const dynamic = 'force-dynamic';
-
 import Link from 'next/link';
 
 import Footer from '@/components/Footer';
 import ArticleCard from '@/components/ArticleCard';
-
-const prisma = new PrismaClient();
+import { PUBLIC_DATA_REVALIDATE_SECONDS } from '@/lib/cache-tags';
+import { prisma } from '@/lib/prisma';
+import { BreadcrumbJsonLd } from '@/components/JsonLd';
 
 export const metadata = {
     title: 'Publications & Insights | EGP Ghana',
     description: 'Latest economic analysis, policy briefs, and news from the Economic Governance Platform.',
 };
 
-export const revalidate = 60; // Revalidate every minute
+export const revalidate = PUBLIC_DATA_REVALIDATE_SECONDS;
 
 export default async function ArticlesPage({ searchParams }: { searchParams: { category?: string; page?: string } }) {
 
@@ -49,6 +46,7 @@ export default async function ArticlesPage({ searchParams }: { searchParams: { c
 
     return (
         <>
+            <BreadcrumbJsonLd items={[{ name: 'Home', path: '/' }, { name: 'Publications', path: '/articles' }]} />
             <main className="min-h-screen bg-slate-50">
                 {/* Hero Section */}
                 <section className="bg-primary-900 text-white py-20 relative overflow-hidden">

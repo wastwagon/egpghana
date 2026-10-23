@@ -1,13 +1,17 @@
 import Footer from '@/components/Footer';
+import { BreadcrumbJsonLd } from '@/components/JsonLd';
+import { buildPageMetadata } from '@/lib/seo';
 
-export const metadata = {
+export const metadata = buildPageMetadata({
     title: 'Privacy Policy | Economic Governance Platform',
-    description: 'Privacy Policy for the Economic Governance Platform Ghana - Learn how we protect your data and privacy.'
-};
+    description: 'Privacy Policy for the Economic Governance Platform Ghana - Learn how we protect your data and privacy.',
+    path: '/privacy',
+});
 
 export default function PrivacyPolicyPage() {
     return (
         <>
+            <BreadcrumbJsonLd items={[{ name: 'Home', path: '/' }, { name: 'Privacy policy', path: '/privacy' }]} />
             <main className="min-h-screen bg-slate-50">
                 {/* Hero Section */}
                 <section className="relative bg-primary-700 py-20">

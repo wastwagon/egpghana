@@ -3,8 +3,14 @@ import { NextResponse, NextRequest } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import crypto from 'crypto';
 import { UAParser } from 'ua-parser-js';
+import { clientIp, consumeRateLimit } from '@/lib/rate-limit';
 
 export async function POST(req: NextRequest) {
+    const allowed = await consumeRateLimit(`analytics:${clientIp(req)}`, 120, 60);
+    if (!allowed) {
+        return NextResponse.json({ ok: true });
+    }
+
     try {
         const body = await req.json();
         const {

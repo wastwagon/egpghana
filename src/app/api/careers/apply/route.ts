@@ -6,6 +6,7 @@ import { getUploadsDir } from '@/lib/uploads';
 import { careersNotifyEmail, sendMail } from '@/lib/email';
 import { CareerAttachment, formatApplicationHtml, formatApplicationText } from '@/lib/career-application';
 import { STRATEGIC_REVIEW_EMAIL_SUBJECT } from '@/lib/career-tor-content';
+import { clientIp, consumeRateLimit } from '@/lib/rate-limit';
 
 export const runtime = 'nodejs';
 
@@ -80,6 +81,12 @@ async function saveUpload(file: File, field: string, applicationKey: string): Pr
 }
 
 export async function POST(req: NextRequest) {
+    const ip = clientIp(req);
+    const allowed = await consumeRateLimit(`careers-apply:${ip}`, 8, 60 * 60);
+    if (!allowed) {
+        return NextResponse.json({ error: 'Too many submissions. Please try again later.' }, { status: 429 });
+    }
+
     try {
         const form = await req.formData();
         const slug = requiredString(form, 'slug');

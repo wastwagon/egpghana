@@ -3,6 +3,8 @@ import { prisma } from '@/lib/prisma';
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { slugify } from '@/lib/slug';
+import { onPublicContentChanged } from '@/lib/revalidate-content';
+import { embedArticleById } from '@/lib/embeddings-refresh';
 
 export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
     const session = await getServerSession(authOptions);
@@ -54,6 +56,9 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
             },
         });
 
+        await onPublicContentChanged({ articleSlug: article.slug });
+        void embedArticleById(article.id).catch((err) => console.error('article embed', err));
+
         return NextResponse.json(article);
     } catch (error) {
         console.error('Error updating article:', error);
@@ -68,9 +73,16 @@ export async function DELETE(req: NextRequest, { params }: { params: { id: strin
     }
 
     try {
+        const existing = await prisma.article.findUnique({
+            where: { id: params.id },
+            select: { slug: true },
+        });
+
         await prisma.article.delete({
             where: { id: params.id },
         });
+
+        await onPublicContentChanged({ articleSlug: existing?.slug });
 
         return NextResponse.json({ message: 'Article deleted successfully' });
     } catch (error) {

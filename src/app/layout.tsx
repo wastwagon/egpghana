@@ -2,9 +2,14 @@ import { Suspense } from "react";
 import type { Metadata } from "next";
 import { Inter, Poppins } from "next/font/google";
 import "./globals.css";
-import ChatWidget from "@/components/ChatWidget";
+import dynamic from "next/dynamic";
 import Header from "@/components/Header";
 import { AnalyticsTracker } from "@/components/AnalyticsTracker";
+import { OrganizationJsonLd, WebSiteJsonLd } from "@/components/JsonLd";
+import { absoluteAssetUrl, siteBaseUrl } from "@/lib/seo";
+import type { Viewport } from "next";
+
+const ChatWidget = dynamic(() => import("@/components/ChatWidget"), { ssr: false });
 
 const inter = Inter({
     subsets: ["latin"],
@@ -24,6 +29,10 @@ export const metadata: Metadata = {
     description: "Empowering data-driven decisions through fiscal transparency, accountable governance, and citizen participation in Ghana's public finance management.",
     keywords: ["Ghana economy", "fiscal policy", "public debt", "IMF", "economic governance", "transparency"],
     authors: [{ name: "Economic Governance Platform" }],
+    icons: {
+        icon: [{ url: "/images/EGPLOGO.jpg", type: "image/jpeg" }],
+        apple: [{ url: "/images/EGPLOGO.jpg", type: "image/jpeg" }],
+    },
     openGraph: {
         title: "Economic Governance Platform Ghana",
         description: "Promoting financial transparency and accountable governance in Ghana",
@@ -31,6 +40,14 @@ export const metadata: Metadata = {
         siteName: "EGP Ghana",
         locale: "en_GH",
         type: "website",
+        images: [
+            {
+                url: absoluteAssetUrl(null),
+                width: 1200,
+                height: 630,
+                alt: "Economic Governance Platform Ghana",
+            },
+        ],
     },
     twitter: {
         card: "summary_large_image",
@@ -48,13 +65,26 @@ export const metadata: Metadata = {
             'max-snippet': -1,
         },
     },
-    metadataBase: new URL('https://egpghana.org'),
+    metadataBase: new URL(siteBaseUrl()),
     alternates: {
         canonical: '/',
+        languages: {
+            'en-GH': siteBaseUrl(),
+            'x-default': siteBaseUrl(),
+        },
+        types: {
+            'application/rss+xml': [{ url: '/feed.xml', title: 'EGP Ghana RSS' }],
+        },
     },
-    verification: {
-        google: 'google-site-verification-code', // Replace with actual code
-    },
+    ...(process.env.GOOGLE_SITE_VERIFICATION
+        ? { verification: { google: process.env.GOOGLE_SITE_VERIFICATION } }
+        : {}),
+};
+
+export const viewport: Viewport = {
+    width: "device-width",
+    initialScale: 1,
+    themeColor: "#00467e",
 };
 
 export default function RootLayout({
@@ -65,8 +95,11 @@ export default function RootLayout({
     return (
         <html lang="en" className={`${inter.variable} ${poppins.variable}`} suppressHydrationWarning>
             <body className="min-h-screen">
+                <WebSiteJsonLd />
+                <OrganizationJsonLd />
+                <a href="#main-content" className="skip-link">Skip to main content</a>
                 <Header />
-                {children}
+                <div id="main-content">{children}</div>
                 <ChatWidget />
                 <Suspense fallback={null}>
                     <AnalyticsTracker />

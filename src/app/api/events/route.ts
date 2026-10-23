@@ -3,6 +3,7 @@ import { prisma } from '@/lib/prisma';
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { slugify } from '@/lib/slug';
+import { onPublicContentChanged } from '@/lib/revalidate-content';
 
 export async function GET(req: NextRequest) {
     const session = await getServerSession(authOptions);
@@ -79,6 +80,8 @@ export async function POST(req: NextRequest) {
                 featured: featured || false,
             },
         });
+
+        await onPublicContentChanged({ eventSlug: event.slug });
 
         return NextResponse.json(event, { status: 201 });
     } catch (error) {

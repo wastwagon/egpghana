@@ -1,11 +1,11 @@
-import { PrismaClient } from '@prisma/client';
-export const dynamic = 'force-dynamic';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import Footer from '@/components/Footer';
 import ArticleCard from '@/components/ArticleCard';
 import { prisma } from '@/lib/prisma';
+import { buildPageMetadata } from '@/lib/seo';
+import { ArticleJsonLd, BreadcrumbJsonLd } from '@/components/JsonLd';
 
 export async function generateMetadata({ params }: { params: { slug: string } }) {
     const article = await prisma.article.findUnique({
@@ -19,10 +19,12 @@ export async function generateMetadata({ params }: { params: { slug: string } })
         };
     }
 
-    return {
+    return buildPageMetadata({
         title: `${article.title} | EGP Ghana`,
         description: article.excerpt || article.title,
-    };
+        path: `/articles/${article.slug}`,
+        imageUrl: article.imageUrl,
+    });
 }
 
 export default async function ArticlePage({ params }: { params: { slug: string } }) {
@@ -68,6 +70,21 @@ export default async function ArticlePage({ params }: { params: { slug: string }
 
     return (
         <>
+            <ArticleJsonLd
+                title={article.title}
+                description={article.excerpt || article.title}
+                slug={article.slug}
+                publishedAt={article.publishedAt}
+                author={article.author}
+                imageUrl={article.imageUrl}
+            />
+            <BreadcrumbJsonLd
+                items={[
+                    { name: 'Home', path: '/' },
+                    { name: 'Articles', path: '/articles' },
+                    { name: article.title, path: `/articles/${article.slug}` },
+                ]}
+            />
             <main className="min-h-screen bg-slate-50">
                 {/* Hero Section */}
                 {/* Hero Section */}

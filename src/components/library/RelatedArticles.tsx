@@ -35,7 +35,7 @@ export default async function RelatedArticles({ articles }: { articles: RelatedA
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {articles.map((article) => (
-                    <Link key={article.id} href={`/articles/${article.slug}`} className="group block bg-white p-4 rounded-xl border border-slate-100 shadow-sm hover:shadow-md transition-all">
+                    <Link key={article.id} href={`/articles/${article.slug}`} className="group block interactive-card p-4 rounded-xl">
                         <div className="flex items-center space-x-2 text-xs text-slate-500 mb-2">
                             <span className="font-medium text-primary-600 bg-primary-50 px-2 py-0.5 rounded-full">
                                 {article.category.name}

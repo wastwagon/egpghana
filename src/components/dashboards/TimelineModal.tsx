@@ -85,7 +85,7 @@ export default function TimelineModal({ isOpen, onClose, data }: TimelineModalPr
                                                     </svg>
                                                 </div>
                                                 <div>
-                                                    <p className="text-xs font-bold text-green-800 uppercase tracking-wide">Disbursement Approved</p>
+                                                    <p className="text-xs font-semibold text-green-800">Disbursement approved</p>
                                                     <p className="text-xl font-bold text-green-900">{data.details.disbursement}</p>
                                                 </div>
                                             </div>
@@ -93,7 +93,7 @@ export default function TimelineModal({ isOpen, onClose, data }: TimelineModalPr
 
                                         {data.details.keyOutcomes && (
                                             <div>
-                                                <h4 className="text-sm font-bold text-slate-900 uppercase tracking-wide mb-3">Key Outcomes</h4>
+                                                <h4 className="text-sm font-semibold text-slate-900 mb-3">Key outcomes</h4>
                                                 <ul className="space-y-2">
                                                     {data.details.keyOutcomes.map((outcome, i) => (
                                                         <li key={i} className="flex items-start text-slate-600">
@@ -109,7 +109,7 @@ export default function TimelineModal({ isOpen, onClose, data }: TimelineModalPr
 
                                         {data.details.documents && (
                                             <div>
-                                                <h4 className="text-sm font-bold text-slate-900 uppercase tracking-wide mb-3">Related Documents</h4>
+                                                <h4 className="text-sm font-semibold text-slate-900 mb-3">Related documents</h4>
                                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                                     {data.details.documents.map((doc, i) => (
                                                         <a

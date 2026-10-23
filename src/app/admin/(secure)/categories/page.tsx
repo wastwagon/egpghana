@@ -131,7 +131,8 @@ export default function CategoriesPage() {
                         <Loader2 className="w-8 h-8 text-blue-600 animate-spin" />
                     </div>
                 ) : (
-                    <table className="w-full text-left text-sm text-gray-600 dark:text-gray-400">
+                    <div className="overflow-x-auto">
+                    <table className="w-full min-w-[640px] text-left text-sm text-gray-600 dark:text-gray-400">
                         <thead className="bg-gray-50 dark:bg-gray-700/50 text-xs uppercase font-semibold text-gray-500 dark:text-gray-400">
                             <tr>
                                 <th className="px-6 py-4">Name</th>
@@ -174,6 +175,7 @@ export default function CategoriesPage() {
                             )}
                         </tbody>
                     </table>
+                    </div>
                 )}
             </div>
 

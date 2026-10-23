@@ -1,4 +1,9 @@
 import Link from 'next/link';
+import NewsletterSignup from '@/components/NewsletterSignup';
+import FooterDeveloperCredit from '@/components/FooterDeveloperCredit';
+
+const footerHeadingClass = 'text-white/90 font-heading font-semibold text-sm mb-4 tracking-normal';
+const footerLinkClass = 'text-white/75 hover:text-accent-teal text-sm transition-colors';
 
 export default function Footer() {
     const currentYear = new Date().getFullYear();
@@ -44,13 +49,13 @@ export default function Footer() {
                         <p className="text-white text-sm leading-relaxed mb-6 max-w-sm">
                             Empowering citizens with data-driven insights on Ghana's economic governance, fiscal policy, and public debt management.
                         </p>
-                        {/* Social Links */}
-                        <div className="flex space-x-4">
+                        <NewsletterSignup />
+                        <div className="flex space-x-4 mt-6">
                             <a
                                 href="https://twitter.com/egpghana"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-white/70 hover:text-white text-sm transition-colors"
+                                className="text-white/70 hover:text-accent-teal transition-colors"
                                 aria-label="Twitter"
                             >
                                 <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
@@ -61,7 +66,7 @@ export default function Footer() {
                                 href="https://facebook.com/egpghana"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-white/70 hover:text-white text-sm transition-colors"
+                                className="text-white/70 hover:text-accent-teal transition-colors"
                                 aria-label="Facebook"
                             >
                                 <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
@@ -72,7 +77,7 @@ export default function Footer() {
                                 href="https://linkedin.com/company/egpghana"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-white/70 hover:text-white text-sm transition-colors"
+                                className="text-white/70 hover:text-accent-teal transition-colors"
                                 aria-label="LinkedIn"
                             >
                                 <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
@@ -84,15 +89,13 @@ export default function Footer() {
 
                     {/* About Links */}
                     <div>
-                        <h3 className="text-white font-heading font-semibold text-sm uppercase tracking-wider mb-4">
-                            About
-                        </h3>
+                        <h3 className={footerHeadingClass}>About</h3>
                         <ul className="space-y-3">
                             {footerLinks.about.map((link) => (
                                 <li key={link.name}>
                                     <Link
                                         href={link.href}
-                                        className="text-white hover:text-white text-sm transition-colors"
+                                        className={footerLinkClass}
                                     >
                                         {link.name}
                                     </Link>
@@ -103,15 +106,13 @@ export default function Footer() {
 
                     {/* Resources Links */}
                     <div>
-                        <h3 className="text-white font-heading font-semibold text-sm uppercase tracking-wider mb-4">
-                            Resources
-                        </h3>
+                        <h3 className={footerHeadingClass}>Resources</h3>
                         <ul className="space-y-3">
                             {footerLinks.resources.map((link) => (
                                 <li key={link.name}>
                                     <Link
                                         href={link.href}
-                                        className="text-white hover:text-white text-sm transition-colors"
+                                        className={footerLinkClass}
                                     >
                                         {link.name}
                                     </Link>
@@ -122,15 +123,13 @@ export default function Footer() {
 
                     {/* Quick Links (Formerly Programs) */}
                     <div>
-                        <h3 className="text-white font-heading font-semibold text-sm uppercase tracking-wider mb-4">
-                            Quick Links
-                        </h3>
+                        <h3 className={footerHeadingClass}>Quick links</h3>
                         <ul className="space-y-3">
                             {footerLinks.quickLinks.map((link) => (
                                 <li key={link.name}>
                                     <Link
                                         href={link.href}
-                                        className="text-white hover:text-white text-sm transition-colors"
+                                        className={footerLinkClass}
                                     >
                                         {link.name}
                                     </Link>
@@ -141,15 +140,13 @@ export default function Footer() {
 
                     {/* Actual Programs */}
                     <div>
-                        <h3 className="text-white font-heading font-semibold text-sm uppercase tracking-wider mb-4">
-                            Programs
-                        </h3>
+                        <h3 className={footerHeadingClass}>Programs</h3>
                         <ul className="space-y-3">
                             {footerLinks.actualPrograms.map((link) => (
                                 <li key={link.name}>
                                     <Link
                                         href={link.href}
-                                        className="text-white hover:text-white text-sm transition-colors"
+                                        className={footerLinkClass}
                                     >
                                         {link.name}
                                     </Link>
@@ -160,9 +157,9 @@ export default function Footer() {
                 </div>
 
                 {/* Bottom Bar */}
-                <div className="mt-12 pt-8 border-t border-primary-900/20">
-                    <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-                        <p className="text-white text-sm text-center md:text-left">
+                <div className="mt-12 pt-8 border-t border-white/10">
+                    <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+                        <p className="text-white/90 text-sm text-center md:text-left">
                             © {currentYear} Economic Governance Platform Ghana. All rights reserved.
                         </p>
                         <div className="flex flex-wrap justify-center md:justify-end gap-x-6 gap-y-2">
@@ -170,13 +167,15 @@ export default function Footer() {
                                 <Link
                                     key={link.name}
                                     href={link.href}
-                                    className="text-white hover:text-white text-sm transition-colors"
+                                    className={footerLinkClass}
                                 >
                                     {link.name}
                                 </Link>
                             ))}
                         </div>
                     </div>
+
+                    <FooterDeveloperCredit />
                 </div>
             </div>
         </footer>

@@ -55,10 +55,10 @@ export default function EconomicSummaryCards({ indicators }: EconomicSummaryCard
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {indicators.map((indicator, index) => (
-                <div key={index} className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-lg transition-all duration-300">
+                <div key={index} className="interactive-card rounded-2xl p-6">
                     <div className="flex items-start justify-between mb-4">
                         <div className="flex-1">
-                            <h4 className="text-sm font-medium text-black mb-1 uppercase tracking-wide">{indicator.title}</h4>
+                            <h4 className="section-label text-sm mb-1 text-slate-700">{indicator.title}</h4>
                             <div className="text-3xl font-bold text-slate-900">
                                 {indicator.value}
                                 <span className="text-sm font-medium text-slate-400 ml-1">{indicator.unit}</span>

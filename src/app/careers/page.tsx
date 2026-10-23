@@ -1,9 +1,11 @@
 import Link from 'next/link';
 import Footer from '@/components/Footer';
 import CareerPageHero from '@/components/careers/CareerPageHero';
+import { PUBLIC_DATA_REVALIDATE_SECONDS } from '@/lib/cache-tags';
 import { prisma } from '@/lib/prisma';
+import { BreadcrumbJsonLd } from '@/components/JsonLd';
 
-export const dynamic = 'force-dynamic';
+export const revalidate = PUBLIC_DATA_REVALIDATE_SECONDS;
 
 export const metadata = {
     title: 'Careers | EGP Ghana',
@@ -18,6 +20,7 @@ export default async function CareersPage() {
 
     return (
         <>
+            <BreadcrumbJsonLd items={[{ name: 'Home', path: '/' }, { name: 'Careers', path: '/careers' }]} />
             <main className="min-h-screen bg-slate-50">
                 <CareerPageHero title="Careers & Consultancies">
                     <p className="text-lg text-blue-100 max-w-3xl leading-relaxed border-l-4 border-primary-400 pl-6">
@@ -36,7 +39,7 @@ export default async function CareersPage() {
                                 {opportunities.map((item) => {
                                     const closed = item.status !== 'open';
                                     return (
-                                        <article key={item.id} className="bg-white rounded-xl border border-slate-100 shadow-sm p-6 md:p-8">
+                                        <article key={item.id} className="interactive-card rounded-xl p-6 md:p-8">
                                             <div className="flex flex-wrap items-center gap-3 mb-3">
                                                 <span className="text-xs uppercase tracking-wide font-semibold text-primary-700 bg-primary-50 px-2 py-1 rounded">
                                                     {item.type}

@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
+import { onPublicContentChanged } from '@/lib/revalidate-content';
+import { embedResourceById } from '@/lib/embeddings-refresh';
 
 export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
     const session = await getServerSession(authOptions);
@@ -50,6 +52,9 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
             },
         });
 
+        await onPublicContentChanged();
+        void embedResourceById(resource.id).catch((err) => console.error('resource embed', err));
+
         return NextResponse.json(resource);
     } catch (error) {
         console.error('Error updating resource:', error);
@@ -67,6 +72,8 @@ export async function DELETE(req: NextRequest, { params }: { params: { id: strin
         await prisma.resource.delete({
             where: { id: params.id },
         });
+
+        await onPublicContentChanged();
 
         return NextResponse.json({ message: 'Resource deleted successfully' });
     } catch (error) {

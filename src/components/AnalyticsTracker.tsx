@@ -16,6 +16,10 @@ export function AnalyticsTracker() {
     const pageViewIdRef = useRef<string | null>(null);
 
     useEffect(() => {
+        if (pathname?.startsWith('/embed')) {
+            return;
+        }
+
         // 1. Initialize Long-term Visitor ID
         if (typeof window !== 'undefined') {
             let vid = localStorage.getItem('egp_v_id');

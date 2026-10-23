@@ -60,7 +60,7 @@ export default function ArticleCard({
     return (
         <Link
             href={`/articles/${slug}`}
-            className={`group block bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-slate-100 h-full flex flex-col ${isFeatured ? 'md:col-span-2 md:row-span-2' : ''
+            className={`group block interactive-card rounded-2xl overflow-hidden h-full flex flex-col ${isFeatured ? 'md:col-span-2 md:row-span-2' : ''
                 }`}
         >
             {/* Image Container */}

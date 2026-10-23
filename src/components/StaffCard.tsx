@@ -12,7 +12,7 @@ interface StaffCardProps {
 export default function StaffCard({ name, position, bio, imageUrl, email, onClick }: StaffCardProps) {
     return (
         <div
-            className="glass-card group cursor-pointer flex flex-col h-full bg-white border border-slate-100 shadow-sm hover:shadow-md"
+            className="glass-card interactive-card group cursor-pointer flex flex-col h-full"
             onClick={onClick}
         >
             {/* Image */}

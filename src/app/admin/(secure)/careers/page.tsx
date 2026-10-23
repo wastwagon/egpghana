@@ -53,7 +53,8 @@ export default function AdminCareersPage() {
                 ) : items.length === 0 ? (
                     <div className="p-12 text-center text-gray-500">No opportunities yet.</div>
                 ) : (
-                    <table className="w-full text-sm">
+                    <div className="overflow-x-auto">
+                    <table className="w-full min-w-[720px] text-sm">
                         <thead className="bg-gray-50 text-xs uppercase text-gray-500">
                             <tr>
                                 <th className="px-6 py-4 text-left">Title</th>
@@ -85,6 +86,7 @@ export default function AdminCareersPage() {
                             ))}
                         </tbody>
                     </table>
+                    </div>
                 )}
             </div>
         </div>

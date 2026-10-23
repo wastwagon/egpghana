@@ -1,20 +1,16 @@
 import Link from 'next/link';
-
-export const dynamic = 'force-dynamic';
-
 import Footer from '@/components/Footer';
 import ArticleCard from '@/components/ArticleCard';
 import EventCard from '@/components/EventCard';
+import HeroBannerVideo from '@/components/HeroBannerVideo';
+import { PUBLIC_DATA_REVALIDATE_SECONDS } from '@/lib/cache-tags';
+import { findLatestEconomicData } from '@/lib/cached-economic-data';
 import { prisma } from '@/lib/prisma';
 
-export const revalidate = 0;
+export const revalidate = PUBLIC_DATA_REVALIDATE_SECONDS;
 
 async function getDashboardData() {
-    const latestIndicator = (indicator: string, source?: string) =>
-        prisma.economicData.findFirst({
-            where: source ? { indicator, source } : { indicator },
-            orderBy: { date: 'desc' },
-        });
+    const latestIndicator = findLatestEconomicData;
 
     // Prefer live latest values so homepage stays current after sync jobs
     const [gdp, debt, debtStock, inflation, debtGdp, exchangeRate, forexReserves, debtService, policyRate] = await Promise.all([
@@ -165,15 +161,7 @@ export default async function HomePage() {
             <main className="min-h-screen bg-slate-50 overflow-x-hidden">
                 {/* Hero Section */}
                 <div className="relative h-[600px] flex items-center justify-center overflow-hidden">
-                    <video
-                        autoPlay
-                        loop
-                        muted
-                        playsInline
-                        className="absolute inset-0 w-full h-full object-cover"
-                    >
-                        <source src="/assets/videos/EGP-BANNER-1.mp4" type="video/mp4" />
-                    </video>
+                    <HeroBannerVideo videoSrc="/assets/videos/EGP-BANNER-1.mp4" />
                     <div className="absolute inset-0 bg-black/50"></div>
 
                     {/* Abstract Shapes (Overlay on video) */}
@@ -229,10 +217,10 @@ export default async function HomePage() {
                     <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                             {/* GDP Card */}
-                            <div className="bg-white rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 border border-slate-100 transform hover:-translate-y-1">
+                            <div className="interactive-card rounded-2xl p-6 shadow-xl">
                                 <div className="flex items-start justify-between mb-3">
                                     <div>
-                                        <p className="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">GDP Growth</p>
+                                        <p className="section-label mb-1">GDP Growth</p>
                                         <h3 className="text-3xl font-bold text-slate-900">
                                             {stats.gdpGrowth.value.toFixed(1)}%
                                         </h3>
@@ -254,10 +242,10 @@ export default async function HomePage() {
                             </div>
 
                             {/* Debt Card */}
-                            <div className="bg-white rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 border border-slate-100 transform hover:-translate-y-1">
+                            <div className="interactive-card rounded-2xl p-6 shadow-xl">
                                 <div className="flex items-start justify-between mb-3">
                                     <div>
-                                        <p className="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">Debt to GDP</p>
+                                        <p className="section-label mb-1">Debt to GDP</p>
                                         <h3 className="text-3xl font-bold text-slate-900">
                                             {stats.debtToGdp.value.toFixed(1)}%
                                         </h3>
@@ -280,10 +268,10 @@ export default async function HomePage() {
                             </div>
 
                             {/* Inflation Card */}
-                            <div className="bg-white rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 border border-slate-100 transform hover:-translate-y-1">
+                            <div className="interactive-card rounded-2xl p-6 shadow-xl">
                                 <div className="flex items-start justify-between mb-3">
                                     <div>
-                                        <p className="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">Inflation Rate</p>
+                                        <p className="section-label mb-1">Inflation Rate</p>
                                         <h3 className="text-3xl font-bold text-slate-900">
                                             {stats.inflation.value.toFixed(1)}%
                                         </h3>
@@ -306,10 +294,10 @@ export default async function HomePage() {
                             </div>
 
                             {/* Exchange Rate Card */}
-                            <div className="bg-white rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 border border-slate-100 transform hover:-translate-y-1">
+                            <div className="interactive-card rounded-2xl p-6 shadow-xl">
                                 <div className="flex items-start justify-between mb-3">
                                     <div>
-                                        <p className="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">Exchange Rate</p>
+                                        <p className="section-label mb-1">Exchange Rate</p>
                                         <h3 className="text-3xl font-bold text-slate-900">
                                             {stats.exchangeRate.value.toFixed(2)}
                                         </h3>
@@ -332,10 +320,10 @@ export default async function HomePage() {
                             </div>
 
                             {/* IMF Progress Card */}
-                            <div className="bg-white rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 border border-slate-100 transform hover:-translate-y-1">
+                            <div className="interactive-card rounded-2xl p-6 shadow-xl">
                                 <div className="flex items-start justify-between mb-3">
                                     <div>
-                                        <p className="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">IMF Disbursed</p>
+                                        <p className="section-label mb-1">IMF Disbursed</p>
                                         <h3 className="text-3xl font-bold text-slate-900">
                                             {stats.imfProgress.toFixed(0)}%
                                         </h3>
@@ -358,10 +346,10 @@ export default async function HomePage() {
                             </div>
 
                             {/* Forex Reserves Card */}
-                            <div className="bg-white rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 border border-slate-100 transform hover:-translate-y-1">
+                            <div className="interactive-card rounded-2xl p-6 shadow-xl">
                                 <div className="flex items-start justify-between mb-3">
                                     <div>
-                                        <p className="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">Forex Reserves</p>
+                                        <p className="section-label mb-1">Forex Reserves</p>
                                         <h3 className="text-3xl font-bold text-slate-900">
                                             ${stats.forexReserves.value.toFixed(1)}B
                                         </h3>
@@ -384,10 +372,10 @@ export default async function HomePage() {
                             </div>
 
                             {/* External Debt Share Card */}
-                            <div className="bg-white rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 border border-slate-100 transform hover:-translate-y-1">
+                            <div className="interactive-card rounded-2xl p-6 shadow-xl">
                                 <div className="flex items-start justify-between mb-3">
                                     <div>
-                                        <p className="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">External Debt</p>
+                                        <p className="section-label mb-1">External Debt</p>
                                         <h3 className="text-3xl font-bold text-slate-900">
                                             {stats.externalShare.toFixed(1)}%
                                         </h3>
@@ -410,10 +398,10 @@ export default async function HomePage() {
                             </div>
 
                             {/* Debt Service Card */}
-                            <div className="bg-white rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 border border-slate-100 transform hover:-translate-y-1">
+                            <div className="interactive-card rounded-2xl p-6 shadow-xl">
                                 <div className="flex items-start justify-between mb-3">
                                     <div>
-                                        <p className="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">Debt Service</p>
+                                        <p className="section-label mb-1">Debt Service</p>
                                         <h3 className="text-3xl font-bold text-slate-900">
                                             {stats.debtService.value.toFixed(1)}%
                                         </h3>
@@ -436,10 +424,10 @@ export default async function HomePage() {
                             </div>
 
                             {/* Total Public Debt Card */}
-                            <div className="bg-white rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 border border-slate-100 transform hover:-translate-y-1">
+                            <div className="interactive-card rounded-2xl p-6 shadow-xl">
                                 <div className="flex items-start justify-between mb-3">
                                     <div>
-                                        <p className="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">Total Debt</p>
+                                        <p className="section-label mb-1">Total Debt</p>
                                         <h3 className="text-3xl font-bold text-slate-900">
                                             {formatCurrency(stats.totalDebt.value)}
                                         </h3>
@@ -462,10 +450,10 @@ export default async function HomePage() {
                             </div>
 
                             {/* Domestic Debt Card */}
-                            <div className="bg-white rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 border border-slate-100 transform hover:-translate-y-1">
+                            <div className="interactive-card rounded-2xl p-6 shadow-xl">
                                 <div className="flex items-start justify-between mb-3">
                                     <div>
-                                        <p className="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">Domestic Debt</p>
+                                        <p className="section-label mb-1">Domestic Debt</p>
                                         <h3 className="text-3xl font-bold text-slate-900">
                                             {formatCurrency(stats.domesticDebt)}
                                         </h3>
@@ -488,10 +476,10 @@ export default async function HomePage() {
                             </div>
 
                             {/* External Debt Value Card */}
-                            <div className="bg-white rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 border border-slate-100 transform hover:-translate-y-1">
+                            <div className="interactive-card rounded-2xl p-6 shadow-xl">
                                 <div className="flex items-start justify-between mb-3">
                                     <div>
-                                        <p className="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">External Debt</p>
+                                        <p className="section-label mb-1">External Debt</p>
                                         <h3 className="text-3xl font-bold text-slate-900">
                                             {formatCurrency(stats.externalDebt)}
                                         </h3>
@@ -514,10 +502,10 @@ export default async function HomePage() {
                             </div>
 
                             {/* Policy Rate Card */}
-                            <div className="bg-white rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 border border-slate-100 transform hover:-translate-y-1">
+                            <div className="interactive-card rounded-2xl p-6 shadow-xl">
                                 <div className="flex items-start justify-between mb-3">
                                     <div>
-                                        <p className="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">Policy Rate (MPR)</p>
+                                        <p className="section-label mb-1">Policy Rate (MPR)</p>
                                         <h3 className="text-3xl font-bold text-slate-900">
                                             {stats.policyRate.value.toFixed(1)}%
                                         </h3>
@@ -542,48 +530,40 @@ export default async function HomePage() {
                     </div>
                 </section>
 
-                {/* Features Section - Premium Dark Theme */}
-                <section className="py-24 bg-slate-900 relative overflow-hidden">
-                    {/* Background Gradients */}
-                    <div className="absolute top-0 right-0 -mr-40 -mt-40 w-[600px] h-[600px] rounded-full bg-primary-900/50 blur-3xl opacity-30"></div>
-                    <div className="absolute bottom-0 left-0 -ml-40 -mb-30 w-[600px] h-[600px] rounded-full bg-accent-teal/10 blur-3xl opacity-20"></div>
-
-                    <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                        <div className="mb-20">
-
-                            <h3 className="text-2xl md:text-3xl font-bold font-heading text-white mb-6 leading-tight">
-                                Empowering Economic <br /> Governance through Data
-                            </h3>
-                            <p className="text-lg text-white leading-relaxed max-w-2xl">
-                                We provide comprehensive tools to monitor fiscal performance, track debt sustainability, and hold governance accountable.
+                {/* Features */}
+                <section className="py-20 md:py-24 bg-slate-50 border-t border-slate-100">
+                    <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+                        <div className="mb-12 max-w-2xl">
+                            <p className="section-label text-primary-700 mb-2">Explore the platform</p>
+                            <h2 className="text-2xl md:text-3xl font-bold font-heading text-slate-900 mb-4 leading-tight">
+                                Empowering economic governance through data
+                            </h2>
+                            <p className="text-lg text-slate-600 leading-relaxed">
+                                Tools to monitor fiscal performance, track debt sustainability, and hold governance accountable.
                             </p>
                         </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10">
-                            {features.map((feature, idx) => (
-                                <div key={feature.name} className="group relative bg-slate-800/50 backdrop-blur-sm rounded-3xl p-8 border border-white/5 hover:border-white/10 hover:bg-slate-800/80 transition-all duration-300 overflow-hidden flex flex-col h-full">
-                                    <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity transform group-hover:scale-110 duration-500 pointer-events-none">
-                                        <div className={`w-32 h-32 rounded-full ${feature.bgClass} blur-2xl`}></div>
-                                    </div>
-
-                                    <div className="relative z-10 flex flex-col h-full">
-
-                                        <h3 className="text-xl font-bold text-white mb-3 font-heading">{feature.name}</h3>
-                                        <p className="text-white leading-relaxed mb-6 text-base flex-grow">
-                                            {feature.description}
-                                        </p>
-
-                                        <Link
-                                            href={feature.link}
-                                            className="inline-flex items-center text-white font-semibold group-hover:text-accent-teal transition-colors text-sm mt-auto"
-                                        >
-                                            {feature.cta}
-                                            <svg className="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                                            </svg>
-                                        </Link>
-                                    </div>
-                                </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            {features.map((feature) => (
+                                <Link
+                                    key={feature.name}
+                                    href={feature.link}
+                                    className="interactive-card card-hover group rounded-2xl p-6 md:p-8 bg-white border border-slate-100 flex flex-col h-full"
+                                >
+                                    <div className={`w-10 h-10 rounded-lg ${feature.bgClass} opacity-90 mb-4`} aria-hidden />
+                                    <h3 className="text-lg font-bold text-slate-900 mb-2 font-heading group-hover:text-primary-800 transition-colors">
+                                        {feature.name}
+                                    </h3>
+                                    <p className="text-slate-600 text-sm leading-relaxed mb-4 flex-grow">
+                                        {feature.description}
+                                    </p>
+                                    <span className="inline-flex items-center text-sm font-semibold text-primary-700 group-hover:text-primary-900">
+                                        {feature.cta}
+                                        <svg className="w-4 h-4 ml-2 group-hover:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden>
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                                        </svg>
+                                    </span>
+                                </Link>
                             ))}
                         </div>
                     </div>

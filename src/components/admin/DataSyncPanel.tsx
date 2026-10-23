@@ -47,6 +47,8 @@ type LatestRow = {
 export default function DataSyncPanel() {
     const [loading, setLoading] = useState(true);
     const [syncing, setSyncing] = useState(false);
+    const [embeddingRefresh, setEmbeddingRefresh] = useState(false);
+    const [embeddingMessage, setEmbeddingMessage] = useState('');
     const [error, setError] = useState('');
     const [pending, setPending] = useState<Proposal[]>([]);
     const [recentRuns, setRecentRuns] = useState<SyncRun[]>([]);
@@ -95,6 +97,22 @@ export default function DataSyncPanel() {
             setError(err instanceof Error ? err.message : 'Sync failed');
         } finally {
             setSyncing(false);
+        }
+    };
+
+    const runEmbeddingRefresh = async () => {
+        setEmbeddingRefresh(true);
+        setEmbeddingMessage('');
+        setError('');
+        try {
+            const res = await fetch('/api/admin/embeddings', { method: 'POST' });
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.error || 'Embedding refresh failed');
+            setEmbeddingMessage(`Updated ${data.articles} articles and ${data.resources} resources.`);
+        } catch (err) {
+            setError(err instanceof Error ? err.message : 'Embedding refresh failed');
+        } finally {
+            setEmbeddingRefresh(false);
         }
     };
 
@@ -311,6 +329,23 @@ export default function DataSyncPanel() {
                         ))
                     )}
                 </ul>
+            </section>
+
+            <section className="bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 shadow-sm p-5">
+                <h3 className="font-semibold text-gray-900 dark:text-white mb-1">AI search index</h3>
+                <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
+                    Regenerate embeddings for the public chatbot after bulk content imports. Requires OpenAI API key.
+                </p>
+                <button
+                    type="button"
+                    onClick={runEmbeddingRefresh}
+                    disabled={embeddingRefresh}
+                    className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-900 text-white text-sm font-medium hover:bg-slate-800 disabled:opacity-50"
+                >
+                    {embeddingRefresh ? <Loader2 className="w-4 h-4 animate-spin" /> : <RefreshCw className="w-4 h-4" />}
+                    Refresh embeddings
+                </button>
+                {embeddingMessage && <p className="mt-3 text-sm text-emerald-600 dark:text-emerald-400">{embeddingMessage}</p>}
             </section>
         </div>
     );

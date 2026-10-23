@@ -33,7 +33,7 @@ export default function EventCard({
 
     return (
         <Link href={`/events/${slug}`} className="block h-full group">
-            <div className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 h-full flex flex-col border border-slate-100">
+            <div className="interactive-card rounded-xl overflow-hidden h-full flex flex-col">
                 {/* Image Container */}
                 <div className="relative h-48 w-full overflow-hidden">
                     {imageUrl ? (
@@ -54,7 +54,7 @@ export default function EventCard({
 
                     {/* Completed Badge */}
                     {isPast && (
-                        <div className="absolute top-4 right-4 bg-slate-800/80 backdrop-blur-sm text-white text-xs font-semibold px-3 py-1 rounded-md uppercase tracking-wide">
+                        <div className="absolute top-4 right-4 bg-slate-800/80 backdrop-blur-sm text-white text-xs font-semibold px-3 py-1 rounded-md tracking-normal">
                             Completed
                         </div>
                     )}

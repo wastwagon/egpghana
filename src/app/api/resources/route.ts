@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
+import { onPublicContentChanged } from '@/lib/revalidate-content';
+import { embedResourceById } from '@/lib/embeddings-refresh';
 
 export async function GET(req: NextRequest) {
     const session = await getServerSession(authOptions);
@@ -80,6 +82,9 @@ export async function POST(req: NextRequest) {
                 downloads: 0,
             },
         });
+
+        await onPublicContentChanged();
+        void embedResourceById(resource.id).catch((err) => console.error('resource embed', err));
 
         return NextResponse.json(resource, { status: 201 });
     } catch (error) {

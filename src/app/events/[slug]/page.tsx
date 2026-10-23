@@ -1,11 +1,10 @@
-import { PrismaClient } from '@prisma/client';
-export const dynamic = 'force-dynamic';
 import { notFound } from 'next/navigation';
 
 import Footer from '@/components/Footer';
 import EventCard from '@/components/EventCard';
-
-const prisma = new PrismaClient();
+import { prisma } from '@/lib/prisma';
+import { buildPageMetadata } from '@/lib/seo';
+import { BreadcrumbJsonLd, EventJsonLd } from '@/components/JsonLd';
 
 export async function generateMetadata({ params }: { params: { slug: string } }) {
     const event = await prisma.event.findUnique({
@@ -18,10 +17,12 @@ export async function generateMetadata({ params }: { params: { slug: string } })
         };
     }
 
-    return {
+    return buildPageMetadata({
         title: `${event.title} | EGP Ghana`,
         description: event.description || event.title,
-    };
+        path: `/events/${event.slug}`,
+        imageUrl: event.imageUrl,
+    });
 }
 
 export default async function EventDetailPage({ params }: { params: { slug: string } }) {
@@ -65,6 +66,22 @@ export default async function EventDetailPage({ params }: { params: { slug: stri
 
     return (
         <>
+            <EventJsonLd
+                title={event.title}
+                description={event.description}
+                slug={event.slug}
+                startDate={event.startDate}
+                endDate={event.endDate}
+                location={event.location}
+                imageUrl={event.imageUrl}
+            />
+            <BreadcrumbJsonLd
+                items={[
+                    { name: 'Home', path: '/' },
+                    { name: 'Events', path: '/events' },
+                    { name: event.title, path: `/events/${event.slug}` },
+                ]}
+            />
             <main className="min-h-screen bg-slate-50">
                 {/* Hero Section */}
                 <section className="relative bg-primary-700 py-20 md:py-32">

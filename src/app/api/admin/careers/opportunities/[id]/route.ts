@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
+import { onPublicContentChanged } from '@/lib/revalidate-content';
 
 async function requireAdmin() {
     const session = await getServerSession(authOptions);
@@ -44,6 +45,7 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
             status: body.status,
         },
     });
+    await onPublicContentChanged({ careerSlug: opportunity.slug });
     return NextResponse.json({ opportunity });
 }
 
@@ -51,6 +53,11 @@ export async function DELETE(_req: NextRequest, { params }: { params: { id: stri
     if (!(await requireAdmin())) {
         return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
+    const existing = await prisma.careerOpportunity.findUnique({
+        where: { id: params.id },
+        select: { slug: true },
+    });
     await prisma.careerOpportunity.delete({ where: { id: params.id } });
+    await onPublicContentChanged({ careerSlug: existing?.slug });
     return NextResponse.json({ success: true });
 }

@@ -282,7 +282,7 @@ export default function ProgrammeReviews() {
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     {activeReview.narratives.map((narrative, idx) => (
                                         <div key={idx} className="bg-slate-50 rounded-lg p-5 border border-slate-100 hover:shadow-sm transition-shadow">
-                                            <h4 className="font-bold text-slate-900 mb-2 text-sm uppercase tracking-wide">{narrative.title}</h4>
+                                            <h4 className="font-semibold text-slate-900 mb-2 text-sm">{narrative.title}</h4>
                                             <p className="text-sm text-slate-600 leading-relaxed">{narrative.content}</p>
                                         </div>
                                     ))}

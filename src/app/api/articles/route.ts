@@ -3,6 +3,8 @@ import { prisma } from '@/lib/prisma';
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { slugify } from '@/lib/slug';
+import { onPublicContentChanged } from '@/lib/revalidate-content';
+import { embedArticleById } from '@/lib/embeddings-refresh';
 
 export async function GET(req: NextRequest) {
     const session = await getServerSession(authOptions);
@@ -88,6 +90,9 @@ export async function POST(req: NextRequest) {
                 tags: tags || [],
             },
         });
+
+        await onPublicContentChanged({ articleSlug: article.slug });
+        void embedArticleById(article.id).catch((err) => console.error('article embed', err));
 
         return NextResponse.json(article, { status: 201 });
     } catch (error) {

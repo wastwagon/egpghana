@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
 
 export default function Header() {
@@ -25,6 +25,7 @@ export default function Header() {
         { name: 'Dashboards', href: '/dashboards' },
         { name: 'Careers', href: '/careers' },
         { name: 'Contact Us', href: '/contact' },
+        { name: 'Search', href: '/search' },
     ];
 
     const isActive = (path: string) => {
@@ -32,7 +33,14 @@ export default function Header() {
         return pathname?.startsWith(path);
     };
 
-    if (pathname?.startsWith('/admin')) {
+    useEffect(() => {
+        document.body.style.overflow = mobileMenuOpen ? 'hidden' : '';
+        return () => {
+            document.body.style.overflow = '';
+        };
+    }, [mobileMenuOpen]);
+
+    if (pathname?.startsWith('/admin') || pathname?.startsWith('/embed')) {
         return null;
     }
 
@@ -94,7 +102,7 @@ export default function Header() {
                                     return (
                                         <div key={item.name} className="relative group">
                                             <button
-                                                className={`flex items-center space-x-1 px-1 py-4 text-[13px] xl:text-[15px] font-semibold uppercase tracking-wide transition-colors duration-300 ${active
+                                                className={`flex items-center space-x-1 px-2 py-4 text-sm font-medium tracking-normal transition-colors duration-300 ${active
                                                     ? 'text-primary-700'
                                                     : 'text-slate-600 hover:text-primary-700'
                                                     }`}
@@ -115,7 +123,7 @@ export default function Header() {
                                                         <Link
                                                             key={child.name}
                                                             href={child.href}
-                                                            className="block px-6 py-3 text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-primary-700 transition-colors uppercase tracking-wide"
+                                                            className="block px-6 py-3 text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-primary-700 transition-colors"
                                                         >
                                                             {child.name}
                                                         </Link>
@@ -130,7 +138,7 @@ export default function Header() {
                                     <div key={item.name} className="relative group">
                                         <Link
                                             href={item.href}
-                                            className={`relative block px-1 py-4 text-[13px] xl:text-[15px] font-semibold uppercase tracking-wide transition-colors duration-300 ${active
+                                            className={`relative block px-2 py-4 text-sm font-medium tracking-normal transition-colors duration-300 ${active
                                                 ? 'text-primary-700'
                                                 : 'text-slate-600 hover:text-primary-700'
                                                 }`}
@@ -149,8 +157,9 @@ export default function Header() {
                             <button
                                 type="button"
                                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                                className="inline-flex items-center justify-center p-2 rounded-md text-gray-500 hover:text-primary-700 hover:bg-slate-50 transition-colors"
-                                aria-expanded="false"
+                                className="inline-flex items-center justify-center min-h-[44px] min-w-[44px] rounded-md text-gray-500 hover:text-primary-700 hover:bg-slate-50 transition-colors"
+                                aria-expanded={mobileMenuOpen}
+                                aria-controls="mobile-main-menu"
                             >
                                 <span className="sr-only">Open main menu</span>
                                 {!mobileMenuOpen ? (
@@ -190,7 +199,10 @@ export default function Header() {
 
                     {/* Mobile menu */}
                     {mobileMenuOpen && (
-                        <div className="lg:hidden border-t border-slate-100 animate-slide-down bg-white shadow-xl rounded-b-2xl overflow-y-auto max-h-[80vh]">
+                        <div
+                            id="mobile-main-menu"
+                            className="lg:hidden border-t border-slate-100 animate-slide-down bg-white shadow-xl rounded-b-2xl overflow-y-auto max-h-[80vh]"
+                        >
                             <div className="px-4 pt-2 pb-6 space-y-1">
                                 {navigation.map((item) => {
                                     const active = isActive(item.href);
@@ -198,7 +210,7 @@ export default function Header() {
                                     if (item.children) {
                                         return (
                                             <div key={item.name} className="space-y-1">
-                                                <div className="block px-4 py-2 text-base font-bold uppercase tracking-wide text-slate-800 bg-slate-50 rounded-lg mt-2">
+                                                <div className="block px-4 py-2 text-base font-semibold text-slate-800 bg-slate-50 rounded-lg mt-2">
                                                     {item.name}
                                                 </div>
                                                 <div className="pl-4 space-y-1 border-l-2 border-slate-100 ml-4">
@@ -206,7 +218,7 @@ export default function Header() {
                                                         <Link
                                                             key={child.name}
                                                             href={child.href}
-                                                            className="block px-4 py-2 text-sm font-medium text-slate-600 hover:text-primary-700 hover:bg-slate-50 rounded-md uppercase tracking-wide"
+                                                            className="block px-4 py-2 text-sm font-medium text-slate-600 hover:text-primary-700 hover:bg-slate-50 rounded-md"
                                                             onClick={() => setMobileMenuOpen(false)}
                                                         >
                                                             {child.name}
@@ -221,7 +233,7 @@ export default function Header() {
                                         <Link
                                             key={item.name}
                                             href={item.href}
-                                            className={`block px-4 py-3 rounded-xl text-base font-medium uppercase tracking-wide transition-colors ${active
+                                            className={`block px-4 py-3 rounded-xl text-base font-medium transition-colors min-h-[44px] ${active
                                                 ? 'bg-primary-50 text-primary-800'
                                                 : 'text-slate-600 hover:text-primary-700 hover:bg-slate-50'
                                                 }`}

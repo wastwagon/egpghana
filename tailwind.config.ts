@@ -44,8 +44,16 @@ const config: Config = {
                 info: '#55c4cd', // Map info to accent
             },
             fontFamily: {
-                sans: ['var(--font-inter)', 'Inter', 'system-ui', 'sans-serif'],
-                heading: ['var(--font-poppins)', 'Poppins', 'Inter', 'sans-serif'],
+                sans: [
+                    'var(--font-inter)',
+                    'Inter',
+                    '-apple-system',
+                    'BlinkMacSystemFont',
+                    'system-ui',
+                    'Segoe UI',
+                    'sans-serif',
+                ],
+                heading: ['var(--font-poppins)', 'Poppins', 'var(--font-inter)', 'sans-serif'],
                 mono: ['JetBrains Mono', 'Courier New', 'monospace'],
             },
             fontSize: {
@@ -76,6 +84,8 @@ const config: Config = {
             animation: {
                 'fade-in': 'fadeIn 0.5s ease-out',
                 'slide-up': 'slideUp 0.5s ease-out',
+                'slide-down': 'slideDown 0.25s ease-out',
+                blob: 'blob 8s ease-in-out infinite',
                 'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
             },
             keyframes: {
@@ -86,6 +96,15 @@ const config: Config = {
                 slideUp: {
                     '0%': { transform: 'translateY(20px)', opacity: '0' },
                     '100%': { transform: 'translateY(0)', opacity: '1' },
+                },
+                slideDown: {
+                    '0%': { transform: 'translateY(-8px)', opacity: '0' },
+                    '100%': { transform: 'translateY(0)', opacity: '1' },
+                },
+                blob: {
+                    '0%, 100%': { transform: 'translate(0, 0) scale(1)' },
+                    '33%': { transform: 'translate(12px, -20px) scale(1.05)' },
+                    '66%': { transform: 'translate(-10px, 10px) scale(0.95)' },
                 },
             },
         },

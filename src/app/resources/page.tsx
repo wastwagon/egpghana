@@ -1,9 +1,6 @@
 
-import { PrismaClient } from '@prisma/client';
-
-export const dynamic = 'force-dynamic';
-
 import Footer from '@/components/Footer';
+import { PUBLIC_DATA_REVALIDATE_SECONDS } from '@/lib/cache-tags';
 import ResourceCard from '@/components/ResourceCard';
 import ArticleCard from '@/components/ArticleCard';
 import LibraryHeader from '@/components/library/LibraryHeader';
@@ -11,13 +8,14 @@ import LibrarySidebar from '@/components/library/LibrarySidebar';
 import RelatedArticles from '@/components/library/RelatedArticles';
 
 import { prisma } from '@/lib/prisma';
+import { BreadcrumbJsonLd } from '@/components/JsonLd';
 
 export const metadata = {
     title: 'Resource Centre | EGP Ghana',
     description: 'Access research papers, policy briefs, and publications on Ghana\'s economic governance',
 };
 
-export const revalidate = 0;
+export const revalidate = PUBLIC_DATA_REVALIDATE_SECONDS;
 
 export default async function ResourcesPage({
     searchParams,
@@ -240,7 +238,7 @@ export default async function ResourcesPage({
 
     return (
         <>
-
+            <BreadcrumbJsonLd items={[{ name: 'Home', path: '/' }, { name: 'Resource centre', path: '/resources' }]} />
             <main className="min-h-screen bg-slate-50">
                 <LibraryHeader />
 

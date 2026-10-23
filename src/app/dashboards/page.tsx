@@ -1,23 +1,24 @@
-
 import Link from 'next/link';
-import { PrismaClient } from '@prisma/client';
+import Footer from '@/components/Footer';
+import HeroBannerVideo from '@/components/HeroBannerVideo';
+import type { Metadata } from 'next';
+import { BreadcrumbJsonLd } from '@/components/JsonLd';
 
-const prisma = new PrismaClient();
+export const metadata: Metadata = {
+    title: 'Economic Dashboards | EGP Ghana',
+    description:
+        "Explore Ghana's macro economy, public debt, and IMF program dashboards with real-time indicators and historical analysis.",
+    alternates: { canonical: '/dashboards' },
+};
 
 export default function DashboardsPage() {
     return (
+        <>
+        <BreadcrumbJsonLd items={[{ name: 'Home', path: '/' }, { name: 'Dashboards', path: '/dashboards' }]} />
         <div className="min-h-screen bg-slate-50 pt-24 pb-12">
             {/* Hero Section */}
             <div className="relative h-[400px] -mt-24 mb-16 flex items-center justify-center overflow-hidden">
-                <video
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    className="absolute inset-0 w-full h-full object-cover"
-                >
-                    <source src="/assets/videos/EGP-BANNER-1.mp4" type="video/mp4" />
-                </video>
+                <HeroBannerVideo videoSrc="/assets/videos/EGP-BANNER-1.mp4" lazy />
                 <div className="absolute inset-0 bg-primary-900/80 mix-blend-multiply"></div>
                 <div className="absolute inset-0 bg-black/40"></div>
 
@@ -28,7 +29,7 @@ export default function DashboardsPage() {
                                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-teal opacity-75"></span>
                                 <span className="relative inline-flex rounded-full h-2 w-2 bg-accent-teal"></span>
                             </span>
-                            <span className="text-white text-xs font-medium tracking-wide uppercase">Real-time Economic Data</span>
+                            <span className="text-white text-xs font-medium tracking-normal">Real-time economic data</span>
                         </div>
 
                         <h1 className="text-3xl md:text-4xl font-bold font-heading text-white tracking-tight leading-tight">
@@ -47,7 +48,7 @@ export default function DashboardsPage() {
                 {/* Dashboard Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
                     {/* Macro Economy Card */}
-                    <div className="group relative bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden">
+                    <div className="group relative interactive-card rounded-2xl overflow-hidden">
                         <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
                             <svg className="w-24 h-24 text-primary-600" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z" />
@@ -73,7 +74,7 @@ export default function DashboardsPage() {
                     </div>
 
                     {/* Public Debt Card */}
-                    <div className="group relative bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden">
+                    <div className="group relative interactive-card rounded-2xl overflow-hidden">
                         <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
                             <svg className="w-24 h-24 text-red-600" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" />
@@ -99,7 +100,7 @@ export default function DashboardsPage() {
                     </div>
 
                     {/* IMF Monitor Card */}
-                    <div className="group relative bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden">
+                    <div className="group relative interactive-card rounded-2xl overflow-hidden">
                         <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
                             <svg className="w-24 h-24 text-teal-600" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z" />
@@ -125,6 +126,8 @@ export default function DashboardsPage() {
                     </div>
                 </div>
             </div>
+            <Footer />
         </div>
+        </>
     );
 }
