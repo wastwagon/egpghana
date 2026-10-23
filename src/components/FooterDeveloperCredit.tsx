@@ -9,7 +9,7 @@ export default function FooterDeveloperCredit() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group inline-flex items-center gap-1.5 font-medium text-white/75 hover:text-accent-teal transition-colors underline-offset-4 hover:underline"
-                aria-label="OceanCyber — Website and Mobile App Development (opens in new tab)"
+                aria-label="OceanCyber (opens in new tab)"
             >
                 OceanCyber
                 <span className="text-white/40 group-hover:text-accent-teal/80" aria-hidden="true">
@@ -22,8 +22,6 @@ export default function FooterDeveloperCredit() {
                     </svg>
                 </span>
             </a>
-            <span className="text-white/40"> · </span>
-            <span className="text-white/55">Website &amp; Mobile App Development</span>
         </p>
     );
 }

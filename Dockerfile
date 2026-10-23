@@ -24,6 +24,19 @@ RUN npx prisma generate
 # Disable telemetry during build
 ENV NEXT_TELEMETRY_DISABLED=1
 
+# Next.js prerender runs Prisma at build time (see CI). Compose passes a URL on the dev network.
+ARG DATABASE_URL
+ENV DATABASE_URL=${DATABASE_URL}
+
+ARG NEXTAUTH_SECRET=build-time-placeholder-not-for-auth
+ENV NEXTAUTH_SECRET=${NEXTAUTH_SECRET}
+
+ARG NEXTAUTH_URL=http://localhost:3456
+ENV NEXTAUTH_URL=${NEXTAUTH_URL}
+
+ARG NEXT_PUBLIC_APP_URL=http://localhost:3456
+ENV NEXT_PUBLIC_APP_URL=${NEXT_PUBLIC_APP_URL}
+
 RUN npm run build
 
 # Production image, copy all the files and run next
@@ -78,6 +91,6 @@ ENV HOSTNAME="0.0.0.0"
 
 # Basic healthcheck to help Traefik/Coolify
 HEALTHCHECK --interval=30s --timeout=10s --start-period=30s --retries=3 \
-  CMD curl -f http://localhost:3000/api/auth/session || exit 1
+  CMD curl -f http://localhost:3000/api/health || exit 1
 
 ENTRYPOINT ["/app/scripts/entrypoint.sh"]

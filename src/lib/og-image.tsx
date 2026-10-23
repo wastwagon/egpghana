@@ -35,7 +35,7 @@ export function OgBrandedImage({ title, subtitle }: OgBrandedProps) {
                     />
                     <div style={{ fontSize: 28, fontWeight: 700, letterSpacing: -0.5 }}>EGP Ghana</div>
                 </div>
-                <div>
+                <div style={{ display: 'flex', flexDirection: 'column' }}>
                     <div
                         style={{
                             fontSize: 52,

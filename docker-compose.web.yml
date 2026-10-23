@@ -1,0 +1,37 @@
+# Local full stack: use with docker-compose.dev.yml
+#   docker compose -f docker-compose.dev.yml -f docker-compose.web.yml up -d --build
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      # BuildKit cannot resolve compose service names; Postgres is published on host :5433.
+      args:
+        DATABASE_URL: postgresql://egp_user:${DB_PASSWORD:-egp_dev_password_2026}@host.docker.internal:5433/egp_db
+        NEXTAUTH_URL: http://localhost:3456
+        NEXT_PUBLIC_APP_URL: http://localhost:3456
+        NEXTAUTH_SECRET: ${NEXTAUTH_SECRET:-local-docker-stack-nextauth-secret}
+    container_name: egp-web
+    restart: unless-stopped
+    ports:
+      - "3456:3000"
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: postgresql://egp_user:${DB_PASSWORD:-egp_dev_password_2026}@postgres:5432/egp_db
+      REDIS_URL: redis://redis:6379
+      NEXT_PUBLIC_APP_URL: http://localhost:3456
+      NEXTAUTH_URL: http://localhost:3456
+      UPLOADS_DIR: /data/uploads
+    volumes:
+      - egp_uploads:/data/uploads
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+volumes:
+  egp_uploads:
+    driver: local
