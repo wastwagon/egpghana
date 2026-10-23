@@ -31,7 +31,7 @@ Go to the **Environment Variables** tab of your application in Coolify and add:
 
 | Key | Value (Example) | Description |
 | :--- | :--- | :--- |
-| `DATABASE_URL` | `postgresql://user:pass@egp-db:5432/db` | Use the internal string from Step A |
+| `DATABASE_URL` | `postgresql://user:pass@egp-db:5432/db` | Use the internal string from Step A. **Enable “Available at Buildtime”** — `next build` prerenders pages (home, careers, sitemap, etc.) with Prisma; without this, deploy fails with `DATABASE_URL resolved to an empty string`. |
 | `REDIS_URL` | `redis://egp-redis:6379` | Internal Redis link |
 | `NEXTAUTH_SECRET` | `generate-a-long-random-string` | For admin authentication |
 | `NEXTAUTH_URL` | `https://egpghana.org` | Your production URL |
@@ -118,7 +118,20 @@ New articles/resources also refresh their own embedding on save when `OPENAI_API
 - **Auto indicator sync**: With `RUN_SYNC_ON_STARTUP=true` + `CRON_SECRET`, Mid-Year / BoG / World Bank refresh after each deploy.
 - **Separation of Concerns**: By using Coolify's built-in DB services instead of a single `docker-compose`, you get automatic backups and better management.
 
-## 6. Local Development
+## 6. Troubleshooting deploy build failures
+
+### `DATABASE_URL resolved to an empty string` during `npm run build`
+
+The Docker build runs `next build`, which prerenders public pages against Postgres (same as GitHub Actions CI). Coolify must pass `DATABASE_URL` into the **build**, not only into the running container.
+
+1. Open the app → **Environment Variables**.
+2. Edit `DATABASE_URL` (same value as runtime: internal hostname, e.g. `postgresql://...@egp-db:5432/...`).
+3. Turn on **Available at Buildtime** (wording may vary by Coolify version).
+4. Redeploy and confirm the build log includes `--build-arg DATABASE_URL` (or that `DATABASE_URL` is set in the sourced build env).
+
+`NODE_ENV=production` should stay **runtime-only** (buildtime off) so devDependencies install for Tailwind/TypeScript. `DATABASE_URL` is the opposite: **buildtime on**.
+
+## 7. Local Development
 Continue using:
 - `npm run docker:up` (local Postgres / Redis / pgAdmin via `docker-compose.dev.yml`)
 - `npm run dev` (Next.js on http://localhost:3456)
