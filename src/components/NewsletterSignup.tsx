@@ -74,20 +74,26 @@ export default function NewsletterSignup({ variant = 'footer' }: { variant?: Var
             <h3 className="text-white/90 font-heading font-semibold text-sm mb-2 tracking-normal">
                 Newsletter
             </h3>
-            <p className="text-white/80 text-sm mb-4 max-w-md">
+            <p className="text-white/80 text-sm mb-4">
                 Events, publications, and economic updates in your inbox.
             </p>
-            <form onSubmit={onSubmit} className="flex flex-col sm:flex-row gap-2 max-w-md">
+            <form onSubmit={onSubmit} className="w-full space-y-2">
                 <input
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Email address"
-                    className="input flex-1 bg-primary-800/50 border-primary-700 text-white placeholder:text-white/50 min-h-[44px]"
+                    autoComplete="email"
+                    aria-label="Email address"
+                    className="block w-full rounded-lg border border-primary-700 bg-primary-800/50 px-4 py-3 text-white placeholder:text-white/50 transition-all focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20 min-h-[44px]"
                     required
                     disabled={status === 'loading'}
                 />
-                <button type="submit" disabled={status === 'loading'} className="btn-primary shrink-0 disabled:opacity-60">
+                <button
+                    type="submit"
+                    disabled={status === 'loading'}
+                    className="btn-primary w-full disabled:opacity-60"
+                >
                     {status === 'loading' ? '…' : 'Subscribe'}
                 </button>
             </form>

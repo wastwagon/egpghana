@@ -9,6 +9,8 @@ export interface IndicatorData {
     trendValue: string;
     analysis: string;
     source: string;
+    /** Reference period for this figure (may differ from section “Updated” date). */
+    asOf?: string;
     tag?: {
         label: string;
         type: 'high' | 'moderate' | 'target' | 'improving';
@@ -20,7 +22,7 @@ interface IndicatorCardProps {
 }
 
 const IndicatorCard: React.FC<IndicatorCardProps> = ({ data }) => {
-    const { category, title, value, trend, trendValue, analysis, source, tag } = data;
+    const { category, title, value, trend, trendValue, analysis, source, asOf, tag } = data;
 
     const getTrendColor = (trend: string, category: string) => {
         // For debt/inflation, down is usually good (green), up is bad (red)
@@ -83,11 +85,21 @@ const IndicatorCard: React.FC<IndicatorCardProps> = ({ data }) => {
                 </p>
             </div>
 
-            <div className="mt-auto pt-3 border-t border-slate-100 flex items-center text-[10px] text-slate-400 font-medium tracking-normal">
-                <svg className="w-3 h-3 mr-1.5 opacity-70" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z" />
-                </svg>
-                Source: {source}
+            <div className="mt-auto pt-3 border-t border-slate-100 text-[10px] text-slate-400 font-medium tracking-normal space-y-0.5">
+                {asOf ? (
+                    <p className="flex items-center gap-1.5">
+                        <svg className="w-3 h-3 shrink-0 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                        As of: {asOf}
+                    </p>
+                ) : null}
+                <p className="flex items-center gap-1.5">
+                    <svg className="w-3 h-3 shrink-0 opacity-70" fill="currentColor" viewBox="0 0 24 24" aria-hidden>
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z" />
+                    </svg>
+                    Source: {source}
+                </p>
             </div>
         </div>
     );

@@ -43,9 +43,9 @@ export default function Footer() {
         <footer className="bg-primary-900 border-t border-primary-800 text-white">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
                 {/* Main Footer Content */}
-                <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-8 md:gap-12">
-                    {/* Brand Section */}
-                    <div className="lg:col-span-1">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8 md:gap-12">
+                    {/* Brand Section — wider column so newsletter field has room */}
+                    <div className="md:col-span-2 lg:col-span-2">
                         <p className="text-white text-sm leading-relaxed mb-6 max-w-sm">
                             Empowering citizens with data-driven insights on Ghana's economic governance, fiscal policy, and public debt management.
                         </p>
@@ -158,11 +158,15 @@ export default function Footer() {
 
                 {/* Bottom Bar */}
                 <div className="mt-12 pt-8 border-t border-white/10">
-                    <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-                        <p className="text-white/90 text-sm text-center md:text-left">
+                    <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+                        <p className="text-white/90 text-sm text-center lg:text-left leading-relaxed">
                             © {currentYear} Economic Governance Platform Ghana. All rights reserved.
+                            <span className="text-white/40 mx-2 hidden sm:inline" aria-hidden="true">·</span>
+                            <span className="block sm:inline mt-2 sm:mt-0">
+                                <FooterDeveloperCredit inline />
+                            </span>
                         </p>
-                        <div className="flex flex-wrap justify-center md:justify-end gap-x-6 gap-y-2">
+                        <div className="flex flex-wrap justify-center lg:justify-end gap-x-6 gap-y-2 shrink-0">
                             {footerLinks.legal.map((link) => (
                                 <Link
                                     key={link.name}
@@ -174,8 +178,6 @@ export default function Footer() {
                             ))}
                         </div>
                     </div>
-
-                    <FooterDeveloperCredit />
                 </div>
             </div>
         </footer>

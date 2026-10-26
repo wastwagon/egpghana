@@ -17,7 +17,7 @@ async function seedDashboards() {
         { date: '2024-12-02', amount: 360, sdr: 269.1, status: 'Completed', quarter: 'Dec 2024', type: '3rd Review' },
         { date: '2025-07-07', amount: 367, sdr: 267.5, status: 'Completed', quarter: 'Jul 2025', type: '4th Review' },
         { date: '2025-12-17', amount: 385, sdr: 267.5, status: 'Completed', quarter: 'Dec 2025', type: '5th Review' },
-        { date: '2026-07-27', amount: 318, sdr: 266.0, status: 'Pending', quarter: 'Jul 2026', type: '6th Review (Final)' },
+        { date: '2026-07-27', amount: 371, sdr: 265.9, status: 'Completed', quarter: 'Jul 2026', type: '6th Review (Final)' },
     ];
 
     for (const item of disbursementDataRaw) {
@@ -318,7 +318,7 @@ async function seedDashboards() {
         { date: '2025-07-07', title: '4th Review Completion', description: 'Completion of fourth review; US$367 million disbursement approved.', status: 'completed', type: 'review' },
         { date: '2025-12-17', title: '5th Review Completion', description: 'Board completes fifth review (39-month ECF); US$385 million (SDR 267.5 million) disbursement. Cumulative disbursements ~US$2.8 billion.', status: 'completed', type: 'review' },
         { date: '2026-05-15', title: '6th Review — Staff-Level Agreement', description: 'Staff completed 2026 Article IV and reached SLA on sixth and final ECF review and 36-month non-financing PCI (mission 29 Apr – 15 May 2026).', status: 'completed', type: 'review' },
-        { date: '2026-07-27', title: '6th Review — Executive Board', description: 'Expected Board decision on final ECF review, ~US$318 million disbursement, and PCI request (Mission Chief, May 2026).', status: 'pending', type: 'review' },
+        { date: '2026-07-27', title: '6th Review — Executive Board', description: 'Board completed final ECF review; disbursement SDR 265.9 million (~US$371 million). PR 26/260.', status: 'completed', type: 'review' },
         { date: '2026-05-17', title: 'ECF Arrangement (Scheduled End)', description: 'Scheduled end of ECF timeline; formal conclusion pending Board approval of sixth review.', status: 'pending', type: 'end' },
     ];
 
@@ -696,7 +696,7 @@ async function seedDashboards() {
         { indicator: 'DEBT_INTEREST_PAYMENT_REVISED', value: 25400000000, unit: 'GHS', source: 'MOF' },
         { indicator: 'DEBT_INTEREST_TO_EXPENDITURE', value: 9.45, unit: '%', source: 'Bank of Ghana' },
         { indicator: 'DEBT_PER_CAPITA', value: 22477, unit: 'GHS', source: 'World Bank' },
-        { indicator: 'DEBT_SERVICE_TO_REVENUE', value: 25.1, unit: '%', source: 'KPMG' },
+        { indicator: 'DEBT_SERVICE_TO_REVENUE', value: 25.1, unit: '%', source: 'MOF' },
         { indicator: 'PER_CAPITA_INCOME_USD', value: 2235, unit: 'USD', source: 'World Bank' },
         { indicator: 'GDP_NOMINAL_USD', value: 111960000000, unit: 'USD', source: 'World Bank' },
         { indicator: 'INFLATION_RATE', value: 5.3, unit: '%', source: 'Bank of Ghana' },
@@ -750,7 +750,7 @@ async function seedDashboards() {
         { indicator: 'DEBT_INTEREST_PAYMENT_REVISED', value: 25400000000, unit: 'GHS', source: 'MOF' },
         { indicator: 'DEBT_INTEREST_TO_EXPENDITURE', value: 9.45, unit: '%', source: 'Bank of Ghana' },
         { indicator: 'DEBT_PER_CAPITA', value: 21061, unit: 'GHS', source: 'World Bank' },
-        { indicator: 'DEBT_SERVICE_TO_REVENUE', value: 25.1, unit: '%', source: 'KPMG' },
+        { indicator: 'DEBT_SERVICE_TO_REVENUE', value: 25.1, unit: '%', source: 'MOF' },
         { indicator: 'PER_CAPITA_INCOME_USD', value: 2235, unit: 'USD', source: 'World Bank' },
         { indicator: 'GDP_NOMINAL_USD', value: 111960000000, unit: 'USD', source: 'World Bank' },
         { indicator: 'INFLATION_RATE', value: 3.3, unit: '%', source: 'Bank of Ghana' },

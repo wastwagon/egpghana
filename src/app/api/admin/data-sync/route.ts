@@ -38,6 +38,8 @@ export async function POST(req: NextRequest) {
         const source = (body.source || 'all') as SyncSourceKey;
         const allowed: SyncSourceKey[] = [
             'all',
+            'gss_cpi',
+            'gss_qgdp',
             'bog_homepage',
             'bog_tbill',
             'bog_sefd',

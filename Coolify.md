@@ -40,7 +40,7 @@ Go to the **Environment Variables** tab of your application in Coolify and add:
 | `NODE_ENV` | `production` | Runtime only. Uncheck **Available at Buildtime** so `npm install` still gets Tailwind/TypeScript |
 | `UPLOADS_DIR` | `/data/uploads` | Must match Coolify volume destination (Step E) |
 | `CRON_SECRET` | long random hex | Protects `POST /api/admin/data-sync` and `POST /api/admin/embeddings` |
-| `RUN_SYNC_ON_STARTUP` | `true` | After each deploy, auto-refresh BoG / Mid-Year / WB indicators |
+| `RUN_SYNC_ON_STARTUP` | `true` | After each deploy, auto-refresh GSS, BoG, MoF Mid-Year, and World Bank indicators |
 | `CAREERS_NOTIFY_EMAIL` | `egpghana20@gmail.com` | Receives a copy of each career / EOI form |
 | `SMTP_HOST` | `smtp.resend.com` | Resend SMTP |
 | `SMTP_PORT` | `465` | Resend SSL port (`587` also works) |

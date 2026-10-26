@@ -159,18 +159,17 @@ export function parseBogSefdDebt(text: string, pdfUrl: string): {
         });
     };
 
-    for (const source of ['Bank of Ghana', 'Ministry of Finance'] as const) {
-        push('TOTAL_DEBT', totalGhs, 'GHS', source, {
-            currency: 'GHS',
-            domestic: domesticGhs,
-            external: externalGhs,
-            domestic_share: domesticShare,
-            external_share: externalShare,
-        });
-        push('DEBT_STOCK_TOTAL', totalGhs, 'GHS', source);
-        push('DEBT_EXTERNAL', externalGhs, 'GHS', source);
-        push('DEBT_DOMESTIC', domesticGhs, 'GHS', source);
-    }
+    // BoG SEFD only — do not write Ministry of Finance rows (MoF bulletins / Mid-Year own that source).
+    push('TOTAL_DEBT', totalGhs, 'GHS', 'Bank of Ghana', {
+        currency: 'GHS',
+        domestic: domesticGhs,
+        external: externalGhs,
+        domestic_share: domesticShare,
+        external_share: externalShare,
+    });
+    push('DEBT_STOCK_TOTAL', totalGhs, 'GHS', 'Bank of Ghana');
+    push('DEBT_EXTERNAL', externalGhs, 'GHS', 'Bank of Ghana');
+    push('DEBT_DOMESTIC', domesticGhs, 'GHS', 'Bank of Ghana');
     push('DEBT_TO_GDP_RATIO', debtToGdp, '%', 'MOF');
     push('DEBT_TO_GDP_RATIO', debtToGdp, '%', 'Bank of Ghana');
     push('DEBT_EXTERNAL_TO_GDP', externalToGdp, '%', 'MOF');

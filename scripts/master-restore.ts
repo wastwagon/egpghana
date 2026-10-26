@@ -21,7 +21,7 @@ async function main() {
         { indicator: 'POLICY_RATE', value: 14.0, unit: '%' },
         { indicator: 'TOTAL_DEBT', value: 719500000000, unit: 'GHS', metadata: { domestic: 391100000000, external: 328400000000, domestic_share: 54.4, external_share: 45.6, note: 'MoF Mid-Year Fiscal Policy Review' } },
         { indicator: 'DEBT_TO_GDP_RATIO', value: 45.0, unit: '%' },
-        { indicator: 'DEBT_SERVICE_TO_REVENUE', value: 25.1, unit: '%' }
+        { indicator: 'DEBT_SERVICE_TO_REVENUE', value: 25.1, unit: '%', source: 'MOF' }
     ];
 
     for (const ind of indicators) {

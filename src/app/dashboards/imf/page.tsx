@@ -173,14 +173,14 @@ export default async function IMFDashboardPage({
                                         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                                         <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
                                     </span>
-                                    Program Status: <span className="font-medium text-emerald-300">6th Review SLA — Board 27 Jul 2026</span>
+                                    Program Status: <span className="font-medium text-emerald-300">ECF completed — PCI in place (Jul 2026)</span>
                                 </span>
                                 <span className="hidden sm:block w-px h-4 bg-white/30"></span>
                                 <span className="flex items-center gap-2">
                                     <svg className="w-4 h-4 text-white/80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                                     </svg>
-                                    Disbursed: <span className="font-medium text-white">~US$2.8B</span> · Final tranche: <span className="font-medium text-white">~US$318M</span>
+                                    Total disbursed: <span className="font-medium text-white">~US$3.0B</span> · Final tranche: <span className="font-medium text-white">~US$371M</span>
                                 </span>
                             </div>
                         </div>
@@ -202,7 +202,7 @@ export default async function IMFDashboardPage({
                                     Program Overview
                                 </h3>
                                 <p className="text-base text-black leading-relaxed text-left relative z-10">
-                                    Track Ghana&apos;s US$3 billion, 39-month IMF Extended Credit Facility (ECF) program — about US$2.8 billion disbursed to date, with a final tranche of ~US$318 million pending Executive Board approval (expected 27 July 2026). This dashboard monitors disbursements, programme reviews, structural benchmarks, and key conditionalities.
+                                    Track Ghana&apos;s US$3 billion, 39-month IMF Extended Credit Facility (ECF) program — completed with the Executive Board&apos;s sixth and final review on 27 July 2026 (PR 26/260). Total disbursements reached about US$3 billion, including a final tranche of about US$371 million (SDR 265.9 million). A 36-month Policy Coordination Instrument now anchors continued reforms. This dashboard monitors disbursements, programme reviews, structural benchmarks, and key conditionalities.
                                 </p>
                             </div>
                         </div>
@@ -229,45 +229,45 @@ export default async function IMFDashboardPage({
                                 {
                                     label: 'GDP Growth (2025)',
                                     value: '4.8%',
-                                    change: '+0.1%',
+                                    change: 'Outturn',
                                     trend: 'up',
                                     trendColor: 'green',
-                                    period: 'IMF 5th review proj.'
+                                    period: 'IMF 6th review / Article IV (Jul 2026)'
                                 },
                                 {
-                                    label: 'Inflation (2025 target)',
-                                    value: '8.0%',
-                                    change: 'In band',
+                                    label: 'Inflation (mid-2026)',
+                                    value: '5.3%',
+                                    change: 'Below target',
                                     trend: 'down',
                                     trendColor: 'green',
-                                    period: 'BoG target range'
+                                    period: 'MoF Mid-Year checkpoint (Jun 2026)'
                                 },
                                 {
-                                    label: 'Public Debt / GDP (2025)',
-                                    value: '56.6%',
-                                    change: '-13.2pp',
+                                    label: 'Public Debt / GDP',
+                                    value: '45.0%',
+                                    change: 'MoF H1',
                                     trend: 'down',
                                     trendColor: 'green',
-                                    period: 'IMF staff report'
+                                    period: 'End-June 2026 (Mid-Year Review)'
                                 },
                                 {
                                     label: 'Primary Balance (2025)',
-                                    value: '1.7%',
-                                    change: 'Surplus',
+                                    value: 'Surplus',
+                                    change: 'Met program',
                                     trend: 'up',
                                     trendColor: 'green',
-                                    period: '% of GDP, commitment basis'
+                                    period: 'IMF 6th review assessment'
                                 },
                                 {
-                                    label: 'Gross Reserves (program)',
-                                    value: 'US$8.6B',
-                                    change: '+2.1B',
+                                    label: 'Gross Reserves',
+                                    value: 'Rebuilt',
+                                    change: 'vs 2022 lows',
                                     trend: 'up',
                                     trendColor: 'green',
-                                    period: '2025 (IMF projection)'
+                                    period: 'IMF program summary (Jul 2026)'
                                 },
                             ]}
-                            lastUpdated="IMF 5th review (Dec 2025) & 6th review SLA (May 2026)"
+                            lastUpdated="IMF Country Report 26/212 & PR 26/260 (Executive Board, 27 Jul 2026)"
                         />
 
                         <div className="mt-8 md:mt-10 bg-white rounded-2xl shadow-sm border border-slate-100 p-1 md:p-2 max-w-5xl mx-auto">

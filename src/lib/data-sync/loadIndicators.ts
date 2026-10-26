@@ -1,6 +1,15 @@
 import { prisma } from '@/lib/prisma';
 import type { IndicatorData } from '@/components/dashboards/IndicatorCard';
+import type { EconomicData } from '@prisma/client';
+import { findLatestDebtHeadline, findPreviousForRow, formatIndicatorProvenance } from '@/lib/economic-authority';
 import { INDICATOR_CATALOG, type CatalogEntry } from './catalog';
+
+const DEBT_HEADLINE_INDICATORS = new Set([
+    'DEBT_STOCK_TOTAL',
+    'DEBT_EXTERNAL',
+    'DEBT_DOMESTIC',
+    'TOTAL_DEBT',
+]);
 
 function formatValue(value: number, format: CatalogEntry['format']): string {
     switch (format) {
@@ -39,26 +48,66 @@ function trendFromDelta(delta: number | null, category: CatalogEntry['category']
     };
 }
 
-async function latestForEntry(entry: CatalogEntry) {
-    const sources = entry.sourcePriority?.length
-        ? entry.sourcePriority
-        : [entry.source];
+async function latestForEntry(entry: CatalogEntry): Promise<EconomicData[]> {
+    const sources = entry.sourcePriority?.length ? entry.sourcePriority : [entry.source];
 
-    for (const source of sources) {
-        const rows = await prisma.economicData.findMany({
-            where: { indicator: entry.indicator, source },
+    if (entry.indicator === 'GDP_GROWTH') {
+        const gss = await prisma.economicData.findFirst({
+            where: { indicator: 'GDP_GROWTH', source: 'Ghana Statistical Service' },
             orderBy: { date: 'desc' },
-            take: 2,
         });
-        if (rows.length) return rows;
+        if (gss) {
+            const previous = await findPreviousForRow(gss);
+            return previous ? [gss, previous] : [gss];
+        }
     }
 
-    // Fallback: any source for this indicator
-    return prisma.economicData.findMany({
-        where: { indicator: entry.indicator },
-        orderBy: { date: 'desc' },
-        take: 2,
+    if (entry.indicator === 'INFLATION_RATE') {
+        const gss = await prisma.economicData.findFirst({
+            where: { indicator: 'INFLATION_RATE', source: 'Ghana Statistical Service' },
+            orderBy: { date: 'desc' },
+        });
+        if (gss) {
+            const previous = await findPreviousForRow(gss);
+            return previous ? [gss, previous] : [gss];
+        }
+    }
+
+    if (DEBT_HEADLINE_INDICATORS.has(entry.indicator)) {
+        const current = await findLatestDebtHeadline(entry.indicator, sources);
+        if (!current) return [];
+        const previous = await findPreviousForRow(current);
+        return previous ? [current, previous] : [current];
+    }
+
+    const candidates: EconomicData[] = [];
+    for (const source of sources) {
+        const row = await prisma.economicData.findFirst({
+            where: { indicator: entry.indicator, source },
+            orderBy: { date: 'desc' },
+        });
+        if (row) candidates.push(row);
+    }
+
+    if (!candidates.length) {
+        const any = await prisma.economicData.findFirst({
+            where: { indicator: entry.indicator },
+            orderBy: { date: 'desc' },
+        });
+        if (!any) return [];
+        const prev = await findPreviousForRow(any);
+        return prev ? [any, prev] : [any];
+    }
+
+    candidates.sort((a, b) => {
+        const dateDiff = b.date.getTime() - a.date.getTime();
+        if (dateDiff !== 0) return dateDiff;
+        return sources.indexOf(a.source) - sources.indexOf(b.source);
     });
+
+    const current = candidates[0];
+    const previous = await findPreviousForRow(current);
+    return previous ? [current, previous] : [current];
 }
 
 export async function loadIndicatorGridData(): Promise<{
@@ -70,10 +119,7 @@ export async function loadIndicatorGridData(): Promise<{
     let newest: Date | null = null;
 
     // Also try TOTAL_DEBT metadata for stock if DEBT_STOCK_TOTAL missing
-    const totalDebtFallback = await prisma.economicData.findFirst({
-        where: { indicator: 'TOTAL_DEBT', source: 'Bank of Ghana' },
-        orderBy: { date: 'desc' },
-    });
+    const totalDebtFallback = await findLatestDebtHeadline('TOTAL_DEBT', ['Bank of Ghana']);
 
     for (const entry of INDICATOR_CATALOG) {
         let rows = await latestForEntry(entry);
@@ -112,6 +158,8 @@ export async function loadIndicatorGridData(): Promise<{
                     ? `${current.value - previous.value >= 0 ? '+' : ''}${(current.value - previous.value).toFixed(2)}pts`
                     : trendValue;
 
+        const { sourceLabel, asOfLabel: cardAsOf } = formatIndicatorProvenance(current);
+
         indicators.push({
             id: entry.id,
             category: entry.category,
@@ -120,14 +168,15 @@ export async function loadIndicatorGridData(): Promise<{
             trend: previous ? trend : 'stable',
             trendValue: previous ? displayTrendValue : 'Latest',
             analysis: entry.analysisFallback
-                || `Latest official figure from ${current.source}${current.date ? ` (${current.date.toLocaleDateString('en-GB', { month: 'short', year: 'numeric' })})` : ''}.`,
-            source: current.source,
+                || `Official figure from ${sourceLabel} (${cardAsOf}).`,
+            source: sourceLabel,
+            asOf: cardAsOf,
             tag: entry.tag,
         });
     }
 
     const asOfLabel = newest
-        ? `Updated ${newest.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}`
+        ? `Sync through ${newest.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })} · reference period on each card`
         : 'Awaiting indicator data';
 
     return { indicators, asOfLabel, asOfDate: newest };

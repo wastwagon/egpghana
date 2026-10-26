@@ -154,13 +154,13 @@ const reviews: ReviewData[] = [
     {
         id: 'sixth-review',
         title: 'Sixth Review (Final)',
-        date: 'May 2026',
-        summary: 'IMF staff completed the 2026 Article IV consultation and reached staff-level agreement on the sixth and final ECF review and a 36-month non-financing PCI. The ECF has not officially ended until Executive Board approval. Mission Chief Dr Ruben Atoyan indicated the Board is expected to decide on 27 July 2026, with a final disbursement of about US$318 million if approved (bringing total disbursements to ~US$3.2 billion).',
-        link: 'https://www.imf.org/en/news/articles/2026/05/15/pr26152-ghana-imf-staff-completes-2026-aiv-consult-reaches-sla-6th-rev-ecf-arr-36mo-pci-request',
+        date: 'July 2026',
+        summary: 'The IMF Executive Board completed the sixth and final ECF review on 27 July 2026 (PR 26/260), concluded the 2026 Article IV consultation, and reviewed Ghana\'s 36-month Policy Coordination Instrument. Ghana received a final disbursement of SDR 265.9 million (about US$371 million), bringing total ECF disbursements to about US$3 billion.',
+        link: 'https://www.imf.org/en/news/articles/2026/07/27/pr25260-ghana-imf-exec-board-completes-6th-rev-arr-ecf-concludes-2026-aiv-consult-rev-req-36mo-pci',
         stats: [
-            { label: 'Review Status', value: 'Staff-Level Agreement', subtext: 'Board decision expected 27 Jul 2026' },
-            { label: 'Final Disbursement (est.)', value: 'US$318M', subtext: 'If Board approves 6th review' },
-            { label: 'Disbursed to Date', value: 'US$2.8B', subtext: 'After 5th review (Dec 2025)' },
+            { label: 'Review Status', value: 'Board completed', subtext: '27 Jul 2026 (PR 26/260)' },
+            { label: 'Final Disbursement', value: 'US$371M', subtext: 'SDR 265.9 million' },
+            { label: 'Total Disbursements', value: 'US$3.0B', subtext: 'Under the 39-month ECF' },
             { label: 'Debt Anchor', value: '45% of GDP', subtext: 'Legislated target by 2034' },
         ],
         qpcs: [
@@ -184,8 +184,8 @@ const reviews: ReviewData[] = [
         ],
         narratives: [
             { title: 'Stabilization Gains Under the ECF', content: 'Ghana\'s ECF-supported program delivered substantial stabilization gains driven by strong reform efforts and significant progress in public debt restructuring. Inflation declined rapidly, international reserves were rebuilt, confidence in the cedi improved, and the public debt ratio fell sharply. Growth exceeded expectations in 2025, supported by broad-based activity, while the external position strengthened on historically high gold export receipts.' },
-            { title: 'Sixth & Final ECF Review', content: 'The IMF mission (29 April – 15 May 2026, led by Dr Ruben Atoyan) combined the 2026 Article IV consultation, the sixth and final ECF review, and PCI negotiations. Staff-level agreement was reached on 15 May 2026, but the ECF has not officially ended until the Executive Board decides — expected 27 July 2026 per the Mission Chief.' },
-            { title: 'Final Disbursement & Program Totals', content: 'If the Board approves the sixth review, Ghana is expected to receive about US$318 million immediately afterward (Mission Chief, May 2026), bringing total disbursements under the ECF to about US$3.2 billion. Disbursements to date stand at about US$2.8 billion following the fifth review in December 2025.' },
+            { title: 'Sixth & Final ECF Review', content: 'The IMF mission (29 April – 15 May 2026) reached staff-level agreement on the sixth and final ECF review and PCI on 15 May 2026. The Executive Board completed the review on 27 July 2026 (Country Report 26/212; PR 26/260).' },
+            { title: 'Final Disbursement & Program Totals', content: 'The Board approval unlocked SDR 265.9 million (about US$371 million), bringing total disbursements under the ECF to about US$3 billion.' },
             { title: 'Transition to the Policy Coordination Instrument', content: 'As macroeconomic stability takes hold, IMF engagement is pivoting from crisis stabilization toward consolidation. Staff and the authorities reached agreement on a non-financing 36-month PCI focused on: (i) sustaining growth-friendly fiscal adjustment; (ii) safeguarding debt sustainability; (iii) strengthening fiscal transparency and SOE governance; (iv) enhancing monetary and exchange-rate policy; (v) reinforcing financial sector stability; and (vi) supporting economic diversification and inclusive growth.' },
             { title: 'Fiscal Space & Debt Sustainability', content: 'Improvements in the debt trajectory created carefully calibrated fiscal space under the PCI to address development needs, youth employment, and social spending while preserving the legislated 45% of GDP debt anchor by 2034. Staff assess that lowering the primary surplus to 0.5% of GDP from 2027 could remain consistent with debt sustainability, provided further progress is made on public financial management, fiscal risk management, SOE governance, and quasi-fiscal activities.' },
             { title: 'Debt Restructuring & Market Access', content: 'Significant progress continued on domestic and external debt restructuring. Bilateral debt relief agreements were reached with about half of official creditors under the G20 Common Framework, with steady progress toward remaining official and commercial creditors. The successful resumption of domestic T-bond issuance signals returning investor confidence. Prudent borrowing, the IMF-supported debt rollover strategy for 2027–28, and stronger debt management and transparency remain priorities.' },

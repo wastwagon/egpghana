@@ -1,4 +1,5 @@
 import type { FetchedObservation, SourceFetchResult } from '../types';
+import { backfillMidYearDebtMetadata } from '../backfill-midyear-metadata';
 import { fetchBuffer, fetchText } from '../http';
 
 const BUDGET_PAGE = 'https://www.mofep.gov.gh/publications/budget-statements/2026';
@@ -280,6 +281,13 @@ export async function fetchMofMidYear(): Promise<SourceFetchResult> {
         const text = await extractPdfText(buffer);
         const parsed = parseMidYearDebt(text, pdfUrl);
         warnings.push(...parsed.warnings);
+
+        if (parsed.year && parsed.observations.length) {
+            const tagged = await backfillMidYearDebtMetadata(parsed.year);
+            if (tagged > 0) {
+                warnings.push(`Backfilled Mid-Year metadata on ${tagged} legacy debt row(s)`);
+            }
+        }
 
         return {
             sourceKey: 'mof_midyear',

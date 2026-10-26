@@ -29,9 +29,9 @@ const timelineEvents = [
     { year: '2025', month: 'Jul', label: '2025', title: 'Capital Market Re-entry Planning', desc: 'Ghana announced concrete plans for gradual return to international capital markets in Q4 2025, supported by improved macroeconomic indicators and successful debt restructuring outcomes.', tag: 'Planning' },
 
     { year: '2026', month: 'Feb', label: '2026', title: 'DDEP Coupon Settlement', desc: 'Government paid GH₵10 billion in DDEP interest obligations — the sixth coupon settlement and second full cash payment without Payment-In-Kind, signalling improved fiscal capacity and market confidence.', tag: 'Financial' },
-    { year: '2026', month: 'May', label: '2026', title: 'Sixth IMF Review — Staff-Level Agreement', desc: 'IMF staff completed the 2026 Article IV consultation and reached staff-level agreement on the sixth and final ECF review and a 36-month PCI. Mission: 29 Apr – 15 May 2026 (Dr Ruben Atoyan). Board decision expected 27 Jul 2026; final disbursement ~US$318M if approved.', tag: 'IMF' },
+    { year: '2026', month: 'May', label: '2026', title: 'Sixth IMF Review — Staff-Level Agreement', desc: 'IMF staff completed the 2026 Article IV consultation and reached staff-level agreement on the sixth and final ECF review and a 36-month PCI (mission 29 Apr – 15 May 2026, PR 26/152). Executive Board completed the review on 27 July 2026.', tag: 'IMF' },
     { year: '2026', month: 'May', label: '2026', title: 'Domestic T-Bond Issuance Resumes', desc: 'Successful resumption of domestic Treasury bond issuance signalled returning investor confidence, per IMF May 2026 mission statement.', tag: 'Milestone' },
-    { year: '2026', month: 'Jul', label: '2026', title: 'IMF Executive Board — 6th Review (Expected)', desc: 'IMF Executive Board expected to decide on Ghana\'s sixth and final ECF review, ~US$318 million disbursement, and 36-month PCI request (Mission Chief, May 2026).', tag: 'IMF' },
+    { year: '2026', month: 'Jul', label: '2026', title: 'IMF Executive Board — 6th Review completed', desc: 'Executive Board completed Ghana\'s sixth and final ECF review on 27 July 2026 (PR 26/260). Final disbursement SDR 265.9 million (~US$371 million); total ECF disbursements ~US$3 billion. 36-month PCI approved.', tag: 'IMF' },
 ];
 
 export default function DebtRestructuringJourney() {

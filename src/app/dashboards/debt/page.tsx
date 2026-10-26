@@ -7,6 +7,7 @@ import StatCard from '@/components/StatCard';
 import ChartBlockSkeleton from '@/components/ChartBlockSkeleton';
 import { publicPageDynamic, publicPageRevalidate } from '@/lib/cache-tags';
 import { findEconomicDataSeries, findLatestEconomicData } from '@/lib/cached-economic-data';
+import { findLatestDebtHeadline, findPreviousForRow } from '@/lib/economic-authority';
 import {
     filterEconomicRowsByCutoff,
     parseDashboardRange,
@@ -49,23 +50,16 @@ export default async function DebtDashboardPage({
     const quarterlyTake = seriesTakeForRange(range, false);
 
     // Fetch latest official debt data (source-prioritized)
-    const latestDebtData = await findLatestEconomicData('TOTAL_DEBT', 'Bank of Ghana');
+    const latestDebtData = await findLatestDebtHeadline('TOTAL_DEBT', ['Bank of Ghana']);
     const latestDebtToGdpData = await findLatestEconomicData('DEBT_TO_GDP_RATIO', 'MOF');
-    const latestDebtServiceData = await findLatestEconomicData('DEBT_SERVICE_TO_REVENUE', 'KPMG');
-    const stockTotal = await findLatestEconomicData('DEBT_STOCK_TOTAL', 'Bank of Ghana');
-    const domesticRow = await findLatestEconomicData('DEBT_DOMESTIC');
-    const externalRow = await findLatestEconomicData('DEBT_EXTERNAL');
+    const latestDebtServiceData = await findLatestEconomicData('DEBT_SERVICE_TO_REVENUE', 'MOF')
+        ?? await findLatestEconomicData('DEBT_SERVICE_TO_REVENUE', 'Ministry of Finance')
+        ?? await findLatestEconomicData('DEBT_SERVICE_TO_REVENUE');
+    const stockTotal = await findLatestDebtHeadline('DEBT_STOCK_TOTAL', ['Bank of Ghana']);
+    const domesticRow = await findLatestDebtHeadline('DEBT_DOMESTIC', ['Bank of Ghana']);
+    const externalRow = await findLatestDebtHeadline('DEBT_EXTERNAL', ['Bank of Ghana']);
     const debtPerCapitaRow = await findLatestEconomicData('DEBT_PER_CAPITA');
-    const priorDebtRow = latestDebtData
-        ? await prisma.economicData.findFirst({
-            where: {
-                indicator: 'TOTAL_DEBT',
-                source: 'Bank of Ghana',
-                date: { lt: latestDebtData.date },
-            },
-            orderBy: { date: 'desc' },
-        })
-        : null;
+    const priorDebtRow = latestDebtData ? await findPreviousForRow(latestDebtData) : null;
 
     const metadata = latestDebtData?.metadata as { domestic?: number; external?: number } | null;
     const totalDebt = stockTotal?.value ?? latestDebtData?.value ?? 0;

@@ -5,6 +5,7 @@ import EventCard from '@/components/EventCard';
 import HeroBannerVideo from '@/components/HeroBannerVideo';
 import { publicPageDynamic, publicPageRevalidate } from '@/lib/cache-tags';
 import { findLatestEconomicData } from '@/lib/cached-economic-data';
+import { findLatestDebtHeadline } from '@/lib/economic-authority';
 import { prisma } from '@/lib/prisma';
 
 export const dynamic = publicPageDynamic;
@@ -12,17 +13,19 @@ export const revalidate = publicPageRevalidate;
 
 async function getDashboardData() {
     const latestIndicator = findLatestEconomicData;
+    const preferSource = async (indicator: string, source: string) =>
+        (await latestIndicator(indicator, source)) ?? latestIndicator(indicator);
 
     // Prefer live latest values so homepage stays current after sync jobs
     const [gdp, debt, debtStock, inflation, debtGdp, exchangeRate, forexReserves, debtService, policyRate] = await Promise.all([
-        latestIndicator('GDP_GROWTH'),
-        latestIndicator('TOTAL_DEBT', 'Bank of Ghana'),
-        latestIndicator('DEBT_STOCK_TOTAL', 'Bank of Ghana'),
-        latestIndicator('INFLATION_RATE', 'Bank of Ghana'),
+        preferSource('GDP_GROWTH', 'Ghana Statistical Service'),
+        findLatestDebtHeadline('TOTAL_DEBT', ['Bank of Ghana']),
+        findLatestDebtHeadline('DEBT_STOCK_TOTAL', ['Bank of Ghana']),
+        preferSource('INFLATION_RATE', 'Ghana Statistical Service'),
         latestIndicator('DEBT_TO_GDP_RATIO', 'MOF'),
         latestIndicator('EXCHANGE_RATE_USD'),
         latestIndicator('FOREX_RESERVES'),
-        latestIndicator('DEBT_SERVICE_TO_REVENUE', 'KPMG'),
+        latestIndicator('DEBT_SERVICE_TO_REVENUE', 'MOF'),
         latestIndicator('POLICY_RATE', 'Bank of Ghana'),
     ]);
 
@@ -52,7 +55,7 @@ async function getDashboardData() {
         where: { indicator: 'IMF_DISBURSEMENT', unit: 'Million USD' },
     });
 
-    const totalIMF = 3200; // ~US$3.2B cumulative disbursements upon final tranche (IMF, May 2026)
+    const totalIMF = 3000; // ~US$3.0B cumulative ECF disbursements (IMF PR 26/260, Jul 2026)
     const disbursedIMF = imfDisbursements
         .filter(r => (r.metadata as any)?.status === 'Completed')
         .reduce((sum, record) => sum + record.value, 0);
@@ -62,8 +65,8 @@ async function getDashboardData() {
         .sort((a, b) => b.date.getTime() - a.date.getTime())[0]?.date;
 
     const [domesticDebtRow, externalDebtRow] = await Promise.all([
-        latestIndicator('DEBT_DOMESTIC'),
-        latestIndicator('DEBT_EXTERNAL'),
+        findLatestDebtHeadline('DEBT_DOMESTIC', ['Bank of Ghana']),
+        findLatestDebtHeadline('DEBT_EXTERNAL', ['Bank of Ghana']),
     ]);
 
     // Calculate debt composition from dedicated rows, then TOTAL_DEBT metadata

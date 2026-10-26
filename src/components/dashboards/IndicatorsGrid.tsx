@@ -24,7 +24,9 @@ export default function IndicatorsGrid({ indicators, asOfLabel }: IndicatorsGrid
                         <p className="text-slate-600 leading-relaxed mb-2">
                             Tracking of Ghana&apos;s critical economic metrics — debt stock, GDP, inflation, and market rates — refreshed from official sources.
                         </p>
-                        <p className="text-sm text-slate-500 font-medium">{asOfLabel || 'Latest available official data'}</p>
+                        <p className="text-sm text-slate-500 font-medium">
+                            {asOfLabel || 'Latest available official data'}
+                        </p>
                     </div>
 
                     <div className="w-full md:w-auto">

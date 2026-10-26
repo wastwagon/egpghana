@@ -41,7 +41,7 @@ const INDICATORS = [
     { indicator: 'DEBT_INTEREST_PAYMENT_REVISED', value: DEBT_PACK.interestPayment, unit: 'GHS', source: 'MOF' },
     { indicator: 'DEBT_INTEREST_TO_EXPENDITURE', value: DEBT_PACK.interestToExpenditure, unit: '%', source: 'Bank of Ghana' },
     { indicator: 'DEBT_PER_CAPITA', value: DEBT_PACK.debtPerCapita, unit: 'GHS', source: 'World Bank' },
-    { indicator: 'DEBT_SERVICE_TO_REVENUE', value: DEBT_PACK.debtServiceToRevenue, unit: '%', source: 'KPMG' },
+    { indicator: 'DEBT_SERVICE_TO_REVENUE', value: DEBT_PACK.debtServiceToRevenue, unit: '%', source: 'MOF' },
     { indicator: 'PER_CAPITA_INCOME_USD', value: DEBT_PACK.perCapitaIncomeUsd, unit: 'USD', source: 'World Bank' },
     { indicator: 'GDP_NOMINAL_USD', value: DEBT_PACK.gdpNominalUsd, unit: 'USD', source: 'World Bank' },
     { indicator: 'INFLATION_RATE', value: DEBT_PACK.inflation, unit: '%', source: 'Bank of Ghana' },

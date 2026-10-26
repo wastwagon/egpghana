@@ -17,7 +17,7 @@ const BRIEFING_INDICATORS: Record<
     debt: [
         { label: 'Total debt', indicator: 'DEBT_STOCK_TOTAL', source: 'Bank of Ghana', format: (v) => `GHS ${(v / 1000).toFixed(1)}B` },
         { label: 'Debt to GDP', indicator: 'DEBT_TO_GDP_RATIO', source: 'MOF', format: (v) => `${v.toFixed(1)}%` },
-        { label: 'Debt service to revenue', indicator: 'DEBT_SERVICE_TO_REVENUE', source: 'KPMG', format: (v) => `${v.toFixed(1)}%` },
+        { label: 'Debt service to revenue', indicator: 'DEBT_SERVICE_TO_REVENUE', source: 'MOF', format: (v) => `${v.toFixed(1)}%` },
     ],
     imf: [
         {

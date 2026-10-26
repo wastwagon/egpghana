@@ -1,5 +1,6 @@
 import { Prisma } from '@prisma/client';
 import { prisma } from '@/lib/prisma';
+import { findLatestDebtHeadline } from '@/lib/economic-authority';
 import type { FetchedObservation, SyncRunSummary } from './types';
 
 const EPS = 1e-6;
@@ -200,15 +201,9 @@ export async function rejectProposal(id: string, reviewer: string) {
 
 /** When debt stock + population both exist, refresh debt per capita. */
 export async function maybeDeriveDebtPerCapita(summary: SyncRunSummary) {
-    const debt = await prisma.economicData.findFirst({
-        where: {
-            OR: [
-                { indicator: 'DEBT_STOCK_TOTAL', source: 'Bank of Ghana' },
-                { indicator: 'TOTAL_DEBT', source: 'Bank of Ghana' },
-            ],
-        },
-        orderBy: { date: 'desc' },
-    });
+    const debt =
+        (await findLatestDebtHeadline('DEBT_STOCK_TOTAL', ['Bank of Ghana']))
+        ?? (await findLatestDebtHeadline('TOTAL_DEBT', ['Bank of Ghana']));
     const population = await prisma.economicData.findFirst({
         where: { indicator: 'POPULATION_TOTAL', source: 'World Bank' },
         orderBy: { date: 'desc' },

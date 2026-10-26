@@ -31,7 +31,7 @@ const RULES: AlertRule[] = [
     {
         id: 'debt-service-high',
         indicator: 'DEBT_SERVICE_TO_REVENUE',
-        source: 'KPMG',
+        source: 'MOF',
         compare: 'gt',
         threshold: 50,
         title: 'Debt service to revenue above 50%',

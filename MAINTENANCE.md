@@ -9,10 +9,12 @@ External sources are checked via **Admin → Data Freshness** (`/admin/dashboard
 
 | Source | What updates | Behaviour |
 |---|---|---|
+| Ghana Statistical Service (CPI highlights) | Headline inflation (YoY) | Official CPI month as `asOfDate`; preferred in indicator grid |
+| Ghana Statistical Service (homepage) | Quarterly real GDP growth (production, YoY) | `gss_qgdp` sync; preferred for `GDP_GROWTH` when present |
 | Bank of Ghana homepage | Inflation, MPR, inflation target | Auto-applies when value changes |
 | BoG T-bill page | 91-day T-bill rate | Auto-applies when value changes |
 | **MoF Mid-Year Fiscal Policy Review** | H1 debt stock, debt/GDP, shares (+ June inflation/T-bill checkpoints) | **Preferred debt authority** after mid-year presentation; auto-applies |
-| BoG SEFD monthly PDF | Total/external/domestic debt, debt/GDP | Fills months before/after Mid-Year; auto-applies |
+| BoG SEFD monthly PDF | Total/external/domestic debt (BoG source only), debt/GDP | Supplemental; **does not write Ministry of Finance rows**. Dashboard debt headlines prefer Mid-Year / MoF over SEFD. |
 | World Bank API | GDP (USD), per capita income, population | Auto-applies; derives debt/capita |
 | MoF quarterly debt bulletin PDF | Quarterly debt stock / ratios | Cross-check only; **never overwrites a newer as-of date** |
 
@@ -24,6 +26,8 @@ CLI / manual:
 ```bash
 npm run sync:indicators
 npm run sync:indicators -- mof_midyear   # Mid-Year debt authority only
+npm run sync:imf                        # IMF 6th review disbursements & milestones (after program events)
+npm run backfill:midyear                # Tag legacy end-June debt rows with Mid-Year metadata
 # or
 curl -X POST "$NEXT_PUBLIC_APP_URL/api/admin/data-sync" \
   -H "Authorization: Bearer $CRON_SECRET" \

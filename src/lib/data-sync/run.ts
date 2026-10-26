@@ -3,12 +3,15 @@ import { processObservations, maybeDeriveDebtPerCapita } from './apply';
 import { fetchBogHomepage, fetchBogTbill } from './fetchers/bog';
 import { fetchBogSefdDebt } from './fetchers/bog-sefd';
 import { fetchWorldBank } from './fetchers/worldbank';
+import { fetchGssInflation, fetchGssQgdp } from './fetchers/gss';
 import { fetchMofDebtWatcher } from './fetchers/mof';
 import { fetchMofMidYear } from './fetchers/mof-midyear';
 import type { SourceFetchResult, SyncRunSummary } from './types';
 
 export type SyncSourceKey =
     | 'all'
+    | 'gss_cpi'
+    | 'gss_qgdp'
     | 'bog_homepage'
     | 'bog_tbill'
     | 'bog_sefd'
@@ -104,6 +107,12 @@ export async function runDataSync(source: SyncSourceKey = 'all') {
 
     const jobs: Array<{ key: SyncSourceKey; run: () => Promise<{ result: SourceFetchResult; summary: SyncRunSummary }> }> = [];
 
+    if (source === 'all' || source === 'gss_cpi') {
+        jobs.push({ key: 'gss_cpi', run: () => runFetcher('gss_cpi', fetchGssInflation) });
+    }
+    if (source === 'all' || source === 'gss_qgdp') {
+        jobs.push({ key: 'gss_qgdp', run: () => runFetcher('gss_qgdp', fetchGssQgdp) });
+    }
     if (source === 'all' || source === 'bog_homepage') {
         jobs.push({ key: 'bog_homepage', run: () => runFetcher('bog_homepage', fetchBogHomepage) });
     }
@@ -172,6 +181,7 @@ export async function getSyncDashboard() {
                 indicator: {
                     in: [
                         'INFLATION_RATE',
+                        'GDP_GROWTH',
                         'POLICY_RATE',
                         'TREASURY_BILL_91D',
                         'GDP_NOMINAL_USD',

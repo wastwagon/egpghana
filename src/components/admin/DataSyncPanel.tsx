@@ -161,6 +161,22 @@ export default function DataSyncPanel() {
                     </button>
                     <button
                         type="button"
+                        onClick={() => runSync('gss_cpi')}
+                        disabled={syncing}
+                        className="px-3 py-2 text-sm border border-gray-300 rounded-lg hover:bg-gray-50 dark:border-gray-600 dark:hover:bg-gray-800"
+                    >
+                        GSS CPI
+                    </button>
+                    <button
+                        type="button"
+                        onClick={() => runSync('gss_qgdp')}
+                        disabled={syncing}
+                        className="px-3 py-2 text-sm border border-gray-300 rounded-lg hover:bg-gray-50 dark:border-gray-600 dark:hover:bg-gray-800"
+                    >
+                        GSS QGDP
+                    </button>
+                    <button
+                        type="button"
                         onClick={() => runSync('bog_homepage')}
                         disabled={syncing}
                         className="px-3 py-2 text-sm border border-gray-300 rounded-lg hover:bg-gray-50 dark:border-gray-600 dark:hover:bg-gray-800"

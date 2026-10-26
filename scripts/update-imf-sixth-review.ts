@@ -2,10 +2,17 @@
  * Sync IMF dashboard data — verified against IMF press releases & mission statements (May–Jul 2026).
  * Run: npx tsx scripts/update-imf-sixth-review.ts
  */
-import { PrismaClient } from '@prisma/client';
+import { Prisma, PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
+function asJsonMetadata(value: unknown): Prisma.InputJsonValue {
+    if (value == null || typeof value !== 'object') return {};
+    return value as Prisma.InputJsonValue;
+}
+
+const IMF_SIXTH_BOARD =
+    'https://www.imf.org/en/news/articles/2026/07/27/pr25260-ghana-imf-exec-board-completes-6th-rev-arr-ecf-concludes-2026-aiv-consult-rev-req-36mo-pci';
 const IMF_SIXTH_SLA =
     'https://www.imf.org/en/news/articles/2026/05/15/pr26152-ghana-imf-staff-completes-2026-aiv-consult-reaches-sla-6th-rev-ecf-arr-36mo-pci-request';
 const IMF_FIFTH_REVIEW =
@@ -21,12 +28,12 @@ const DISBURSEMENTS = [
     { date: '2025-12-17', amount: 385, sdr: 267.5, status: 'Completed', quarter: 'Dec 2025', type: '5th Review' },
     {
         date: '2026-07-27',
-        amount: 318,
-        sdr: 266.0,
-        status: 'Pending',
+        amount: 371,
+        sdr: 265.9,
+        status: 'Completed',
         quarter: 'Jul 2026',
         type: '6th Review (Final)',
-        note: 'US$318m (est.) upon Executive Board approval — Mission Chief Ruben Atoyan, May 2026. Brings total disbursements to ~US$3.2bn.',
+        note: 'Final disbursement SDR 265.9 million (~US$371 million). PR 26/260, Executive Board 27 Jul 2026. Total disbursements ~US$3 billion under the ECF.',
     },
 ];
 
@@ -38,8 +45,22 @@ const MILESTONES = [
     { date: '2025-07-07', title: '4th Review Completion', description: 'Board completes fourth review; disbursement SDR 267.5 million (~US$367 million). Cumulative disbursements ~US$2.3 billion.', status: 'completed', type: 'review' },
     { date: '2025-12-17', title: '5th Review Completion', description: 'Board completes fifth review of 39-month ECF; disbursement SDR 267.5 million (~US$385 million). Cumulative disbursements ~US$2.8 billion.', status: 'completed', type: 'review' },
     { date: '2026-05-15', title: '6th Review — Staff-Level Agreement', description: 'IMF staff completed 2026 Article IV consultation and reached SLA on sixth and final ECF review and 36-month non-financing PCI (mission 29 Apr – 15 May 2026, led by Dr Ruben Atoyan). ECF not yet formally concluded.', status: 'completed', type: 'review' },
-    { date: '2026-07-27', title: '6th Review — Executive Board', description: 'Expected IMF Executive Board decision on final ECF review, ~US$318 million disbursement, and 36-month PCI request (per Mission Chief, May 2026).', status: 'pending', type: 'review' },
-    { date: '2026-05-17', title: 'ECF Arrangement (Scheduled End)', description: 'Original 36-month ECF timeline ends. Formal program conclusion pending Executive Board approval of the sixth review; transition to PCI under discussion.', status: 'pending', type: 'end' },
+    {
+        date: '2026-07-27',
+        title: '6th Review — Executive Board',
+        description:
+            'Executive Board completed the sixth and final ECF review, concluded the 2026 Article IV consultation, and reviewed Ghana\'s 36-month Policy Coordination Instrument request. Final disbursement SDR 265.9 million (~US$371 million). PR 26/260.',
+        status: 'completed',
+        type: 'review',
+    },
+    {
+        date: '2026-07-27',
+        title: 'ECF Arrangement Concluded',
+        description:
+            'US$3 billion, 39-month Extended Credit Facility completed with final Board approval. Non-financing PCI to anchor continued reforms.',
+        status: 'completed',
+        type: 'end',
+    },
 ];
 
 async function syncDisbursements() {
@@ -133,9 +154,9 @@ async function updateConditionalities() {
     const updates: Record<string, { verificationNote: string; sourceLink?: string; sourceTitle?: string }> = {
         'IMF-cond-18': {
             verificationNote:
-                '6th review SLA reached May 2026: quantitative targets mostly met in 2025; primary surplus overperformed. Structural reforms implemented with delays. Pending Executive Board approval (expected 27 Jul 2026).',
-            sourceLink: IMF_SIXTH_SLA,
-            sourceTitle: 'IMF Press Release No. 26/152',
+                'Executive Board completed the sixth and final ECF review on 27 Jul 2026 (PR 26/260). Program performance broadly satisfactory; PCI approved to anchor continued reforms.',
+            sourceLink: IMF_SIXTH_BOARD,
+            sourceTitle: 'IMF Press Release No. 26/260',
         },
         'IMF-cond-3': {
             verificationNote:
@@ -158,11 +179,39 @@ async function updateConditionalities() {
     }
 }
 
+/** Re-label legacy KPMG debt-service rows to MOF (same figure, official attribution). */
+async function migrateDebtServiceSource() {
+    const legacy = await prisma.economicData.findMany({
+        where: { indicator: 'DEBT_SERVICE_TO_REVENUE', source: 'KPMG' },
+    });
+    for (const row of legacy) {
+        await prisma.economicData.upsert({
+            where: {
+                indicator_date_source: {
+                    indicator: 'DEBT_SERVICE_TO_REVENUE',
+                    date: row.date,
+                    source: 'MOF',
+                },
+            },
+            update: { value: row.value, unit: row.unit, metadata: asJsonMetadata(row.metadata) },
+            create: {
+                indicator: 'DEBT_SERVICE_TO_REVENUE',
+                date: row.date,
+                source: 'MOF',
+                value: row.value,
+                unit: row.unit,
+                metadata: asJsonMetadata(row.metadata),
+            },
+        });
+    }
+}
+
 async function main() {
     console.log('Syncing verified IMF disbursements, milestones, and conditionalities...');
     await syncDisbursements();
     await syncMilestones();
     await updateConditionalities();
+    await migrateDebtServiceSource();
     console.log('Done.');
 }
 
