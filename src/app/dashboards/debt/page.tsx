@@ -182,7 +182,7 @@ export default async function DebtDashboardPage({
                 items={[
                     { name: 'Home', path: '/' },
                     { name: 'Dashboards', path: '/dashboards' },
-                    { name: 'Public debt', path: '/dashboards/debt' },
+                    { name: 'Public Debt Tracker', path: '/dashboards/debt' },
                 ]}
             />
             <main className="min-h-screen bg-slate-50">
@@ -197,7 +197,7 @@ export default async function DebtDashboardPage({
                                 Economic Governance Platform
                             </span>
                             <h1 className="text-3xl md:text-4xl font-bold text-white mb-8 tracking-tight leading-tight">
-                                Ghana Public Debt Dashboard
+                                Public Debt Tracker
                             </h1>
 
                             <div className="inline-flex flex-wrap justify-start items-center gap-3 px-5 py-2.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white text-sm hover:bg-white/20 transition-all duration-300">

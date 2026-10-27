@@ -29,7 +29,7 @@ export const revalidate = publicPageRevalidate;
 
 
 export const metadata = {
-    title: 'IMF Bailout Monitor | EGP Ghana',
+    title: 'IMF Dashboard | EGP Ghana',
     description: 'Track Ghana\'s IMF Extended Credit Facility program implementation and compliance',
 };
 
@@ -149,7 +149,7 @@ export default async function IMFDashboardPage({
                 items={[
                     { name: 'Home', path: '/' },
                     { name: 'Dashboards', path: '/dashboards' },
-                    { name: 'IMF program', path: '/dashboards/imf' },
+                    { name: 'IMF Dashboard', path: '/dashboards/imf' },
                 ]}
             />
             <main className="min-h-screen bg-slate-50">
@@ -164,7 +164,7 @@ export default async function IMFDashboardPage({
                                 Economic Governance Platform
                             </span>
                             <h1 className="text-3xl md:text-4xl font-bold text-white mb-8 tracking-tight leading-tight">
-                                IMF Bailout Monitor
+                                IMF Dashboard
                             </h1>
 
                             <div className="inline-flex flex-wrap justify-start items-center gap-3 px-5 py-2.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white text-sm hover:bg-white/20 transition-all duration-300">

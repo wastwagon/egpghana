@@ -23,8 +23,8 @@ export default function Footer() {
         ],
         quickLinks: [
             { name: 'Public Debt Tracker', href: '/dashboards/debt' },
-            { name: 'IMF Bailout Monitor', href: '/dashboards/imf' },
-            { name: 'Economy Dashboard', href: '/dashboards/economy' },
+            { name: 'IMF Dashboard', href: '/dashboards/imf' },
+            { name: 'Economy', href: '/dashboards/economy' },
             { name: 'Policy Dialogues', href: '/programs' },
         ],
         actualPrograms: [

@@ -108,35 +108,30 @@ const features = [
         description: 'Deep dive into Ghana’s debt portfolio, sustainability analysis, and creditor breakdown with interactive visualizations.',
         link: '/dashboards/debt',
         cta: 'Analyze Debt Data',
-        bgClass: 'bg-blue-600',
     },
     {
-        name: 'IMF Bailout Monitor',
+        name: 'IMF Dashboard',
         description: 'Track the performance of the $3B Extended Credit Facility. Monitor disbursement schedules and structural benchmarks.',
         link: '/dashboards/imf',
         cta: 'Track IMF Progress',
-        bgClass: 'bg-teal-500',
     },
     {
-        name: 'Economy Dashboard',
+        name: 'Economy',
         description: 'Comprehensive overview of Ghana’s key economic indicators including GDP, inflation, and exchange rates.',
         link: '/dashboards/economy',
         cta: 'View Dashboard',
-        bgClass: 'bg-emerald-600',
     },
     {
         name: 'Resource Centre',
         description: 'Access a comprehensive digital library of policy papers, fiscal reports, and economic datasets for public scrutiny.',
         link: '/resources',
         cta: 'Browse Library',
-        bgClass: 'bg-indigo-500',
     },
     {
         name: 'Programs',
         description: 'Participate in high-level policy dialogues and town hall meetings designed to foster inclusive economic governance.',
         link: '/programs',
         cta: 'View Programs',
-        bgClass: 'bg-orange-500',
     },
 ];
 
@@ -554,7 +549,6 @@ export default async function HomePage() {
                                     href={feature.link}
                                     className="interactive-card card-hover group rounded-2xl p-6 md:p-8 bg-white border border-slate-100 flex flex-col h-full"
                                 >
-                                    <div className={`w-10 h-10 rounded-lg ${feature.bgClass} opacity-90 mb-4`} aria-hidden />
                                     <h3 className="text-lg font-bold text-slate-900 mb-2 font-heading group-hover:text-primary-800 transition-colors">
                                         {feature.name}
                                     </h3>

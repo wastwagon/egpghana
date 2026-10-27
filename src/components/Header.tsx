@@ -17,20 +17,35 @@ export default function Header() {
             children: [
                 { name: 'About EGP', href: '/about' },
                 { name: 'Our Staff', href: '/team' },
+                { name: 'Careers', href: '/careers' },
+                { name: 'Contact Us', href: '/contact' },
             ],
         },
-        { name: 'Events', href: '/events' },
-        { name: 'Resource Centre', href: '/resources' },
-        { name: 'Programs', href: '/programs' },
-        { name: 'Dashboards', href: '/dashboards' },
-        { name: 'Careers', href: '/careers' },
-        { name: 'Contact Us', href: '/contact' },
-        { name: 'Search', href: '/search' },
+        {
+            name: 'Resources',
+            href: '/resources',
+            children: [
+                { name: 'Resource Centre', href: '/resources' },
+                { name: 'Events', href: '/events' },
+                { name: 'Programs', href: '/programs' },
+                { name: 'Search', href: '/search' },
+            ],
+        },
+        { name: 'Public Debt Tracker', href: '/dashboards/debt' },
+        { name: 'IMF Dashboard', href: '/dashboards/imf' },
+        { name: 'Economy', href: '/dashboards/economy' },
     ];
 
     const isActive = (path: string) => {
         if (path === '/') return pathname === '/';
         return pathname?.startsWith(path);
+    };
+
+    const isNavItemActive = (item: (typeof navigation)[number]) => {
+        if (item.children) {
+            return item.children.some((child) => isActive(child.href));
+        }
+        return isActive(item.href);
     };
 
     useEffect(() => {
@@ -94,15 +109,15 @@ export default function Header() {
                             </Link>
                         </div>
 
-                        <div className="hidden lg:flex lg:items-center lg:space-x-4">
+                        <div className="hidden lg:flex lg:items-center lg:space-x-1 xl:space-x-2">
                             {navigation.map((item) => {
-                                const active = isActive(item.href);
+                                const active = isNavItemActive(item);
 
                                 if (item.children) {
                                     return (
                                         <div key={item.name} className="relative group">
                                             <button
-                                                className={`flex items-center space-x-1 px-2 py-4 text-sm font-medium tracking-normal transition-colors duration-300 ${active
+                                                className={`flex items-center space-x-1 px-1.5 xl:px-2 py-4 text-xs xl:text-sm font-medium tracking-normal transition-colors duration-300 ${active
                                                     ? 'text-primary-700'
                                                     : 'text-slate-600 hover:text-primary-700'
                                                     }`}
@@ -138,7 +153,7 @@ export default function Header() {
                                     <div key={item.name} className="relative group">
                                         <Link
                                             href={item.href}
-                                            className={`relative block px-2 py-4 text-sm font-medium tracking-normal transition-colors duration-300 ${active
+                                            className={`relative block px-1.5 xl:px-2 py-4 text-xs xl:text-sm font-medium tracking-normal transition-colors duration-300 ${active
                                                 ? 'text-primary-700'
                                                 : 'text-slate-600 hover:text-primary-700'
                                                 }`}
@@ -205,7 +220,7 @@ export default function Header() {
                         >
                             <div className="px-4 pt-2 pb-6 space-y-1">
                                 {navigation.map((item) => {
-                                    const active = isActive(item.href);
+                                    const active = isNavItemActive(item);
 
                                     if (item.children) {
                                         return (

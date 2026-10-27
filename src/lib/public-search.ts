@@ -1,9 +1,9 @@
 import { prisma } from '@/lib/prisma';
 
 const DASHBOARD_INDEX = [
-    { title: 'Macro Economy Dashboard', href: '/dashboards/economy', keywords: 'gdp inflation exchange rate policy' },
+    { title: 'Economy', href: '/dashboards/economy', keywords: 'gdp inflation exchange rate policy' },
     { title: 'Public Debt Tracker', href: '/dashboards/debt', keywords: 'debt gdp servicing external domestic' },
-    { title: 'IMF Bailout Monitor', href: '/dashboards/imf', keywords: 'imf disbursement conditionality program' },
+    { title: 'IMF Dashboard', href: '/dashboards/imf', keywords: 'imf disbursement conditionality program' },
 ];
 
 export async function searchPublicContent(q: string, limit = 12) {
