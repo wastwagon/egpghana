@@ -41,7 +41,7 @@ export function OrganizationJsonLd() {
         name: 'Economic Governance Platform Ghana',
         alternateName: 'EGP Ghana',
         url: base,
-        logo: absoluteAssetUrl('/images/egp-mark.svg'),
+        logo: absoluteAssetUrl('/images/EGPLOGO.jpg'),
         email: 'info@egpghana.org',
         address: {
             '@type': 'PostalAddress',
@@ -86,7 +86,7 @@ export function ArticleJsonLd({
         publisher: {
             '@type': 'Organization',
             name: 'Economic Governance Platform Ghana',
-            logo: { '@type': 'ImageObject', url: absoluteAssetUrl('/images/egp-mark.svg') },
+            logo: { '@type': 'ImageObject', url: absoluteAssetUrl('/images/EGPLOGO.jpg') },
         },
         mainEntityOfPage: `${siteBaseUrl()}/articles/${slug}`,
         image: imageUrl ? [absoluteAssetUrl(imageUrl)] : [absoluteAssetUrl(null)],
