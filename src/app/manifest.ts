@@ -12,7 +12,13 @@ export default function manifest(): MetadataRoute.Manifest {
         lang: 'en-GH',
         icons: [
             {
-                src: '/images/EGPLOGO.jpg',
+                src: '/images/egp-mark.svg',
+                sizes: 'any',
+                type: 'image/svg+xml',
+                purpose: 'any',
+            },
+            {
+                src: '/images/egp-icon-512.jpg',
                 sizes: '512x512',
                 type: 'image/jpeg',
                 purpose: 'any',

@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 const SITE = 'https://egpghana.org';
-const DEFAULT_OG = '/images/EGPLOGO.jpg';
+const DEFAULT_OG = '/images/egp-icon-512.jpg';
 
 export function siteBaseUrl() {
     const fromEnv = process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, '');

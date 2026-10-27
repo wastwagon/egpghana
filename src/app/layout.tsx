@@ -31,8 +31,8 @@ export const metadata: Metadata = {
     keywords: ["Ghana economy", "fiscal policy", "public debt", "IMF", "economic governance", "transparency"],
     authors: [{ name: "Economic Governance Platform" }],
     icons: {
-        icon: [{ url: "/images/EGPLOGO.jpg", type: "image/jpeg" }],
-        apple: [{ url: "/images/EGPLOGO.jpg", type: "image/jpeg" }],
+        icon: [{ url: "/images/egp-mark.svg", type: "image/svg+xml" }],
+        apple: [{ url: "/images/egp-icon-512.jpg", type: "image/jpeg", sizes: "512x512" }],
     },
     openGraph: {
         title: "Economic Governance Platform Ghana",

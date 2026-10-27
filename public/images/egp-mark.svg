@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Economic Governance Platform">
+  <defs>
+    <linearGradient id="egp-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#005296"/>
+      <stop offset="100%" stop-color="#00467e"/>
+    </linearGradient>
+    <linearGradient id="egp-teal" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#3eb8c4"/>
+      <stop offset="100%" stop-color="#55c4cd"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="url(#egp-bg)"/>
+  <!-- Shield: governance & accountability -->
+  <path
+    fill="none"
+    stroke="#ffffff"
+    stroke-width="20"
+    stroke-linejoin="round"
+    d="M256 96c-72 44-120 52-120 52v108c0 88 120 156 120 156s120-68 120-156V148c0 0-48-8-120-52z"
+    opacity="0.95"
+  />
+  <!-- Rising bars: economic data & debt tracking -->
+  <rect x="196" y="268" width="44" height="72" rx="8" fill="#ffffff" opacity="0.92"/>
+  <rect x="256" y="232" width="44" height="108" rx="8" fill="url(#egp-teal)"/>
+  <rect x="316" y="196" width="44" height="144" rx="8" fill="#ffffff" opacity="0.92"/>
+  <!-- Trend line -->
+  <path
+    fill="none"
+    stroke="#55c4cd"
+    stroke-width="14"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    d="M188 300 L248 268 L308 236 L368 204"
+  />
+  <circle cx="368" cy="204" r="16" fill="#55c4cd"/>
+</svg>

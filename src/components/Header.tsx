@@ -1,7 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
 
@@ -96,16 +95,13 @@ export default function Header() {
                         {/* Logo */}
                         <div className="flex-shrink-0">
                             <Link href="/" className="flex items-center space-x-3">
-                                <div className="relative w-24 h-16 md:w-32 md:h-20 transition-transform duration-300 hover:scale-105">
-                                    <Image
-                                        src="/images/EGPLOGO.jpg"
-                                        alt="EGP Logo"
-                                        fill
-                                        className="object-contain"
-                                        priority
-                                        sizes="(max-width: 768px) 96px, 128px"
-                                    />
-                                </div>
+                                <img
+                                    src="/images/egp-logo.svg"
+                                    alt="Economic Governance Platform"
+                                    width={280}
+                                    height={70}
+                                    className="h-12 md:h-14 w-auto max-w-[200px] md:max-w-[280px] object-contain object-left transition-transform duration-300 hover:scale-[1.02]"
+                                />
                             </Link>
                         </div>
 
